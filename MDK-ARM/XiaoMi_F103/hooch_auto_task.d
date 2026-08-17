@@ -1,0 +1,16 @@
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_auto_task\hooch_auto_task.c
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_auto_task\hooch_auto_task.h
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_auto_task\hooch_auto_task_base.h
+xiaomi_f103\hooch_auto_task.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_auto_task\hooch_auto_task_air_conditioner.h
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_air_conditioner.h
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_auto_task\hooch_auto_task_curtain.h
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_curtain.h
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_auto_task\hooch_auto_task_dimmer_light.h
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_dimmer_light.h
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_auto_task\hooch_auto_task_key_click.h
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_key_click_report.h
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_auto_task\hooch_auto_task_key_status.h
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_key_mode.h
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_key_status_report.h
+xiaomi_f103\hooch_auto_task.o: ..\Core\hooch_protocol\hooch_auto_task\hooch_auto_task_key_mode.h

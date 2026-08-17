@@ -1,0 +1,81 @@
+#ifndef HOOCH_KEY_CLICK_REPORT_H
+#define HOOCH_KEY_CLICK_REPORT_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include <stdint.h>
+#include <string.h>
+#define HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_COUNT    8U
+
+typedef enum
+{
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_RESULT_OK = 0U,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_RESULT_ERROR,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_RESULT_INVALID_PARAM,
+} HOOCH_PROTOCOL_KeyClickReportResult_t;
+
+typedef enum
+{
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_INVALID = 0U,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_1 = 1U,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_2,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_3,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_4,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_5,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_6,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_7,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_8,
+} HOOCH_PROTOCOL_KeyClickReportKey_t;
+
+typedef enum
+{
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_EVENT_NONE = 0U,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_EVENT_SINGLE_CLICK,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_EVENT_DOUBLE_CLICK,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_EVENT_LONG_CLICK,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_EVENT_LONG_CLICK_1P5S,
+} HOOCH_PROTOCOL_KeyClickReportEvent_t;
+
+typedef enum
+{
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_STATE_OFF = 0U,
+    HOOCH_PROTOCOL_KEY_CLICK_REPORT_STATE_ON,
+} HOOCH_PROTOCOL_KeyClickReportState_t;
+
+typedef struct
+{
+    HOOCH_PROTOCOL_KeyClickReportKey_t key;
+    HOOCH_PROTOCOL_KeyClickReportEvent_t event;
+    HOOCH_PROTOCOL_KeyClickReportState_t state;
+    uint8_t sequence;
+    uint8_t valid;
+} HOOCH_PROTOCOL_KeyClickReportFrame_t;
+
+typedef void (*HOOCH_PROTOCOL_KeyClickReportCallback_t)(
+    const HOOCH_PROTOCOL_KeyClickReportFrame_t *frame);
+
+void HOOCH_KeyClickReport_Init(void);
+void HOOCH_PROTOCOL_KeyClickReport_Clear(void);
+uint8_t HOOCH_PROTOCOL_KeyClickReport_IsValidKey(HOOCH_PROTOCOL_KeyClickReportKey_t key);
+HOOCH_PROTOCOL_KeyClickReportResult_t HOOCH_PROTOCOL_KeyClickReport_Set(
+    HOOCH_PROTOCOL_KeyClickReportKey_t key,
+    HOOCH_PROTOCOL_KeyClickReportEvent_t event,
+    HOOCH_PROTOCOL_KeyClickReportState_t state);
+HOOCH_PROTOCOL_KeyClickReportResult_t HOOCH_PROTOCOL_KeyClickReport_SetFrame(
+    const HOOCH_PROTOCOL_KeyClickReportFrame_t *frame);
+const HOOCH_PROTOCOL_KeyClickReportFrame_t *HOOCH_PROTOCOL_KeyClickReport_GetFrame(void);
+void HOOCH_PROTOCOL_KeyClickReport_RegisterCallback(
+    HOOCH_PROTOCOL_KeyClickReportCallback_t callback);
+void HOOCH_PROTOCOL_KeyClickReport_UnregisterCallback(void);
+HOOCH_PROTOCOL_KeyClickReportResult_t HOOCH_PROTOCOL_KeyClickReport_Send(
+    HOOCH_PROTOCOL_KeyClickReportKey_t key,
+    HOOCH_PROTOCOL_KeyClickReportEvent_t event,
+    HOOCH_PROTOCOL_KeyClickReportState_t state);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* HOOCH_KEY_CLICK_REPORT_H */

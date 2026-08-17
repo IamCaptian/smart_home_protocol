@@ -1,0 +1,8 @@
+xiaomi_f103\tuya_device_air.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_air.c
+xiaomi_f103\tuya_device_air.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_air.h
+xiaomi_f103\tuya_device_air.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h
+xiaomi_f103\tuya_device_air.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h
+xiaomi_f103\tuya_device_air.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h
+xiaomi_f103\tuya_device_air.o: ..\Core\hooch_protocol\hooch_air_conditioner.h
+xiaomi_f103\tuya_device_air.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+xiaomi_f103\tuya_device_air.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

@@ -1,0 +1,9 @@
+xiaomi_f103\tuya_basic_setting.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_basic_setting.c
+xiaomi_f103\tuya_basic_setting.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_basic_setting.h
+xiaomi_f103\tuya_basic_setting.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h
+xiaomi_f103\tuya_basic_setting.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h
+xiaomi_f103\tuya_basic_setting.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h
+xiaomi_f103\tuya_basic_setting.o: ..\Core\hooch_protocol\hooch_setting.h
+xiaomi_f103\tuya_basic_setting.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+xiaomi_f103\tuya_basic_setting.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+xiaomi_f103\tuya_basic_setting.o: ..\Core\hooch_protocol\hooch_key_mode.h
