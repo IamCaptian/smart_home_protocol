@@ -65,7 +65,7 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 
 /* USER CODE END 0 */
-void HOOCH_PROTOCOL_KeyStatusReport_Process(const HOOCH_PROTOCOL_KeyStatusDispatchFrame_t *frame);
+void HOOCH_PROTOCOL_KeyStatusReport_Process(const HOOCH_PROTOCOL_KeyStatusFrame_t *frame);
 void HOOCH_PROTOCOL_Setting_Process(const HOOCH_PROTOCOL_SettingFrame_t *frame);
 void HOOCH_PROTOCOL_KeyName_Process(const HOOCH_PROTOCOL_KeyNameFrame_t *frame);
 void HOOCH_PROTOCOL_KeyMode_Process(const HOOCH_PROTOCOL_KeyModeFrame_t *frame);
@@ -119,11 +119,11 @@ int main(void)
   Log_Init();
   
   // 初始化小米UART协议解析模块（包含串口接收初始化）
-  xiaoni_smart_screen_uart_init();
+ // xiaoni_smart_screen_uart_init();
 
   // 初始化 KNX 面板协议解析模块
   // 注意：KNX 与小米协议共享 USART2，在 USART2 中断中会把每个字节同时喂给两套解析器
- // knx_uart_init();
+  knx_uart_init();
  // extern void tuya_uart_init(void);
  // tuya_uart_init();
   // 初始化 BLE 协议解析模块
@@ -142,7 +142,8 @@ int main(void)
   
   // 初始化CLI命令行
   Hooch_CLI_Init();
-  HOOCH_PROTOCOL_KeyStatusDispatch_RegisterCallback(HOOCH_PROTOCOL_KeyStatusReport_Process);
+  HOOCH_PROTOCOL_KeyStatus_RegisterCallback(HOOCH_PROTOCOL_KeyStatusReport_Process);
+  
   HOOCH_PROTOCOL_Setting_RegisterCallback(HOOCH_PROTOCOL_Setting_Process);
   HOOCH_PROTOCOL_KeyName_RegisterCallback(HOOCH_PROTOCOL_KeyName_Process);
   HOOCH_PROTOCOL_KeyMode_RegisterCallback(HOOCH_PROTOCOL_KeyMode_Process);
@@ -161,21 +162,18 @@ int main(void)
   {
     /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 
+    uart_service_parse();
+    */
     
     
     // 处理小米UART协议帧解析
-    xiaoni_smart_screen_uart_process();
+ //   xiaoni_smart_screen_uart_process();
 
     // 处理 KNX 面板协议帧解析（与小米协议并行解析同一串口字节流）
-   // knx_uart_process();
-
-//    // 处理 BLE 协议帧解析（与小米/KNX 并行解析同一串口字节流）
-//    ble_uart_process();
+    knx_uart_process();
 
     // 处理 Tuya Zigbee UART 协议帧解析
-  //  uart_service_parse();
-    
     // 处理CLI命令
     Hooch_CLI_Process();
     
@@ -345,7 +343,7 @@ void HOOCH_PROTOCOL_DimmerLight_Process(const HOOCH_PROTOCOL_DimmerLightFrame_t 
            (unsigned int)frame->valid);
 }
 
-void HOOCH_PROTOCOL_KeyStatusReport_Process(const HOOCH_PROTOCOL_KeyStatusDispatchFrame_t *frame)
+void HOOCH_PROTOCOL_KeyStatusReport_Process(const HOOCH_PROTOCOL_KeyStatusFrame_t *frame)
 {
   if (frame == NULL)
   {
@@ -353,9 +351,10 @@ void HOOCH_PROTOCOL_KeyStatusReport_Process(const HOOCH_PROTOCOL_KeyStatusDispat
     return;
   }
 
-  LOG_INFO("[HOOCH] KeyStatus key=%u, state=%u, sequence=%u, valid=%u\r\n",
+  LOG_INFO("[HOOCH] KeyStatus key=%u, state=%u, control_item=%u, sequence=%u, valid=%u\r\n",
            (unsigned int)frame->key,
            (unsigned int)frame->state,
+           (unsigned int)frame->control_item,
            (unsigned int)frame->sequence,
            (unsigned int)frame->valid);
 }

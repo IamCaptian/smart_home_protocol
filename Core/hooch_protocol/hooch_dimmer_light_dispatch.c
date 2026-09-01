@@ -116,6 +116,14 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchFrame(
     s_hooch_protocol_dimmer_light_dispatch_frame.color_temperature = frame->color_temperature;
     s_hooch_protocol_dimmer_light_dispatch_frame.switch_state = frame->switch_state;
     s_hooch_protocol_dimmer_light_dispatch_frame.control_item = frame->control_item;
+    s_hooch_protocol_dimmer_light_dispatch_frame.value = frame->value;
+    if (frame->control_item == HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_DEVICE_DESCRIPTOR)
+    {
+        /* 设备描述：整段拷贝(24 byte, UTF-8) */
+        (void)memcpy(s_hooch_protocol_dimmer_light_dispatch_frame.device_desc,
+                     frame->device_desc,
+                     sizeof(s_hooch_protocol_dimmer_light_dispatch_frame.device_desc));
+    }
     s_hooch_protocol_dimmer_light_dispatch_frame.sequence++;
     s_hooch_protocol_dimmer_light_dispatch_frame.valid = 1U;
 

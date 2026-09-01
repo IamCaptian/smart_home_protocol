@@ -265,8 +265,8 @@ void USART2_IRQHandler(void)
        * 各解析器都是"字节流状态机"，彼此独立：
        * 这里把每个字节同时喂入各自环形缓冲区，由主循环分别解析。
        */
-     xiaoni_smart_screen_uart_rxcallback(rx_data);
-     // knx_uart_rxcallback(rx_data);
+   //  xiaoni_smart_screen_uart_rxcallback(rx_data);
+      knx_uart_rxcallback(rx_data);
     // ble_uart_rxcallback(rx_data);
     // uart_servive_rx_store(rx_data);
       

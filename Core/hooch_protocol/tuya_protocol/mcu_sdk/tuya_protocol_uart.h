@@ -25,7 +25,7 @@ extern "C" {
  *              日志总开关
  *--------------------------------------------------------*/
 #ifndef TUYA_LOG_ENABLE
-#define TUYA_LOG_ENABLE                     1
+#define TUYA_LOG_ENABLE                     0
 #endif
 
 #if TUYA_LOG_ENABLE

@@ -82,14 +82,15 @@ typedef enum
     HOOCH_PROTOCOL_SETTING_ITEM_VERSION,                       /* [61] 版本 */
     HOOCH_PROTOCOL_SETTING_ITEM_PROGRAMMING_MODE,              /* [62] 编程模式 */
     HOOCH_PROTOCOL_SETTING_ITEM_BLE_KNX_GET_CONFIG,               /* [63] BLE KNX获取配置 */
-    HOOCH_PROTOCOL_SETTING_ITEM_MODULE_TYPE,                      /* [64] 模组类型 */
-    HOOCH_PROTOCOL_SETTING_ITEM_INTERLOCK_FUNCTION,               /* [65] 互锁功能 */
-    HOOCH_PROTOCOL_SETTING_ITEM_TEMPERATURE_UNIT,                 /* [66] 温度显示单位 */
-    HOOCH_PROTOCOL_SETTING_ITEM_SOUND_ENABLE,                     /* [67] 声音使能 */
-    HOOCH_PROTOCOL_SETTING_ITEM_KEY_BACKLIGHT_MODE,               /* [68] 按键背光模式 */
-    HOOCH_PROTOCOL_SETTING_ITEM_FLOOR_HEATING_TEMPERATURE_MAX,    /* [69] 地暖温度上限 */
-    HOOCH_PROTOCOL_SETTING_ITEM_FLOOR_HEATING_TEMPERATURE_MIN,    /* [70] 地暖温度下限 */
-    HOOCH_PROTOCOL_SETTING_ITEM_WEATHER,                          /* [71] 天气 */
+    HOOCH_PROTOCOL_SETTING_ITEM_BLE_KNX_GET_STATUS,               /* [64] BLE KNX获取状态 */
+    HOOCH_PROTOCOL_SETTING_ITEM_MODULE_TYPE,                      /* [65] 模组类型 */
+    HOOCH_PROTOCOL_SETTING_ITEM_INTERLOCK_FUNCTION,               /* [66] 互锁功能 */
+    HOOCH_PROTOCOL_SETTING_ITEM_TEMPERATURE_UNIT,                 /* [67] 温度显示单位 */
+    HOOCH_PROTOCOL_SETTING_ITEM_SOUND_ENABLE,                     /* [68] 声音使能 */
+    HOOCH_PROTOCOL_SETTING_ITEM_KEY_BACKLIGHT_MODE,               /* [69] 按键背光模式 */
+    HOOCH_PROTOCOL_SETTING_ITEM_FLOOR_HEATING_TEMPERATURE_MAX,    /* [70] 地暖温度上限 */
+    HOOCH_PROTOCOL_SETTING_ITEM_FLOOR_HEATING_TEMPERATURE_MIN,    /* [71] 地暖温度下限 */
+    HOOCH_PROTOCOL_SETTING_ITEM_WEATHER,                          /* [72] 天气 */
 
 } HOOCH_PROTOCOL_SettingItem_t;
 

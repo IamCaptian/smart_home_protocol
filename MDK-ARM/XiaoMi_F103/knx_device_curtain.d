@@ -42,8 +42,7 @@ xiaomi_f103\knx_device_curtain.o: ..\Core\hooch_protocol\hooch_key_click_dispatc
 xiaomi_f103\knx_device_curtain.o: ..\Core\hooch_protocol\hooch_key_click_report.h
 xiaomi_f103\knx_device_curtain.o: ..\Core\hooch_protocol\hooch_key_mode.h
 xiaomi_f103\knx_device_curtain.o: ..\Core\hooch_protocol\hooch_key_name.h
-xiaomi_f103\knx_device_curtain.o: ..\Core\hooch_protocol\hooch_key_status_dispatch.h
-xiaomi_f103\knx_device_curtain.o: ..\Core\hooch_protocol\hooch_key_status_report.h
+xiaomi_f103\knx_device_curtain.o: ..\Core\hooch_protocol\hooch_key_status.h
 xiaomi_f103\knx_device_curtain.o: ..\Core\hooch_protocol\hooch_page_adjust.h
 xiaomi_f103\knx_device_curtain.o: ..\Core\hooch_protocol\hooch_scene_dispatch.h
 xiaomi_f103\knx_device_curtain.o: ..\Core\hooch_protocol\hooch_scene_report.h

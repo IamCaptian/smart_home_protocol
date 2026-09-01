@@ -10,7 +10,7 @@
 #include "protocol.h"
 #include "system.h"
 #include "tuya_protocol_uart.h"
-#include "hooch_key_status_report.h"
+#include "hooch_key_status.h"
 #include "hooch_key_click_report.h"
 #include "hooch_dimmer_light.h"
 #include "hooch_curtain.h"
@@ -53,7 +53,7 @@ static unsigned char switch_key_to_dp_id(unsigned char key)
  *   → mcu_dp_bool_update(DPID_SWITCH_x, state)
  **********************************************************/
 static void tuya_key_status_report_callback(
-    const HOOCH_PROTOCOL_KeyStatusReportFrame_t *frame)
+    const HOOCH_PROTOCOL_KeyStatusFrame_t *frame)
 {
     if (frame == NULL) {
         return;
@@ -66,7 +66,7 @@ static void tuya_key_status_report_callback(
         return;
     }
     
-    unsigned char switch_val = (frame->state == HOOCH_PROTOCOL_KEY_STATUS_REPORT_STATE_ON) ? 1U : 0U;
+    unsigned char switch_val = (frame->state == HOOCH_PROTOCOL_KEY_STATUS_STATE_ON) ? 1U : 0U;
     g_dp_send_type = DP_SEND_TYPE_REPORT_LINKAGE;
     (void)mcu_dp_bool_update(dp_id, switch_val);
 }
@@ -215,7 +215,7 @@ static void tuya_scene_report_callback(
 void tuya_uart_init(void)
 {
     /* 环形缓冲区在 system.c 中已通过静态初始化完成，此处无需额外操作 */
-    HOOCH_PROTOCOL_KeyStatusReport_RegisterCallback(tuya_key_status_report_callback);
+    HOOCH_PROTOCOL_KeyStatus_RegisterReportCallback(tuya_key_status_report_callback);
     HOOCH_PROTOCOL_DimmerLight_RegisterReportCallback3(tuya_dimmer_light_callback);
     HOOCH_PROTOCOL_Curtain_RegisterReportCallback3(tuya_curtain_report_callback);
     HOOCH_PROTOCOL_SettingReport_RegisterCallback(tuya_setting_report_callback);

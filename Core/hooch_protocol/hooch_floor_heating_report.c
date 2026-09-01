@@ -183,11 +183,8 @@ static HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SetReport
     s_hooch_protocol_floor_heating_report_frame.sequence = frame->sequence;
     s_hooch_protocol_floor_heating_report_frame.valid = 1U;
 
-    /* 通道非零时通知通道版回调 */
-    if (frame->channel != 0U)
-    {
-        HOOCH_PROTOCOL_FloorHeating_NotifyReportCallback();
-    }
+    /* 通知通道版回调 */
+    HOOCH_PROTOCOL_FloorHeating_NotifyReportCallback();
 
     /* 地址非零时通知地址版回调 */
     if (frame->address != 0U)

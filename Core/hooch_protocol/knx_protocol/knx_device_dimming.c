@@ -50,7 +50,9 @@ void knx_summary_dimming_control(const KNX_Frame_t *frame)
     {
     dimmer_light_frame.key = (HOOCH_PROTOCOL_DimmerLightKey_t)(frame->fun[1] + 1U);
     dimmer_light_frame.control_item = HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_COLOR_TEMP;
-    dimmer_light_frame.color_temperature = (uint8_t)(((uint32_t)knx_read_be_u16(frame->data) * 100U) / 65535U);
+    dimmer_light_frame.color_temperature = (frame->data_len >= 2U)
+                                               ? (uint8_t)(((uint32_t)knx_read_be_u16(frame->data) * 100U) / 65535U)
+                                               : 0U;
     dimmer_light_frame.valid = 1U;
     should_update_dimmer_light = 1U;
     break;
@@ -98,18 +100,25 @@ void knx_summary_dimming_config(const KNX_Frame_t *frame)
         HOOCH_PROTOCOL_KeyModeFrame_t key_mode_frame;
         (void)memset(&key_mode_frame, 0, sizeof(key_mode_frame));
         key_mode_frame.key = (HOOCH_PROTOCOL_KeyModeKey_t)(frame->fun[1] + 1U);
-        if(frame->data[0] != 0)
+        if ((frame->data[0] & 0x01U) != 0U)
         {
+            /* bit0=1-使能：按调光开关处理 */
             key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_DIMMER_SWITCH;
             key_mode_frame.valid = 1U;
 
         }else
         {
+            /* bit0=0-不使能：按普通开关处理 */
             key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH;
             key_mode_frame.valid = 1U;
         }
-        need_set = 1U;
-                HOOCH_PROTOCOL_KeyMode_SetFrame(&key_mode_frame);
+        (void)HOOCH_PROTOCOL_KeyMode_SetFrame(&key_mode_frame);
+        /* 使能位原始位图同步下发 */
+        dimmer_light_frame.key = (HOOCH_PROTOCOL_DimmerLightKey_t)(frame->fun[1] + 1U);
+        dimmer_light_frame.control_item = HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_ENABLE_BIT;
+        dimmer_light_frame.value = frame->data[0];
+        dimmer_light_frame.valid = 1U;
+        need_set = 3U;
         }
         break;
     case 2U: item_desc = KNX_DESC("Device Description (K->P)");
@@ -131,6 +140,19 @@ void knx_summary_dimming_config(const KNX_Frame_t *frame)
         key_name_frame.valid = 1U;
         need_set = 2U;
         (void)HOOCH_PROTOCOL_KeyName_SetFrame(&key_name_frame);
+
+        /* 同步通过调光灯接口下发设备描述(24 byte, UTF-8) */
+        dimmer_light_frame.key = (HOOCH_PROTOCOL_DimmerLightKey_t)(frame->fun[1] + 1U);
+        dimmer_light_frame.control_item = HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_DEVICE_DESCRIPTOR;
+        copy_len = (copy_len > sizeof(dimmer_light_frame.device_desc))
+                       ? (uint16_t)sizeof(dimmer_light_frame.device_desc)
+                       : copy_len;
+        if (copy_len > 0U)
+        {
+            (void)memcpy(dimmer_light_frame.device_desc, frame->data, copy_len);
+        }
+        dimmer_light_frame.valid = 1U;
+        need_set = 3U;
     }
     break;
 
@@ -158,16 +180,16 @@ void knx_summary_dimming_config(const KNX_Frame_t *frame)
     need_set = 3U;
     break;
     case 6U: item_desc = KNX_DESC("Min Color Temp (K->P)");
-        dimmer_light_frame.key = (HOOCH_PROTOCOL_DimmerLightKey_t)(frame->fun[1] + 1U);
+    dimmer_light_frame.key = (HOOCH_PROTOCOL_DimmerLightKey_t)(frame->fun[1] + 1U);
     dimmer_light_frame.control_item = HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_MIN_COLOR_TEMP;
-    dimmer_light_frame.value = frame->data[0];
+    dimmer_light_frame.value = (frame->data_len >= 2U) ? (int)knx_read_be_u16(frame->data) : 0;
     dimmer_light_frame.valid = 1U;
     need_set = 3U;
     break;
     case 7U: item_desc = KNX_DESC("Max Color Temp (K->P)");
     dimmer_light_frame.key = (HOOCH_PROTOCOL_DimmerLightKey_t)(frame->fun[1] + 1U);
     dimmer_light_frame.control_item = HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_MAX_COLOR_TEMP;
-    dimmer_light_frame.value = frame->data[0];
+    dimmer_light_frame.value = (frame->data_len >= 2U) ? (int)knx_read_be_u16(frame->data) : 0;
     dimmer_light_frame.valid = 1U;
     need_set = 3U;
     break;

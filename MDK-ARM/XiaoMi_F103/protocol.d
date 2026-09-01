@@ -28,10 +28,6 @@ xiaomi_f103\protocol.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_
 xiaomi_f103\protocol.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 xiaomi_f103\protocol.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 xiaomi_f103\protocol.o: ../Core/Inc/usart.h
-xiaomi_f103\protocol.o: ../Core/Inc/user_printf.h
-xiaomi_f103\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-xiaomi_f103\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-xiaomi_f103\protocol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 xiaomi_f103\protocol.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\zigbee.h
 xiaomi_f103\protocol.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\system.h
 xiaomi_f103\protocol.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h

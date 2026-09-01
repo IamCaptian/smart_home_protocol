@@ -33,7 +33,7 @@ void knx_summary_floor_heating_control(const KNX_Frame_t *frame)
     }
 
     (void)memset(&floor_heating_frame, 0, sizeof(floor_heating_frame));
-    floor_heating_frame.channel = frame->fun[1];
+    floor_heating_frame.channel = frame->fun[1] + 1;
     floor_heating_frame.control_item = HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_INVALID;
     item_desc = KNX_DESC("Unknown Control Item");
     need_set = 0U;
@@ -148,8 +148,8 @@ void knx_summary_floor_heating_config(const KNX_Frame_t *frame)
 
     knx_setting_frame_reset(&setting_frame);
     (void)memset(&floor_heating_frame, 0, sizeof(floor_heating_frame));
-    floor_heating_frame.channel = frame->fun[1];
-    setting_frame.channel = frame->fun[1];
+    floor_heating_frame.channel = frame->fun[1] + 1;
+    setting_frame.channel = frame->fun[1] + 1;
 
     if ((frame == NULL) || (frame->fun_count < 5U))
     {
@@ -214,8 +214,11 @@ void knx_summary_floor_heating_config(const KNX_Frame_t *frame)
         {
             /* 温度值为 0~500，实际温度 = value * 0.1℃ */
             setting_frame.value = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+
+            floor_heating_frame.control_item = HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TEMP_MIN;
+            floor_heating_frame.value = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
         }
-        need_set = 1U;
+        need_set = 3U;
         break;
 
     case 7U: /* TEMP_MAX */
@@ -225,8 +228,11 @@ void knx_summary_floor_heating_config(const KNX_Frame_t *frame)
         {
             /* 温度值为 0~500，实际温度 = value * 0.1℃ */
             setting_frame.value = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+
+            floor_heating_frame.control_item = HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TEMP_MAX;
+            floor_heating_frame.value = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
         }
-        need_set = 1U;
+        need_set = 3U;
         break;
 
     default:
@@ -239,6 +245,12 @@ void knx_summary_floor_heating_config(const KNX_Frame_t *frame)
     }
     else if (need_set == 2U)
     {
+        (void)HOOCH_PROTOCOL_FloorHeating_DispatchFrame(&floor_heating_frame);
+    }
+    else if (need_set == 3U)
+    {
+        /* 温度上下限：同时下发设置与地暖字段（与空调一致） */
+        (void)HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
         (void)HOOCH_PROTOCOL_FloorHeating_DispatchFrame(&floor_heating_frame);
     }
 

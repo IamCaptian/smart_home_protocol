@@ -161,7 +161,7 @@ static uint8_t xiaoni_smart_screen_send_x88_light_dimmer_temperature_report(uint
     return xiaoni_smart_screen_uart_sendframe(&frame);
 }
 /*开关页窗帘开关停上报*/
-static uint8_t xiaoni_smart_screen_send_x88_switch_curtain_switch_report(HOOCH_PROTOCOL_KeyStatusReportKey_t key, uint8_t state)
+static uint8_t xiaoni_smart_screen_send_x88_switch_curtain_switch_report(HOOCH_PROTOCOL_KeyStatusKey_t key, uint8_t state)
 {
     Frame_t frame;
 
@@ -179,7 +179,7 @@ static uint8_t xiaoni_smart_screen_send_x88_switch_curtain_switch_report(HOOCH_P
 }
 /*窗帘页页窗帘开关停上报*/
 static uint8_t xiaoni_smart_screen_send_x88_curtain_switch_report(uint8_t page,
-     HOOCH_PROTOCOL_KeyStatusReportKey_t key, 
+     HOOCH_PROTOCOL_KeyStatusKey_t key, 
      uint8_t state)
 {
     Frame_t frame;
@@ -199,7 +199,7 @@ static uint8_t xiaoni_smart_screen_send_x88_curtain_switch_report(uint8_t page,
     return xiaoni_smart_screen_uart_sendframe(&frame);
 }
 /*窗帘行程*/
-static uint8_t xiaoni_smart_screen_send_x88_curtain_travel_report(HOOCH_PROTOCOL_KeyStatusReportKey_t key, uint8_t travel)
+static uint8_t xiaoni_smart_screen_send_x88_curtain_travel_report(HOOCH_PROTOCOL_KeyStatusKey_t key, uint8_t travel)
 {
     Frame_t frame;
     frame.header = FRAME_HEADER;
@@ -217,7 +217,7 @@ static uint8_t xiaoni_smart_screen_send_x88_curtain_travel_report(HOOCH_PROTOCOL
 }
 /*窗帘页窗帘行程上报*/
 static uint8_t xiaoni_smart_screen_send_x88_curtain_page_travel_report(uint8_t page,
-     HOOCH_PROTOCOL_KeyStatusReportKey_t key, 
+     HOOCH_PROTOCOL_KeyStatusKey_t key, 
      uint8_t travel)
 {
     Frame_t frame;
@@ -260,6 +260,44 @@ static uint8_t xiaoni_smart_screen_send_x88_key_click_report(HOOCH_PROTOCOL_KeyC
     case HOOCH_PROTOCOL_KEY_CLICK_REPORT_EVENT_LONG_CLICK:
     case HOOCH_PROTOCOL_KEY_CLICK_REPORT_EVENT_LONG_CLICK_1P5S:
         frame.data[4] = 0x02;//长按
+        break;
+    default:
+        return 1U;
+    }
+    return xiaoni_smart_screen_uart_sendframe(&frame);
+}
+
+/* 场景按键事件上报（小米专用：页面+通道+类型）
+   Byte[3]=页面, Byte[4]=通道, Byte[5]=类型(0=单击,1=双击,2=长按) */
+static uint8_t xiaoni_smart_screen_send_x88_scene_report(
+    uint8_t page,
+    HOOCH_PROTOCOL_SceneReportKey_t key,
+    HOOCH_PROTOCOL_SceneReportType_t type)
+{
+    Frame_t frame;
+    if(page != 0x01)
+    {
+        return 1U;
+    }
+    frame.header = FRAME_HEADER;
+    frame.version = xiaoni_smart_screen_get_version();
+    frame.command = XIAOMI_SMART_SCREEN_CUSTOM_CONFIG_CONTROL;
+    frame.data_len = 5U;
+
+    frame.data[0] = (uint8_t)XIAOMI_SMART_SCREEN_SUBCMD_REPORT;
+    frame.data[1] = (uint8_t)XIAOMI_SMART_SCREEN_SUBCMD_DEFAULT;
+    frame.data[2] = (uint8_t)XIAOMI_SMART_SCREEN_SUBCMD_EVENT_STATUS;
+    frame.data[3] = 4 + key;
+    switch (type)
+    {
+    case HOOCH_PROTOCOL_SCENE_REPORT_TYPE_SINGLE_CLICK:
+        frame.data[4] = 0x00U; /* 单击 */
+        break;
+    case HOOCH_PROTOCOL_SCENE_REPORT_TYPE_DOUBLE_CLICK:
+        frame.data[4] = 0x01U; /* 双击 */
+        break;
+    case HOOCH_PROTOCOL_SCENE_REPORT_TYPE_LONG_CLICK:
+        frame.data[4] = 0x02U; /* 长按 */
         break;
     default:
         return 1U;
@@ -328,8 +366,37 @@ static void xiaoni_smart_screen_key_click_report_callback(
     }
 }
 
+static void xiaoni_smart_screen_scene_report_callback(
+    const HOOCH_PROTOCOL_SceneReportFrame_t *frame)
+{
+    uint8_t send_result;
+
+    if (frame == NULL)
+    {
+        XIAOMI_SMART_SCREEN_LOG_WARN("[HOOCH] SceneReport: frame is NULL\r\n");
+        return;
+    }
+
+    XIAOMI_SMART_SCREEN_LOG_INFO("[HOOCH] SceneReport page=%u, key=%u, type=%u, sequence=%u, valid=%u\r\n",
+                                 (unsigned int)frame->page,
+                                 (unsigned int)frame->key,
+                                 (unsigned int)frame->type,
+                                 (unsigned int)frame->sequence,
+                                 (unsigned int)frame->valid);
+
+    send_result = xiaoni_smart_screen_send_x88_scene_report(
+        frame->page, frame->key, frame->type);
+    if (send_result != 0U)
+    {
+        XIAOMI_SMART_SCREEN_LOG_WARN("[HOOCH] SceneReport send failed, page=%u, key=%u, type=%u\r\n",
+                                     (unsigned int)frame->page,
+                                     (unsigned int)frame->key,
+                                     (unsigned int)frame->type);
+    }
+}
+
 static void xiaoni_smart_screen_key_status_report_callback(
-    const HOOCH_PROTOCOL_KeyStatusReportFrame_t *frame)
+    const HOOCH_PROTOCOL_KeyStatusFrame_t *frame)
 {
     uint8_t send_result;
 
@@ -345,12 +412,12 @@ static void xiaoni_smart_screen_key_status_report_callback(
                                  (unsigned int)frame->sequence,
                                  (unsigned int)frame->valid);
 
-    if ((frame->key >= HOOCH_PROTOCOL_KEY_STATUS_REPORT_KEY_1) &&
-        (frame->key <= HOOCH_PROTOCOL_KEY_STATUS_REPORT_KEY_8))
+    if ((frame->key >= HOOCH_PROTOCOL_KEY_STATUS_KEY_1) &&
+        (frame->key <= HOOCH_PROTOCOL_KEY_STATUS_KEY_8))
     {
         uint8_t mask = (uint8_t)(1U << ((uint8_t)frame->key - 1U));
 
-        if (frame->state == HOOCH_PROTOCOL_KEY_STATUS_REPORT_STATE_ON)
+        if (frame->state == HOOCH_PROTOCOL_KEY_STATUS_STATE_ON)
         {
             s_xiaomi_switch_control_bits |= mask;
         }
@@ -479,41 +546,41 @@ static void xiaoni_smart_screen_curtain_report_callback2(
     case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_SWITCH:
         send_result = xiaoni_smart_screen_send_x88_curtain_switch_report(
             HOOCH_PROTOCOL_CODE_MATCH_PAGE_CURTAIN,
-            (HOOCH_PROTOCOL_KeyStatusReportKey_t)frame->key,
+            (HOOCH_PROTOCOL_KeyStatusKey_t)frame->key,
             frame->switch_status.value);
         break;
 
     case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_STOP:
         send_result = xiaoni_smart_screen_send_x88_curtain_switch_report(
             HOOCH_PROTOCOL_CODE_MATCH_PAGE_CURTAIN,
-            (HOOCH_PROTOCOL_KeyStatusReportKey_t)frame->key,
+            (HOOCH_PROTOCOL_KeyStatusKey_t)frame->key,
             frame->stop.value);
         break;
 
     case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_PERCENT:
         send_result = xiaoni_smart_screen_send_x88_curtain_page_travel_report(
             HOOCH_PROTOCOL_CODE_MATCH_PAGE_CURTAIN,
-            (HOOCH_PROTOCOL_KeyStatusReportKey_t)frame->key,
+            (HOOCH_PROTOCOL_KeyStatusKey_t)frame->key,
             frame->percent.value);
         break;
 
     case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ANGLE:
         send_result = xiaoni_smart_screen_send_x88_curtain_page_travel_report(
             HOOCH_PROTOCOL_CODE_MATCH_PAGE_CURTAIN,
-            (HOOCH_PROTOCOL_KeyStatusReportKey_t)frame->key,
+            (HOOCH_PROTOCOL_KeyStatusKey_t)frame->key,
             frame->angle.value);
         break;
 
     case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ALL:
         send_result = xiaoni_smart_screen_send_x88_curtain_switch_report(
             HOOCH_PROTOCOL_CODE_MATCH_PAGE_CURTAIN,
-            (HOOCH_PROTOCOL_KeyStatusReportKey_t)frame->key,
+            (HOOCH_PROTOCOL_KeyStatusKey_t)frame->key,
             frame->switch_status.value);
         if (send_result == 0U)
         {
             send_result = xiaoni_smart_screen_send_x88_curtain_page_travel_report(
                 HOOCH_PROTOCOL_CODE_MATCH_PAGE_CURTAIN,
-                (HOOCH_PROTOCOL_KeyStatusReportKey_t)frame->key,
+                (HOOCH_PROTOCOL_KeyStatusKey_t)frame->key,
                 frame->percent.value);
         }
         break;
@@ -558,36 +625,36 @@ static void xiaoni_smart_screen_curtain_report_callback(
     {
     case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_SWITCH:
         send_result = xiaoni_smart_screen_send_x88_switch_curtain_switch_report(
-            (HOOCH_PROTOCOL_KeyStatusReportKey_t)frame->key,
+            (HOOCH_PROTOCOL_KeyStatusKey_t)frame->key,
             frame->switch_status.value);
         break;
 
     case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_STOP:
         send_result = xiaoni_smart_screen_send_x88_switch_curtain_switch_report(
-            (HOOCH_PROTOCOL_KeyStatusReportKey_t)frame->key,
+            (HOOCH_PROTOCOL_KeyStatusKey_t)frame->key,
             frame->stop.value);
         break;
 
     case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_PERCENT:
         send_result = xiaoni_smart_screen_send_x88_curtain_travel_report(
-            (HOOCH_PROTOCOL_KeyStatusReportKey_t)frame->key,
+            (HOOCH_PROTOCOL_KeyStatusKey_t)frame->key,
             frame->percent.value);
         break;
 
     case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ANGLE:
         send_result = xiaoni_smart_screen_send_x88_curtain_travel_report(
-            (HOOCH_PROTOCOL_KeyStatusReportKey_t)frame->key,
+            (HOOCH_PROTOCOL_KeyStatusKey_t)frame->key,
             frame->angle.value);
         break;
 
     case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ALL:
         send_result = xiaoni_smart_screen_send_x88_switch_curtain_switch_report(
-            (HOOCH_PROTOCOL_KeyStatusReportKey_t)frame->key,
+            (HOOCH_PROTOCOL_KeyStatusKey_t)frame->key,
             frame->switch_status.value);
         if (send_result == 0U)
         {
             send_result = xiaoni_smart_screen_send_x88_curtain_travel_report(
-                (HOOCH_PROTOCOL_KeyStatusReportKey_t)frame->key,
+                (HOOCH_PROTOCOL_KeyStatusKey_t)frame->key,
                 frame->percent.value);
         }
         break;
@@ -1185,8 +1252,9 @@ void xiaoni_smart_screen_uart_init(void)
     /* 初始化帧解析器 */
     FrameParser_Init(&frame_parser);
     frame_parser_timeout_ticks = 0;
-   HOOCH_PROTOCOL_KeyStatusReport_RegisterCallback(xiaoni_smart_screen_key_status_report_callback);
+   HOOCH_PROTOCOL_KeyStatus_RegisterReportCallback(xiaoni_smart_screen_key_status_report_callback);
    HOOCH_PROTOCOL_KeyClickReport_RegisterCallback(xiaoni_smart_screen_key_click_report_callback);
+   HOOCH_PROTOCOL_SceneReport_RegisterReportCallback4(xiaoni_smart_screen_scene_report_callback);
    HOOCH_PROTOCOL_DimmerLight_RegisterReportCallback(xiaoni_smart_screen_dimmer_light_callback);
    HOOCH_PROTOCOL_DimmerLight_RegisterReportCallback2(xiaoni_smart_screen_dimmer_light_callback2);
 

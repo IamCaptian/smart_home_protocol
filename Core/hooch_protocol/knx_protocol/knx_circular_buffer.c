@@ -161,21 +161,21 @@ static void knx_setting_report_callback(
     }
 }
 static void knx_key_status_report_callback(
-    const HOOCH_PROTOCOL_KeyStatusReportFrame_t *frame)
+    const HOOCH_PROTOCOL_KeyStatusFrame_t *frame)
 {
  KNX_LOG_INFO("=====key_status_report_callback=====key=%d, state=%d\r\n", frame->key, frame->state);
     uint8_t value;
 
     if ((frame == NULL) ||
         (s_knx_callback_suppress != 0U) ||
-        (frame->key < HOOCH_PROTOCOL_KEY_STATUS_REPORT_KEY_1) ||
-        (frame->key > HOOCH_PROTOCOL_KEY_STATUS_REPORT_KEY_8))
+        (frame->key < HOOCH_PROTOCOL_KEY_STATUS_KEY_1) ||
+        (frame->key > HOOCH_PROTOCOL_KEY_STATUS_KEY_8))
     {
         return;
     }
 
-    value = (frame->state == HOOCH_PROTOCOL_KEY_STATUS_REPORT_STATE_ON) ? 1U : 0U;
-    (void)knx_send_device_function((uint8_t)(frame->key - HOOCH_PROTOCOL_KEY_STATUS_REPORT_KEY_1),
+    value = (frame->state == HOOCH_PROTOCOL_KEY_STATUS_STATE_ON) ? 1U : 0U;
+    (void)knx_send_device_function((uint8_t)(frame->key - HOOCH_PROTOCOL_KEY_STATUS_KEY_1),
                                    KNX_DEVICE_TYPE_KEY,
                                    KNX_DEVICE_CATEGORY_CONTROL,
                                    (uint8_t)KNX_KEY_ITEM_SWITCH,
@@ -298,7 +298,7 @@ static void knx_scene_report_callback(
     (void)knx_send_device_function((uint8_t)(frame->key - HOOCH_PROTOCOL_SCENE_REPORT_KEY_1),
                                    KNX_DEVICE_TYPE_SCENE,
                                    KNX_DEVICE_CATEGORY_CONTROL,
-                                   (uint8_t)KNX_SCENE_ITEM_STATUS,
+                                   (uint8_t)KNX_SCENE_ITEM_TRIGGER,
                                    &value,
                                    1U);
 }
@@ -321,10 +321,21 @@ static void knx_air_conditioner_report_callback(
     const HOOCH_PROTOCOL_AirConditionerFrame_t *frame)
 {
     uint8_t send_result;
+    uint8_t channel;
 
     if ((frame == NULL) || (s_knx_callback_suppress != 0U))
     {
         return;
+    }
+
+    /* 通用协议通道从 1 开始，KNX 设备号从 0 开始；0 不参与减 1 */
+    if (frame->channel > 0U)
+    {
+        channel = (uint8_t)(frame->channel - 1U);
+    }
+    else
+    {
+        channel = frame->channel;
     }
 
 #if KNX_LOG_ENABLE
@@ -343,47 +354,47 @@ static void knx_air_conditioner_report_callback(
     {
     case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ALL:
         send_result |= knx_send_air_conditioner_control_u8(
-            frame->channel,
+            channel,
             KNX_AIR_ITEM_SWITCH,
             (uint8_t)frame->power);
         send_result |= knx_send_air_conditioner_control_u8(
-            frame->channel,
+            channel,
             KNX_AIR_ITEM_MODE,
             hooch_air_mode_to_knx(frame->mode));
         send_result |= knx_send_air_conditioner_control_u8(
-            frame->channel,
+            channel,
             KNX_AIR_ITEM_FAN_SPEED,
             (uint8_t)frame->fan_speed);
         send_result |= knx_send_air_conditioner_control_u16(
-            frame->channel,
+            channel,
             KNX_AIR_ITEM_SET_TEMPERATURE,
             (uint16_t)frame->temperature * 10U);
         break;
 
     case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_POWER:
         send_result = knx_send_air_conditioner_control_u8(
-            frame->channel,
+            channel,
             KNX_AIR_ITEM_SWITCH,
             (uint8_t)frame->power);
         break;
 
     case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_MODE:
         send_result = knx_send_air_conditioner_control_u8(
-            frame->channel,
+            channel,
             KNX_AIR_ITEM_MODE,
             hooch_air_mode_to_knx(frame->mode));
         break;
 
     case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_FAN_SPEED:
         send_result = knx_send_air_conditioner_control_u8(
-            frame->channel,
+            channel,
             KNX_AIR_ITEM_FAN_SPEED,
             (uint8_t)frame->fan_speed);
         break;
 
     case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMPERATURE:
         send_result = knx_send_air_conditioner_control_u16(
-            frame->channel,
+            channel,
             KNX_AIR_ITEM_SET_TEMPERATURE,
             (uint16_t)frame->temperature * 10U);
         break;
@@ -395,6 +406,246 @@ static void knx_air_conditioner_report_callback(
     if (send_result != 0U)
     {
         KNX_LOG_INFO("[HOOCH] AirConditionerReport send failed, control_item=%u\r\n",
+                     (unsigned int)frame->control_item);
+    }
+}
+
+/* HOOCH 地暖模式映射到 KNX 手动/自动值（knx_floor_mode_to_hooch 的逆映射）。 */
+static uint8_t hooch_floor_mode_to_knx(HOOCH_PROTOCOL_FloorHeatingMode_t mode)
+{
+    switch (mode)
+    {
+    case HOOCH_PROTOCOL_FLOOR_HEATING_MODE_MANUAL: return 0U;
+    case HOOCH_PROTOCOL_FLOOR_HEATING_MODE_AUTO:   return 1U;
+    default:                                       return 0xFFU;
+    }
+}
+
+/* HOOCH 新风模式映射到 KNX FAN_SPEED_MODE 值（knx_fresh_air_mode_to_hooch 的逆映射）。 */
+static uint8_t hooch_fresh_air_mode_to_knx(HOOCH_PROTOCOL_FreshAirMode_t mode)
+{
+    switch (mode)
+    {
+    case HOOCH_PROTOCOL_FRESH_AIR_MODE_AUTO: return 4U;
+    default:                                 return 0xFFU;
+    }
+}
+
+/* HOOCH 新风风速映射到 KNX FAN_SPEED_MODE 值（knx_fresh_air_speed_to_hooch 的逆映射）。 */
+static uint8_t hooch_fresh_air_speed_to_knx(HOOCH_PROTOCOL_FreshAirFanSpeed_t fan_speed)
+{
+    switch (fan_speed)
+    {
+    case HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_LOW:    return 1U;
+    case HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_MEDIUM: return 2U;
+    case HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_HIGH:   return 3U;
+    case HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_AUTO:   return 4U;
+    default:                                        return 0xFFU;
+    }
+}
+
+static void knx_floor_heating_report_callback(
+    const HOOCH_PROTOCOL_FloorHeatingFrame_t *frame)
+{
+    uint8_t send_result;
+    uint8_t channel;
+    uint8_t mode;
+
+    if ((frame == NULL) || (s_knx_callback_suppress != 0U))
+    {
+        return;
+    }
+
+    /* 通用协议通道从 1 开始，KNX 设备号从 0 开始；0 不参与减 1 */
+    if (frame->channel > 0U)
+    {
+        channel = (uint8_t)(frame->channel - 1U);
+    }
+    else
+    {
+        channel = frame->channel;
+    }
+
+#if KNX_LOG_ENABLE
+    KNX_LOG_INFO("[HOOCH] FloorHeatingReport channel=%u, power=%u, mode=%u, target_temp=%u, control_item=%u\r\n",
+                 (unsigned int)frame->channel,
+                 (unsigned int)frame->power,
+                 (unsigned int)frame->mode,
+                 (unsigned int)frame->target_temperature,
+                 (unsigned int)frame->control_item);
+#endif
+
+    send_result = 0U;
+
+    switch (frame->control_item)
+    {
+    case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_ALL:
+        send_result |= knx_send_floor_heating_control_u8(
+            channel,
+            KNX_FLOOR_ITEM_SWITCH,
+            (uint8_t)frame->power);
+
+        mode = hooch_floor_mode_to_knx(frame->mode);
+        if (mode != 0xFFU)
+        {
+            send_result |= knx_send_floor_heating_control_u8(
+                channel,
+                KNX_FLOOR_ITEM_MANUAL_AUTO,
+                mode);
+        }
+
+        send_result |= knx_send_floor_heating_control_u16(
+            channel,
+            KNX_FLOOR_ITEM_SET_TEMPERATURE,
+            (uint16_t)frame->target_temperature * 10U);
+        break;
+
+    case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_POWER:
+        send_result = knx_send_floor_heating_control_u8(
+            channel,
+            KNX_FLOOR_ITEM_SWITCH,
+            (uint8_t)frame->power);
+        break;
+
+    case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_MODE:
+        mode = hooch_floor_mode_to_knx(frame->mode);
+        if (mode == 0xFFU)
+        {
+            return;
+        }
+        send_result = knx_send_floor_heating_control_u8(
+            channel,
+            KNX_FLOOR_ITEM_MANUAL_AUTO,
+            mode);
+        break;
+
+    case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TARGET_TEMPERATURE:
+        send_result = knx_send_floor_heating_control_u16(
+            channel,
+            KNX_FLOOR_ITEM_SET_TEMPERATURE,
+            (uint16_t)frame->target_temperature * 10U);
+        break;
+
+    case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_CURRENT_TEMPERATURE:
+        send_result = knx_send_floor_heating_control_u16(
+            channel,
+            KNX_FLOOR_ITEM_ACTUAL_TEMPERATURE,
+            (uint16_t)frame->current_temperature * 10U);
+        break;
+
+    default:
+        return;
+    }
+
+    if (send_result != 0U)
+    {
+        KNX_LOG_INFO("[HOOCH] FloorHeatingReport send failed, control_item=%u\r\n",
+                     (unsigned int)frame->control_item);
+    }
+}
+
+static void knx_fresh_air_report_callback(
+    const HOOCH_PROTOCOL_FreshAirFrame_t *frame)
+{
+    uint8_t send_result;
+    uint8_t channel;
+    uint8_t speed_mode;
+
+    if ((frame == NULL) || (s_knx_callback_suppress != 0U))
+    {
+        return;
+    }
+
+    /* 通用协议通道从 1 开始，KNX 设备号从 0 开始；0 不参与减 1 */
+    if (frame->channel > 0U)
+    {
+        channel = (uint8_t)(frame->channel - 1U);
+    }
+    else
+    {
+        channel = frame->channel;
+    }
+
+#if KNX_LOG_ENABLE
+    KNX_LOG_INFO("[HOOCH] FreshAirReport channel=%u, power=%u, mode=%u, fan_speed=%u, control_item=%u\r\n",
+                 (unsigned int)frame->channel,
+                 (unsigned int)frame->power,
+                 (unsigned int)frame->mode,
+                 (unsigned int)frame->fan_speed,
+                 (unsigned int)frame->control_item);
+#endif
+
+    send_result = 0U;
+
+    switch (frame->control_item)
+    {
+    case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ALL:
+        send_result |= knx_send_fresh_air_control_u8(
+            channel,
+            KNX_FRESH_AIR_ITEM_SWITCH,
+            (uint8_t)frame->power);
+
+        speed_mode = 0xFFU;
+        if (frame->power == HOOCH_PROTOCOL_FRESH_AIR_POWER_OFF)
+        {
+            speed_mode = 0U;
+        }
+        else if (frame->mode == HOOCH_PROTOCOL_FRESH_AIR_MODE_AUTO)
+        {
+            speed_mode = 4U;
+        }
+        else
+        {
+            speed_mode = hooch_fresh_air_speed_to_knx(frame->fan_speed);
+        }
+
+        if (speed_mode != 0xFFU)
+        {
+            send_result |= knx_send_fresh_air_control_u8(
+                channel,
+                KNX_FRESH_AIR_ITEM_FAN_SPEED_MODE,
+                speed_mode);
+        }
+        break;
+
+    case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_POWER:
+        send_result = knx_send_fresh_air_control_u8(
+            channel,
+            KNX_FRESH_AIR_ITEM_SWITCH,
+            (uint8_t)frame->power);
+        break;
+
+    case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_MODE:
+        speed_mode = hooch_fresh_air_mode_to_knx(frame->mode);
+        if (speed_mode == 0xFFU)
+        {
+            return;
+        }
+        send_result = knx_send_fresh_air_control_u8(
+            channel,
+            KNX_FRESH_AIR_ITEM_FAN_SPEED_MODE,
+            speed_mode);
+        break;
+
+    case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_FAN_SPEED:
+        speed_mode = hooch_fresh_air_speed_to_knx(frame->fan_speed);
+        if (speed_mode == 0xFFU)
+        {
+            return;
+        }
+        send_result = knx_send_fresh_air_control_u8(
+            channel,
+            KNX_FRESH_AIR_ITEM_FAN_SPEED_MODE,
+            speed_mode);
+        break;
+
+    default:
+        return;
+    }
+
+    if (send_result != 0U)
+    {
+        KNX_LOG_INFO("[HOOCH] FreshAirReport send failed, control_item=%u\r\n",
                      (unsigned int)frame->control_item);
     }
 }
@@ -810,12 +1061,18 @@ void knx_uart_init(void)
     knx_frame_parser_init(&s_knx_frame_parser);
     s_knx_parser_timeout_ticks = 0U;
     s_knx_callback_suppress = 0U;
-     HOOCH_PROTOCOL_KeyStatusReport_RegisterCallback(knx_key_status_report_callback);
+     HOOCH_PROTOCOL_KeyStatus_RegisterReportCallback(knx_key_status_report_callback);
      HOOCH_PROTOCOL_KeyClickReport_RegisterCallback(knx_key_click_report_callback);
      HOOCH_PROTOCOL_DimmerLight_RegisterReportCallback(knx_dimmer_light_callback);
      HOOCH_PROTOCOL_Curtain_RegisterReportCallback(knx_curtain_report_callback);
      HOOCH_PROTOCOL_SettingReport_RegisterCallback(knx_setting_report_callback);
      HOOCH_PROTOCOL_AirConditioner_RegisterReportCallback(knx_air_conditioner_report_callback);
+     HOOCH_PROTOCOL_FloorHeating_RegisterReportCallback(knx_floor_heating_report_callback);
+     HOOCH_PROTOCOL_FreshAir_RegisterReportCallback(knx_fresh_air_report_callback);
+
+
+
+     
      HOOCH_PROTOCOL_SceneReport_RegisterReportCallback(knx_scene_report_callback);
      
     KNX_LOG_INFO("UART_INIT\r\n");
@@ -1364,6 +1621,45 @@ uint8_t knx_send_air_conditioner_config_u16(uint8_t device_no,
                                     (uint8_t)item,
                                     data,
                                     2U);
+}
+
+uint8_t knx_send_floor_heating_control_u8(uint8_t device_no,
+                                          KNX_FloorHeatingItem_t item,
+                                          uint8_t value)
+{
+    return knx_send_device_function(device_no,
+                                    KNX_DEVICE_TYPE_FLOOR_HEATING,
+                                    KNX_DEVICE_CATEGORY_CONTROL,
+                                    (uint8_t)item,
+                                    &value,
+                                    1U);
+}
+
+uint8_t knx_send_floor_heating_control_u16(uint8_t device_no,
+                                           KNX_FloorHeatingItem_t item,
+                                           uint16_t value)
+{
+    uint8_t data[2];
+
+    knx_write_be_u16(data, value);
+    return knx_send_device_function(device_no,
+                                    KNX_DEVICE_TYPE_FLOOR_HEATING,
+                                    KNX_DEVICE_CATEGORY_CONTROL,
+                                    (uint8_t)item,
+                                    data,
+                                    2U);
+}
+
+uint8_t knx_send_fresh_air_control_u8(uint8_t device_no,
+                                      KNX_FreshAirItem_t item,
+                                      uint8_t value)
+{
+    return knx_send_device_function(device_no,
+                                    KNX_DEVICE_TYPE_FRESH_AIR,
+                                    KNX_DEVICE_CATEGORY_CONTROL,
+                                    (uint8_t)item,
+                                    &value,
+                                    1U);
 }
 
 uint8_t knx_send_dimming_control_u8(uint8_t device_no,

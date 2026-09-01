@@ -32,10 +32,20 @@ typedef enum
     HOOCH_PROTOCOL_SCENE_REPORT_KEY_8,
 } HOOCH_PROTOCOL_SceneReportKey_t;
 
+/* 场景上报按键类型（小米专用） */
+typedef enum
+{
+    HOOCH_PROTOCOL_SCENE_REPORT_TYPE_INVALID = 0U,  /* 无效类型 */
+    HOOCH_PROTOCOL_SCENE_REPORT_TYPE_SINGLE_CLICK,  /* 单击 */
+    HOOCH_PROTOCOL_SCENE_REPORT_TYPE_DOUBLE_CLICK,  /* 双击 */
+    HOOCH_PROTOCOL_SCENE_REPORT_TYPE_LONG_CLICK,    /* 长按 */
+} HOOCH_PROTOCOL_SceneReportType_t;
+
 /* 场景上报帧描述 */
 typedef struct
 {
-    HOOCH_PROTOCOL_SceneReportKey_t key;        /* 按键编号 */
+    HOOCH_PROTOCOL_SceneReportKey_t key;        /* 按键编号（通道） */
+    HOOCH_PROTOCOL_SceneReportType_t type;      /* 按键类型（小米上报使用） */
     uint8_t page;                               /* 页面编号（上报类型2使用） */
     uint16_t address;                           /* 寄存器地址（上报类型3使用） */
     uint8_t sequence;                           /* 更新序号 */
@@ -58,9 +68,14 @@ typedef void (*HOOCH_PROTOCOL_SceneReportReportCallback2_t)(
 typedef void (*HOOCH_PROTOCOL_SceneReportReportCallback3_t)(
     const HOOCH_PROTOCOL_SceneReportFrame_t *frame);
 
+/* 场景上报回调函数类型4：页面+通道+类型（小米专用） */
+typedef void (*HOOCH_PROTOCOL_SceneReportReportCallback4_t)(
+    const HOOCH_PROTOCOL_SceneReportFrame_t *frame);
+
 void HOOCH_SceneReport_Init(void);
 void HOOCH_PROTOCOL_SceneReport_Clear(void);
 uint8_t HOOCH_PROTOCOL_SceneReport_IsValidKey(HOOCH_PROTOCOL_SceneReportKey_t key);
+uint8_t HOOCH_PROTOCOL_SceneReport_IsValidType(HOOCH_PROTOCOL_SceneReportType_t type);
 HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_Set(
     HOOCH_PROTOCOL_SceneReportKey_t key);
 HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_SetFrame(
@@ -95,6 +110,13 @@ void HOOCH_PROTOCOL_SceneReport_RegisterReportCallback3(
 /* 注销场景上报回调函数（类型3） */
 void HOOCH_PROTOCOL_SceneReport_UnregisterReportCallback3(void);
 
+/* 注册场景上报回调函数（类型4：页面+通道+类型，小米专用） */
+void HOOCH_PROTOCOL_SceneReport_RegisterReportCallback4(
+    HOOCH_PROTOCOL_SceneReportReportCallback4_t callback);
+
+/* 注销场景上报回调函数（类型4） */
+void HOOCH_PROTOCOL_SceneReport_UnregisterReportCallback4(void);
+
 /* ---- 类型1 上报：仅key ---- */
 
 /* 上报场景按键（类型1：仅key） */
@@ -115,6 +137,18 @@ HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_SendAddr(
     uint16_t address,
     HOOCH_PROTOCOL_SceneReportKey_t key);
 
+/* ---- 类型4 上报：页面+通道+类型（小米专用） ---- */
+
+/* 上报场景按键（类型4：页面+通道+类型） */
+HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_SendXiaomi(
+    uint8_t page,
+    HOOCH_PROTOCOL_SceneReportKey_t key,
+    HOOCH_PROTOCOL_SceneReportType_t type);
+
+
+
+
+    
 #ifdef __cplusplus
 }
 #endif

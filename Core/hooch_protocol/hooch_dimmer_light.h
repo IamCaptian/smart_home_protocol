@@ -46,6 +46,7 @@ typedef enum
     HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_BRIGHTNESS,      /* 仅更新亮度 */
     HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_COLOR_TEMP,      /* 仅更新色温 */
     HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_SWITCH,          /* 仅更新开关 */
+    HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_ENABLE_BIT,      /* 仅更新使能位(1 byte 位图, bit0:使能 bit1:开关 bit2:亮度 bit3:色温 bit4:RGBW) */
     HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_DEVICE_DESCRIPTOR, /* 仅更新设备描述字符串(24 byte, UTF-8) */
     HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_DEFAULT_ICON,      /* 仅更新默认图标(1 byte, 0-255) */
     HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_SELECTED_ICON,     /* 仅更新选中图标(1 byte, 0-255) */
@@ -67,7 +68,7 @@ typedef struct
     uint8_t sequence;                                      /* 更新序号 */
     uint8_t valid;                                         /* 当前数据是否有效 */
     uint8_t device_desc[24];                           /* 设备描述符 */
-    uint8_t value;                              /* 当前值 */
+    int value;                            /* 通用配置值(图标/步进/使能位 1 byte；最小/最大色温 2 byte) */
 } HOOCH_PROTOCOL_DimmerLightFrame_t;
 
 /* 调光灯下发回调函数类型 */

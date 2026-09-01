@@ -33,7 +33,7 @@ extern "C" {
 
 #if !KNX_LOG_ENABLE
 #undef KNX_LOG_RX_BYTE_ENABLE
-#define KNX_LOG_RX_BYTE_ENABLE 1
+#define KNX_LOG_RX_BYTE_ENABLE 0
 #undef KNX_LOG_TX_HEX_ENABLE
 #define KNX_LOG_TX_HEX_ENABLE 0
 #endif

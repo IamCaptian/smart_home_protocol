@@ -4,14 +4,16 @@
  * Panel Communication Protocol V2.4, fun1=2(DEVICE), fun3=5(KEY)
  */
 #include "knx_internal.h"
-#include "hooch_key_status_dispatch.h"
+#include "hooch_key_status.h"
 #include "hooch_key_name.h"
 static HOOCH_PROTOCOL_KeyNameFrame_t key_name_frame;
+static HOOCH_PROTOCOL_KeyStatusFrame_t key_status_frame;
 /*按键控制处理*/
 void knx_summary_key_control(const KNX_Frame_t *frame)
 {
     const char *item_desc;
-    HOOCH_PROTOCOL_KeyStatusDispatchFrame_t key_status_frame;
+    HOOCH_PROTOCOL_KeyStatusFrame_t key_status_frame;
+    (void)memset(&key_status_frame, 0, sizeof(key_status_frame));
     if ((frame == NULL) || (frame->fun_count < 5U))
     {
         return;
@@ -24,13 +26,18 @@ void knx_summary_key_control(const KNX_Frame_t *frame)
     {
     case 1U: item_desc = KNX_DESC("Switch (P->K)"); break;
     case 2U: item_desc = KNX_DESC("Switch State (K->P)");
-    key_status_frame.key = (HOOCH_PROTOCOL_KeyStatusDispatchKey_t)(frame->fun[1] + 1U);
-    key_status_frame.state = (HOOCH_PROTOCOL_KeyStatusDispatchState_t)frame->data[0];
+    key_status_frame.key = (HOOCH_PROTOCOL_KeyStatusKey_t)(frame->fun[1] + 1U);
+    key_status_frame.state = (HOOCH_PROTOCOL_KeyStatusState_t)frame->data[0];
+    key_status_frame.control_item = HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_STATE;
     break;
     default: break;
     }
-    (void)HOOCH_PROTOCOL_KeyStatusDispatch_SetFrame(&key_status_frame);
-    
+
+    if (key_status_frame.control_item != HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_INVALID)
+    {
+        (void)HOOCH_PROTOCOL_KeyStatus_DispatchFrame(&key_status_frame);
+    }
+
     KNX_SUMMARY_EMIT_INDEXED("Key", frame->fun[1], item_desc, frame);
 }
 
@@ -45,6 +52,7 @@ void knx_summary_key_config(const KNX_Frame_t *frame)
     }
 
     item_desc = KNX_DESC("Unknown Config Item");
+    (void)memset(&key_status_frame, 0, sizeof(key_status_frame));
 
     /* 按键配置项：item -> 功能描述 */
     switch (frame->fun[4])
@@ -66,7 +74,15 @@ void knx_summary_key_config(const KNX_Frame_t *frame)
             key_mode_frame.valid = 1U;
         }
                 HOOCH_PROTOCOL_KeyMode_SetFrame(&key_mode_frame);
-        }  
+        /* 使能位原始位图同步下发 */
+        key_status_frame.key = (HOOCH_PROTOCOL_KeyStatusKey_t)(frame->fun[1] + 1U);
+        key_status_frame.control_item = HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_ENABLE_BIT;
+        key_status_frame.value = frame->data[0];
+        key_status_frame.valid = 1U;
+        need_set = 3U;
+        } 
+        
+        
     break;
     case 2U: item_desc = KNX_DESC("Device Description (K<->P)");
     {
@@ -86,7 +102,20 @@ void knx_summary_key_config(const KNX_Frame_t *frame)
         }
         key_name_frame.content_type = HOOCH_PROTOCOL_KEY_NAME_CONTENT_TYPE_NAME;
         key_name_frame.valid = 1U;
-        need_set = 2U;
+        (void)HOOCH_PROTOCOL_KeyName_SetFrame(&key_name_frame);
+
+        /* 同步通过按键状态接口下发设备描述(24 byte, UTF-8) */
+        key_status_frame.key = (HOOCH_PROTOCOL_KeyStatusKey_t)(frame->fun[1] + 1U);
+        key_status_frame.control_item = HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_DEVICE_DESCRIPTOR;
+        copy_len = (copy_len > sizeof(key_status_frame.device_desc))
+                       ? (uint16_t)sizeof(key_status_frame.device_desc)
+                       : copy_len;
+        if (copy_len > 0U)
+        {
+            (void)memcpy(key_status_frame.device_desc, frame->data, copy_len);
+        }
+        key_status_frame.valid = 1U;
+        need_set = 3U;
     }
     break;
     case 3U: item_desc = KNX_DESC("Default Icon (K<->P)"); 
@@ -128,5 +157,9 @@ void knx_summary_key_config(const KNX_Frame_t *frame)
   {
 (void)HOOCH_PROTOCOL_KeyName_SetFrame(&key_name_frame);
   }
+    if (need_set == 3U)
+    {
+        (void)HOOCH_PROTOCOL_KeyStatus_DispatchFrame(&key_status_frame);
+    }
     KNX_SUMMARY_EMIT_INDEXED("Key", frame->fun[1], item_desc, frame);
 }

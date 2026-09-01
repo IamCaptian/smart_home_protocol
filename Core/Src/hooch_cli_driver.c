@@ -75,6 +75,7 @@ static void cli_cmd_mi_air_frame_addr(int argc, char *argv[]);
 static void cli_cmd_mi_code_switch(int argc, char *argv[]);
 static void cli_cmd_mi_code_page(int argc, char *argv[]);
 static void cli_cmd_mi_scene_report(int argc, char *argv[]);
+static void cli_cmd_mi_scene_report_xiaomi(int argc, char *argv[]);
 static void cli_cmd_mi_light_switch(int argc, char *argv[]);
 static void cli_cmd_mi_light_brightness(int argc, char *argv[]);
 static void cli_cmd_mi_light_color_temp(int argc, char *argv[]);
@@ -94,35 +95,36 @@ static const cli_cmd_t cli_cmd_table[] = {
     {"reboot",  "Soft reset MCU",                    cli_cmd_reboot},       /* Usage: reboot */
     {"reset",   "Reset module to factory",           cli_cmd_reset},        /* Usage: reset */
     {"report",  "Report frame: report cmd data",     cli_cmd_report},       /* Usage: report <cmd_hex> <data_hex> */
-    {"mi_switch", "Dimmer switch: mi_switch key 0|1", cli_cmd_mi_switch},   /* Usage: mi_switch <key> <state> */
-    {"mi_brightness", "Dimmer brightness: mi_brightness key value", cli_cmd_mi_brightness}, /* Usage: mi_brightness <key> <brightness> */
-    {"mi_color_temp", "Dimmer color temp: mi_color_temp key value", cli_cmd_mi_color_temp},  /* Usage: mi_color_temp <key> <color_temp> */
-    {"mi_light_switch", "Light page switch: mi_light_switch page key state", cli_cmd_mi_light_switch}, /* Usage: mi_light_switch <page> <key> <state> */
-    {"mi_light_brightness", "Light page brightness: mi_light_brightness page key value", cli_cmd_mi_light_brightness}, /* Usage: mi_light_brightness <page> <key> <brightness> */
-    {"mi_light_color_temp", "Light page color temp: mi_light_color_temp page key value", cli_cmd_mi_light_color_temp}, /* Usage: mi_light_color_temp <page> <key> <color_temp> */
-    {"mi_curtain_switch", "Curtain switch: mi_curtain_switch key value", cli_cmd_mi_curtain_switch}, /* Usage: mi_curtain_switch <key> <value> */
-    {"mi_curtain_stop", "Curtain stop: mi_curtain_stop key value", cli_cmd_mi_curtain_stop}, /* Usage: mi_curtain_stop <key> <value> */
-    {"mi_curtain_percent", "Curtain percent: mi_curtain_percent key value", cli_cmd_mi_curtain_percent}, /* Usage: mi_curtain_percent <key> <percent> */
-    {"mi_curtain_angle", "Curtain angle: mi_curtain_angle key value", cli_cmd_mi_curtain_angle}, /* Usage: mi_curtain_angle <key> <angle> */
-    {"mi_curtain_switch_page", "Curtain page switch: mi_curtain_switch_page page key state", cli_cmd_mi_curtain_switch_page}, /* Usage: mi_curtain_switch_page <page> <key> <state> */
-    {"mi_curtain_stop_page", "Curtain page stop: mi_curtain_stop_page page key value", cli_cmd_mi_curtain_stop_page}, /* Usage: mi_curtain_stop_page <page> <key> <value> */
-    {"mi_curtain_percent_page", "Curtain page percent: mi_curtain_percent_page page key value", cli_cmd_mi_curtain_percent_page}, /* Usage: mi_curtain_percent_page <page> <key> <percent> */
-    {"mi_curtain_angle_page", "Curtain page angle: mi_curtain_angle_page page key value", cli_cmd_mi_curtain_angle_page}, /* Usage: mi_curtain_angle_page <page> <key> <angle> */
-    {"mi_key_status", "Key status: mi_key_status key 0|1", cli_cmd_mi_key_status}, /* Usage: mi_key_status <key> <state> */
-    {"mi_key_click", "Key click: mi_key_click key event state", cli_cmd_mi_key_click}, /* Usage: mi_key_click <key> <event> <state> */
-    {"mi_setting_report", "Setting report: mi_setting_report event [value]", cli_cmd_mi_setting_report}, /* Usage: mi_setting_report <event> [value] */
-    {"mi_human_presence", "Human presence: mi_human_presence 0|1", cli_cmd_mi_human_presence}, /* Usage: mi_human_presence <state> */
-    {"mi_get_weather", "Get weather: mi_get_weather [value]", cli_cmd_mi_get_weather}, /* Usage: mi_get_weather [value] */
-    {"mi_air_power", "Air power: mi_air_power channel 0|1", cli_cmd_mi_air_power}, /* Usage: mi_air_power <channel> <power> */
-    {"mi_air_mode", "Air mode: mi_air_mode channel mode", cli_cmd_mi_air_mode}, /* Usage: mi_air_mode <channel> <mode> */
-    {"mi_air_fan_speed", "Air fan: mi_air_fan_speed channel speed", cli_cmd_mi_air_fan_speed}, /* Usage: mi_air_fan_speed <channel> <fan_speed> */
-    {"mi_air_temperature", "Air temp: mi_air_temperature channel temp", cli_cmd_mi_air_temperature}, /* Usage: mi_air_temperature <channel> <temperature> */
-    {"mi_air_frame", "Air frame: mi_air_frame channel power mode fan_speed temp", cli_cmd_mi_air_frame}, /* Usage: mi_air_frame <channel> <power> <mode> <fan_speed> <temperature> */
-    {"mi_air_frame_addr", "Air frame(addr): mi_air_frame_addr addr power mode fan_speed temp", cli_cmd_mi_air_frame_addr}, /* Usage: mi_air_frame_addr <address> <power> <mode> <fan_speed> <temperature> */
-    {"mi_code_switch", "Code match switch page: mi_code_switch key mode action", cli_cmd_mi_code_switch}, /* Usage: mi_code_switch <key:1-4> <mode:0=dimmer,1=curtain> <action:0=clear,1=match> */
-    {"mi_code_page", "Code match page: mi_code_page page index action", cli_cmd_mi_code_page}, /* Usage: mi_code_page <page:2=light,3=curtain,4=ac> <index> <action:0=clear,1=match> */
-    {"tuya_scene", "Scene report: tuya_scene key", cli_cmd_mi_scene_report}, /* Usage: tuya_scene <key:1~8> */
-    {"mi_screen_read", "Read screen status: mi_screen_read dp", cli_cmd_mi_screen_read}, /* Usage: mi_screen_read <dp_decimal> */
+    {"mi_scene_report", "Scene report: mi_scene_report page key type", cli_cmd_mi_scene_report_xiaomi}, /* Usage: mi_scene_report <page> <key:1~8> <type:1=click,2=double,3=long> */
+    // {"mi_switch", "Dimmer switch: mi_switch key 0|1", cli_cmd_mi_switch},   /* Usage: mi_switch <key> <state> */
+    // {"mi_brightness", "Dimmer brightness: mi_brightness key value", cli_cmd_mi_brightness}, /* Usage: mi_brightness <key> <brightness> */
+    // {"mi_color_temp", "Dimmer color temp: mi_color_temp key value", cli_cmd_mi_color_temp},  /* Usage: mi_color_temp <key> <color_temp> */
+    // {"mi_light_switch", "Light page switch: mi_light_switch page key state", cli_cmd_mi_light_switch}, /* Usage: mi_light_switch <page> <key> <state> */
+    // {"mi_light_brightness", "Light page brightness: mi_light_brightness page key value", cli_cmd_mi_light_brightness}, /* Usage: mi_light_brightness <page> <key> <brightness> */
+    // {"mi_light_color_temp", "Light page color temp: mi_light_color_temp page key value", cli_cmd_mi_light_color_temp}, /* Usage: mi_light_color_temp <page> <key> <color_temp> */
+    // {"mi_curtain_switch", "Curtain switch: mi_curtain_switch key value", cli_cmd_mi_curtain_switch}, /* Usage: mi_curtain_switch <key> <value> */
+    // {"mi_curtain_stop", "Curtain stop: mi_curtain_stop key value", cli_cmd_mi_curtain_stop}, /* Usage: mi_curtain_stop <key> <value> */
+    // {"mi_curtain_percent", "Curtain percent: mi_curtain_percent key value", cli_cmd_mi_curtain_percent}, /* Usage: mi_curtain_percent <key> <percent> */
+    // {"mi_curtain_angle", "Curtain angle: mi_curtain_angle key value", cli_cmd_mi_curtain_angle}, /* Usage: mi_curtain_angle <key> <angle> */
+    // {"mi_curtain_switch_page", "Curtain page switch: mi_curtain_switch_page page key state", cli_cmd_mi_curtain_switch_page}, /* Usage: mi_curtain_switch_page <page> <key> <state> */
+    // {"mi_curtain_stop_page", "Curtain page stop: mi_curtain_stop_page page key value", cli_cmd_mi_curtain_stop_page}, /* Usage: mi_curtain_stop_page <page> <key> <value> */
+    // {"mi_curtain_percent_page", "Curtain page percent: mi_curtain_percent_page page key value", cli_cmd_mi_curtain_percent_page}, /* Usage: mi_curtain_percent_page <page> <key> <percent> */
+    // {"mi_curtain_angle_page", "Curtain page angle: mi_curtain_angle_page page key value", cli_cmd_mi_curtain_angle_page}, /* Usage: mi_curtain_angle_page <page> <key> <angle> */
+    // {"mi_key_status", "Key status: mi_key_status key 0|1", cli_cmd_mi_key_status}, /* Usage: mi_key_status <key> <state> */
+    // {"mi_key_click", "Key click: mi_key_click key event state", cli_cmd_mi_key_click}, /* Usage: mi_key_click <key> <event> <state> */
+     {"mi_setting_report", "Setting report: mi_setting_report event [value]", cli_cmd_mi_setting_report}, /* Usage: mi_setting_report <event> [value] */
+    // {"mi_human_presence", "Human presence: mi_human_presence 0|1", cli_cmd_mi_human_presence}, /* Usage: mi_human_presence <state> */
+    // {"mi_get_weather", "Get weather: mi_get_weather [value]", cli_cmd_mi_get_weather}, /* Usage: mi_get_weather [value] */
+    // {"mi_air_power", "Air power: mi_air_power channel 0|1", cli_cmd_mi_air_power}, /* Usage: mi_air_power <channel> <power> */
+    // {"mi_air_mode", "Air mode: mi_air_mode channel mode", cli_cmd_mi_air_mode}, /* Usage: mi_air_mode <channel> <mode> */
+    // {"mi_air_fan_speed", "Air fan: mi_air_fan_speed channel speed", cli_cmd_mi_air_fan_speed}, /* Usage: mi_air_fan_speed <channel> <fan_speed> */
+    // {"mi_air_temperature", "Air temp: mi_air_temperature channel temp", cli_cmd_mi_air_temperature}, /* Usage: mi_air_temperature <channel> <temperature> */
+    // {"mi_air_frame", "Air frame: mi_air_frame channel power mode fan_speed temp", cli_cmd_mi_air_frame}, /* Usage: mi_air_frame <channel> <power> <mode> <fan_speed> <temperature> */
+    // {"mi_air_frame_addr", "Air frame(addr): mi_air_frame_addr addr power mode fan_speed temp", cli_cmd_mi_air_frame_addr}, /* Usage: mi_air_frame_addr <address> <power> <mode> <fan_speed> <temperature> */
+    // {"mi_code_switch", "Code match switch page: mi_code_switch key mode action", cli_cmd_mi_code_switch}, /* Usage: mi_code_switch <key:1-4> <mode:0=dimmer,1=curtain> <action:0=clear,1=match> */
+    // {"mi_code_page", "Code match page: mi_code_page page index action", cli_cmd_mi_code_page}, /* Usage: mi_code_page <page:2=light,3=curtain,4=ac> <index> <action:0=clear,1=match> */
+    // {"tuya_scene", "Scene report: tuya_scene key", cli_cmd_mi_scene_report}, /* Usage: tuya_scene <key:1~8> */
+    // {"mi_screen_read", "Read screen status: mi_screen_read dp", cli_cmd_mi_screen_read}, /* Usage: mi_screen_read <dp_decimal> */
 };
 
 /*
@@ -325,7 +327,7 @@ static uint8_t cli_parse_curtain_key(
 
 static uint8_t cli_parse_key_status_key(
     const char *str,
-    HOOCH_PROTOCOL_KeyStatusReportKey_t *key)
+    HOOCH_PROTOCOL_KeyStatusKey_t *key)
 {
     uint8_t key_value;
 
@@ -333,18 +335,18 @@ static uint8_t cli_parse_key_status_key(
         return 0;
     }
 
-    if (key_value < (uint8_t)HOOCH_PROTOCOL_KEY_STATUS_REPORT_KEY_1 ||
-        key_value > HOOCH_PROTOCOL_KEY_STATUS_REPORT_KEY_COUNT) {
+    if (key_value < (uint8_t)HOOCH_PROTOCOL_KEY_STATUS_KEY_1 ||
+        key_value > HOOCH_PROTOCOL_KEY_STATUS_KEY_COUNT) {
         return 0;
     }
 
-    *key = (HOOCH_PROTOCOL_KeyStatusReportKey_t)key_value;
+    *key = (HOOCH_PROTOCOL_KeyStatusKey_t)key_value;
     return 1;
 }
 
 static uint8_t cli_parse_key_status_state(
     const char *str,
-    HOOCH_PROTOCOL_KeyStatusReportState_t *state)
+    HOOCH_PROTOCOL_KeyStatusState_t *state)
 {
     uint8_t state_value;
 
@@ -352,11 +354,11 @@ static uint8_t cli_parse_key_status_state(
         return 0;
     }
 
-    if (state_value > (uint8_t)HOOCH_PROTOCOL_KEY_STATUS_REPORT_STATE_ON) {
+    if (state_value > (uint8_t)HOOCH_PROTOCOL_KEY_STATUS_STATE_ON) {
         return 0;
     }
 
-    *state = (HOOCH_PROTOCOL_KeyStatusReportState_t)state_value;
+    *state = (HOOCH_PROTOCOL_KeyStatusState_t)state_value;
     return 1;
 }
 
@@ -554,14 +556,14 @@ static void cli_print_dimmer_send_result(
 
 static void cli_print_key_status_send_result(
     const char *cmd_name,
-    HOOCH_PROTOCOL_KeyStatusReportResult_t result)
+    HOOCH_PROTOCOL_KeyStatusResult_t result)
 {
     char buf[96];
 
     snprintf(buf, sizeof(buf), "[CLI] %s result: %u\r\n", cmd_name, (unsigned int)result);
     cli_print(buf);
 
-    if (result == HOOCH_PROTOCOL_KEY_STATUS_REPORT_RESULT_OK) {
+    if (result == HOOCH_PROTOCOL_KEY_STATUS_RESULT_OK) {
         LOG_INFO("[CLI] Key status report command sent\r\n");
     } else {
         LOG_ERROR("[CLI] Key status report command failed\r\n");
@@ -995,9 +997,9 @@ static void cli_cmd_mi_curtain_angle(int argc, char *argv[])
 
 static void cli_cmd_mi_key_status(int argc, char *argv[])
 {
-    HOOCH_PROTOCOL_KeyStatusReportKey_t key;
-    HOOCH_PROTOCOL_KeyStatusReportState_t state;
-    HOOCH_PROTOCOL_KeyStatusReportResult_t result;
+    HOOCH_PROTOCOL_KeyStatusKey_t key;
+    HOOCH_PROTOCOL_KeyStatusState_t state;
+    HOOCH_PROTOCOL_KeyStatusResult_t result;
 
     if (argc != 3) {
         cli_print("[CLI] Usage: mi_key_status key state\r\n");
@@ -1015,7 +1017,7 @@ static void cli_cmd_mi_key_status(int argc, char *argv[])
         return;
     }
 
-    result = HOOCH_PROTOCOL_KeyStatusReport_Send(key, state);
+    result = HOOCH_PROTOCOL_KeyStatus_ReportState(key, state);
     cli_print_key_status_send_result("mi_key_status", result);
 }
 
@@ -1668,6 +1670,45 @@ static void cli_cmd_mi_scene_report(int argc, char *argv[])
     key = (HOOCH_PROTOCOL_SceneReportKey_t)key_val;
     result = HOOCH_PROTOCOL_SceneReport_Send(key);
     cli_print_scene_send_result("tuya_scene", result);
+}
+
+static void cli_cmd_mi_scene_report_xiaomi(int argc, char *argv[])
+{
+    HOOCH_PROTOCOL_SceneReportKey_t key;
+    HOOCH_PROTOCOL_SceneReportType_t type;
+    HOOCH_PROTOCOL_SceneReportResult_t result;
+    uint8_t page_val;
+    uint8_t key_val;
+    uint8_t type_val;
+
+    if (argc != 4) {
+        cli_print("[CLI] Usage: mi_scene_report page key type\r\n");
+        cli_print("[CLI] Example: mi_scene_report 1 1 1\r\n");
+        cli_print("[CLI] type: 1=click, 2=double, 3=long\r\n");
+        return;
+    }
+
+    if (!cli_parse_u8_arg(argv[1], &page_val)) {
+        cli_print("[CLI] Invalid page value\r\n");
+        return;
+    }
+
+    if (!cli_parse_u8_arg(argv[2], &key_val) || key_val < 1U || key_val > 8U) {
+        cli_print("[CLI] Invalid key, use 1~8\r\n");
+        return;
+    }
+
+    if (!cli_parse_u8_arg(argv[3], &type_val) ||
+        type_val < (uint8_t)HOOCH_PROTOCOL_SCENE_REPORT_TYPE_SINGLE_CLICK ||
+        type_val > (uint8_t)HOOCH_PROTOCOL_SCENE_REPORT_TYPE_LONG_CLICK) {
+        cli_print("[CLI] Invalid type, use 1=click, 2=double, 3=long\r\n");
+        return;
+    }
+
+    key = (HOOCH_PROTOCOL_SceneReportKey_t)key_val;
+    type = (HOOCH_PROTOCOL_SceneReportType_t)type_val;
+    result = HOOCH_PROTOCOL_SceneReport_SendXiaomi(page_val, key, type);
+    cli_print_scene_send_result("mi_scene_report", result);
 }
 
 static void cli_cmd_mi_screen_read(int argc, char *argv[])

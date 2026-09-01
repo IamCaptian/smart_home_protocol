@@ -39,8 +39,7 @@ xiaomi_f103\hooch_cli_driver.o: ..\Core\hooch_protocol\hooch_key_click_dispatch.
 xiaomi_f103\hooch_cli_driver.o: ..\Core\hooch_protocol\hooch_key_click_report.h
 xiaomi_f103\hooch_cli_driver.o: ..\Core\hooch_protocol\hooch_key_mode.h
 xiaomi_f103\hooch_cli_driver.o: ..\Core\hooch_protocol\hooch_key_name.h
-xiaomi_f103\hooch_cli_driver.o: ..\Core\hooch_protocol\hooch_key_status_dispatch.h
-xiaomi_f103\hooch_cli_driver.o: ..\Core\hooch_protocol\hooch_key_status_report.h
+xiaomi_f103\hooch_cli_driver.o: ..\Core\hooch_protocol\hooch_key_status.h
 xiaomi_f103\hooch_cli_driver.o: ..\Core\hooch_protocol\hooch_page_adjust.h
 xiaomi_f103\hooch_cli_driver.o: ..\Core\hooch_protocol\hooch_scene_dispatch.h
 xiaomi_f103\hooch_cli_driver.o: ..\Core\hooch_protocol\hooch_scene_report.h

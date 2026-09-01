@@ -44,8 +44,7 @@ xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_key_click_report.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_key_mode.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_key_name.h
-xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_key_status_dispatch.h
-xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_key_status_report.h
+xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_key_status.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_page_adjust.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_scene_dispatch.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_scene_report.h

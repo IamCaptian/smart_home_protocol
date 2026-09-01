@@ -168,11 +168,8 @@ static HOOCH_PROTOCOL_FreshAirResult_t HOOCH_PROTOCOL_FreshAir_SetReportFrame(
     s_hooch_protocol_fresh_air_report_frame.sequence = frame->sequence;
     s_hooch_protocol_fresh_air_report_frame.valid = 1U;
 
-    /* 通道非零时通知通道版回调 */
-    if (frame->channel != 0U)
-    {
-        HOOCH_PROTOCOL_FreshAir_NotifyReportCallback();
-    }
+    /* 通知通道版回调 */
+    HOOCH_PROTOCOL_FreshAir_NotifyReportCallback();
 
     /* 地址非零时通知地址版回调 */
     if (frame->address != 0U)

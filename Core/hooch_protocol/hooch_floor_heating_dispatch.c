@@ -137,6 +137,14 @@ static HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SetDispat
             s_hooch_protocol_floor_heating_dispatch_frame.value = frame->value;
             break;
 
+        case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TEMP_MIN:
+            s_hooch_protocol_floor_heating_dispatch_frame.value = frame->value;
+            break;
+
+        case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TEMP_MAX:
+            s_hooch_protocol_floor_heating_dispatch_frame.value = frame->value;
+            break;
+
         default:
             return HOOCH_PROTOCOL_FLOOR_HEATING_RESULT_INVALID_PARAM;
     }

@@ -44,6 +44,8 @@ typedef enum
     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_DEFAULT_ICON,         /* 默认图标 */
     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_SELECTED_ICON,        /* 选中图标 */
     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TEMP_STEP,            /* 温度设置步进 */
+    HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TEMP_MIN,             /* 最小设置温度 (预留)*/
+    HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TEMP_MAX,             /* 最大设置温度(预留) */
     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_ALL_TUYA,             /* 全量控制涂鸦 */
     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_ALL_XIAOMI,           /* 全量控制小米 */
     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_ALL_KNX,              /* 全量控制KNX */
@@ -139,7 +141,7 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendMode(
     uint8_t channel,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode);
 
-/* 单独上报地暖目标温度（通道） */
+/* 单独上报地暖目标温度（通道） 废弃*/
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendTargetTemperature(
     uint8_t channel,
     uint8_t target_temperature);

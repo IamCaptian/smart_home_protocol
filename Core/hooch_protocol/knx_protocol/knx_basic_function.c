@@ -102,9 +102,9 @@ void knx_summary_basic_function(const KNX_Frame_t *frame)
             HOOCH_PROTOCOL_SettingFrame_t setting_frame;
             knx_setting_frame_reset(&setting_frame);
             setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_MODULE_TYPE;
-            setting_frame.value = knx_read_be_u16(frame->data);
+            setting_frame.value = knx_read_be_u16(frame->data); 
             (void)HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
-        }
+        } 
         break;
 
     case KNX_BASIC_FUNCTION_UNIQUE_SERIAL:

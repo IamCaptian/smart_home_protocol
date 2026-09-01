@@ -401,6 +401,21 @@ uint8_t knx_send_air_conditioner_config_u16(uint8_t device_no,
                                             KNX_AirConfigItem_t item,
                                             uint16_t value);
 
+/* 地暖控制便捷接口。1字节型字段：开关/手动自动。 */
+uint8_t knx_send_floor_heating_control_u8(uint8_t device_no,
+                                          KNX_FloorHeatingItem_t item,
+                                          uint8_t value);
+
+/* 地暖控制便捷接口。2字节大端字段：设定温度/实际温度。 */
+uint8_t knx_send_floor_heating_control_u16(uint8_t device_no,
+                                           KNX_FloorHeatingItem_t item,
+                                           uint16_t value);
+
+/* 新风控制便捷接口。1字节型字段：开关/风速模式。 */
+uint8_t knx_send_fresh_air_control_u8(uint8_t device_no,
+                                      KNX_FreshAirItem_t item,
+                                      uint8_t value);
+
 /* 调光控制便捷接口。 */
 uint8_t knx_send_dimming_control_u8(uint8_t device_no,
                                     KNX_DimmingItem_t item,

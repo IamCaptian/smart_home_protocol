@@ -228,29 +228,31 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
             xiaoni_smart_screen_switch_control_update(frame->data[3]);
 
             /* 逐键分发，通知其他协议层（BLE/KNX等）开关状态变化 */
-            HOOCH_PROTOCOL_KeyStatusDispatchFrame_t key_status_frame;
+            HOOCH_PROTOCOL_KeyStatusFrame_t key_status_frame;
             key_status_frame.sequence = 0U;
             key_status_frame.valid = 0U;
-            key_status_frame.key = HOOCH_PROTOCOL_KEY_STATUS_DISPATCH_KEY_1;
+            key_status_frame.control_item = HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_STATE;
+            key_status_frame.value = 0U;
+            key_status_frame.key = HOOCH_PROTOCOL_KEY_STATUS_KEY_1;
             key_status_frame.state = ((frame->data[3] & 0x01U) != 0U)
-                ? HOOCH_PROTOCOL_KEY_STATUS_DISPATCH_STATE_PRESSED
-                : HOOCH_PROTOCOL_KEY_STATUS_DISPATCH_STATE_RELEASED;
-            HOOCH_PROTOCOL_KeyStatusDispatch_SetFrame(&key_status_frame);
-            key_status_frame.key = HOOCH_PROTOCOL_KEY_STATUS_DISPATCH_KEY_2;
+                ? HOOCH_PROTOCOL_KEY_STATUS_STATE_ON
+                : HOOCH_PROTOCOL_KEY_STATUS_STATE_OFF;
+            HOOCH_PROTOCOL_KeyStatus_DispatchFrame(&key_status_frame);
+            key_status_frame.key = HOOCH_PROTOCOL_KEY_STATUS_KEY_2;
             key_status_frame.state = ((frame->data[3] & 0x02U) != 0U)
-                ? HOOCH_PROTOCOL_KEY_STATUS_DISPATCH_STATE_PRESSED
-                : HOOCH_PROTOCOL_KEY_STATUS_DISPATCH_STATE_RELEASED;
-            HOOCH_PROTOCOL_KeyStatusDispatch_SetFrame(&key_status_frame);
-            key_status_frame.key = HOOCH_PROTOCOL_KEY_STATUS_DISPATCH_KEY_3;
+                ? HOOCH_PROTOCOL_KEY_STATUS_STATE_ON
+                : HOOCH_PROTOCOL_KEY_STATUS_STATE_OFF;
+            HOOCH_PROTOCOL_KeyStatus_DispatchFrame(&key_status_frame);
+            key_status_frame.key = HOOCH_PROTOCOL_KEY_STATUS_KEY_3;
             key_status_frame.state = ((frame->data[3] & 0x04U) != 0U)
-                ? HOOCH_PROTOCOL_KEY_STATUS_DISPATCH_STATE_PRESSED
-                : HOOCH_PROTOCOL_KEY_STATUS_DISPATCH_STATE_RELEASED;
-            HOOCH_PROTOCOL_KeyStatusDispatch_SetFrame(&key_status_frame);
-            key_status_frame.key = HOOCH_PROTOCOL_KEY_STATUS_DISPATCH_KEY_4;
+                ? HOOCH_PROTOCOL_KEY_STATUS_STATE_ON
+                : HOOCH_PROTOCOL_KEY_STATUS_STATE_OFF;
+            HOOCH_PROTOCOL_KeyStatus_DispatchFrame(&key_status_frame);
+            key_status_frame.key = HOOCH_PROTOCOL_KEY_STATUS_KEY_4;
             key_status_frame.state = ((frame->data[3] & 0x08U) != 0U)
-                ? HOOCH_PROTOCOL_KEY_STATUS_DISPATCH_STATE_PRESSED
-                : HOOCH_PROTOCOL_KEY_STATUS_DISPATCH_STATE_RELEASED;
-            HOOCH_PROTOCOL_KeyStatusDispatch_SetFrame(&key_status_frame);
+                ? HOOCH_PROTOCOL_KEY_STATUS_STATE_ON
+                : HOOCH_PROTOCOL_KEY_STATUS_STATE_OFF;
+            HOOCH_PROTOCOL_KeyStatus_DispatchFrame(&key_status_frame);
 
             break;
         }
@@ -559,41 +561,33 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
         case XIAOMI_SMART_SCREEN_SUBCMD_AVAILABLE_PAGE:
         {
             /*
-            0000 0000 记忆页面
-            0bit 开关页面
-            1bit 场景页面
-            2bit 灯光页面
-            3bit 窗帘页面
-            4bit 本地情景页面
+            Byte[0]: 默认页面 (0-7)
+            0: 默认不锁定页面（记忆）
+            1: 默认开关页面
+            2: 默认情景页面
+            3: 灯光
+            4: 窗帘
+            5: 空调
+            6: 新风
+            7: 地暖
             */
-            uint8_t page_bits;
+            static const HOOCH_PROTOCOL_SettingPage_t page_map[8] = {
+                HOOCH_PROTOCOL_SETTING_PAGE_MEMORY,          /* 0: 记忆 */
+                HOOCH_PROTOCOL_SETTING_PAGE_SWITCH,          /* 1: 开关 */
+                HOOCH_PROTOCOL_SETTING_PAGE_SCENE,           /* 2: 情景 */
+                HOOCH_PROTOCOL_SETTING_PAGE_LIGHT,           /* 3: 灯光 */
+                HOOCH_PROTOCOL_SETTING_PAGE_CURTAIN,         /* 4: 窗帘 */
+                HOOCH_PROTOCOL_SETTING_PAGE_AIR_CONDITIONER, /* 5: 空调 */
+                HOOCH_PROTOCOL_SETTING_PAGE_FRESH_AIR,       /* 6: 新风 */
+                HOOCH_PROTOCOL_SETTING_PAGE_FLOOR_HEATING,   /* 7: 地暖 */
+            };
+            uint8_t page_val;
             HOOCH_PROTOCOL_SettingFrame_t setting_frame;
-            page_bits = frame->data[3];
+            page_val = frame->data[3];
             xiaomi_smart_screen_setting_frame_reset(&setting_frame);
-           
+
             setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_DEFAULT_MAIN_PAGE;
-            if ((page_bits & 0x01U) != 0U)
-            {
-                setting_frame.page = HOOCH_PROTOCOL_SETTING_PAGE_SWITCH;
-            }
-            else if ((page_bits & 0x02U) != 0U)
-            {
-                setting_frame.page = HOOCH_PROTOCOL_SETTING_PAGE_SCENE;
-            }
-            else if ((page_bits & 0x04U) != 0U)
-            {
-                setting_frame.page = HOOCH_PROTOCOL_SETTING_PAGE_LIGHT;
-            }
-            else if ((page_bits & 0x08U) != 0U)
-            {
-                setting_frame.page = HOOCH_PROTOCOL_SETTING_PAGE_CURTAIN;
-            }
-            else if ((page_bits & 0x10U) != 0U)
-            {
-                setting_frame.page = HOOCH_PROTOCOL_SETTING_PAGE_LOCAL_SCENE;
-            }
-
-
+            setting_frame.page = (page_val < 8U) ? page_map[page_val] : HOOCH_PROTOCOL_SETTING_PAGE_INVALID;
 
             HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
 
@@ -734,8 +728,39 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
         }
 
         case XIAOMI_SMART_SCREEN_SUBCMD_AC_NAME_INFO:
+        {
+            HOOCH_PROTOCOL_AirConditionerFrame_t air_conditioner_frame;
+            uint16_t name_len;
+            uint16_t copy_len;
+
+            if (frame->data_len < 5U)
+            {
+                XIAOMI_SMART_SCREEN_LOG_WARN("[CUSTOM] AC_NAME_INFO invalid data len: %u\r\n", (unsigned int)frame->data_len);
+                break;
+            }
+
+            (void)memset(&air_conditioner_frame, 0, sizeof(air_conditioner_frame));
+            air_conditioner_frame.channel = frame->data[3];
+            air_conditioner_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_DEVICE_DESC;
+
+            name_len = (uint16_t)(frame->data_len - 5U);
+            copy_len = name_len;
+            if (copy_len > (sizeof(air_conditioner_frame.device_desc) - 1U))
+            {
+                copy_len = (uint16_t)(sizeof(air_conditioner_frame.device_desc) - 1U);
+            }
+ 
+            if (copy_len > 0U)
+            {
+                memcpy(air_conditioner_frame.device_desc, &frame->data[5], copy_len);
+            }
+            air_conditioner_frame.device_desc[copy_len] = '\0';
+
+            (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&air_conditioner_frame);
+
             XIAOMI_SMART_SCREEN_LOG_INFO("[CUSTOM] AC_NAME_INFO received\r\n");
             break;
+        }
 
         case XIAOMI_SMART_SCREEN_SUBCMD_FRESH_AIR_NAME_INFO:
             XIAOMI_SMART_SCREEN_LOG_INFO("[CUSTOM] FRESH_AIR_NAME_INFO received\r\n");

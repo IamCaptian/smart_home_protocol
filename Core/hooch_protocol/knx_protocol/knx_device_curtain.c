@@ -128,6 +128,19 @@ void knx_summary_curtain_config(const KNX_Frame_t *frame)
         key_name_frame.valid = 1U;
     (void)HOOCH_PROTOCOL_KeyName_SetFrame(&key_name_frame);
         need_set = 2U;
+
+        /* 同步通过窗帘接口下发设备描述(24 byte, UTF-8) */
+        curtain_frame.key = (HOOCH_PROTOCOL_CurtainKey_t)(frame->fun[1] + 1U);
+        curtain_frame.control_item = HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_DEVICE_DESCRIPTOR;
+        copy_len = (copy_len > sizeof(curtain_frame.device_desc))
+                       ? (uint16_t)sizeof(curtain_frame.device_desc)
+                       : copy_len;
+        if (copy_len > 0U)
+        {
+            (void)memcpy(curtain_frame.device_desc, frame->data, copy_len);
+        }
+        curtain_frame.valid = 1U;
+        need_set = 3U;
     }
     break;
 
