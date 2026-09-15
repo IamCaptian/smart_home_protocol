@@ -198,6 +198,9 @@ void knx_summary_fresh_air_config(const KNX_Frame_t *frame)
             setting_frame.value = HOOCH_PROTOCOL_SETTING_PAGE_FRESH_AIR;
             setting_frame.page = HOOCH_PROTOCOL_SETTING_PAGE_FRESH_AIR;
         }
+        /* 使能位原始位图同步下发(bit0:使能 bit1:开关 bit2:模式 bit3:风速 bit4:当前温度) */
+        fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ENABLE_BIT;
+        fresh_air_frame.value = frame->data[0];
         need_set = 1U;
     }
     break;
@@ -230,6 +233,7 @@ void knx_summary_fresh_air_config(const KNX_Frame_t *frame)
     if (need_set == 1U)
     {
         (void)HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
+        (void)HOOCH_PROTOCOL_FreshAir_DispatchFrame(&fresh_air_frame);
     }
     else if (need_set == 2U)
     {

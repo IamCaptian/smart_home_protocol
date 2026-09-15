@@ -61,6 +61,7 @@ void HOOCH_SceneReport_Init(void)
 void HOOCH_PROTOCOL_SceneReport_Clear(void)
 {
     s_hooch_protocol_scene_report_frame.key = HOOCH_PROTOCOL_SCENE_REPORT_KEY_INVALID;
+    s_hooch_protocol_scene_report_frame.action = HOOCH_PROTOCOL_SCENE_REPORT_ACTION_TRIGGER;
     s_hooch_protocol_scene_report_frame.type = HOOCH_PROTOCOL_SCENE_REPORT_TYPE_INVALID;
     s_hooch_protocol_scene_report_frame.page = 0U;
     s_hooch_protocol_scene_report_frame.address = 0U;
@@ -71,7 +72,7 @@ void HOOCH_PROTOCOL_SceneReport_Clear(void)
 uint8_t HOOCH_PROTOCOL_SceneReport_IsValidKey(HOOCH_PROTOCOL_SceneReportKey_t key)
 {
     return (uint8_t)((key >= HOOCH_PROTOCOL_SCENE_REPORT_KEY_1) &&
-                     (key <= HOOCH_PROTOCOL_SCENE_REPORT_KEY_8));
+                     (key <= HOOCH_PROTOCOL_SCENE_REPORT_KEY_16));
 }
 
 uint8_t HOOCH_PROTOCOL_SceneReport_IsValidType(HOOCH_PROTOCOL_SceneReportType_t type)
@@ -80,8 +81,10 @@ uint8_t HOOCH_PROTOCOL_SceneReport_IsValidType(HOOCH_PROTOCOL_SceneReportType_t 
                      (type <= HOOCH_PROTOCOL_SCENE_REPORT_TYPE_LONG_CLICK));
 }
 
-HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_Set(
-    HOOCH_PROTOCOL_SceneReportKey_t key)
+/* 按动作上报场景（类型1：仅key），触发/学习共用。 */
+static HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_SetAction(
+    HOOCH_PROTOCOL_SceneReportKey_t key,
+    HOOCH_PROTOCOL_SceneReportAction_t action)
 {
     if (HOOCH_PROTOCOL_SceneReport_IsValidKey(key) == 0U)
     {
@@ -89,11 +92,18 @@ HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_Set(
     }
 
     s_hooch_protocol_scene_report_frame.key = key;
+    s_hooch_protocol_scene_report_frame.action = action;
     s_hooch_protocol_scene_report_frame.sequence++;
     s_hooch_protocol_scene_report_frame.valid = 1U;
     HOOCH_PROTOCOL_SceneReport_NotifyCallback();
     HOOCH_PROTOCOL_SceneReport_NotifyReportCallback1();
     return HOOCH_PROTOCOL_SCENE_REPORT_RESULT_OK;
+}
+
+HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_Set(
+    HOOCH_PROTOCOL_SceneReportKey_t key)
+{
+    return HOOCH_PROTOCOL_SceneReport_SetAction(key, HOOCH_PROTOCOL_SCENE_REPORT_ACTION_TRIGGER);
 }
 
 
@@ -179,6 +189,12 @@ HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_Send(
     HOOCH_PROTOCOL_SceneReportKey_t key)
 {
     return HOOCH_PROTOCOL_SceneReport_Set(key);
+}
+
+HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_SendLearn(
+    HOOCH_PROTOCOL_SceneReportKey_t key)
+{
+    return HOOCH_PROTOCOL_SceneReport_SetAction(key, HOOCH_PROTOCOL_SCENE_REPORT_ACTION_LEARN);
 }
 
 /* ======================== 类型2 上报：页面+key ======================== */

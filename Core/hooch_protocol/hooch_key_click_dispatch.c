@@ -50,7 +50,7 @@ void HOOCH_PROTOCOL_KeyClickDispatch_Clear(void)
 uint8_t HOOCH_PROTOCOL_KeyClickDispatch_IsValidKey(HOOCH_PROTOCOL_KeyClickDispatchKey_t key)
 {
     return (uint8_t)((key >= HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_1) &&
-                     (key <= HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_8));
+                     (key <= HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_16));
 }
 
 HOOCH_PROTOCOL_KeyClickDispatchResult_t HOOCH_PROTOCOL_KeyClickDispatch_Set(

@@ -76,11 +76,11 @@ const DOWNLOAD_CMD_S download_cmd[] =
   {DPID_FAN_SPEED_ENUM, DP_TYPE_ENUM},
   {DPID_MODE, DP_TYPE_ENUM},
   {DPID_TEMP_SET, DP_TYPE_VALUE},
-  {DPID_SWITCH, DP_TYPE_BOOL},
+  {DPID_AIR_SWITCH, DP_TYPE_BOOL},
   {DPID_LOOP_MODE, DP_TYPE_ENUM},
   {DPID_SUPPLY_FAN_SPEED, DP_TYPE_ENUM},
   {DPID_EXHAUST_FAN_SPEED, DP_TYPE_ENUM},
-  {DPID_FRESH_AIR_VALVE, DP_TYPE_BOOL},
+  {DPID_FRESH_AIR_SWITCH, DP_TYPE_BOOL},
   {DPID_PIR_STATE, DP_TYPE_ENUM},
   {DPID_FLOOR_SW, DP_TYPE_BOOL},
   {DPID_FLOOR_TEMP, DP_TYPE_VALUE},
@@ -237,11 +237,11 @@ static const char *tuya_get_dp_name(unsigned char dp_id)
         case DPID_FAN_SPEED_ENUM:    return "FAN_SPEED_ENUM";
         case DPID_MODE:              return "MODE";
         case DPID_TEMP_SET:          return "TEMP_SET";
-        case DPID_SWITCH:            return "SWITCH";
+        case DPID_AIR_SWITCH:       return "AIR_SWITCH";
         case DPID_LOOP_MODE:         return "LOOP_MODE";
         case DPID_SUPPLY_FAN_SPEED:  return "SUPPLY_FAN_SPEED";
         case DPID_EXHAUST_FAN_SPEED: return "EXHAUST_FAN_SPEED";
-        case DPID_FRESH_AIR_VALVE:   return "FRESH_AIR_VALVE";
+        case DPID_FRESH_AIR_SWITCH:  return "FRESH_AIR_SWITCH";
         case DPID_PIR_STATE:         return "PIR_STATE";
         case DPID_FLOOR_SW:          return "FLOOR_SW";
         case DPID_FLOOR_TEMP:        return "FLOOR_TEMP";
@@ -2756,7 +2756,7 @@ static unsigned char dp_download_switch_handle(const unsigned char value[], unsi
     
     switch_1 = mcu_get_dp_download_bool(value,length);
 #if TUYA_LOG_ENABLE
-    TUYA_LOG_INFO("[Tuya] DP_HANDLE_RESULT: %s val=%u\r\n", "SWITCH", switch_1);
+    TUYA_LOG_INFO("[Tuya] DP_HANDLE_RESULT: %s val=%u\r\n", "AIR_SWITCH", switch_1);
 #endif
     if(switch_1 == 0) {
         //bool off
@@ -2765,7 +2765,7 @@ static unsigned char dp_download_switch_handle(const unsigned char value[], unsi
     }
   
     //There should be a report after processing the DP
-    ret = mcu_dp_bool_update(DPID_SWITCH,switch_1);
+    ret = mcu_dp_bool_update(DPID_AIR_SWITCH,switch_1);
     if(ret == SUCCESS)
         return SUCCESS;
     else
@@ -2898,32 +2898,32 @@ static unsigned char dp_download_exhaust_fan_speed_handle(const unsigned char va
         return ERROR;
 }
 /*****************************************************************************
-函数名称 : dp_download_fresh_air_valve_handle
-功能描述 : 针对DPID_FRESH_AIR_VALVE的处理函数
+函数名称 : dp_download_fresh_air_switch_handle
+功能描述 : 针对DPID_FRESH_AIR_SWITCH的处理函数
 输入参数 : value:数据源数据
         : length:数据长度
 返回参数 : 成功返回:SUCCESS/失败返回:ERROR
 使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
 *****************************************************************************/
-static unsigned char dp_download_fresh_air_valve_handle(const unsigned char value[], unsigned short length)
+static unsigned char dp_download_fresh_air_switch_handle(const unsigned char value[], unsigned short length)
 {
     //示例:当前DP类型为BOOL
     unsigned char ret;
     //0:off/1:on
-    unsigned char fresh_air_valve;
+    unsigned char fresh_air_switch;
     
-    fresh_air_valve = mcu_get_dp_download_bool(value,length);
+    fresh_air_switch = mcu_get_dp_download_bool(value,length);
 #if TUYA_LOG_ENABLE
-    TUYA_LOG_INFO("[Tuya] DP_HANDLE_RESULT: %s val=%u\r\n", "FRESH_AIR_VALVE", fresh_air_valve);
+    TUYA_LOG_INFO("[Tuya] DP_HANDLE_RESULT: %s val=%u\r\n", "FRESH_AIR_SWITCH", fresh_air_switch);
 #endif
-    if(fresh_air_valve == 0) {
+    if(fresh_air_switch == 0) {
         //bool off
     }else {
         //bool on
     }
   
     //There should be a report after processing the DP
-    ret = mcu_dp_bool_update(DPID_FRESH_AIR_VALVE,fresh_air_valve);
+    ret = mcu_dp_bool_update(DPID_FRESH_AIR_SWITCH,fresh_air_switch);
     if(ret == SUCCESS)
         return SUCCESS;
     else
@@ -3637,8 +3637,8 @@ static unsigned char dp_msg_handle(unsigned char dp_id, const unsigned char *val
             //温度设置处理函数
             ret = dp_download_temp_set_handle(value,length);
         break;
-        case DPID_SWITCH:
-            //开关处理函数
+        case DPID_AIR_SWITCH:
+            //空调开关处理函数
             ret = dp_download_switch_handle(value,length);
         break;
         case DPID_LOOP_MODE:
@@ -3653,9 +3653,9 @@ static unsigned char dp_msg_handle(unsigned char dp_id, const unsigned char *val
             //排风风速处理函数
             ret = dp_download_exhaust_fan_speed_handle(value,length);
         break;
-        case DPID_FRESH_AIR_VALVE:
-            //新风阀处理函数
-            ret = dp_download_fresh_air_valve_handle(value,length);
+        case DPID_FRESH_AIR_SWITCH:
+            //新风开关处理函数
+            ret = dp_download_fresh_air_switch_handle(value,length);
         break;
         case DPID_FLOOR_SW:
             //地暖开关处理函数
@@ -3770,9 +3770,9 @@ static unsigned char dp_msg_handle(unsigned char dp_id, const unsigned char *val
  * Usually, it refers to the switch type DP, such as switches, 
  * ECO and display screens.
  * ex: 
- * If the user has a switch-type DP with a DPID of DPID_SWITCH, 
+ * If the user has a switch-type DP with a DPID of DPID_AIR_SWITCH, 
  * this DP has only two values, 0 and 1. 0 means off and 1 means on.
- * 'mcu_dp_bool_update(DPID_SWITCH, 1)' // this means to report the switch DP with value "1" (ON).
+ * 'mcu_dp_bool_update(DPID_AIR_SWITCH, 1)' // this means to report the switch DP with value "1" (ON).
  * --------------------------------------------------------
  * 
  * enum DP:

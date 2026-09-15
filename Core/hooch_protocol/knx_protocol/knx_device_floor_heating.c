@@ -67,7 +67,7 @@ void knx_summary_floor_heating_control(const KNX_Frame_t *frame)
             if (frame->data_len >= 2U)
             {
                 /* 温度值为 0~500，实际温度 = value * 0.1℃ */
-                floor_heating_frame.target_temperature = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+                floor_heating_frame.target_temperature = knx_read_be_u16(frame->data);
                 floor_heating_frame.control_item =
                     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TARGET_TEMPERATURE;
                 need_set = 1U;
@@ -79,7 +79,7 @@ void knx_summary_floor_heating_control(const KNX_Frame_t *frame)
             if (frame->data_len >= 2U)
             {
                 /* 温度值为 0~500，实际温度 = value * 0.1℃ */
-                floor_heating_frame.target_temperature = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+                floor_heating_frame.target_temperature = knx_read_be_u16(frame->data);
                 floor_heating_frame.control_item =
                     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TARGET_TEMPERATURE;
                 need_set = 1U;
@@ -91,7 +91,7 @@ void knx_summary_floor_heating_control(const KNX_Frame_t *frame)
             if (frame->data_len >= 2U)
             {
                 /* 温度值为 0~500，实际温度 = value * 0.1℃ */
-                floor_heating_frame.current_temperature = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+                floor_heating_frame.current_temperature = knx_read_be_u16(frame->data);
                 floor_heating_frame.control_item =
                     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_CURRENT_TEMPERATURE;
                 need_set = 1U;
@@ -175,6 +175,9 @@ void knx_summary_floor_heating_config(const KNX_Frame_t *frame)
             setting_frame.value = HOOCH_PROTOCOL_SETTING_PAGE_FLOOR_HEATING;
             setting_frame.page = HOOCH_PROTOCOL_SETTING_PAGE_FLOOR_HEATING;
         }
+        /* 使能位原始位图同步下发(bit0:使能 bit1:开关 bit2:模式 bit3:目标温度 bit4:当前温度) */
+        floor_heating_frame.control_item = HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_ENABLE_BIT;
+        floor_heating_frame.value = frame->data[0];
         need_set = 1U;
     }
     break;
@@ -213,10 +216,10 @@ void knx_summary_floor_heating_config(const KNX_Frame_t *frame)
         if (frame->data_len >= 2U)
         {
             /* 温度值为 0~500，实际温度 = value * 0.1℃ */
-            setting_frame.value = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+            setting_frame.value = knx_read_be_u16(frame->data);
 
             floor_heating_frame.control_item = HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TEMP_MIN;
-            floor_heating_frame.value = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+            floor_heating_frame.value = knx_read_be_u16(frame->data);
         }
         need_set = 3U;
         break;
@@ -227,10 +230,10 @@ void knx_summary_floor_heating_config(const KNX_Frame_t *frame)
         if (frame->data_len >= 2U)
         {
             /* 温度值为 0~500，实际温度 = value * 0.1℃ */
-            setting_frame.value = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+            setting_frame.value = knx_read_be_u16(frame->data);
 
             floor_heating_frame.control_item = HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TEMP_MAX;
-            floor_heating_frame.value = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+            floor_heating_frame.value = knx_read_be_u16(frame->data);
         }
         need_set = 3U;
         break;
@@ -242,6 +245,7 @@ void knx_summary_floor_heating_config(const KNX_Frame_t *frame)
     if (need_set == 1U)
     {
         (void)HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
+        (void)HOOCH_PROTOCOL_FloorHeating_DispatchFrame(&floor_heating_frame);
     }
     else if (need_set == 2U)
     {

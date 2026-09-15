@@ -81,6 +81,12 @@ static HOOCH_PROTOCOL_SceneDispatchResult_t HOOCH_PROTOCOL_SceneDispatch_SetFram
             s_hooch_protocol_scene_dispatch_frame.scene = frame->scene;
             break;
 
+        case HOOCH_PROTOCOL_SCENE_DISPATCH_CONTROL_ITEM_ENABLE_BIT:
+            /* 使能位原始位图(bit0:使能 bit1:场景) */
+            s_hooch_protocol_scene_dispatch_frame.scene = frame->scene;
+            s_hooch_protocol_scene_dispatch_frame.value = frame->value;
+            break;
+
         case HOOCH_PROTOCOL_SCENE_DISPATCH_CONTROL_ITEM_DEVICE_DESC:
             (void)memcpy(s_hooch_protocol_scene_dispatch_frame.device_desc,
                          frame->device_desc,
@@ -92,6 +98,12 @@ static HOOCH_PROTOCOL_SceneDispatchResult_t HOOCH_PROTOCOL_SceneDispatch_SetFram
             break;
 
         case HOOCH_PROTOCOL_SCENE_DISPATCH_CONTROL_ITEM_SELECTED_ICON:
+            s_hooch_protocol_scene_dispatch_frame.value = frame->value;
+            break;
+
+        case HOOCH_PROTOCOL_SCENE_DISPATCH_CONTROL_ITEM_LEARN:
+            /* 学习模式：value=1 表示触发学习 */
+            s_hooch_protocol_scene_dispatch_frame.scene = frame->scene;
             s_hooch_protocol_scene_dispatch_frame.value = frame->value;
             break;
 

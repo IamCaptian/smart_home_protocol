@@ -12,7 +12,9 @@ static HOOCH_PROTOCOL_FloorHeatingCallback_t s_hooch_protocol_floor_heating_repo
 /* 校验地暖温度是否在当前模块支持的范围内。 */
 static uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(uint8_t temperature)
 {
-    return (uint8_t)(temperature <= 60U);
+    /* 温度限制暂时屏蔽，直接放行 */
+    (void)temperature;
+    return 1U;
 }
 
 /* 有上报回调注册时，把最新数据通知出去。 */

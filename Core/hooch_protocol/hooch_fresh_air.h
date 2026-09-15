@@ -52,6 +52,7 @@ typedef enum
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_MODE,               /* 仅控制模式 */
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_FAN_SPEED,          /* 仅控制风速 */
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_CURRENT_TEMPERATURE,/* 当前温度（实际室温） */
+    HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ENABLE_BIT,         /* 仅更新使能位(1 byte 位图, bit0:使能 bit1:开关 bit2:模式 bit3:风速 bit4:当前温度) */
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_DEVICE_DESC,        /* 设备描述字符串 */
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_DEFAULT_ICON,       /* 默认图标 */
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_SELECTED_ICON,      /* 选中图标 */

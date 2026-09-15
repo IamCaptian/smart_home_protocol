@@ -43,7 +43,7 @@ void HOOCH_PROTOCOL_KeyClickReport_Clear(void)
 uint8_t HOOCH_PROTOCOL_KeyClickReport_IsValidKey(HOOCH_PROTOCOL_KeyClickReportKey_t key)
 {
     return (uint8_t)((key >= HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_1) &&
-                     (key <= HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_8));
+                     (key <= HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_16));
 }
 
 HOOCH_PROTOCOL_KeyClickReportResult_t HOOCH_PROTOCOL_KeyClickReport_Set(

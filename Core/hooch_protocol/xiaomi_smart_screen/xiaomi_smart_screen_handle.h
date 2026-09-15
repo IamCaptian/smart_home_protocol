@@ -3,6 +3,7 @@
 
 #include "xiaomi_smart_screen_circular_bufferc.h"
 #include "user_printf.h"
+#include "hooch_setting.h"
 
 /*主命令*/
 typedef enum
@@ -177,52 +178,9 @@ typedef enum
 } xiaomi_screen_off_mode_t;
 
 /*天气码*/
-typedef enum
-{
-    WEA_SUNNY = 0,                        /*晴*/
-    WEA_CLOUDY = 1,                       /*多云*/
-    WEA_OVERCAST = 2,                     /*阴*/
-    WEA_SHOWER = 3,                       /*阵雨*/
-    WEA_THUNDERSHOWER = 4,                /*雷阵雨*/
-    WEA_THUNDERSHOWER_WITH_HAIL = 5,      /*雷阵雨伴有冰雹*/
-    WEA_SLEET = 6,                        /*雨夹雪*/
-    WEA_LIGHT_RAIN = 7,                   /*小雨*/
-    WEA_MODERATE_RAIN = 8,                /*中雨*/
-    WEA_HEAVY_RAIN = 9,                   /*大雨*/
-    WEA_STORM = 10,                       /*暴雨*/
-    WEA_HEAVY_STORM = 11,                 /*大暴雨*/
-    WEA_SEVERE_STORM = 12,                /*特大暴雨*/
-    WEA_SNOW_FLURRY = 13,                 /*阵雪*/
-    WEA_LIGHT_SNOW = 14,                  /*小雪*/
-    WEA_MODERATE_SNOW = 15,               /*中雪*/
-    WEA_HEAVY_SNOW = 16,                  /*大雪*/
-    WEA_SNOWSTORM = 17,                   /*暴雪*/
-    WEA_FOGGY = 18,                       /*雾*/
-    WEA_ICE_RAIN = 19,                    /*冻雨*/
-    WEA_DUSTSTORM = 20,                   /*沙尘暴*/
-    WEA_LIGHT_TO_MODERATE_RAIN = 21,      /*小到中雨*/
-    WEA_MODERATE_TO_HEAVY_RAIN = 22,      /*中到大雨*/
-    WEA_HEAVY_RAIN_TO_STORM = 23,         /*大到暴雨*/
-    WEA_STORM_TO_HEAVY_STORM = 24,        /*暴雨到大暴雨*/
-    WEA_HEAVY_TO_SEVERE_STORM = 25,       /*大暴雨到特大暴雨*/
-    WEA_LIGHT_TO_MODERATE_SNOW = 26,      /*小到中雪*/
-    WEA_MODERATE_TO_HEAVY_SNOW = 27,      /*中到大雪*/
-    WEA_HEAVY_SNOW_TO_SNOWSTORM = 28,     /*大到暴雪*/
-    WEA_DUST = 29,                        /*浮尘*/
-    WEA_SAND = 30,                        /*扬沙*/
-    WEA_SANDSTORM = 31,                   /*强沙尘暴*/
-    WEA_DENSE_FOGGY = 32,                 /*浓雾*/
-    WEA_SNOW = 33,                        /*雪*/
-    WEA_HEAVY_DENSE_FOG = 49,             /*强浓雾*/
-    WEA_HAZE = 53,                        /*霾*/
-    WEA_MODERATE_HAZE = 54,               /*中度霾*/
-    WEA_SEVERE_HAZE = 55,                 /*重度霾*/
-    WEA_HAZARDOUS_HAZE = 56,              /*危险霾*/
-    WEA_HEAVY_FOG = 57,                   /*大雾*/
-    WEA_EXTRA_HEAVY_DENSE_FOG = 58,       /*超强浓雾*/
-    WEA_RAIN = 301,                       /*雨*/
-    WEA_UNKNOWN = 99,                     /*未知*/
-} xiaomi_screen_weather_code_t;
+/* 天气码统一使用 hooch 设置的 HOOCH_PROTOCOL_SettingWeatherCode_t
+ * (见 hooch_setting.h), 其数值与小米屏 WEATHER_CODE 线格式一致 */
+typedef HOOCH_PROTOCOL_SettingWeatherCode_t xiaomi_screen_weather_code_t;
 
 /*空调模式*/
 typedef enum

@@ -3,6 +3,9 @@ xiaomi_f103\tuya_report_callbacks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h
+xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\hooch_setting.h
+xiaomi_f103\tuya_report_callbacks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+xiaomi_f103\tuya_report_callbacks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\system.h
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_protocol_uart.h
 xiaomi_f103\tuya_report_callbacks.o: ../Core/Inc/main.h
@@ -13,7 +16,6 @@ xiaomi_f103\tuya_report_callbacks.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1
 xiaomi_f103\tuya_report_callbacks.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h
 xiaomi_f103\tuya_report_callbacks.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h
 xiaomi_f103\tuya_report_callbacks.o: ../Drivers/CMSIS/Include/core_cm3.h
-xiaomi_f103\tuya_report_callbacks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 xiaomi_f103\tuya_report_callbacks.o: ../Drivers/CMSIS/Include/cmsis_version.h
 xiaomi_f103\tuya_report_callbacks.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 xiaomi_f103\tuya_report_callbacks.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -32,12 +34,16 @@ xiaomi_f103\tuya_report_callbacks.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1
 xiaomi_f103\tuya_report_callbacks.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 xiaomi_f103\tuya_report_callbacks.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 xiaomi_f103\tuya_report_callbacks.o: ../Core/Inc/usart.h
+xiaomi_f103\tuya_report_callbacks.o: ../Core/Inc/user_printf.h
+xiaomi_f103\tuya_report_callbacks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+xiaomi_f103\tuya_report_callbacks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\hooch_key_status.h
-xiaomi_f103\tuya_report_callbacks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\hooch_key_click_report.h
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\hooch_dimmer_light.h
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\hooch_curtain.h
-xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\hooch_setting.h
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\hooch_setting_report.h
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\hooch_code_match_dispatch_report.h
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\hooch_scene_report.h
+xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\hooch_air_conditioner.h
+xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\hooch_fresh_air.h
+xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\hooch_floor_heating.h

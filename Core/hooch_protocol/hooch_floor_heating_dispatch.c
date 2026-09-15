@@ -9,7 +9,9 @@ static HOOCH_PROTOCOL_FloorHeatingCallback_t s_hooch_protocol_floor_heating_disp
 /* 校验地暖温度是否在当前模块支持的范围内。 */
 static uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(uint8_t temperature)
 {
-    return (uint8_t)(temperature <= 60U);
+    /* 温度限制暂时屏蔽，直接放行 */
+    (void)temperature;
+    return 1U;
 }
 
 /* 有下发回调注册时，把最新数据通知出去。 */
@@ -117,6 +119,11 @@ static HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SetDispat
             }
 
             s_hooch_protocol_floor_heating_dispatch_frame.current_temperature = frame->current_temperature;
+            break;
+
+        case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_ENABLE_BIT:
+            /* 使能位原始位图(bit0:使能 bit1:开关 bit2:模式 bit3:目标温度 bit4:当前温度) */
+            s_hooch_protocol_floor_heating_dispatch_frame.value = frame->value;
             break;
 
         case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_DEVICE_DESC:

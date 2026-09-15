@@ -12,7 +12,9 @@ static HOOCH_PROTOCOL_AirConditionerCallback_t s_hooch_protocol_air_conditioner_
 /* 校验空调温度是否在当前模块支持的范围内。 */
 static uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(uint8_t temperature)
 {
-    return (uint8_t)(temperature <= 50U);
+    /* 温度限制暂时屏蔽，直接放行 */
+    (void)temperature;
+    return 1U;
 }
 
 /* 有上报回调注册时，把最新数据通知出去。 */

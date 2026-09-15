@@ -25,7 +25,7 @@ extern "C" {
  *              日志总开关
  *--------------------------------------------------------*/
 #ifndef TUYA_LOG_ENABLE
-#define TUYA_LOG_ENABLE                     0
+#define TUYA_LOG_ENABLE                     1
 #endif
 
 #if TUYA_LOG_ENABLE
@@ -43,18 +43,18 @@ extern "C" {
  *              日志子开关
  *--------------------------------------------------------*/
 #ifndef TUYA_LOG_RX_BYTE_ENABLE
-#define TUYA_LOG_RX_BYTE_ENABLE             0
+#define TUYA_LOG_RX_BYTE_ENABLE             1
 #endif
 
 #ifndef TUYA_LOG_TX_HEX_ENABLE
-#define TUYA_LOG_TX_HEX_ENABLE              0
+#define TUYA_LOG_TX_HEX_ENABLE              1
 #endif
 
 #if !TUYA_LOG_ENABLE
 #undef  TUYA_LOG_RX_BYTE_ENABLE
-#define TUYA_LOG_RX_BYTE_ENABLE             0
+#define TUYA_LOG_RX_BYTE_ENABLE             1
 #undef  TUYA_LOG_TX_HEX_ENABLE
-#define TUYA_LOG_TX_HEX_ENABLE              0
+#define TUYA_LOG_TX_HEX_ENABLE              1
 #endif
 
 /*----------------------------------------------------------

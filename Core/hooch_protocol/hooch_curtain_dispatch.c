@@ -1,5 +1,5 @@
 #include "hooch_curtain.h"
-
+#include <string.h>
 /* 保存当前一次窗帘下发数据。 */
 static HOOCH_PROTOCOL_CurtainFrame_t s_hooch_protocol_curtain_dispatch_frame;
 
@@ -11,7 +11,7 @@ static uint8_t HOOCH_PROTOCOL_Curtain_IsValidKey(
     HOOCH_PROTOCOL_CurtainKey_t key)
 {
     return (uint8_t)((key >= HOOCH_PROTOCOL_CURTAIN_KEY_1) &&
-                     (key <= HOOCH_PROTOCOL_CURTAIN_KEY_8));
+                     (key <= HOOCH_PROTOCOL_CURTAIN_KEY_16));
 }
 
 /* 校验控制项是否为当前模块支持的单项更新类型。 */
@@ -118,6 +118,11 @@ static HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetDispatchFrameInt
             s_hooch_protocol_curtain_dispatch_frame.angle.value = frame->angle.value;
             s_hooch_protocol_curtain_dispatch_frame.angle.sequence++;
             s_hooch_protocol_curtain_dispatch_frame.angle.valid = 1U;
+            break;
+
+        case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ENABLE_BIT:
+            /* 使能位原始位图(bit0:使能 bit1:开关 bit2:停止 bit3:百分比 bit4:角度) */
+            s_hooch_protocol_curtain_dispatch_frame.value = frame->value;
             break;
 
         case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_DEVICE_DESCRIPTOR:

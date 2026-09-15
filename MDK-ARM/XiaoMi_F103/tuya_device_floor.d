@@ -3,7 +3,8 @@ xiaomi_f103\tuya_device_floor.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tu
 xiaomi_f103\tuya_device_floor.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h
 xiaomi_f103\tuya_device_floor.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h
 xiaomi_f103\tuya_device_floor.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h
-xiaomi_f103\tuya_device_floor.o: ..\Core\hooch_protocol\hooch_floor_heating.h
+xiaomi_f103\tuya_device_floor.o: ..\Core\hooch_protocol\hooch_setting.h
 xiaomi_f103\tuya_device_floor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 xiaomi_f103\tuya_device_floor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+xiaomi_f103\tuya_device_floor.o: ..\Core\hooch_protocol\hooch_floor_heating.h
 xiaomi_f103\tuya_device_floor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h

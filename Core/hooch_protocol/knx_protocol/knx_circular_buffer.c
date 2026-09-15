@@ -52,6 +52,28 @@ static KNX_FrameParser_t s_knx_frame_parser;
 static uint8_t s_knx_parser_timeout_ticks;
 static uint8_t s_knx_callback_suppress;
 
+/* 校验事件载荷是否足够 need_len 字节; 不足时告警并返回 0, 调用方应跳过本次发送 */
+static uint8_t knx_setting_report_check_payload(
+    const uint8_t *data,
+    uint16_t data_len,
+    uint16_t need_len,
+    HOOCH_PROTOCOL_SettingReportEvent_t event)
+{
+    if ((data == 0) || (data_len < need_len))
+    {
+        KNX_LOG_WARN("[HOOCH] SettingReport payload too short, event=%u, data_len=%u, need=%u\r\n",
+                     (unsigned int)event,
+                     (unsigned int)data_len,
+                     (unsigned int)need_len);
+        return 0U;
+    }
+
+    return 1U;
+}
+
+
+
+
 static void knx_setting_report_callback(
     HOOCH_PROTOCOL_SettingReportEvent_t event,
     const void *data,
@@ -60,20 +82,27 @@ static void knx_setting_report_callback(
     uint8_t send_result;
     uint8_t request_value;
     uint8_t request_data[2];
+    const uint8_t *raw;
 
     if (s_knx_callback_suppress != 0U)
     {
         return;
     }
 
+    raw = (const uint8_t *)data;
     send_result = 0U;
+    /* 触发型动作([8] 拉取配置)的缺省请求值: 1=请求更新/拉取配置; 带载荷时使用 data[0] */
     request_value = 1U;
     request_data[0] = 0U;
     request_data[1] = 0U;
-    if ((data != 0) && (data_len >= 2U))
+    if ((raw != 0) && (data_len >= 1U))
     {
-        request_data[0] = ((const uint8_t *)data)[0];
-        request_data[1] = ((const uint8_t *)data)[1];
+        request_value = raw[0];
+    }
+    if ((raw != 0) && (data_len >= 2U))
+    {
+        request_data[0] = raw[0];
+        request_data[1] = raw[1];
     }
 
 #if KNX_LOG_ENABLE
@@ -85,70 +114,101 @@ static void knx_setting_report_callback(
 
     switch (event)
     {
+    /* [8] KNX 拉取配置: 触发型动作, 1=请求更新, 0=结束更新, 无载荷缺省=请求 */
     case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_KNX_UPDATE_CONFIG:
-        if ((data != 0) && (data_len >= 1U))
-        {
-            request_value = ((const uint8_t *)data)[0];
-        }
-
         send_result = knx_send_basic_function(KNX_BASIC_FUNCTION_UPDATE_CONFIG,
                                               &request_value,
                                               1U);
         break;
-    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_VERSION_INFO:        /* [7]  版本信息 */
+
+    /* [7] 版本信息: 2 字节载荷 xx(H).xx(L) */
+    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_VERSION_INFO:
+        if (knx_setting_report_check_payload(raw, data_len, 2U, event) == 0U)
+        {
+            return;
+        }
+
         send_result = knx_send_basic_function(KNX_BASIC_FUNCTION_VERSION,
                                               request_data,
                                               2U);
         break;
 
-    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_HUMAN_PRESENCE:      /* [9]  人体存在 */
+    /* [9] 人体存在: 1 字节状态载荷 */
+    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_HUMAN_PRESENCE:
+        if (knx_setting_report_check_payload(raw, data_len, 1U, event) == 0U)
+        {
+            return;
+        }
+
         send_result = knx_send_basic_function(KNX_BASIC_FUNCTION_HUMAN_PRESENCE_SENSOR,
                                               &request_value,
                                               1U);
         break;
 
-    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_UPDATE_CONFIG:       /* [12] 更新配置 */
-        send_result = knx_send_basic_function(KNX_BASIC_FUNCTION_UPDATE_CONFIG,
-                                              &request_value,
-                                              1U);
-        break;
+    /* [13] 面板更新状态: 1 字节状态载荷(0=未更新, 1=更新中, 2=已更新) */
+    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_PANEL_UPDATE_STATUS:
+        if (knx_setting_report_check_payload(raw, data_len, 1U, event) == 0U)
+        {
+            return;
+        }
 
-    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_PANEL_UPDATE_STATUS: /* [13] 面板更新状态 */
         send_result = knx_send_basic_function(KNX_BASIC_FUNCTION_PANEL_UPDATE_STATUS,
                                               &request_value,
                                               1U);
         break;
 
-    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_DEVICE_TYPE:         /* [14] 设备类型 */
+    /* [14] 设备类型: 2 字节类型码 */
+    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_DEVICE_TYPE:
+        if (knx_setting_report_check_payload(raw, data_len, 2U, event) == 0U)
+        {
+            return;
+        }
+
         send_result = knx_send_basic_function(KNX_BASIC_FUNCTION_DEVICE_TYPE,
                                               request_data,
                                               2U);
         break;
 
-    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_PROGRAMMING_MODE:    /* [15] 编程模式 */
+    /* [15] 编程模式: 1 字节状态载荷(0=非编程, 1=编程) */
+    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_PROGRAMMING_MODE:
+        if (knx_setting_report_check_payload(raw, data_len, 1U, event) == 0U)
+        {
+            return;
+        }
+
         send_result = knx_send_basic_function(KNX_BASIC_FUNCTION_PROGRAM_MODE,
                                               &request_value,
                                               1U);
         break;
 
-    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_TEMPERATURE_SENSOR:  /* [16] 温度传感器 */
+    /* [16] 温度传感器: 2 字节载荷 */
+    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_TEMPERATURE_SENSOR:
+        if (knx_setting_report_check_payload(raw, data_len, 2U, event) == 0U)
+        {
+            return;
+        }
+
         send_result = knx_send_basic_function(KNX_BASIC_FUNCTION_TEMPERATURE_SENSOR,
                                               request_data,
                                               2U);
         break;
 
-    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_HUMIDITY_SENSOR:     /* [17] 湿度传感器 */
+    /* [17] 湿度传感器: 2 字节载荷 */
+    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_HUMIDITY_SENSOR:
+        if (knx_setting_report_check_payload(raw, data_len, 2U, event) == 0U)
+        {
+            return;
+        }
+
         send_result = knx_send_basic_function(KNX_BASIC_FUNCTION_HUMIDITY_SENSOR,
                                               request_data,
                                               2U);
-
         break;
 
-
+    /* [10] KNX 心跳: 直接应答, 无需载荷 */
     case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_KNX_HEARTBEAT:
         send_result = knx_uart_send_ack(KNX_RESPONSE_TYPE_HEARTBEAT);
         break;
-
 
     default:
         return;
@@ -156,8 +216,10 @@ static void knx_setting_report_callback(
 
     if (send_result != 0U)
     {
-        KNX_LOG_INFO("[HOOCH] SettingReport send failed, event=%u\r\n",
-                     (unsigned int)event);
+        KNX_LOG_WARN("[HOOCH] SettingReport send failed, event=%u, result=%u, data_len=%u\r\n",
+                     (unsigned int)event,
+                     (unsigned int)send_result,
+                     (unsigned int)data_len);
     }
 }
 static void knx_key_status_report_callback(
@@ -169,7 +231,7 @@ static void knx_key_status_report_callback(
     if ((frame == NULL) ||
         (s_knx_callback_suppress != 0U) ||
         (frame->key < HOOCH_PROTOCOL_KEY_STATUS_KEY_1) ||
-        (frame->key > HOOCH_PROTOCOL_KEY_STATUS_KEY_8))
+        (frame->key > HOOCH_PROTOCOL_KEY_STATUS_KEY_16))
     {
         return;
     }
@@ -196,7 +258,7 @@ static void knx_dimmer_light_callback(
     if ((frame == NULL) ||
         (s_knx_callback_suppress != 0U) ||
         (frame->key < HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_1) ||
-        (frame->key > HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_8))
+        (frame->key > HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_16))
     {
         return;
     }
@@ -221,6 +283,19 @@ static void knx_dimmer_light_callback(
                                           (uint16_t)(((uint32_t)frame->color_temperature * 65535U) / 100U));
         break;
 
+    case HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_COLOR_TEMP_RAW:
+        /* RAW 上报：color_temperature 已为 0~65535 原始值，直接下发不再换算 */
+        (void)knx_send_dimming_control_u16((uint8_t)(frame->key - HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_1),
+                                          KNX_DIMMING_ITEM_COLOR_TEMPERATURE,
+                                          frame->color_temperature);
+        break;
+
+    case HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_PERCENT:
+        (void)knx_send_dimming_control_u8((uint8_t)(frame->key - HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_1),
+                                          KNX_DIMMING_ITEM_COLOR_TEMP_PERCENT,
+                                          (uint8_t)((frame->percent * 255U) / 100U));
+        break;
+
     default:
         break;
     }
@@ -233,7 +308,7 @@ static void knx_curtain_report_callback(
     if ((frame == NULL) ||
         (s_knx_callback_suppress != 0U) ||
         (frame->key < HOOCH_PROTOCOL_CURTAIN_KEY_1) ||
-        (frame->key > HOOCH_PROTOCOL_CURTAIN_KEY_8))
+        (frame->key > HOOCH_PROTOCOL_CURTAIN_KEY_16))
     {
         return;
     }
@@ -283,22 +358,26 @@ static void knx_scene_report_callback(
     const HOOCH_PROTOCOL_SceneReportFrame_t *frame)
 {
     uint8_t value;
+    uint8_t item;
 
     if ((frame == NULL) ||
         (s_knx_callback_suppress != 0U) ||
         (frame->key < HOOCH_PROTOCOL_SCENE_REPORT_KEY_1) ||
-        (frame->key > HOOCH_PROTOCOL_SCENE_REPORT_KEY_8))
+        (frame->key > HOOCH_PROTOCOL_SCENE_REPORT_KEY_16))
     {
         return;
     }
 
-    /* status: 1=触发, 0=非触发 */
+    /* 触发：1=触发；学习：1=学习 */
     value = frame->valid;
+    item = (uint8_t)((frame->action == HOOCH_PROTOCOL_SCENE_REPORT_ACTION_LEARN)
+                         ? KNX_SCENE_ITEM_LEARN
+                         : KNX_SCENE_ITEM_TRIGGER);
 
     (void)knx_send_device_function((uint8_t)(frame->key - HOOCH_PROTOCOL_SCENE_REPORT_KEY_1),
                                    KNX_DEVICE_TYPE_SCENE,
                                    KNX_DEVICE_CATEGORY_CONTROL,
-                                   (uint8_t)KNX_SCENE_ITEM_TRIGGER,
+                                   item,
                                    &value,
                                    1U);
 }
@@ -368,7 +447,7 @@ static void knx_air_conditioner_report_callback(
         send_result |= knx_send_air_conditioner_control_u16(
             channel,
             KNX_AIR_ITEM_SET_TEMPERATURE,
-            (uint16_t)frame->temperature * 10U);
+            (uint16_t)frame->temperature);
         break;
 
     case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_POWER:
@@ -396,7 +475,7 @@ static void knx_air_conditioner_report_callback(
         send_result = knx_send_air_conditioner_control_u16(
             channel,
             KNX_AIR_ITEM_SET_TEMPERATURE,
-            (uint16_t)frame->temperature * 10U);
+            (uint16_t)frame->temperature);
         break;
 
     default:
@@ -497,7 +576,7 @@ static void knx_floor_heating_report_callback(
         send_result |= knx_send_floor_heating_control_u16(
             channel,
             KNX_FLOOR_ITEM_SET_TEMPERATURE,
-            (uint16_t)frame->target_temperature * 10U);
+            (uint16_t)frame->target_temperature);
         break;
 
     case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_POWER:
@@ -523,14 +602,14 @@ static void knx_floor_heating_report_callback(
         send_result = knx_send_floor_heating_control_u16(
             channel,
             KNX_FLOOR_ITEM_SET_TEMPERATURE,
-            (uint16_t)frame->target_temperature * 10U);
+            (uint16_t)frame->target_temperature);
         break;
 
     case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_CURRENT_TEMPERATURE:
         send_result = knx_send_floor_heating_control_u16(
             channel,
             KNX_FLOOR_ITEM_ACTUAL_TEMPERATURE,
-            (uint16_t)frame->current_temperature * 10U);
+            (uint16_t)frame->current_temperature);
         break;
 
     default:

@@ -27,7 +27,10 @@ typedef enum
     HOOCH_PROTOCOL_SETTING_REPORT_EVENT_PROGRAMMING_MODE,      /* [15] 编程模式 */
     HOOCH_PROTOCOL_SETTING_REPORT_EVENT_TEMPERATURE_SENSOR,    /* [16] 温度传感器 */
     HOOCH_PROTOCOL_SETTING_REPORT_EVENT_HUMIDITY_SENSOR,       /* [17] 湿度传感器 */
-    HOOCH_PROTOCOL_SETTING_REPORT_EVENT_COUNT                   /* [18] 枚举数量（非有效事件） */
+    HOOCH_PROTOCOL_SETTING_REPORT_EVENT_GET_WIND,              /* [18] 获取风向（仅限涂鸦） */
+    HOOCH_PROTOCOL_SETTING_REPORT_EVENT_GET_CITY,              /* [19] 获取城市（仅限涂鸦） */
+    HOOCH_PROTOCOL_SETTING_REPORT_EVENT_GET_AREA,              /* [20] 获取区县（仅限涂鸦） */
+    HOOCH_PROTOCOL_SETTING_REPORT_EVENT_COUNT                   /* [21] 枚举数量（非有效事件） */
 } HOOCH_PROTOCOL_SettingReportEvent_t;
 
 typedef void (*HOOCH_PROTOCOL_SettingReportCallback_t)(

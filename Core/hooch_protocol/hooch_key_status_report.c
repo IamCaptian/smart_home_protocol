@@ -9,7 +9,7 @@ static HOOCH_PROTOCOL_KeyStatusReportCallback_t s_hooch_protocol_key_status_repo
 static uint8_t HOOCH_PROTOCOL_KeyStatus_IsValidKey(HOOCH_PROTOCOL_KeyStatusKey_t key)
 {
     return (uint8_t)((key >= HOOCH_PROTOCOL_KEY_STATUS_KEY_1) &&
-                     (key <= HOOCH_PROTOCOL_KEY_STATUS_KEY_8));
+                     (key <= HOOCH_PROTOCOL_KEY_STATUS_KEY_16));
 }
 
 static uint8_t HOOCH_PROTOCOL_KeyStatus_IsValidState(HOOCH_PROTOCOL_KeyStatusState_t state)

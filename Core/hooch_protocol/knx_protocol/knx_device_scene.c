@@ -42,6 +42,14 @@ void knx_summary_scene_control(const KNX_Frame_t *frame)
 
     case KNX_SCENE_ITEM_LEARN:
         item_desc = KNX_DESC("Learn (P->K)"); /* 学习：1=学习 */
+        // if ((frame->data_len >= 1U) && (frame->data[0] == 1U))
+        // {
+        //     scene_dispatch_frame.scene = (HOOCH_PROTOCOL_SceneDispatchScene_t)(frame->fun[1] + 1U);
+        //     scene_dispatch_frame.control_item = HOOCH_PROTOCOL_SCENE_DISPATCH_CONTROL_ITEM_LEARN;
+        //     scene_dispatch_frame.value = frame->data[0];
+        //     scene_dispatch_frame.valid = 1U;
+        //     (void)HOOCH_PROTOCOL_SceneDispatch_SetFrame(&scene_dispatch_frame);
+        // }
         break;
 
     default:
@@ -85,6 +93,12 @@ void knx_summary_scene_config(const KNX_Frame_t *frame)
                     key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH;
                     key_mode_frame.valid = 1U;
                 }
+
+                /* 使能位原始位图同步下发(bit0:使能 bit1:场景) */
+                scene_dispatch_frame.scene = (HOOCH_PROTOCOL_SceneDispatchScene_t)(frame->fun[1] + 1U);
+                scene_dispatch_frame.control_item = HOOCH_PROTOCOL_SCENE_DISPATCH_CONTROL_ITEM_ENABLE_BIT;
+                scene_dispatch_frame.value = frame->data[0];
+                need_set = 3U;
             }
             (void)HOOCH_PROTOCOL_KeyMode_SetFrame(&key_mode_frame);
         }
@@ -94,8 +108,9 @@ void knx_summary_scene_config(const KNX_Frame_t *frame)
         item_desc = KNX_DESC("Device Description (K->P)"); /* 设备描述字符串 */
         {
             /* 设备描述字符串：24 byte UTF-8，通过 KeyName 接口下发 */
-
+            HOOCH_PROTOCOL_KeyNameFrame_t key_name_frame;
             uint16_t copy_len;
+            (void)memset(&key_name_frame, 0, sizeof(key_name_frame));
             key_name_frame.key = (HOOCH_PROTOCOL_KeyNameKey_t)(frame->fun[1] + 1U);
             key_name_frame.delivery = HOOCH_PROTOCOL_KEY_NAME_DELIVERY_KEY;
             copy_len = (frame->data_len > HOOCH_PROTOCOL_KEY_NAME_MAX_LENGTH)
@@ -107,8 +122,21 @@ void knx_summary_scene_config(const KNX_Frame_t *frame)
                 key_name_frame.name[copy_len] = '\0';
             }
             key_name_frame.valid = 1U;
+            (void)HOOCH_PROTOCOL_KeyName_SetFrame(&key_name_frame);
+
+            /* 同步通过场景下发接口下发设备描述(24 byte, UTF-8) */
+            scene_dispatch_frame.scene = (HOOCH_PROTOCOL_SceneDispatchScene_t)(frame->fun[1] + 1U);
+            scene_dispatch_frame.control_item = HOOCH_PROTOCOL_SCENE_DISPATCH_CONTROL_ITEM_DEVICE_DESC;
+            copy_len = (copy_len > sizeof(scene_dispatch_frame.device_desc))
+                           ? (uint16_t)sizeof(scene_dispatch_frame.device_desc)
+                           : copy_len;
+            if (copy_len > 0U)
+            {
+                (void)memcpy(scene_dispatch_frame.device_desc, frame->data, copy_len);
+            }
+            scene_dispatch_frame.valid = 1U;
+            need_set = 3U;
         }
-        need_set = 2U;
         break;
 
     case KNX_SCENE_CONFIG_DEFAULT_ICON:
@@ -129,7 +157,7 @@ void knx_summary_scene_config(const KNX_Frame_t *frame)
     // key_name_frame.content_type = HOOCH_PROTOCOL_KEY_NAME_CONTENT_TYPE_SELECTED_ICON;
     // key_name_frame.value = frame->data[0];
     // key_name_frame.valid = 1U;
-        scene_dispatch_frame.scene = (HOOCH_PROTOCOL_SceneDispatchScene_t)(frame->fun[1] + 1U);
+    scene_dispatch_frame.scene = (HOOCH_PROTOCOL_SceneDispatchScene_t)(frame->fun[1] + 1U);
     scene_dispatch_frame.control_item = HOOCH_PROTOCOL_SCENE_DISPATCH_CONTROL_ITEM_SELECTED_ICON;
     scene_dispatch_frame.value = frame->data[0];
     need_set = 3U;

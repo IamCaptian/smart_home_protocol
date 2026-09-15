@@ -44,7 +44,7 @@ void HOOCH_PROTOCOL_KeyName_Clear(void)
 uint8_t HOOCH_PROTOCOL_KeyName_IsValidKey(HOOCH_PROTOCOL_KeyNameKey_t key)
 {
     return (uint8_t)((key >= HOOCH_PROTOCOL_KEY_NAME_KEY_1) &&
-                     (key <= HOOCH_PROTOCOL_KEY_NAME_KEY_8));
+                     (key <= HOOCH_PROTOCOL_KEY_NAME_KEY_16));
 }
 
 HOOCH_PROTOCOL_KeyNameResult_t HOOCH_PROTOCOL_KeyName_SetName(

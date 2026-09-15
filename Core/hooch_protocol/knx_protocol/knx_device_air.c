@@ -119,7 +119,7 @@ void knx_summary_air_control(const KNX_Frame_t *frame)
             if (frame->data_len >= 2U)
             {
                 /* 温度值为 0~500，实际温度 = value * 0.1℃ */
-                air_conditioner_frame.temperature = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+                air_conditioner_frame.temperature = knx_read_be_u16(frame->data);
                 air_conditioner_frame.control_item =
                     HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMPERATURE;
                 need_set = 1U;
@@ -131,7 +131,7 @@ void knx_summary_air_control(const KNX_Frame_t *frame)
             if (frame->data_len >= 2U)
             {
                 /* 温度值为 0~500，实际温度 = value * 0.1℃ */
-                air_conditioner_frame.temperature = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+                air_conditioner_frame.temperature = knx_read_be_u16(frame->data);
                 air_conditioner_frame.control_item =
                     HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMPERATURE;
                 need_set = 1U;
@@ -143,7 +143,7 @@ void knx_summary_air_control(const KNX_Frame_t *frame)
             if (frame->data_len >= 2U)
             {
                 /* 温度值为 0~500，实际温度 = value * 0.1℃ */
-                air_conditioner_frame.current_temperature = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+                air_conditioner_frame.current_temperature = knx_read_be_u16(frame->data);
                 air_conditioner_frame.control_item =
                     HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_CURRENT_TEMPERATURE;
                 need_set = 1U;
@@ -198,7 +198,7 @@ void knx_summary_air_config(const KNX_Frame_t *frame)
             setting_frame.value = HOOCH_PROTOCOL_SETTING_PAGE_AIR_CONDITIONER;
             setting_frame.page = HOOCH_PROTOCOL_SETTING_PAGE_AIR_CONDITIONER;
         }
-    air_conditioner_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ENABLE;
+    air_conditioner_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ENABLE_BIT;
     air_conditioner_frame.value = frame->data[0];
     need_set = 1U;
     }
@@ -229,10 +229,10 @@ void knx_summary_air_config(const KNX_Frame_t *frame)
         if (frame->data_len >= 2U)
         {
             /* 温度值为 0~500，实际温度 = value * 0.1℃ */
-            setting_frame.value = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+            setting_frame.value = knx_read_be_u16(frame->data);
 
             air_conditioner_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMP_MIN;
-            air_conditioner_frame.value = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+            air_conditioner_frame.value = knx_read_be_u16(frame->data);
         }
         need_set = 1U;
     break;
@@ -241,10 +241,9 @@ void knx_summary_air_config(const KNX_Frame_t *frame)
         if (frame->data_len >= 2U)
         {
             /* 温度值为 0~500，实际温度 = value * 0.1℃ */
-            setting_frame.value = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
-
+            setting_frame.value = knx_read_be_u16(frame->data);
             air_conditioner_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMP_MAX;
-            air_conditioner_frame.value = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+            air_conditioner_frame.value = knx_read_be_u16(frame->data);
         }
         need_set = 1U;
     break;

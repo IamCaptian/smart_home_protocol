@@ -45,7 +45,7 @@ void knx_summary_curtain_control(const KNX_Frame_t *frame)
     case 4U: item_desc = KNX_DESC("Position Percent State (K->P)");
     curtain_frame.key = (HOOCH_PROTOCOL_CurtainKey_t)(frame->fun[1] + 1U);
     curtain_frame.control_item = HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_PERCENT;
-    curtain_frame.percent.value = frame->data[0];
+    curtain_frame.percent.value = (uint8_t)(((uint32_t)frame->data[0] * 100U) / 255U);
     curtain_frame.valid = 1U;
     break;
     case 5U: item_desc = KNX_DESC("Angle Open/Close (P->K)");
@@ -87,6 +87,7 @@ void knx_summary_curtain_config(const KNX_Frame_t *frame)
     }
 
     item_desc = KNX_DESC("Unknown Config Item");
+    (void)memset(&curtain_frame, 0, sizeof(curtain_frame));
 
     /* 窗帘配置项：item -> 功能描述 */
     switch (frame->fun[4])
@@ -105,8 +106,14 @@ void knx_summary_curtain_config(const KNX_Frame_t *frame)
             key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH;
             key_mode_frame.valid = 1U;
         }
-    HOOCH_PROTOCOL_KeyMode_SetFrame(&key_mode_frame);
-        need_set = 1U;
+        (void)HOOCH_PROTOCOL_KeyMode_SetFrame(&key_mode_frame);
+
+        /* 同步通过窗帘接口下发使能位原始位图(bit0:使能 bit1:开关 bit2:停止 bit3:百分比 bit4:角度) */
+        curtain_frame.key = (HOOCH_PROTOCOL_CurtainKey_t)(frame->fun[1] + 1U);
+        curtain_frame.control_item = HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ENABLE_BIT;
+        curtain_frame.value = frame->data[0];
+        curtain_frame.valid = 1U;
+        need_set = 3U;
     }
         break;
     case 2U: item_desc = KNX_DESC("Device Description (K->P)");

@@ -4,3 +4,6 @@ xiaomi_f103\system.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\system.h
 xiaomi_f103\system.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h
 xiaomi_f103\system.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h
 xiaomi_f103\system.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h
+xiaomi_f103\system.o: ..\Core\hooch_protocol\hooch_setting.h
+xiaomi_f103\system.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+xiaomi_f103\system.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

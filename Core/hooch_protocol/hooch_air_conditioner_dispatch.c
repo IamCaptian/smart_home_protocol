@@ -1,5 +1,5 @@
 #include "hooch_air_conditioner.h"
-
+#include <string.h>
 /* 保存当前一次空调下发数据。 */
 static HOOCH_PROTOCOL_AirConditionerFrame_t s_hooch_protocol_air_conditioner_dispatch_frame;
 
@@ -9,7 +9,9 @@ static HOOCH_PROTOCOL_AirConditionerCallback_t s_hooch_protocol_air_conditioner_
 /* 校验空调温度是否在当前模块支持的范围内。 */
 static uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(uint8_t temperature)
 {
-    return (uint8_t)(temperature <= 50U);
+    /* 温度限制暂时屏蔽，直接放行 */
+    (void)temperature;
+    return 1U;
 }
 
 /* 有下发回调注册时，把最新数据通知出去。 */
@@ -41,7 +43,7 @@ static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetDi
     s_hooch_protocol_air_conditioner_dispatch_frame.mode = mode;
     s_hooch_protocol_air_conditioner_dispatch_frame.fan_speed = fan_speed;
     s_hooch_protocol_air_conditioner_dispatch_frame.temperature = temperature;
-    s_hooch_protocol_air_conditioner_dispatch_frame.channel = 0U;
+    s_hooch_protocol_air_conditioner_dispatch_frame.channel = 1U; /*目前默认全量下发只有小米，默认通道1*/
     s_hooch_protocol_air_conditioner_dispatch_frame.control_item =
         HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ALL;
     s_hooch_protocol_air_conditioner_dispatch_frame.sequence++;
@@ -128,7 +130,8 @@ static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetDi
             s_hooch_protocol_air_conditioner_dispatch_frame.current_temperature = frame->current_temperature;
             break;
 
-        case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ENABLE:
+        case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ENABLE_BIT:
+            /* 使能位原始位图(bit0:使能 bit1:开关 bit2:模式 bit3:风速 bit4:当前温度) */
             s_hooch_protocol_air_conditioner_dispatch_frame.value = frame->value;
             break;
 

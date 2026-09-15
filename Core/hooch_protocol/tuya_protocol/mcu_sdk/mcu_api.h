@@ -12,6 +12,7 @@
 #define __MCU_API_H_
 
 #include "mcu_sdk_types.h"
+#include "hooch_setting.h"   /* 统一天气码 HOOCH_PROTOCOL_SettingWeatherCode_t */
 
 #ifdef __cplusplus
 extern "C"
@@ -47,7 +48,7 @@ extern "C"
  **********************************************************/
 ///< <USER MUST CHECK AND CHANGE>
 #define MCU_VER                                 "1.0.0"             // MAX 3.3.15   BIT 7~0   XX.XX.XXXX
-#define DEVICE_TYPE                             ROUTER_DEVICE       // please select ROUTER_DEVICE, SLEEP_END_DEVICE or SCENE_SWITCH_DEVICE
+#define DEVICE_TYPE                             SCENE_SWITCH_DEVICE  // this product is a zigbee scene switch panel (supports cmd: 0x0a 0x41 0x42 0x43)
 #if (DEVICE_TYPE == SLEEP_END_DEVICE)
 #define MCU_WAKEUP_MODULE_METHOD                LOW_LEVEL_WAKE_UP   // please select LOW_LEVEL_WAKE_UP or LOW_PULSE_WAKE_UP
 #endif
@@ -373,6 +374,15 @@ void mcu_recv_weather_response_cb(WEATHER_INFO_T *weather_info);
  * @return none
  */
 void mcu_recv_city_response_cb(CITY_INFO_T *city_info);
+
+/* 0x3b 天气响应经内容识别后的细分回调: SDK 负责解析, 用户直接读结构体即可 */
+void mcu_recv_weather_forecast_cb(const TUYA_WEATHER_FORECAST_T *forecast);  /* 预报天气(温度+6天码) */
+void mcu_recv_weather_wind_cb(const TUYA_WEATHER_WIND_T *wind);              /* 风向 */
+void mcu_recv_weather_city_cb(const TUYA_WEATHER_TEXT_T *city);              /* 城市 */
+void mcu_recv_weather_area_cb(const TUYA_WEATHER_TEXT_T *area);              /* 区县 */
+
+/* 涂鸦天气码(conditionNum 原值) → hooch 统一天气码 (HOOCH_PROTOCOL_SettingWeatherCode_t) */
+HOOCH_PROTOCOL_SettingWeatherCode_t mcu_weather_code_to_hooch(unsigned char condition_num);
 
 #if (DEVICE_TYPE == SCENE_SWITCH_DEVICE)
 /**

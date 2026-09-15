@@ -92,6 +92,28 @@ typedef struct CITY_INFO {
     unsigned char city_detail_len;
 } CITY_INFO_T;
 
+/* ===== 天气私有协议 (0x3B) 解析结果结构体 (供用户层回调直接读取) =====
+ * 字段偏移沿用金威利原版 receive_weather 语义 (帧头 8 字节, 下述下标均为帧内下标):
+ *   - 预报天气: 当天温度在 payload[10], 天气概况标志在 payload[40]=0x03,
+ *     当天起连续 6 天天气码(涂鸦 conditionNum 原值)在 payload[42..47];
+ *   - 风向信息: payload[6]=0x06, 风速 payload[7..8], 风向 payload[10], 风级 payload[12];
+ *   - 城市/区县: 文本从 payload[8] 开始。
+ */
+typedef struct TUYA_WEATHER_FORECAST {
+    signed char   today_temp;               /* 当天温度(℃), 越界按 0 处理 */
+    unsigned char day_code[6];              /* 当天起连续 6 天天气码(涂鸦 conditionNum 原值, 0=无) */
+} TUYA_WEATHER_FORECAST_T;
+
+typedef struct TUYA_WEATHER_WIND {
+    unsigned char speed;                    /* 风速 */
+    unsigned char dir;                      /* 风向 */
+    unsigned char level;                    /* 风级 */
+} TUYA_WEATHER_WIND_T;
+
+typedef struct TUYA_WEATHER_TEXT {
+    unsigned char text[40];                 /* 城市/区县文本(以 0 结尾) */
+} TUYA_WEATHER_TEXT_T;
+
 ///< standard command group sending (uart command id: 0x42)
 typedef struct MCU_SEND_CMD_GROUP {
     unsigned short group_id;

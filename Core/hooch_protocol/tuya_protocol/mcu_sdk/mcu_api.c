@@ -317,12 +317,41 @@ void uart_send_frame(unsigned short payload_len)
 
 void mcu_recv_factory_recovery_cb(void)
 {
-    //< USER TODO
+    /* 恢复出厂设置 (cmd 0x00) → Hooch 设置项下发 */
+    HOOCH_PROTOCOL_SettingFrame_t setting_frame;
+    setting_frame.item                 = HOOCH_PROTOCOL_SETTING_ITEM_FACTORY_RESET;
+    setting_frame.value                = 1U;
+    setting_frame.screen_off_time_type = HOOCH_PROTOCOL_SETTING_SCREEN_OFF_TIME_INVALID;
+    setting_frame.page                 = HOOCH_PROTOCOL_SETTING_PAGE_INVALID;
+    setting_frame.param1               = 0U;
+    setting_frame.param2               = 0U;
+    setting_frame.param3               = 0U;
+    setting_frame.param4               = 0U;
+    setting_frame.sequence             = 0U;
+    setting_frame.valid                = 0U;
+    (void)HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
 }
 
 void mcu_recv_zg_nwk_status_notify_cb(unsigned char nwk_status)
 {
-    //< USER TODO
+    /* Zigbee 模组入网状态 (cmd 0x02) → Hooch 网络状态设置项
+     * 值域 0~3 与 ZG_NWK_STATUS_E / HOOCH_PROTOCOL_SETTING_NETWORK_STATUS_* 一致 */
+    if (nwk_status > (unsigned char)HOOCH_PROTOCOL_SETTING_NETWORK_STATUS_JOINING) {
+        return;
+    }
+
+    HOOCH_PROTOCOL_SettingFrame_t setting_frame;
+    setting_frame.item                 = HOOCH_PROTOCOL_SETTING_ITEM_NETWORK_STATUS;
+    setting_frame.value               = nwk_status;
+    setting_frame.screen_off_time_type = HOOCH_PROTOCOL_SETTING_SCREEN_OFF_TIME_INVALID;
+    setting_frame.page                = HOOCH_PROTOCOL_SETTING_PAGE_INVALID;
+    setting_frame.param1              = 0U;
+    setting_frame.param2              = 0U;
+    setting_frame.param3              = 0U;
+    setting_frame.param4              = 0U;
+    setting_frame.sequence            = 0U;
+    setting_frame.valid               = 0U;
+    (void)HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
 }
 
 void mcu_send_dp_msg_cb(unsigned char ret, unsigned char dp_id, unsigned char dp_type, unsigned short dp_len, unsigned char *dp_data)
@@ -351,10 +380,8 @@ void mcu_send_dp_msg_cb(unsigned char ret, unsigned char dp_id, unsigned char dp
 
     /* 以下 DP 暂无对应 Hooch 接口或数据结构不足以分发:
      * - DPID_FAN_DIRECTION    (101): Hooch AirConditionerFrame 无 wind_direction 字段
-     * - DPID_FRESH_AIR_VALVE  (125): Hooch FreshAirFrame 无 valve 字段
      * - DPID_EXHAUST_FAN_SPEED(124): Hooch FreshAirFrame 仅一个 fan_speed 字段
      * - DPID_PIR_STATE        (126): 仅上报，无需分发
-     * - DPID_ADV_SET          (143): raw 多字段，需单独解析
      * - DPID_DISP_PARAM       (147): raw 3字段(5bytes)，需单独解析
      */
 }
@@ -406,7 +433,37 @@ void mcu_recv_double_dongle_test_data_cb(unsigned char *test_data, unsigned shor
 
 void mcu_recv_time_sync_cb(unsigned char *std_timestamp, TIME_SYNC_CALENDAR_T *calendar)
 {
-    //< USER TODO
+    if ((std_timestamp == NULL) || (calendar == NULL)) {
+        return;
+    }
+
+    /* payload[0..3] = 标准(UTC) 时间戳, 大端 */
+    unsigned int utc_sec = ((unsigned int)std_timestamp[0] << 24)
+                         | ((unsigned int)std_timestamp[1] << 16)
+                         | ((unsigned int)std_timestamp[2] << 8)
+                         |  (unsigned int)std_timestamp[3];
+
+#if TUYA_LOG_ENABLE
+    TUYA_LOG_INFO("[Tuya] Time sync: utc=%u, %04u-%02u-%02u %02u:%02u:%02u\r\n",
+            (unsigned int)utc_sec,
+            (unsigned int)calendar->w_year, (unsigned int)calendar->w_month,
+            (unsigned int)calendar->w_day, (unsigned int)calendar->hour,
+            (unsigned int)calendar->min, (unsigned int)calendar->sec);
+#endif
+
+    /* 与小米屏口径一致: [13] 时间校准(UTC) value = 大端 UTC 秒 */
+    HOOCH_PROTOCOL_SettingFrame_t setting_frame;
+    setting_frame.item                 = HOOCH_PROTOCOL_SETTING_ITEM_TIME_CALIBRATION;
+    setting_frame.value               = utc_sec;
+    setting_frame.screen_off_time_type = HOOCH_PROTOCOL_SETTING_SCREEN_OFF_TIME_INVALID;
+    setting_frame.page                = HOOCH_PROTOCOL_SETTING_PAGE_INVALID;
+    setting_frame.param1              = 0U;
+    setting_frame.param2              = 0U;
+    setting_frame.param3              = 0U;
+    setting_frame.param4              = 0U;
+    setting_frame.sequence            = 0U;
+    setting_frame.valid               = 0U;
+    (void)HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
 }
 
 void mcu_recv_gw_nwk_status_cb(unsigned char nwk_status)
@@ -440,23 +497,191 @@ void mcu_recv_gpio_irq_cb(unsigned char port, unsigned char pin, unsigned char l
     //< USER TODO
 }
 
+/* ============================================================
+ * 天气私有协议 (0x3B) 解析与分发
+ * 内容识别与字节偏移沿用金威利原版 receive_weather 语义
+ * (帧头 8 字节, 本 SDK 回调收到的 detail 即 payload+偏移):
+ *   weather_info->weather_detail = payload + 6
+ *   city_info->city_detail       = payload + 2
+ * 用户直接在 mcu_recv_weather_*_cb 里读结构体即可。
+ * ------------------------------------------------------------ */
+
 void mcu_recv_weather_response_cb(WEATHER_INFO_T *weather_info)
 {
-    //< USER TODO
+    if ((weather_info == NULL) || (weather_info->weather_detail == NULL)) {
+        return;
+    }
+
+    unsigned char *p = weather_info->weather_detail;   /* = payload + 6 */
+    unsigned short len = weather_info->weather_detail_len;
+
+    /* ---- 风向信息: detail[0]=0x06 (查询 type 1: 06风速/07风向/08风级) ---- */
+    if ((len >= 7U) && (p[0] == 0x06U)) {
+        TUYA_WEATHER_WIND_T wind = {0U, 0U, 0U};
+        wind.speed = (unsigned char)(p[1] + p[2]);   /* payload[7..8] 风速 */
+        if (p[3] == 0x07U) {
+            wind.dir = p[4];                         /* payload[10] 风向 */
+        }
+        if (p[5] == 0x08U) {
+            wind.level = p[6];                       /* payload[12] 风级 */
+        }
+        mcu_recv_weather_wind_cb(&wind);
+        return;
+    }
+
+    /* ---- 预报天气: detail[0]=0x01 (温度), 天气概况标志在 payload[40] ---- */
+    if (len >= 5U) {
+        TUYA_WEATHER_FORECAST_T forecast = {0, {0}};
+        signed char today_temp = (signed char)p[4];  /* payload[10] 当天温度 */
+
+        forecast.today_temp = ((today_temp >= 60) || (today_temp < -50)) ? 0 : today_temp;
+
+        if ((len >= 42U) && (p[34] == 0x03U)) {      /* payload[40]=0x03 天气概况 */
+            unsigned char i;
+            for (i = 0U; i < 6U; i++) {
+                forecast.day_code[i] = p[36 + i];    /* payload[42..47] 涂鸦 conditionNum 原值 */
+            }
+        }
+        mcu_recv_weather_forecast_cb(&forecast);
+    }
 }
 
 void mcu_recv_city_response_cb(CITY_INFO_T *city_info)
 {
-    //< USER TODO
+    if ((city_info == NULL) || (city_info->city_detail == NULL)) {
+        return;
+    }
+
+    unsigned char *p = city_info->city_detail;       /* = payload + 2 */
+    unsigned short len = city_info->city_detail_len;
+
+    if (len < 7U) {
+        return;
+    }
+
+    TUYA_WEATHER_TEXT_T text = {{0}};
+    unsigned char copy_len = (len >= 6U) ? (unsigned char)(len - 6U) : 0U;  /* 文本从 payload[8] 起 */
+    if (copy_len > (unsigned char)(sizeof(text.text) - 1U)) {
+        copy_len = (unsigned char)(sizeof(text.text) - 1U);
+    }
+    unsigned char i;
+    for (i = 0U; i < copy_len; i++) {
+        text.text[i] = p[6U + i];
+    }
+    text.text[copy_len] = 0U;
+
+    /* 内容识别: payload[2..4] = "c.a"(区县) / "c.c"(城市) */
+    if ((p[0] == 0x63U) && (p[1] == 0x2EU) && (p[2] == 0x61U)) {
+        mcu_recv_weather_area_cb(&text);
+    } else {
+        mcu_recv_weather_city_cb(&text);
+    }
+}
+
+/* ---- 涂鸦天气码(conditionNum) → hooch 统一天气码 ----
+ * conditionNum 语义对照涂鸦官方表(101~136, 120=晴 等);
+ * 表中未列出的码(如 135/137+ 需真机日志确认)统一归 UNKNOWN。 */
+HOOCH_PROTOCOL_SettingWeatherCode_t mcu_weather_code_to_hooch(unsigned char condition_num)
+{
+    switch (condition_num) {
+    case 119U: return HOOCH_PROTOCOL_SETTING_WEATHER_SUNNY;                 /* 大部晴朗 */
+    case 120U: return HOOCH_PROTOCOL_SETTING_WEATHER_SUNNY;                 /* 晴 */
+    case 129U: return HOOCH_PROTOCOL_SETTING_WEATHER_CLOUDY;                /* 少云 */
+    case 132U: return HOOCH_PROTOCOL_SETTING_WEATHER_OVERCAST;              /* 阴 */
+    case 108U: return HOOCH_PROTOCOL_SETTING_WEATHER_SHOWER;                /* 局部阵雨 */
+    case 111U: return HOOCH_PROTOCOL_SETTING_WEATHER_SHOWER;                /* 小阵雨 */
+    case 122U: return HOOCH_PROTOCOL_SETTING_WEATHER_SHOWER;                /* 阵雨 */
+    case 123U: return HOOCH_PROTOCOL_SETTING_WEATHER_SHOWER;                /* 强阵雨 */
+    case 102U: return HOOCH_PROTOCOL_SETTING_WEATHER_THUNDERSHOWER;         /* 雷暴 */
+    case 110U: return HOOCH_PROTOCOL_SETTING_WEATHER_THUNDERSHOWER;         /* 雷电 */
+    case 127U: return HOOCH_PROTOCOL_SETTING_WEATHER_THUNDERSHOWER_WITH_HAIL; /* 冰雹 */
+    case 136U: return HOOCH_PROTOCOL_SETTING_WEATHER_THUNDERSHOWER_WITH_HAIL; /* 雷阵雨伴有冰雹 */
+    case 113U: return HOOCH_PROTOCOL_SETTING_WEATHER_SLEET;                 /* 雨夹雪 */
+    case 118U: return HOOCH_PROTOCOL_SETTING_WEATHER_LIGHT_TO_MODERATE_RAIN;/* 小到中雨 */
+    case 101U: return HOOCH_PROTOCOL_SETTING_WEATHER_HEAVY_RAIN;            /* 大雨 */
+    case 112U: return HOOCH_PROTOCOL_SETTING_WEATHER_RAIN;                  /* 雨 */
+    case 107U: return HOOCH_PROTOCOL_SETTING_WEATHER_STORM;                 /* 暴雨 */
+    case 134U: return HOOCH_PROTOCOL_SETTING_WEATHER_HEAVY_STORM;           /* 大暴雨 */
+    case 125U: return HOOCH_PROTOCOL_SETTING_WEATHER_SEVERE_STORM;          /* 特大暴雨 */
+    case 115U: return HOOCH_PROTOCOL_SETTING_WEATHER_SNOW;                  /* 冰粒 */
+    case 133U: return HOOCH_PROTOCOL_SETTING_WEATHER_SNOW;                  /* 冰针 */
+    case 104U: return HOOCH_PROTOCOL_SETTING_WEATHER_LIGHT_SNOW;            /* 小雪 */
+    case 131U: return HOOCH_PROTOCOL_SETTING_WEATHER_MODERATE_SNOW;         /* 中雪 */
+    case 124U: return HOOCH_PROTOCOL_SETTING_WEATHER_HEAVY_SNOW;            /* 大雪 */
+    case 126U: return HOOCH_PROTOCOL_SETTING_WEATHER_SNOWSTORM;             /* 暴雪 */
+    case 105U: return HOOCH_PROTOCOL_SETTING_WEATHER_SNOW;                  /* 雪 */
+    case 128U: return HOOCH_PROTOCOL_SETTING_WEATHER_LIGHT_TO_MODERATE_SNOW;/* 小到中雪 */
+    case 130U: return HOOCH_PROTOCOL_SETTING_WEATHER_SNOW_FLURRY;           /* 小阵雪 */
+    case 106U: return HOOCH_PROTOCOL_SETTING_WEATHER_FOGGY;                 /* 冻雾 */
+    case 121U: return HOOCH_PROTOCOL_SETTING_WEATHER_FOGGY;                 /* 雾 */
+    case 109U: return HOOCH_PROTOCOL_SETTING_WEATHER_DUST;                  /* 浮尘 */
+    case 117U: return HOOCH_PROTOCOL_SETTING_WEATHER_SAND;                  /* 扬沙 */
+    case 103U: return HOOCH_PROTOCOL_SETTING_WEATHER_DUSTSTORM;             /* 沙尘暴 */
+    case 116U: return HOOCH_PROTOCOL_SETTING_WEATHER_SANDSTORM;             /* 强沙尘暴 */
+    case 114U: return HOOCH_PROTOCOL_SETTING_WEATHER_DUST;                  /* 尘卷风(近似浮尘) */
+    default:   return HOOCH_PROTOCOL_SETTING_WEATHER_UNKNOWN;               /* 未收录码 */
+    }
+}
+
+/* ---- 用户层细分回调: 直接读结构体取天气数据 ---- */
+
+void mcu_recv_weather_forecast_cb(const TUYA_WEATHER_FORECAST_T *forecast)
+{
+    if (forecast == NULL) {
+        return;
+    }
+#if TUYA_LOG_ENABLE
+    TUYA_LOG_INFO("[Tuya] Weather forecast: temp=%d, tuya_code[6]=%u,%u,%u,%u,%u,%u, hooch_today=%u\r\n",
+            (int)forecast->today_temp,
+            (unsigned int)forecast->day_code[0], (unsigned int)forecast->day_code[1],
+            (unsigned int)forecast->day_code[2], (unsigned int)forecast->day_code[3],
+            (unsigned int)forecast->day_code[4], (unsigned int)forecast->day_code[5],
+            (unsigned int)mcu_weather_code_to_hooch(forecast->day_code[0]));
+#endif
+}
+
+void mcu_recv_weather_wind_cb(const TUYA_WEATHER_WIND_T *wind)
+{
+    if (wind == NULL) {
+        return;
+    }
+#if TUYA_LOG_ENABLE
+    TUYA_LOG_INFO("[Tuya] Weather wind: speed=%u, dir=%u, level=%u\r\n",
+            (unsigned int)wind->speed, (unsigned int)wind->dir, (unsigned int)wind->level);
+#endif
+}
+
+void mcu_recv_weather_city_cb(const TUYA_WEATHER_TEXT_T *city)
+{
+    if (city == NULL) {
+        return;
+    }
+#if TUYA_LOG_ENABLE
+    TUYA_LOG_INFO("[Tuya] Weather city: %s\r\n", (char *)city->text);
+#endif
+}
+
+void mcu_recv_weather_area_cb(const TUYA_WEATHER_TEXT_T *area)
+{
+    if (area == NULL) {
+        return;
+    }
+#if TUYA_LOG_ENABLE
+    TUYA_LOG_INFO("[Tuya] Weather area: %s\r\n", (char *)area->text);
+#endif
 }
 
 #if (DEVICE_TYPE == SCENE_SWITCH_DEVICE)
 unsigned char mcu_recv_scene_config_cb(unsigned char key_id, unsigned short group_id, unsigned char scene_id)
 {
-    /* key_id: Tuya 按键通道 0-based (0~7) → Hooch 1-based (1~8) */
+    /* key_id: Tuya 0x41 按键通道 1-based (1~8) → Hooch 按键通道 1-based (1~8), 直接 1:1 */
+    if (key_id < 1U || key_id > 8U) {
+        return 0U;
+    }
+
     HOOCH_PROTOCOL_SettingFrame_t setting_frame;
     setting_frame.item                 = HOOCH_PROTOCOL_SETTING_ITEM_MULTICAST_GROUP_ID;
-    setting_frame.value               = key_id + 1U;           /* 按键通道(1-based) */
+    setting_frame.value               = key_id;                 /* 按键通道(1-based) */
     setting_frame.screen_off_time_type = HOOCH_PROTOCOL_SETTING_SCREEN_OFF_TIME_NEVER;
     setting_frame.page                = HOOCH_PROTOCOL_SETTING_PAGE_SWITCH;
     setting_frame.param1              = (unsigned char)(group_id >> 8);   /* 组播ID高字节 */

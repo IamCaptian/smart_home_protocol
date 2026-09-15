@@ -8,7 +8,7 @@ extern "C" {
 #include <stdint.h>
 #include <string.h>
 /* 按键下发模块支持的按键总数 */
-#define HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_COUNT    8U
+#define HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_COUNT    16U
 
 /* 按键下发接口返回结果 */
 typedef enum
@@ -30,6 +30,14 @@ typedef enum
     HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_6,               /* 按键6 */
     HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_7,               /* 按键7 */
     HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_8,               /* 按键8 */
+    HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_9,               /* 按键9 */
+    HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_10,              /* 按键10 */
+    HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_11,              /* 按键11 */
+    HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_12,              /* 按键12 */
+    HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_13,              /* 按键13 */
+    HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_14,              /* 按键14 */
+    HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_15,              /* 按键15 */
+    HOOCH_PROTOCOL_KEY_CLICK_DISPATCH_KEY_16,              /* 按键16 */
 } HOOCH_PROTOCOL_KeyClickDispatchKey_t;
 
 /* 按键点击下发事件类型 */

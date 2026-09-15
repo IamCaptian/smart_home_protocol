@@ -9,7 +9,7 @@ static void HOOCH_PROTOCOL_DimmerLight_NotifyDispatchCallback(void);
 static uint8_t HOOCH_PROTOCOL_DimmerLight_IsValidKey(HOOCH_PROTOCOL_DimmerLightKey_t key)
 {
     return (uint8_t)((key >= HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_1) &&
-                     (key <= HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_8));
+                     (key <= HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_16));
 }
 
 static uint8_t HOOCH_PROTOCOL_DimmerLight_IsValidSwitchState(
@@ -83,7 +83,7 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchBrightness
 
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchColorTemperature(
     HOOCH_PROTOCOL_DimmerLightKey_t key,
-    uint8_t color_temperature)
+    uint16_t color_temperature)
 {
     if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
     {
@@ -115,6 +115,7 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchFrame(
     s_hooch_protocol_dimmer_light_dispatch_frame.brightness = frame->brightness;
     s_hooch_protocol_dimmer_light_dispatch_frame.color_temperature = frame->color_temperature;
     s_hooch_protocol_dimmer_light_dispatch_frame.switch_state = frame->switch_state;
+    s_hooch_protocol_dimmer_light_dispatch_frame.percent = frame->percent;
     s_hooch_protocol_dimmer_light_dispatch_frame.control_item = frame->control_item;
     s_hooch_protocol_dimmer_light_dispatch_frame.value = frame->value;
     if (frame->control_item == HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_DEVICE_DESCRIPTOR)

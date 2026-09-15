@@ -47,7 +47,7 @@ static unsigned char handle_key_mode(unsigned short dp_len, unsigned char *dp_da
         sf.value               = key;
         sf.screen_off_time_type = HOOCH_PROTOCOL_SETTING_SCREEN_OFF_TIME_INVALID;
         sf.page                = HOOCH_PROTOCOL_SETTING_PAGE_INVALID;
-        sf.param1              = dp_data[1] + 1U;/*继电器从1开始*/
+        sf.param1              = dp_data[1];
         sf.param2              = 0U;
         sf.param3              = 0U;
         sf.param4              = 0U;
@@ -63,7 +63,7 @@ static unsigned char handle_key_mode(unsigned short dp_len, unsigned char *dp_da
         sf.value               = key;
         sf.screen_off_time_type = HOOCH_PROTOCOL_SETTING_SCREEN_OFF_TIME_INVALID;
         sf.page                = HOOCH_PROTOCOL_SETTING_PAGE_INVALID;
-        sf.param1              = dp_data[1] - 7U;
+        sf.param1              = dp_data[1] - 8U;
         sf.param2              = 0U;
         sf.param3              = 0U;
         sf.param4              = 0U;

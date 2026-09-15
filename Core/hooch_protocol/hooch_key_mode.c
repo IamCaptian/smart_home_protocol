@@ -44,7 +44,7 @@ void HOOCH_PROTOCOL_KeyMode_Clear(void)
 uint8_t HOOCH_PROTOCOL_KeyMode_IsValidKey(HOOCH_PROTOCOL_KeyModeKey_t key)
 {
     return (uint8_t)((key >= HOOCH_PROTOCOL_KEY_MODE_KEY_1) &&
-                     (key <= HOOCH_PROTOCOL_KEY_MODE_KEY_8));
+                     (key <= HOOCH_PROTOCOL_KEY_MODE_KEY_16));
 }
 
 uint8_t HOOCH_PROTOCOL_KeyMode_IsValidType(HOOCH_PROTOCOL_KeyModeType_t type)
@@ -83,6 +83,10 @@ const char *HOOCH_PROTOCOL_KeyMode_TypeToString(HOOCH_PROTOCOL_KeyModeType_t typ
         return "NORMAL_SWITCH";
     case HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH_TOGGLE:
         return "NORMAL_SWITCH_TOGGLE";
+    case HOOCH_PROTOCOL_KEY_MODE_TYPE_ALWAYS_ON_SWITCH:
+        return "ALWAYS_ON_SWITCH";
+    case HOOCH_PROTOCOL_KEY_MODE_TYPE_ALWAYS_OFF_SWITCH:
+        return "ALWAYS_OFF_SWITCH";
     case HOOCH_PROTOCOL_KEY_MODE_TYPE_INVALID:
         return "INVALID";
     default:

@@ -49,6 +49,4 @@ xiaomi_f103\hooch_cli_driver.o: ../Core/Inc/usart.h
 xiaomi_f103\hooch_cli_driver.o: ../Core/Inc/user_printf.h
 xiaomi_f103\hooch_cli_driver.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 xiaomi_f103\hooch_cli_driver.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-xiaomi_f103\hooch_cli_driver.o: ..\Core\hooch_protocol\xiaomi_smart_screen\xiaomi_smart_screen_handle.h
-xiaomi_f103\hooch_cli_driver.o: ..\Core\hooch_protocol\xiaomi_smart_screen\xiaomi_smart_screen_circular_bufferc.h
 xiaomi_f103\hooch_cli_driver.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

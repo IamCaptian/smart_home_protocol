@@ -137,18 +137,46 @@ void knx_summary_key_config(const KNX_Frame_t *frame)
         HOOCH_PROTOCOL_KeyModeFrame_t key_mode_frame;
         (void)memset(&key_mode_frame, 0, sizeof(key_mode_frame));
         key_mode_frame.key = (HOOCH_PROTOCOL_KeyModeKey_t)(frame->fun[1] + 1U);
-        if ((frame->data_len >= 1U) && (frame->data[0] == 2U))
+        /*兜底*/
+        if (frame->data_len < 1U)
         {
-            /* 2=Toggle(ON/OFF)：普通开关反转模式 */
-            key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH_TOGGLE;
+            /* 无数据：按普通开关处理 */
+            key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH;
         }
         else
         {
-            /* 0=OFF / 1=ON：普通开关 */
-            key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH;
+            switch (frame->data[0])
+            {
+            case 0U:
+                /* 0=OFF：常闭模式（怎么点都是关） */
+                key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_ALWAYS_OFF_SWITCH;
+                break;
+            case 1U:
+                /* 1=ON：常开模式（怎么点都是开） */
+                key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_ALWAYS_ON_SWITCH;
+                break;
+            case 2U:
+                /* 2=Toggle(ON/OFF)：普通开关反转模式 */
+                key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH_TOGGLE;
+                break;
+            default:
+                /* 无效值：按普通开关处理 */
+                key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH;
+                break;
+            }
         }
         key_mode_frame.valid = 1U;
         (void)HOOCH_PROTOCOL_KeyMode_SetFrame(&key_mode_frame);
+
+        /* 按键模式原始值同步下发(0-OFF/1-ON/2-Toggle) */
+        if (frame->data_len >= 1U)
+        {
+            key_status_frame.key = (HOOCH_PROTOCOL_KeyStatusKey_t)(frame->fun[1] + 1U);
+            key_status_frame.control_item = HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_KEY_MODE;
+            key_status_frame.value = frame->data[0];
+            key_status_frame.valid = 1U;
+            need_set = 3U;
+        }
     }
     break;
     default: break;

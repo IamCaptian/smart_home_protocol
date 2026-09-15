@@ -28,13 +28,16 @@ xiaomi_f103\mcu_api.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_e
 xiaomi_f103\mcu_api.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 xiaomi_f103\mcu_api.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 xiaomi_f103\mcu_api.o: ../Core/Inc/usart.h
+xiaomi_f103\mcu_api.o: ../Core/Inc/user_printf.h
+xiaomi_f103\mcu_api.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+xiaomi_f103\mcu_api.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+xiaomi_f103\mcu_api.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\zigbee.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\system.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\hooch_setting.h
-xiaomi_f103\mcu_api.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_scene.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_switch.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_air.h

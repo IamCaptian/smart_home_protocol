@@ -40,6 +40,7 @@ typedef enum
     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_MODE,                 /* 仅控制模式 */
     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TARGET_TEMPERATURE,   /* 仅控制目标温度 */
     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_CURRENT_TEMPERATURE,  /* 仅控制当前温度 */
+    HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_ENABLE_BIT,           /* 仅更新使能位(1 byte 位图, bit0:使能 bit1:开关 bit2:模式 bit3:目标温度 bit4:当前温度) */
     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_DEVICE_DESC,          /* 设备描述字符串 */
     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_DEFAULT_ICON,         /* 默认图标 */
     HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_SELECTED_ICON,        /* 选中图标 */
@@ -59,13 +60,13 @@ typedef struct
     uint16_t address;                                             /* 地暖地址 */
     HOOCH_PROTOCOL_FloorHeatingPower_t power;                     /* 开关状态 */
     HOOCH_PROTOCOL_FloorHeatingMode_t mode;                       /* 模式 */
-    uint8_t target_temperature;                                   /* 目标温度 */
-    uint8_t current_temperature;                                  /* 当前温度 */
+    uint16_t target_temperature;                                   /* 目标温度 */
+    uint16_t current_temperature;                                  /* 当前温度 */
     HOOCH_PROTOCOL_FloorHeatingControlItem_t control_item;        /* 本次控制项，支持只更新单一参数 */
     uint8_t device_desc[24];                                      /* 设备描述符字符串 */
     uint8_t sequence;                                             /* 更新序号 */
     uint8_t valid;                                                /* 当前数据是否有效 */
-    uint8_t value;                                                /* 参数值 */
+    uint16_t value;                                                /* 参数值 */
 } HOOCH_PROTOCOL_FloorHeatingFrame_t;
 
 /* 地暖回调函数类型 */
@@ -141,12 +142,12 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendMode(
     uint8_t channel,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode);
 
-/* 单独上报地暖目标温度（通道） 废弃*/
+/* 单独上报地暖目标温度（通道） */
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendTargetTemperature(
     uint8_t channel,
     uint8_t target_temperature);
 
-/* 单独上报地暖当前温度（通道） */
+/* 单独上报地暖当前温度（通道）废弃 */
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendCurrentTemperature(
     uint8_t channel,
     uint8_t current_temperature);

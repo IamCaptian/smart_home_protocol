@@ -8,7 +8,7 @@ extern "C" {
 #include <stdint.h>
 #include <string.h>
 /* 场景上报模块支持的按键通道数 */
-#define HOOCH_PROTOCOL_SCENE_REPORT_KEY_COUNT    8U
+#define HOOCH_PROTOCOL_SCENE_REPORT_KEY_COUNT    16U
 
 /* 场景上报接口返回结果 */
 typedef enum
@@ -30,6 +30,14 @@ typedef enum
     HOOCH_PROTOCOL_SCENE_REPORT_KEY_6,
     HOOCH_PROTOCOL_SCENE_REPORT_KEY_7,
     HOOCH_PROTOCOL_SCENE_REPORT_KEY_8,
+    HOOCH_PROTOCOL_SCENE_REPORT_KEY_9,
+    HOOCH_PROTOCOL_SCENE_REPORT_KEY_10,
+    HOOCH_PROTOCOL_SCENE_REPORT_KEY_11,
+    HOOCH_PROTOCOL_SCENE_REPORT_KEY_12,
+    HOOCH_PROTOCOL_SCENE_REPORT_KEY_13,
+    HOOCH_PROTOCOL_SCENE_REPORT_KEY_14,
+    HOOCH_PROTOCOL_SCENE_REPORT_KEY_15,
+    HOOCH_PROTOCOL_SCENE_REPORT_KEY_16,
 } HOOCH_PROTOCOL_SceneReportKey_t;
 
 /* 场景上报按键类型（小米专用） */
@@ -41,10 +49,18 @@ typedef enum
     HOOCH_PROTOCOL_SCENE_REPORT_TYPE_LONG_CLICK,    /* 长按 */
 } HOOCH_PROTOCOL_SceneReportType_t;
 
+/* 场景上报动作类型（类型1上报使用） */
+typedef enum
+{
+    HOOCH_PROTOCOL_SCENE_REPORT_ACTION_TRIGGER = 0U,  /* 触发：1=触发 */
+    HOOCH_PROTOCOL_SCENE_REPORT_ACTION_LEARN,         /* 学习：1=学习 */
+} HOOCH_PROTOCOL_SceneReportAction_t;
+
 /* 场景上报帧描述 */
 typedef struct
 {
     HOOCH_PROTOCOL_SceneReportKey_t key;        /* 按键编号（通道） */
+    HOOCH_PROTOCOL_SceneReportAction_t action;  /* 上报动作（触发/学习） */
     HOOCH_PROTOCOL_SceneReportType_t type;      /* 按键类型（小米上报使用） */
     uint8_t page;                               /* 页面编号（上报类型2使用） */
     uint16_t address;                           /* 寄存器地址（上报类型3使用） */
@@ -119,8 +135,12 @@ void HOOCH_PROTOCOL_SceneReport_UnregisterReportCallback4(void);
 
 /* ---- 类型1 上报：仅key ---- */
 
-/* 上报场景按键（类型1：仅key） */
+/* 上报场景触发（类型1：仅key） */
 HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_Send(
+    HOOCH_PROTOCOL_SceneReportKey_t key);
+
+/* 上报场景学习（类型1：仅key） */
+HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_SendLearn(
     HOOCH_PROTOCOL_SceneReportKey_t key);
 
 /* ---- 类型2 上报：页面+key ---- */

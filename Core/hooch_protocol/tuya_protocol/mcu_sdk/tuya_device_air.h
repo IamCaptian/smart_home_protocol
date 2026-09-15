@@ -1,5 +1,5 @@
 /*
- * Tuya DP Dispatch — Air Conditioner (DP 102, 105, 106, 112, 134)
+ * Tuya DP Dispatch — Air Conditioner (DP 102, 105, 106, 152, 134)
  *
  * 空调相关 DP 下发处理：风扇速度/模式/温度/开关/组合信息 → HOOCH AirConditioner。
  */

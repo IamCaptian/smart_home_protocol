@@ -1,9 +1,10 @@
 /*
- * Tuya DP Dispatch — Air Conditioner (DP 102, 105, 106, 112, 134)
+ * Tuya DP Dispatch — Air Conditioner (DP 102, 105, 106, 152, 134)
  */
 #include "tuya_device_air.h"
 #include "protocol.h"
 #include "hooch_air_conditioner.h"
+#include "hooch_setting.h"
 
 /* Tuya 风速枚举 (low=0,mid=1,high=2,auto=3) → Hooch (LOW=1,MEDIUM=2,HIGH=3,AUTO=4) */
 static HOOCH_PROTOCOL_AirConditionerFanSpeed_t map_fan_speed(unsigned char raw)
@@ -84,7 +85,7 @@ static unsigned char handle_temp_set(unsigned short dp_len, unsigned char *dp_da
     return 1U;
 }
 
-/* ---- DP 112: 开关（bool） ---- */
+/* ---- DP 152: 空调开关（bool） ---- */
 static unsigned char handle_switch(unsigned short dp_len, unsigned char *dp_data)
 {
     unsigned char power = mcu_get_dp_download_bool(dp_data, dp_len);
@@ -118,6 +119,45 @@ static unsigned char handle_ac_info(unsigned short dp_len, unsigned char *dp_dat
     return 1U;
 }
 
+/* ---- DP 133: 空调温度上下限 (raw: byte0=0上限/1下限, byte1=数值5~35℃) ---- */
+static unsigned char handle_ac_temp_limit(unsigned short dp_len, unsigned char *dp_data)
+{
+    if (dp_len < 2U) return 0U;
+
+    const unsigned char is_max = (dp_data[0] == 0U);
+
+    /* 同步到屏幕设置缓存（与 KNX 空调限位配置一致） */
+    HOOCH_PROTOCOL_SettingFrame_t setting_frame;
+    setting_frame.item = is_max ? HOOCH_PROTOCOL_SETTING_ITEM_AIR_CONDITIONER_TEMPERATURE_MAX
+                                : HOOCH_PROTOCOL_SETTING_ITEM_AIR_CONDITIONER_TEMPERATURE_MIN;
+    setting_frame.value = dp_data[1];
+    setting_frame.screen_off_time_type = HOOCH_PROTOCOL_SETTING_SCREEN_OFF_TIME_NEVER;
+    setting_frame.page = HOOCH_PROTOCOL_SETTING_PAGE_SWITCH;
+    setting_frame.param1 = 0U;
+    setting_frame.param2 = 0U;
+    setting_frame.param3 = 0U;
+    setting_frame.param4 = 0U;
+    setting_frame.sequence = 0U;
+    setting_frame.valid = 0U;
+    (void)HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
+
+    /* 空调下发帧：控制项 TEMP_MIN/TEMP_MAX，数值放在 value 字段 */
+    HOOCH_PROTOCOL_AirConditionerFrame_t frame;
+    frame.channel           = 0U;
+    frame.power             = HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_OFF;
+    frame.mode              = HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_INVALID;
+    frame.fan_speed         = HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_INVALID;
+    frame.temperature       = 0U;
+    frame.current_temperature = 0U;
+    frame.control_item      = is_max ? HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMP_MAX
+                                     : HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMP_MIN;
+    frame.value             = dp_data[1];
+    frame.sequence          = 0U;
+    frame.valid             = 0U;
+    (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&frame);
+    return 1U;
+}
+
 unsigned char tuya_dp_dispatch_air(unsigned char dp_id, unsigned char dp_type,
                                    unsigned short dp_len, unsigned char *dp_data)
 {
@@ -127,8 +167,9 @@ unsigned char tuya_dp_dispatch_air(unsigned char dp_id, unsigned char dp_type,
     case DPID_FAN_SPEED_ENUM: return handle_fan_speed_enum(dp_len, dp_data);
     case DPID_MODE:           return handle_mode(dp_len, dp_data);
     case DPID_TEMP_SET:       return handle_temp_set(dp_len, dp_data);
-    case DPID_SWITCH:         return handle_switch(dp_len, dp_data);
+    case DPID_AIR_SWITCH:      return handle_switch(dp_len, dp_data);
     case DPID_AC_INFO:        return handle_ac_info(dp_len, dp_data);
+    case DPID_AC_LIMIT:       return handle_ac_temp_limit(dp_len, dp_data);
     default: break;
     }
     return 0U;

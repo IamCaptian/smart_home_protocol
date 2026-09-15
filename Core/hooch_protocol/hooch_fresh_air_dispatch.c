@@ -103,6 +103,11 @@ static HOOCH_PROTOCOL_FreshAirResult_t HOOCH_PROTOCOL_FreshAir_SetDispatchFrameI
             s_hooch_protocol_fresh_air_dispatch_frame.current_temperature = frame->current_temperature;
             break;
 
+        case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ENABLE_BIT:
+            /* 使能位原始位图(bit0:使能 bit1:开关 bit2:模式 bit3:风速 bit4:当前温度) */
+            s_hooch_protocol_fresh_air_dispatch_frame.value = frame->value;
+            break;
+
         case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_DEVICE_DESC:
             (void)memcpy(s_hooch_protocol_fresh_air_dispatch_frame.device_desc,
                          frame->device_desc,

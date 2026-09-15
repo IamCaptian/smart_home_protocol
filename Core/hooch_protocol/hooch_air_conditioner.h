@@ -53,7 +53,7 @@ typedef enum
     HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_FAN_SPEED,          /* [4] 仅控制风速 */
     HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMPERATURE,        /* [5] 仅控制温度 */
     HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_CURRENT_TEMPERATURE,/* [6] 当前温度（实际室温） */
-    HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ENABLE,             /* [7] 空调使能 */
+    HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ENABLE_BIT,         /* [7] 仅更新使能位(1 byte 位图, bit0:使能 bit1:开关 bit2:模式 bit3:风速 bit4:当前温度) */
     HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_DEVICE_DESC,        /* [8] 设备描述字符串 */
     HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_DEFAULT_ICON,       /* [9] 默认图标 */
     HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_SELECTED_ICON,      /* [10] 选中图标 */
@@ -74,13 +74,13 @@ typedef struct
     HOOCH_PROTOCOL_AirConditionerPower_t power;              /* 开关状态 */
     HOOCH_PROTOCOL_AirConditionerMode_t mode;                /* 模式 */
     HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed;       /* 风速 */
-    uint8_t temperature;                                     /* 设定温度 */
-    uint8_t current_temperature;                             /* 当前温度（实际室温） */
+    uint16_t temperature;                                     /* 设定温度 */
+    uint16_t current_temperature;                             /* 当前温度（实际室温） */
     HOOCH_PROTOCOL_AirConditionerControlItem_t control_item; /* 本次控制项，支持只更新单一参数 */
     uint8_t device_desc[24];                                 /* 设备描述符字符串 */
     uint8_t sequence;                                        /* 更新序号 */
     uint8_t valid;                                           /* 当前数据是否有效 */
-    uint8_t value;                                           /* 参数值 */
+    uint16_t value;                                           /* 参数值 */
 } HOOCH_PROTOCOL_AirConditionerFrame_t;
 
 

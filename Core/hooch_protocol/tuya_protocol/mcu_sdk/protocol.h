@@ -22,7 +22,7 @@ extern "C"
  **********************************************************/
 //< USER_CHECK_MSG 
 ///<product key(pid)  the same as yours in the Tuya IoT Platform
-#define PRODUCT_KEY "y3gnk8n7"    //开发平台创建产品后生成的16位字符产品唯一标识
+#define PRODUCT_KEY "az0mzbm4"    //开发平台创建产品后生成的16位字符产品唯一标识
 
 //< USER_CHECK_MSG END
 
@@ -82,9 +82,9 @@ extern "C"
 //温度设置(可下发可上报)
 //备注:
 #define DPID_TEMP_SET 106
-//开关(可下发可上报)
-//备注:
-#define DPID_SWITCH 112
+//空调开关(可下发可上报)
+//备注:云端 DP 点由 112 调整为 152
+#define DPID_AIR_SWITCH 152
 //循环模式(可下发可上报)
 //备注:
 #define DPID_LOOP_MODE 116
@@ -94,9 +94,9 @@ extern "C"
 //排风风速(可下发可上报)
 //备注:
 #define DPID_EXHAUST_FAN_SPEED 124
-//新风阀(可下发可上报)
-//备注:
-#define DPID_FRESH_AIR_VALVE 125
+//新风开关(可下发可上报)
+//备注:BOOL
+#define DPID_FRESH_AIR_SWITCH 125
 //人体感应状态(只上报)
 //备注:
 #define DPID_PIR_STATE 126
@@ -172,9 +172,11 @@ extern "C"
 //关闭指示灯：0：off , 1：on
 //屏幕待机样式：NULL
 #define DPID_BASE_SET 142
-//高级设置功能(可下发可上报)
+//高级设置功能(只下发)
 //备注:指示灯高亮(1byte)：0~100
 //页面排序(5byte)：12345（默认）
+//温度传感器矫正(1byte char)：-10~+10
+//湿度传感器矫正(1byte char)：-20%~+20%
 #define DPID_ADV_SET 143
 //主题切换(可下发可上报)
 //备注:NULL
