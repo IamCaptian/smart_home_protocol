@@ -7,6 +7,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <string.h>
+#include "hooch_protocol_common.h"
 /* 支持的窗帘路数。 */
 #define HOOCH_PROTOCOL_CURTAIN_KEY_COUNT    16U
 
@@ -50,7 +51,7 @@ typedef enum
 /* 窗帘单项数据描述 */
 typedef struct
 {
-    uint8_t value;      /* 当前值 */
+    uint16_t value;     /* 当前值 */
     uint8_t sequence;   /* 更新序号 */
     uint8_t valid;      /* 当前数据是否有效 */
 } HOOCH_PROTOCOL_CurtainItem_t;
@@ -83,10 +84,11 @@ typedef struct
     HOOCH_PROTOCOL_CurtainItem_t percent;              /* 开合百分比 */
     HOOCH_PROTOCOL_CurtainItem_t angle;                /* 开合角度 */
     HOOCH_PROTOCOL_CurtainControlItem_t control_item;  /* 本次控制项，支持只更新单一状态 */
+    HOOCH_PROTOCOL_Source_t source;                    /* 消息来源 */
     uint8_t sequence;                                  /* 更新序号 */
     uint8_t valid;                                     /* 当前数据是否有效 */
     uint8_t device_desc[24];                           /* 设备描述符 */
-    uint8_t value;                              /* 当前值 */
+    uint16_t value;                             /* 当前值 */
 } HOOCH_PROTOCOL_CurtainFrame_t;
 
 /* 窗帘下发回调函数类型 */
@@ -114,22 +116,22 @@ void HOOCH_PROTOCOL_Curtain_Clear(void);
 /* 设置指定窗帘开关状态 */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetValue(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value);
+    uint16_t value);
 
 /* 设置指定窗帘停止状态 */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetStop(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value);
+    uint16_t value);
 
 /* 设置指定窗帘开合百分比 */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetPercent(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value);
+    uint16_t value);
 
 /* 设置指定窗帘开合角度 */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetAngle(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value);
+    uint16_t value);
 
 /* 直接写入完整的窗帘数据帧 */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetFrame(
@@ -169,7 +171,7 @@ void HOOCH_PROTOCOL_Curtain_UnregisterReportCallback3(void);
 /* ---- 统一入口 ---- */
 
 /* 对外统一的窗帘入口，当前不支持无 key 的模糊发送 */
-HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_Send(uint8_t value);
+HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_Send(uint16_t value);
 
 /* ---- 类型1 上报：仅通道+数值 ---- */
 
@@ -181,17 +183,17 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendSwitch(
 /* 上报窗帘停止状态（类型1：仅通道+数值） */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendStop(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value);
+    uint16_t value);
 
 /* 上报窗帘开合百分比（类型1：仅通道+数值） */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendPercent(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value);
+    uint16_t value);
 
 /* 上报窗帘开合角度（类型1：仅通道+数值） */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendAngle(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value);
+    uint16_t value);
 
 /* ---- 类型2 上报：页面+通道+数值 ---- */
 
@@ -205,19 +207,19 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendSwitchPage(
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendStopPage(
     uint8_t page,
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value);
+    uint16_t value);
 
 /* 上报窗帘开合百分比（类型2：页面+通道） */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendPercentPage(
     uint8_t page,
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value);
+    uint16_t value);
 
 /* 上报窗帘开合角度（类型2：页面+通道） */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendAnglePage(
     uint8_t page,
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value);
+    uint16_t value);
 
 /* ---- 类型3 上报：地址+数值 ---- */
 
@@ -229,17 +231,17 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendSwitchAddr(
 /* 上报窗帘停止状态（类型3：地址） */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendStopAddr(
     uint16_t address,
-    uint8_t value);
+    uint16_t value);
 
 /* 上报窗帘开合百分比（类型3：地址） */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendPercentAddr(
     uint16_t address,
-    uint8_t value);
+    uint16_t value);
 
 /* 上报窗帘开合角度（类型3：地址） */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendAngleAddr(
     uint16_t address,
-    uint8_t value);
+    uint16_t value);
 
 /* ---- 下发接口 ---- */
 
@@ -255,17 +257,17 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_DispatchSwitch(
 /* 下发窗帘停止状态 */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_DispatchStop(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value);
+    uint16_t value);
 
 /* 下发窗帘开合百分比 */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_DispatchPercent(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value);
+    uint16_t value);
 
 /* 下发窗帘开合角度 */
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_DispatchAngle(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value);
+    uint16_t value);
 
 #ifdef __cplusplus
 }

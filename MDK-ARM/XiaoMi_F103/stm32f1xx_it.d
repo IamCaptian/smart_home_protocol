@@ -36,3 +36,4 @@ xiaomi_f103\stm32f1xx_it.o: ..\Core\hooch_protocol\knx_protocol\knx_protocol_uar
 xiaomi_f103\stm32f1xx_it.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h
 xiaomi_f103\stm32f1xx_it.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h
 xiaomi_f103\stm32f1xx_it.o: ..\Core\hooch_protocol\hooch_setting.h
+xiaomi_f103\stm32f1xx_it.o: ..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h

@@ -7,6 +7,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <string.h>
+#include "hooch_protocol_common.h"
 /* 支持的按键数量。 */
 #define HOOCH_PROTOCOL_KEY_STATUS_KEY_COUNT    16U
 
@@ -68,6 +69,7 @@ typedef struct
     uint16_t address;                               /* 寄存器地址（上报类型3使用） */
     HOOCH_PROTOCOL_KeyStatusState_t state;          /* 当前按键状态 */
     HOOCH_PROTOCOL_KeyStatusControlItem_t control_item; /* 本次控制项，支持只更新单一状态 */
+    HOOCH_PROTOCOL_Source_t source;                       /* 消息来源 */
     uint8_t sequence;                               /* 更新序号 */
     uint8_t valid;                                  /* 当前数据是否有效 */
     uint8_t device_desc[24];                        /* 设备描述符 */

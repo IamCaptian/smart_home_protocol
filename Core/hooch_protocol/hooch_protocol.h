@@ -5,6 +5,8 @@
 extern "C" {
 #endif
 
+#include "hooch_protocol_common.h"
+
 /* 聚合 `Core/hooch_protocol` 目录下所有对外头文件 */
 #include "hooch_air_conditioner.h"
 #include "hooch_code_match_dispatch_dispatch.h"

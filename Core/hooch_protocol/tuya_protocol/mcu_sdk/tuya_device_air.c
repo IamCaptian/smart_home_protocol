@@ -39,12 +39,13 @@ static void dispatch_air_frame(HOOCH_PROTOCOL_AirConditionerControlItem_t item,
                                unsigned char                            temperature)
 {
     HOOCH_PROTOCOL_AirConditionerFrame_t frame;
-    frame.channel      = 0U;
+    frame.channel      = 1U;    /* 涂鸦单空调：通用协议通道从 1 开始，固定通道 1 */
     frame.power        = power;
     frame.mode         = mode;
     frame.fan_speed    = fan_speed;
     frame.temperature  = temperature;
     frame.control_item = item;
+    frame.source       = HOOCH_PROTOCOL_SOURCE_TUYA;    /* 涂鸦下发 */
     frame.sequence     = 0U;
     frame.valid        = 0U;
     HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&frame);
@@ -103,7 +104,7 @@ static unsigned char handle_ac_info(unsigned short dp_len, unsigned char *dp_dat
     if (dp_len < 5U) return 0U;
 
     HOOCH_PROTOCOL_AirConditionerFrame_t frame;
-    frame.channel      = 0U;
+    frame.channel      = 1U;    /* 涂鸦单空调：固定通道 1 */
     frame.power        = dp_data[0] ? HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_ON
                                     : HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_OFF;
     /* dp_data[1]: cold=0,hot=1,dry=2,fan=3,auto=4 → Hooch */
@@ -113,6 +114,7 @@ static unsigned char handle_ac_info(unsigned short dp_len, unsigned char *dp_dat
     /* dp_data[3]: 风向，暂忽略 */
     frame.temperature  = dp_data[4];
     frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ALL;
+    frame.source       = HOOCH_PROTOCOL_SOURCE_TUYA;    /* 涂鸦下发 */
     frame.sequence     = 0U;
     frame.valid        = 0U;
     HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&frame);
@@ -143,7 +145,7 @@ static unsigned char handle_ac_temp_limit(unsigned short dp_len, unsigned char *
 
     /* 空调下发帧：控制项 TEMP_MIN/TEMP_MAX，数值放在 value 字段 */
     HOOCH_PROTOCOL_AirConditionerFrame_t frame;
-    frame.channel           = 0U;
+    frame.channel           = 1U;    /* 涂鸦单空调：固定通道 1 */
     frame.power             = HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_OFF;
     frame.mode              = HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_INVALID;
     frame.fan_speed         = HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_INVALID;
@@ -152,6 +154,7 @@ static unsigned char handle_ac_temp_limit(unsigned short dp_len, unsigned char *
     frame.control_item      = is_max ? HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMP_MAX
                                      : HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMP_MIN;
     frame.value             = dp_data[1];
+    frame.source            = HOOCH_PROTOCOL_SOURCE_TUYA;    /* 涂鸦下发 */
     frame.sequence          = 0U;
     frame.valid             = 0U;
     (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&frame);

@@ -10,7 +10,7 @@ static HOOCH_PROTOCOL_AirConditionerCallback_t s_hooch_protocol_air_conditioner_
 static HOOCH_PROTOCOL_AirConditionerCallback_t s_hooch_protocol_air_conditioner_report_callback2;
 
 /* 校验空调温度是否在当前模块支持的范围内。 */
-static uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(uint8_t temperature)
+static uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(uint16_t temperature)
 {
     /* 温度限制暂时屏蔽，直接放行 */
     (void)temperature;
@@ -37,8 +37,8 @@ static void HOOCH_PROTOCOL_AirConditioner_NotifyReportCallback2(void)
     }
 }
 
-/* 统一清空一帧空调数据。 */
-static void HOOCH_PROTOCOL_AirConditioner_ClearFrame(
+/* 复位一帧空调数据（清零并置默认值），跨平台构造下发/上报帧前先调用。 */
+void HOOCH_PROTOCOL_AirConditioner_ClearFrame(
     HOOCH_PROTOCOL_AirConditionerFrame_t *frame)
 {
     if (frame == 0)
@@ -46,15 +46,14 @@ static void HOOCH_PROTOCOL_AirConditioner_ClearFrame(
         return;
     }
 
-    frame->channel = 0U;
-    frame->address = 0U;
+    (void)memset(frame, 0, sizeof(*frame));
+
     frame->power = HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_OFF;
     frame->mode = HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_INVALID;
     frame->fan_speed = HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_INVALID;
     frame->temperature = 16U;
     frame->control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_INVALID;
-    frame->sequence = 0U;
-    frame->valid = 0U;
+    frame->source = HOOCH_PROTOCOL_SOURCE_INVALID;
 }
 
 uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidPower(HOOCH_PROTOCOL_AirConditionerPower_t power)
@@ -88,7 +87,7 @@ static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetRe
     HOOCH_PROTOCOL_AirConditionerPower_t power,
     HOOCH_PROTOCOL_AirConditionerMode_t mode,
     HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint8_t temperature)
+    uint16_t temperature)
 {
     if ((HOOCH_PROTOCOL_AirConditioner_IsValidPower(power) == 0U) ||
         (HOOCH_PROTOCOL_AirConditioner_IsValidMode(mode) == 0U) ||
@@ -221,7 +220,7 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_Set(
     HOOCH_PROTOCOL_AirConditionerPower_t power,
     HOOCH_PROTOCOL_AirConditionerMode_t mode,
     HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint8_t temperature)
+    uint16_t temperature)
 {
     return HOOCH_PROTOCOL_AirConditioner_SetReportState(power, mode, fan_speed, temperature);
 }
@@ -264,7 +263,7 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_Send(
     HOOCH_PROTOCOL_AirConditionerPower_t power,
     HOOCH_PROTOCOL_AirConditionerMode_t mode,
     HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint8_t temperature)
+    uint16_t temperature)
 {
     HOOCH_PROTOCOL_AirConditionerFrame_t frame;
 
@@ -327,7 +326,7 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFanSpeed
 
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendTemperature(
     uint8_t channel,
-    uint8_t temperature)
+    uint16_t temperature)
 {
     HOOCH_PROTOCOL_AirConditionerFrame_t frame;
 
@@ -387,7 +386,7 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFanSpeed
 
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendTemperatureAddr(
     uint16_t address,
-    uint8_t temperature)
+    uint16_t temperature)
 {
     HOOCH_PROTOCOL_AirConditionerFrame_t frame;
 
@@ -405,7 +404,7 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFrame(
     HOOCH_PROTOCOL_AirConditionerPower_t power,
     HOOCH_PROTOCOL_AirConditionerMode_t mode,
     HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint8_t temperature)
+    uint16_t temperature)
 {
     HOOCH_PROTOCOL_AirConditionerFrame_t frame;
 
@@ -426,7 +425,7 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFrameAdd
     HOOCH_PROTOCOL_AirConditionerPower_t power,
     HOOCH_PROTOCOL_AirConditionerMode_t mode,
     HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint8_t temperature)
+    uint16_t temperature)
 {
     HOOCH_PROTOCOL_AirConditionerFrame_t frame;
 

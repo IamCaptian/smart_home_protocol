@@ -6,6 +6,7 @@ xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sd
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\hooch_setting.h
 xiaomi_f103\tuya_report_callbacks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 xiaomi_f103\tuya_report_callbacks.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\system.h
 xiaomi_f103\tuya_report_callbacks.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_protocol_uart.h
 xiaomi_f103\tuya_report_callbacks.o: ../Core/Inc/main.h

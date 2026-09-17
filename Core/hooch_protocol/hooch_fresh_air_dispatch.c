@@ -128,6 +128,7 @@ static HOOCH_PROTOCOL_FreshAirResult_t HOOCH_PROTOCOL_FreshAir_SetDispatchFrameI
 
     s_hooch_protocol_fresh_air_dispatch_frame.channel = frame->channel;
     s_hooch_protocol_fresh_air_dispatch_frame.control_item = frame->control_item;
+    s_hooch_protocol_fresh_air_dispatch_frame.source = frame->source;
     s_hooch_protocol_fresh_air_dispatch_frame.sequence = frame->sequence;
     s_hooch_protocol_fresh_air_dispatch_frame.valid = 1U;
 

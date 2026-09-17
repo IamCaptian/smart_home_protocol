@@ -7,7 +7,7 @@ static HOOCH_PROTOCOL_AirConditionerFrame_t s_hooch_protocol_air_conditioner_dis
 static HOOCH_PROTOCOL_AirConditionerCallback_t s_hooch_protocol_air_conditioner_dispatch_callback;
 
 /* 校验空调温度是否在当前模块支持的范围内。 */
-static uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(uint8_t temperature)
+static uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(uint16_t temperature)
 {
     /* 温度限制暂时屏蔽，直接放行 */
     (void)temperature;
@@ -22,36 +22,6 @@ static void HOOCH_PROTOCOL_AirConditioner_NotifyDispatchCallback(void)
         s_hooch_protocol_air_conditioner_dispatch_callback(
             &s_hooch_protocol_air_conditioner_dispatch_frame);
     }
-}
-
-/* 统一写入空调下发状态。 */
-static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetDispatchState(
-    HOOCH_PROTOCOL_AirConditionerPower_t power,
-    HOOCH_PROTOCOL_AirConditionerMode_t mode,
-    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint8_t temperature)
-{
-    if ((HOOCH_PROTOCOL_AirConditioner_IsValidPower(power) == 0U) ||
-        (HOOCH_PROTOCOL_AirConditioner_IsValidMode(mode) == 0U) ||
-        (HOOCH_PROTOCOL_AirConditioner_IsValidFanSpeed(fan_speed) == 0U) ||
-        (HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(temperature) == 0U))
-    {
-        return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
-    }
-
-    s_hooch_protocol_air_conditioner_dispatch_frame.power = power;
-    s_hooch_protocol_air_conditioner_dispatch_frame.mode = mode;
-    s_hooch_protocol_air_conditioner_dispatch_frame.fan_speed = fan_speed;
-    s_hooch_protocol_air_conditioner_dispatch_frame.temperature = temperature;
-    s_hooch_protocol_air_conditioner_dispatch_frame.channel = 1U; /*目前默认全量下发只有小米，默认通道1*/
-    s_hooch_protocol_air_conditioner_dispatch_frame.control_item =
-        HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ALL;
-    s_hooch_protocol_air_conditioner_dispatch_frame.sequence++;
-    s_hooch_protocol_air_conditioner_dispatch_frame.valid = 1U;
-
-    HOOCH_PROTOCOL_AirConditioner_NotifyDispatchCallback();
-
-    return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_OK;
 }
 
 /* 统一按 control_item 写入空调下发帧。 */
@@ -167,6 +137,7 @@ static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetDi
 
     s_hooch_protocol_air_conditioner_dispatch_frame.channel = frame->channel;
     s_hooch_protocol_air_conditioner_dispatch_frame.control_item = frame->control_item;
+    s_hooch_protocol_air_conditioner_dispatch_frame.source = frame->source;
     s_hooch_protocol_air_conditioner_dispatch_frame.sequence = frame->sequence;
     s_hooch_protocol_air_conditioner_dispatch_frame.valid = 1U;
 
@@ -190,14 +161,4 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_DispatchFram
     const HOOCH_PROTOCOL_AirConditionerFrame_t *frame)
 {
     return HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal(frame);
-}
-
-/*这个接口是下发全量控制  通道0就是默认 */
-HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_Dispatch(
-    HOOCH_PROTOCOL_AirConditionerPower_t power,
-    HOOCH_PROTOCOL_AirConditionerMode_t mode,
-    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint8_t temperature)
-{
-    return HOOCH_PROTOCOL_AirConditioner_SetDispatchState(power, mode, fan_speed, temperature);
 }

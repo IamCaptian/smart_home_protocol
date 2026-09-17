@@ -7,6 +7,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <string.h>
+#include "hooch_protocol_common.h"
 /* 新风接口返回结果 */
 typedef enum
 {
@@ -70,12 +71,13 @@ typedef struct
     HOOCH_PROTOCOL_FreshAirPower_t power;                    /* 开关状态 */
     HOOCH_PROTOCOL_FreshAirMode_t mode;                      /* 模式 */
     HOOCH_PROTOCOL_FreshAirFanSpeed_t fan_speed;             /* 风速 */
-    uint8_t current_temperature;                             /* 当前温度（实际室温） */
+    uint16_t current_temperature;                            /* 当前温度（实际室温） */
     HOOCH_PROTOCOL_FreshAirControlItem_t control_item;       /* 本次控制项，支持只更新单一参数 */
+    HOOCH_PROTOCOL_Source_t source;                           /* 消息来源 */
     uint8_t device_desc[24];                                 /* 设备描述符字符串 */
     uint8_t sequence;                                        /* 更新序号 */
     uint8_t valid;                                           /* 当前数据是否有效 */
-    uint8_t value;                                           /* 参数值 */
+    uint16_t value;                                          /* 参数值 */
 } HOOCH_PROTOCOL_FreshAirFrame_t;
 
 /* 新风回调函数类型 */

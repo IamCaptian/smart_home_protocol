@@ -32,6 +32,7 @@ static unsigned char handle_theme(unsigned short dp_len, unsigned char *dp_data)
     unsigned char theme_val = mcu_get_dp_download_enum(dp_data, dp_len);
     HOOCH_PROTOCOL_SettingFrame_t sf;
     init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_THEME, theme_val);
+    sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
     return 1U;
 }
@@ -42,6 +43,7 @@ static unsigned char handle_child_lock(unsigned short dp_len, unsigned char *dp_
     unsigned char locked = mcu_get_dp_download_bool(dp_data, dp_len);
     HOOCH_PROTOCOL_SettingFrame_t sf;
     init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_KEY_CHILD_LOCK, locked);
+    sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
     return 1U;
 }
@@ -56,6 +58,7 @@ static unsigned char handle_jog_time(unsigned short dp_len, unsigned char *dp_da
     init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_KEY_JOG_TIME, dp_data[0] + 1U);
     sf.param1 = dp_data[1];
     sf.param2 = dp_data[2];
+    sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
     return 1U;
 }
@@ -83,6 +86,7 @@ static unsigned char handle_page_mgr(unsigned short dp_len, unsigned char *dp_da
             dp_data[i]);
         sf.page   = page_map[i];
         sf.param1 = i;
+        sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
         (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
     }
     return 1U;
@@ -96,12 +100,13 @@ static unsigned char handle_page_sync(unsigned short dp_len, unsigned char *dp_d
         HOOCH_PROTOCOL_SETTING_PAGE_PAGE1,
         HOOCH_PROTOCOL_SETTING_PAGE_PAGE2,
         HOOCH_PROTOCOL_SETTING_PAGE_AIR_CONDITIONER,
-        HOOCH_PROTOCOL_SETTING_PAGE_INVALID,  /* fresh_air */
-        HOOCH_PROTOCOL_SETTING_PAGE_INVALID,  /* floor_heating */
+        HOOCH_PROTOCOL_SETTING_PAGE_FRESH_AIR,  /* fresh_air */
+        HOOCH_PROTOCOL_SETTING_PAGE_FLOOR_HEATING,  /* floor_heating */
     };
     HOOCH_PROTOCOL_SettingFrame_t sf;
     init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_CURRENT_DISPLAY_PAGE, val);
     sf.page = (val < 5U) ? page_map[val] : HOOCH_PROTOCOL_SETTING_PAGE_INVALID;
+    sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
     return 1U;
 }
@@ -112,6 +117,7 @@ static unsigned char handle_master_sw(unsigned short dp_len, unsigned char *dp_d
     unsigned char sw = mcu_get_dp_download_bool(dp_data, dp_len);
     HOOCH_PROTOCOL_SettingFrame_t sf;
     init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_MASTER_SW, sw);
+    sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
     return 1U;
 }
@@ -154,6 +160,7 @@ static unsigned char handle_base_set(unsigned short dp_len, unsigned char *dp_da
         } else {
             sf.value = dp_data[dispatch_table[i].offset];
         }
+        sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
         (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
     }
     return 1U;
@@ -174,22 +181,26 @@ static unsigned char handle_adv_set(unsigned short dp_len, unsigned char *dp_dat
     /* [0] 指示灯高亮 0~100 */
     init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_BACKLIGHT_BRIGHTNESS_HIGHLIGHT,
                        dp_data[0]);
+    sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
 
     /* [1-5] 页面排序 (5byte) */
     init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_PAGE_ORDER, 0U);
     memset(sf.data, 0, sizeof(sf.data));
     memcpy(sf.data, &dp_data[1], 5U);
+    sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
 
     /* [6] 温度传感器矫正: int8 符号扩展后存入 value */
     init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_TEMPERATURE_CALIBRATION, 0U);
     sf.value = (uint32_t)(int32_t)(int8_t)dp_data[6];
+    sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
 
     /* [7] 湿度传感器矫正: int8 符号扩展后存入 value */
     init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_HUMIDITY_CALIBRATION, 0U);
     sf.value = (uint32_t)(int32_t)(int8_t)dp_data[7];
+    sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
 
     return 1U;

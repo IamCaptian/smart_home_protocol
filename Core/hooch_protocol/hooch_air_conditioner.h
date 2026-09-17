@@ -7,6 +7,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <string.h>
+#include "hooch_protocol_common.h"
 /* 空调接口返回结果 */
 typedef enum
 {
@@ -77,6 +78,7 @@ typedef struct
     uint16_t temperature;                                     /* 设定温度 */
     uint16_t current_temperature;                             /* 当前温度（实际室温） */
     HOOCH_PROTOCOL_AirConditionerControlItem_t control_item; /* 本次控制项，支持只更新单一参数 */
+    HOOCH_PROTOCOL_Source_t source;                          /* 消息来源 */
     uint8_t device_desc[24];                                 /* 设备描述符字符串 */
     uint8_t sequence;                                        /* 更新序号 */
     uint8_t valid;                                           /* 当前数据是否有效 */
@@ -95,6 +97,9 @@ void HOOCH_AirConditioner_Init(void);
 /* 清空当前空调数据 */
 void HOOCH_PROTOCOL_AirConditioner_Clear(void);
 
+/* 复位一帧空调数据（清零并置默认值），跨平台构造下发/上报帧前先调用 */
+void HOOCH_PROTOCOL_AirConditioner_ClearFrame(HOOCH_PROTOCOL_AirConditionerFrame_t *frame);
+
 /* 校验空调开关状态是否有效 */
 uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidPower(HOOCH_PROTOCOL_AirConditionerPower_t power);
 
@@ -109,12 +114,16 @@ uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidFanSpeed(
 uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidControlItem(
     HOOCH_PROTOCOL_AirConditionerControlItem_t control_item);
 
+
+
+
+
 /* 设置当前空调状态 */
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_Set(
     HOOCH_PROTOCOL_AirConditionerPower_t power,
     HOOCH_PROTOCOL_AirConditionerMode_t mode,
     HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint8_t temperature);
+    uint16_t temperature);
 
 /* 写入空调数据帧，可按 control_item 只更新单一参数 */
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetFrame(
@@ -150,7 +159,7 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_Send(
     HOOCH_PROTOCOL_AirConditionerPower_t power,
     HOOCH_PROTOCOL_AirConditionerMode_t mode,
     HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint8_t temperature);
+    uint16_t temperature);
 
 /* 单独上报空调开关（通道） */
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendPower(
@@ -170,7 +179,7 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFanSpeed
 /* 单独上报空调温度（通道） */
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendTemperature(
     uint8_t channel,
-    uint8_t temperature);
+    uint16_t temperature);
 
 /* 单独上报空调开关（地址） */
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendPowerAddr(
@@ -190,7 +199,7 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFanSpeed
 /* 单独上报空调温度（地址） */
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendTemperatureAddr(
     uint16_t address,
-    uint8_t temperature);
+    uint16_t temperature);
 
 /* 上报空调整帧（通道） */
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFrame(
@@ -198,7 +207,7 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFrame(
     HOOCH_PROTOCOL_AirConditionerPower_t power,
     HOOCH_PROTOCOL_AirConditionerMode_t mode,
     HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint8_t temperature);
+    uint16_t temperature);
 
 /* 上报空调整帧（地址） */
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFrameAddr(
@@ -206,18 +215,11 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFrameAdd
     HOOCH_PROTOCOL_AirConditionerPower_t power,
     HOOCH_PROTOCOL_AirConditionerMode_t mode,
     HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint8_t temperature);
+    uint16_t temperature);
 
-/* 写入空调下发数据帧 */
+/* 写入空调下发数据帧（跨平台唯一入口，调用方需在 frame->source 标明来源） */
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_DispatchFrame(
     const HOOCH_PROTOCOL_AirConditionerFrame_t *frame);
-
-/* 下发空调控制数据 单空调使用：小米、涂鸦 默认通道0*/
-HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_Dispatch(
-    HOOCH_PROTOCOL_AirConditionerPower_t power,
-    HOOCH_PROTOCOL_AirConditionerMode_t mode,
-    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint8_t temperature);
 
 #ifdef __cplusplus
 }

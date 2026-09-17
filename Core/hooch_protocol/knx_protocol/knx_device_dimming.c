@@ -19,6 +19,7 @@ void knx_summary_dimming_control(const KNX_Frame_t *frame)
     }
 
     (void)memset(&dimmer_light_frame, 0, sizeof(dimmer_light_frame));
+    dimmer_light_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
     should_update_dimmer_light = 0U;
     item_desc = KNX_DESC("Unknown Control Item");
 
@@ -105,6 +106,7 @@ void knx_summary_dimming_config(const KNX_Frame_t *frame)
 
     item_desc = KNX_DESC("Unknown Config Item");
     (void)memset(&dimmer_light_frame, 0, sizeof(dimmer_light_frame));
+    dimmer_light_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
     /* 调光配置项：item -> 功能描述 */
     switch (frame->fun[4])
     {

@@ -7,6 +7,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <string.h>
+#include "hooch_protocol_common.h"
 /* 场景下发模块支持的场景总数 */
 #define HOOCH_PROTOCOL_SCENE_DISPATCH_SCENE_COUNT    16U
 
@@ -58,6 +59,7 @@ typedef struct
 {
     HOOCH_PROTOCOL_SceneDispatchScene_t scene;                /* 场景编号 */
     HOOCH_PROTOCOL_SceneDispatchControlItem_t control_item;   /* 本次控制项，支持只更新单一参数 */
+    HOOCH_PROTOCOL_Source_t source;                             /* 消息来源 */
     uint8_t device_desc[24];                                  /* 设备描述符字符串 */
     uint8_t value;                                            /* 参数值（图标等） */
     uint8_t sequence;                                         /* 更新序号 */

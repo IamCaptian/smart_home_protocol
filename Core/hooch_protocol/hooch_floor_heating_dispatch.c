@@ -7,7 +7,7 @@ static HOOCH_PROTOCOL_FloorHeatingFrame_t s_hooch_protocol_floor_heating_dispatc
 static HOOCH_PROTOCOL_FloorHeatingCallback_t s_hooch_protocol_floor_heating_dispatch_callback;
 
 /* 校验地暖温度是否在当前模块支持的范围内。 */
-static uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(uint8_t temperature)
+static uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(uint16_t temperature)
 {
     /* 温度限制暂时屏蔽，直接放行 */
     (void)temperature;
@@ -28,8 +28,8 @@ static void HOOCH_PROTOCOL_FloorHeating_NotifyDispatchCallback(void)
 static HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SetDispatchState(
     HOOCH_PROTOCOL_FloorHeatingPower_t power,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode,
-    uint8_t target_temperature,
-    uint8_t current_temperature)
+    uint16_t target_temperature,
+    uint16_t current_temperature)
 {
     if ((HOOCH_PROTOCOL_FloorHeating_IsValidPower(power) == 0U) ||
         (HOOCH_PROTOCOL_FloorHeating_IsValidMode(mode) == 0U) ||
@@ -158,6 +158,7 @@ static HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SetDispat
 
     s_hooch_protocol_floor_heating_dispatch_frame.channel = frame->channel;
     s_hooch_protocol_floor_heating_dispatch_frame.control_item = frame->control_item;
+    s_hooch_protocol_floor_heating_dispatch_frame.source = frame->source;
     s_hooch_protocol_floor_heating_dispatch_frame.sequence = frame->sequence;
     s_hooch_protocol_floor_heating_dispatch_frame.valid = 1U;
 
@@ -187,8 +188,8 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_DispatchFrame(
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_Dispatch(
     HOOCH_PROTOCOL_FloorHeatingPower_t power,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode,
-    uint8_t target_temperature,
-    uint8_t current_temperature)
+    uint16_t target_temperature,
+    uint16_t current_temperature)
 {
     return HOOCH_PROTOCOL_FloorHeating_SetDispatchState(power, mode, target_temperature, current_temperature);
 }

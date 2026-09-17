@@ -98,7 +98,7 @@ void HOOCH_PROTOCOL_DimmerLight_Clear(void)
     s_hooch_protocol_dimmer_light_frame.valid = 0U;
 }
 
-HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SetValue(uint8_t value)
+HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SetValue(uint16_t value)
 {
     (void)value;
     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
@@ -189,7 +189,7 @@ void HOOCH_PROTOCOL_DimmerLight_UnregisterReportCallback3(void)
     s_hooch_protocol_dimmer_light_report_callback3 = 0;
 }
 
-HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_Send(uint8_t value)
+HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_Send(uint16_t value)
 {
     (void)value;
     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
@@ -204,7 +204,7 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendSwitch(
 
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendBrightness(
     HOOCH_PROTOCOL_DimmerLightKey_t key,
-    uint8_t brightness)
+    uint16_t brightness)
 {
     if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
     {
@@ -225,7 +225,7 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendBrightness(
 
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendPercent(
     HOOCH_PROTOCOL_DimmerLightKey_t key,
-    uint8_t percent)
+    uint16_t percent)
 {
     if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
     {
@@ -315,7 +315,7 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendSwitchPage(
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendBrightnessPage(
     uint8_t page,
     HOOCH_PROTOCOL_DimmerLightKey_t key,
-    uint8_t brightness)
+    uint16_t brightness)
 {
     if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
     {
@@ -383,7 +383,7 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendSwitchAddr(
 
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendBrightnessAddr(
     uint16_t address,
-    uint8_t brightness)
+    uint16_t brightness)
 {
     s_hooch_protocol_dimmer_light_frame.address = address;
     s_hooch_protocol_dimmer_light_frame.brightness = brightness;

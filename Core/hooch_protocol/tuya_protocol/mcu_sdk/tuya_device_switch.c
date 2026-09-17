@@ -31,6 +31,7 @@ unsigned char tuya_dp_dispatch_switch(unsigned char dp_id, unsigned char dp_type
         ? HOOCH_PROTOCOL_KEY_STATUS_STATE_ON
         : HOOCH_PROTOCOL_KEY_STATUS_STATE_OFF;
     key_status_frame.control_item = HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_STATE;
+    key_status_frame.source = HOOCH_PROTOCOL_SOURCE_TUYA;
     HOOCH_PROTOCOL_KeyStatus_DispatchFrame(&key_status_frame);
 
     return 1U;

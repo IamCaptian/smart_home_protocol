@@ -38,7 +38,7 @@ static HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetDispatchItem(
     HOOCH_PROTOCOL_CurtainKey_t key,
     HOOCH_PROTOCOL_CurtainItem_t *item,
     HOOCH_PROTOCOL_CurtainControlItem_t control_item,
-    uint8_t value)
+    uint16_t value)
 {
     if ((item == 0) || (HOOCH_PROTOCOL_Curtain_IsValidKey(key) == 0U))
     {
@@ -151,6 +151,7 @@ static HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetDispatchFrameInt
     s_hooch_protocol_curtain_dispatch_frame.page = frame->page;
     s_hooch_protocol_curtain_dispatch_frame.address = frame->address;
     s_hooch_protocol_curtain_dispatch_frame.control_item = frame->control_item;
+    s_hooch_protocol_curtain_dispatch_frame.source = frame->source;
     s_hooch_protocol_curtain_dispatch_frame.sequence++;
     s_hooch_protocol_curtain_dispatch_frame.valid = 1U;
 
@@ -189,7 +190,7 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_DispatchSwitch(
 
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_DispatchStop(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value)
+    uint16_t value)
 {
     return HOOCH_PROTOCOL_Curtain_SetDispatchItem(
         key,
@@ -200,7 +201,7 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_DispatchStop(
 
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_DispatchPercent(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value)
+    uint16_t value)
 {
     return HOOCH_PROTOCOL_Curtain_SetDispatchItem(
         key,
@@ -211,7 +212,7 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_DispatchPercent(
 
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_DispatchAngle(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value)
+    uint16_t value)
 {
     return HOOCH_PROTOCOL_Curtain_SetDispatchItem(
         key,

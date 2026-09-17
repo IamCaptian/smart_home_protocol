@@ -10,7 +10,7 @@ static HOOCH_PROTOCOL_FloorHeatingCallback_t s_hooch_protocol_floor_heating_repo
 static HOOCH_PROTOCOL_FloorHeatingCallback_t s_hooch_protocol_floor_heating_report_callback2;
 
 /* 校验地暖温度是否在当前模块支持的范围内。 */
-static uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(uint8_t temperature)
+static uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(uint16_t temperature)
 {
     /* 温度限制暂时屏蔽，直接放行 */
     (void)temperature;
@@ -80,8 +80,8 @@ uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidControlItem(
 static HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SetReportState(
     HOOCH_PROTOCOL_FloorHeatingPower_t power,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode,
-    uint8_t target_temperature,
-    uint8_t current_temperature)
+    uint16_t target_temperature,
+    uint16_t current_temperature)
 {
     if ((HOOCH_PROTOCOL_FloorHeating_IsValidPower(power) == 0U) ||
         (HOOCH_PROTOCOL_FloorHeating_IsValidMode(mode) == 0U) ||
@@ -213,8 +213,8 @@ void HOOCH_PROTOCOL_FloorHeating_Clear(void)
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_Set(
     HOOCH_PROTOCOL_FloorHeatingPower_t power,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode,
-    uint8_t target_temperature,
-    uint8_t current_temperature)
+    uint16_t target_temperature,
+    uint16_t current_temperature)
 {
     return HOOCH_PROTOCOL_FloorHeating_SetReportState(power, mode, target_temperature, current_temperature);
 }
@@ -256,8 +256,8 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_Send(
     uint8_t channel,
     HOOCH_PROTOCOL_FloorHeatingPower_t power,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode,
-    uint8_t target_temperature,
-    uint8_t current_temperature)
+    uint16_t target_temperature,
+    uint16_t current_temperature)
 {
     HOOCH_PROTOCOL_FloorHeatingFrame_t frame;
 
@@ -305,7 +305,7 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendMode(
 
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendTargetTemperature(
     uint8_t channel,
-    uint8_t target_temperature)
+    uint16_t target_temperature)
 {
     HOOCH_PROTOCOL_FloorHeatingFrame_t frame;
 
@@ -320,7 +320,7 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendTargetTemper
 
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendCurrentTemperature(
     uint8_t channel,
-    uint8_t current_temperature)
+    uint16_t current_temperature)
 {
     HOOCH_PROTOCOL_FloorHeatingFrame_t frame;
 
@@ -365,7 +365,7 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendModeAddr(
 
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendTargetTemperatureAddr(
     uint16_t address,
-    uint8_t target_temperature)
+    uint16_t target_temperature)
 {
     HOOCH_PROTOCOL_FloorHeatingFrame_t frame;
 
@@ -380,7 +380,7 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendTargetTemper
 
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendCurrentTemperatureAddr(
     uint16_t address,
-    uint8_t current_temperature)
+    uint16_t current_temperature)
 {
     HOOCH_PROTOCOL_FloorHeatingFrame_t frame;
 
@@ -397,8 +397,8 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendFrame(
     uint8_t channel,
     HOOCH_PROTOCOL_FloorHeatingPower_t power,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode,
-    uint8_t target_temperature,
-    uint8_t current_temperature)
+    uint16_t target_temperature,
+    uint16_t current_temperature)
 {
     HOOCH_PROTOCOL_FloorHeatingFrame_t frame;
 
@@ -418,8 +418,8 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendFrameAddr(
     uint16_t address,
     HOOCH_PROTOCOL_FloorHeatingPower_t power,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode,
-    uint8_t target_temperature,
-    uint8_t current_temperature)
+    uint16_t target_temperature,
+    uint16_t current_temperature)
 {
     HOOCH_PROTOCOL_FloorHeatingFrame_t frame;
 

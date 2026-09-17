@@ -62,7 +62,7 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchSwitch(
 
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchBrightness(
     HOOCH_PROTOCOL_DimmerLightKey_t key,
-    uint8_t brightness)
+    uint16_t brightness)
 {
     if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
     {
@@ -117,6 +117,7 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchFrame(
     s_hooch_protocol_dimmer_light_dispatch_frame.switch_state = frame->switch_state;
     s_hooch_protocol_dimmer_light_dispatch_frame.percent = frame->percent;
     s_hooch_protocol_dimmer_light_dispatch_frame.control_item = frame->control_item;
+    s_hooch_protocol_dimmer_light_dispatch_frame.source = frame->source;
     s_hooch_protocol_dimmer_light_dispatch_frame.value = frame->value;
     if (frame->control_item == HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_DEVICE_DESCRIPTOR)
     {

@@ -14,6 +14,7 @@ void knx_summary_key_control(const KNX_Frame_t *frame)
     const char *item_desc;
     HOOCH_PROTOCOL_KeyStatusFrame_t key_status_frame;
     (void)memset(&key_status_frame, 0, sizeof(key_status_frame));
+    key_status_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
     if ((frame == NULL) || (frame->fun_count < 5U))
     {
         return;
@@ -53,6 +54,7 @@ void knx_summary_key_config(const KNX_Frame_t *frame)
 
     item_desc = KNX_DESC("Unknown Config Item");
     (void)memset(&key_status_frame, 0, sizeof(key_status_frame));
+    key_status_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
 
     /* 按键配置项：item -> 功能描述 */
     switch (frame->fun[4])

@@ -30,6 +30,7 @@ xiaomi_f103\knx_device_floor_heating.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm3
 xiaomi_f103\knx_device_floor_heating.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
 xiaomi_f103\knx_device_floor_heating.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 xiaomi_f103\knx_device_floor_heating.o: ..\Core\hooch_protocol\hooch_protocol.h
+xiaomi_f103\knx_device_floor_heating.o: ..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h
 xiaomi_f103\knx_device_floor_heating.o: ..\Core\hooch_protocol\hooch_air_conditioner.h
 xiaomi_f103\knx_device_floor_heating.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 xiaomi_f103\knx_device_floor_heating.o: ..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h

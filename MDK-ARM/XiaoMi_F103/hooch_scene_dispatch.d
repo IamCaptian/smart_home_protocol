@@ -2,3 +2,4 @@ xiaomi_f103\hooch_scene_dispatch.o: ..\Core\hooch_protocol\hooch_scene_dispatch.
 xiaomi_f103\hooch_scene_dispatch.o: ..\Core\hooch_protocol\hooch_scene_dispatch.h
 xiaomi_f103\hooch_scene_dispatch.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 xiaomi_f103\hooch_scene_dispatch.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+xiaomi_f103\hooch_scene_dispatch.o: ..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h

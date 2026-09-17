@@ -7,6 +7,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <string.h>
+#include "hooch_protocol_common.h"
 /* 设置接口返回结果 */
 typedef enum
 {
@@ -244,6 +245,7 @@ typedef struct
     uint8_t param3;
     uint8_t param4;
     uint8_t data[10];                   /* 不定长原始数据缓冲区（时间、日期等） */
+    HOOCH_PROTOCOL_Source_t source;     /* 消息来源 */
     uint8_t sequence;                   /* 更新序号 */
     uint8_t valid;                      /* 当前数据是否有效 */
     uint8_t channel;                    /* 通道号 */

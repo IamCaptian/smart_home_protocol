@@ -38,6 +38,7 @@ xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\hooch_setting.h
+xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_scene.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_switch.h
 xiaomi_f103\mcu_api.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_air.h

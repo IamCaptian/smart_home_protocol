@@ -33,6 +33,7 @@ void knx_summary_floor_heating_control(const KNX_Frame_t *frame)
     }
 
     (void)memset(&floor_heating_frame, 0, sizeof(floor_heating_frame));
+    floor_heating_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
     floor_heating_frame.channel = frame->fun[1] + 1;
     floor_heating_frame.control_item = HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_INVALID;
     item_desc = KNX_DESC("Unknown Control Item");
@@ -148,6 +149,7 @@ void knx_summary_floor_heating_config(const KNX_Frame_t *frame)
 
     knx_setting_frame_reset(&setting_frame);
     (void)memset(&floor_heating_frame, 0, sizeof(floor_heating_frame));
+    floor_heating_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
     floor_heating_frame.channel = frame->fun[1] + 1;
     setting_frame.channel = frame->fun[1] + 1;
 

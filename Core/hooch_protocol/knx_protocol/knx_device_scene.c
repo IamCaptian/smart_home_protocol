@@ -33,10 +33,14 @@ void knx_summary_scene_control(const KNX_Frame_t *frame)
         item_desc = KNX_DESC("Status (K->P)"); /* 状态：0=非触发, 1=触发 */
         if ((frame->data_len >= 1U) && (frame->data[0] == 1U))
         {
+            /* 场景触发：全量控制，来源标注为 KNX */
+            (void)memset(&scene_dispatch_frame, 0, sizeof(scene_dispatch_frame));
             /* 场景编号 = 设备编号 + 1 */
-            HOOCH_PROTOCOL_SceneDispatchScene_t scene;
-            scene = (HOOCH_PROTOCOL_SceneDispatchScene_t)(frame->fun[1] + 1U);
-            (void)HOOCH_PROTOCOL_SceneDispatch_Set(scene);
+            scene_dispatch_frame.scene = (HOOCH_PROTOCOL_SceneDispatchScene_t)(frame->fun[1] + 1U);
+            scene_dispatch_frame.control_item = HOOCH_PROTOCOL_SCENE_DISPATCH_CONTROL_ITEM_ALL;
+            scene_dispatch_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
+            scene_dispatch_frame.valid = 1U;
+            (void)HOOCH_PROTOCOL_SceneDispatch_SetFrame(&scene_dispatch_frame);
         }
         break;
 
@@ -68,7 +72,9 @@ void knx_summary_scene_config(const KNX_Frame_t *frame)
     {
         return;
     }
-            (void)memset(&key_name_frame, 0, sizeof(key_name_frame));
+    (void)memset(&key_name_frame, 0, sizeof(key_name_frame));
+    (void)memset(&scene_dispatch_frame, 0, sizeof(scene_dispatch_frame));
+    scene_dispatch_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
     item_desc = KNX_DESC("Unknown Config Item");
 
     /* 情景配置项：item -> 功能描述 */

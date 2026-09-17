@@ -96,7 +96,7 @@ static HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetItem(
     HOOCH_PROTOCOL_CurtainItem_t *item,
     HOOCH_PROTOCOL_CurtainKey_t key,
     HOOCH_PROTOCOL_CurtainControlItem_t control_item,
-    uint8_t value)
+    uint16_t value)
 {
     if ((frame == 0) || (item == 0) ||
         (HOOCH_PROTOCOL_Curtain_IsValidKey(key) == 0U))
@@ -206,7 +206,7 @@ void HOOCH_PROTOCOL_Curtain_Clear(void)
 
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetValue(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value)
+    uint16_t value)
 {
     return HOOCH_PROTOCOL_Curtain_SetItem(
         &s_hooch_protocol_curtain_report_frame,
@@ -218,7 +218,7 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetValue(
 
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetStop(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value)
+    uint16_t value)
 {
     return HOOCH_PROTOCOL_Curtain_SetItem(
         &s_hooch_protocol_curtain_report_frame,
@@ -230,7 +230,7 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetStop(
 
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetPercent(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value)
+    uint16_t value)
 {
     return HOOCH_PROTOCOL_Curtain_SetItem(
         &s_hooch_protocol_curtain_report_frame,
@@ -242,7 +242,7 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetPercent(
 
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetAngle(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value)
+    uint16_t value)
 {
     return HOOCH_PROTOCOL_Curtain_SetItem(
         &s_hooch_protocol_curtain_report_frame,
@@ -296,7 +296,7 @@ void HOOCH_PROTOCOL_Curtain_UnregisterReportCallback3(void)
     s_hooch_protocol_curtain_report_callback3 = 0;
 }
 
-HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_Send(uint8_t value)
+HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_Send(uint16_t value)
 {
     (void)value;
     return HOOCH_PROTOCOL_CURTAIN_RESULT_INVALID_PARAM;
@@ -311,21 +311,21 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendSwitch(
 
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendStop(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value)
+    uint16_t value)
 {
     return HOOCH_PROTOCOL_Curtain_SetStop(key, value);
 }
 
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendPercent(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value)
+    uint16_t value)
 {
     return HOOCH_PROTOCOL_Curtain_SetPercent(key, value);
 }
 
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendAngle(
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value)
+    uint16_t value)
 {
     return HOOCH_PROTOCOL_Curtain_SetAngle(key, value);
 }
@@ -359,7 +359,7 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendSwitchPage(
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendStopPage(
     uint8_t page,
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value)
+    uint16_t value)
 {
     if (HOOCH_PROTOCOL_Curtain_IsValidKey(key) == 0U)
     {
@@ -383,7 +383,7 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendStopPage(
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendPercentPage(
     uint8_t page,
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value)
+    uint16_t value)
 {
     if (HOOCH_PROTOCOL_Curtain_IsValidKey(key) == 0U)
     {
@@ -407,7 +407,7 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendPercentPage(
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendAnglePage(
     uint8_t page,
     HOOCH_PROTOCOL_CurtainKey_t key,
-    uint8_t value)
+    uint16_t value)
 {
     if (HOOCH_PROTOCOL_Curtain_IsValidKey(key) == 0U)
     {
@@ -449,7 +449,7 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendSwitchAddr(
 
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendStopAddr(
     uint16_t address,
-    uint8_t value)
+    uint16_t value)
 {
     s_hooch_protocol_curtain_report_frame.address = address;
     HOOCH_PROTOCOL_Curtain_SetItem(&s_hooch_protocol_curtain_report_frame,
@@ -464,7 +464,7 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendStopAddr(
 
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendPercentAddr(
     uint16_t address,
-    uint8_t value)
+    uint16_t value)
 {
     s_hooch_protocol_curtain_report_frame.address = address;
     HOOCH_PROTOCOL_Curtain_SetItem(&s_hooch_protocol_curtain_report_frame,
@@ -479,7 +479,7 @@ HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendPercentAddr(
 
 HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SendAngleAddr(
     uint16_t address,
-    uint8_t value)
+    uint16_t value)
 {
     s_hooch_protocol_curtain_report_frame.address = address;
     HOOCH_PROTOCOL_Curtain_SetItem(&s_hooch_protocol_curtain_report_frame,

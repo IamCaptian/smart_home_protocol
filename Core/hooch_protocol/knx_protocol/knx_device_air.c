@@ -37,6 +37,7 @@ void knx_summary_air_control(const KNX_Frame_t *frame)
     }
 
     (void)memset(&air_conditioner_frame, 0, sizeof(air_conditioner_frame));
+    air_conditioner_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
     air_conditioner_frame.channel = frame->fun[1] + 1;
     air_conditioner_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_INVALID;
     item_desc = KNX_DESC("Unknown Control Item");
@@ -170,6 +171,7 @@ void knx_summary_air_config(const KNX_Frame_t *frame)
 
     knx_setting_frame_reset(&setting_frame);
     (void)memset(&air_conditioner_frame, 0, sizeof(air_conditioner_frame));
+    air_conditioner_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
     air_conditioner_frame.channel = frame->fun[1] + 1;
     setting_frame.channel = frame->fun[1] + 1;
     

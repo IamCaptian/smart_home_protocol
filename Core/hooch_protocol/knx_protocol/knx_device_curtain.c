@@ -19,6 +19,7 @@ void knx_summary_curtain_control(const KNX_Frame_t *frame)
     }
 
     (void)memset(&curtain_frame, 0, sizeof(curtain_frame));
+    curtain_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
     item_desc = KNX_DESC("Unknown Control Item");
 
     /* 窗帘控制项：item -> 功能描述 */
@@ -88,6 +89,7 @@ void knx_summary_curtain_config(const KNX_Frame_t *frame)
 
     item_desc = KNX_DESC("Unknown Config Item");
     (void)memset(&curtain_frame, 0, sizeof(curtain_frame));
+    curtain_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
 
     /* 窗帘配置项：item -> 功能描述 */
     switch (frame->fun[4])

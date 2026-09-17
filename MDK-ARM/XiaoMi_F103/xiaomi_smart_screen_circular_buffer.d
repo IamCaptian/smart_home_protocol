@@ -33,6 +33,7 @@ xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\i
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\xiaomi_smart_screen\xiaomi_smart_screen_handle.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_setting.h
+xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_protocol.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_air_conditioner.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h
@@ -50,4 +51,3 @@ xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_scene_dispatch.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_scene_report.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_setting_report.h
-xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h

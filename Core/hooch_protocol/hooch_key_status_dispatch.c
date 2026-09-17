@@ -76,6 +76,7 @@ HOOCH_PROTOCOL_KeyStatusResult_t HOOCH_PROTOCOL_KeyStatus_DispatchFrame(
     s_hooch_protocol_key_status_dispatch_frame.key = frame->key;
     s_hooch_protocol_key_status_dispatch_frame.state = frame->state;
     s_hooch_protocol_key_status_dispatch_frame.control_item = frame->control_item;
+    s_hooch_protocol_key_status_dispatch_frame.source = frame->source;
     s_hooch_protocol_key_status_dispatch_frame.value = frame->value;
     if (frame->control_item == HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_DEVICE_DESCRIPTOR)
     {

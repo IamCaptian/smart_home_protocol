@@ -55,7 +55,7 @@ static void dispatch_fresh_air_frame(HOOCH_PROTOCOL_FreshAirControlItem_t item,
 {
     HOOCH_PROTOCOL_FreshAirFrame_t frame;
 
-    frame.channel            = 0U;
+    frame.channel            = 1U;    /* 涂鸦单新风：通用协议通道从 1 开始，固定通道 1 */
     frame.power              = power;
     frame.mode               = mode;
     frame.fan_speed          = fan_speed;
@@ -63,6 +63,7 @@ static void dispatch_fresh_air_frame(HOOCH_PROTOCOL_FreshAirControlItem_t item,
     frame.control_item       = item;
     frame.sequence           = 0U;
     frame.valid              = 0U;
+    frame.source             = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_FreshAir_DispatchFrame(&frame);
 }
 

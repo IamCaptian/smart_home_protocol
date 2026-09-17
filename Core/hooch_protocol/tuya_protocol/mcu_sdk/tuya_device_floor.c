@@ -19,7 +19,7 @@ static void dispatch_floor_frame(HOOCH_PROTOCOL_FloorHeatingControlItem_t item,
 {
     HOOCH_PROTOCOL_FloorHeatingFrame_t frame;
 
-    frame.channel             = 0U;
+    frame.channel             = 1U;    /* 涂鸦单地暖：通用协议通道从 1 开始，固定通道 1 */
     frame.power               = power;
     frame.mode                = HOOCH_PROTOCOL_FLOOR_HEATING_MODE_INVALID;
     frame.target_temperature  = target_temp;
@@ -27,6 +27,7 @@ static void dispatch_floor_frame(HOOCH_PROTOCOL_FloorHeatingControlItem_t item,
     frame.control_item        = item;
     frame.sequence            = 0U;
     frame.valid               = 0U;
+    frame.source              = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_FloorHeating_DispatchFrame(&frame);
 }
 
@@ -89,7 +90,7 @@ static unsigned char handle_heat_limit(unsigned short dp_len, unsigned char *dp_
 
     /* 地暖下发帧：控制项 TEMP_MIN/TEMP_MAX，数值放在 value 字段 */
     HOOCH_PROTOCOL_FloorHeatingFrame_t frame;
-    frame.channel              = 0U;
+    frame.channel              = 1U;    /* 涂鸦单地暖：固定通道 1 */
     frame.power                = HOOCH_PROTOCOL_FLOOR_HEATING_POWER_OFF;
     frame.mode                 = HOOCH_PROTOCOL_FLOOR_HEATING_MODE_INVALID;
     frame.target_temperature   = 0U;
@@ -99,6 +100,7 @@ static unsigned char handle_heat_limit(unsigned short dp_len, unsigned char *dp_
     frame.value                = dp_data[1];
     frame.sequence             = 0U;
     frame.valid                = 0U;
+    frame.source               = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_FloorHeating_DispatchFrame(&frame);
     return 1U;
 }

@@ -35,6 +35,7 @@ xiaomi_f103\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 xiaomi_f103\main.o: ..\Core\hooch_protocol\xiaomi_smart_screen\xiaomi_smart_screen_circular_bufferc.h
 xiaomi_f103\main.o: ..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h
 xiaomi_f103\main.o: ..\Core\hooch_protocol\hooch_protocol.h
+xiaomi_f103\main.o: ..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h
 xiaomi_f103\main.o: ..\Core\hooch_protocol\hooch_air_conditioner.h
 xiaomi_f103\main.o: ..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h
 xiaomi_f103\main.o: ..\Core\hooch_protocol\hooch_code_match_dispatch_report.h

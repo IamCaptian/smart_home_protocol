@@ -121,10 +121,10 @@ int main(void)
   // 初始化小米UART协议解析模块（包含串口接收初始化）
  // xiaoni_smart_screen_uart_init();
 
-  // 初始化 KNX 面板协议解析模块
-  // 注意：KNX 与小米协议共享 USART2，在 USART2 中断中会把每个字节同时喂给两套解析器
- // knx_uart_init();
- // extern void tuya_uart_init(void);
+ //初始化 KNX 面板协议解析模块
+ //注意：KNX 与小米协议共享 USART2，在 USART2 中断中会把每个字节同时喂给两套解析器
+ //knx_uart_init();
+ //extern void tuya_uart_init(void);
   tuya_uart_init();
   // 初始化 BLE 协议解析模块
   // BLE 也复用 USART2 字节流，在中断中并行喂入 BLE 状态机。

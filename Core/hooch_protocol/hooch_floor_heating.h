@@ -7,6 +7,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <string.h>
+#include "hooch_protocol_common.h"
 /* 地暖接口返回结果 */
 typedef enum
 {
@@ -63,6 +64,7 @@ typedef struct
     uint16_t target_temperature;                                   /* 目标温度 */
     uint16_t current_temperature;                                  /* 当前温度 */
     HOOCH_PROTOCOL_FloorHeatingControlItem_t control_item;        /* 本次控制项，支持只更新单一参数 */
+    HOOCH_PROTOCOL_Source_t source;                                /* 消息来源 */
     uint8_t device_desc[24];                                      /* 设备描述符字符串 */
     uint8_t sequence;                                             /* 更新序号 */
     uint8_t valid;                                                /* 当前数据是否有效 */
@@ -93,8 +95,8 @@ uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidControlItem(
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_Set(
     HOOCH_PROTOCOL_FloorHeatingPower_t power,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode,
-    uint8_t target_temperature,
-    uint8_t current_temperature);
+    uint16_t target_temperature,
+    uint16_t current_temperature);
 
 /* 写入地暖数据帧，可按 control_item 只更新单一参数 */
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SetFrame(
@@ -129,8 +131,8 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_Send(
     uint8_t channel,
     HOOCH_PROTOCOL_FloorHeatingPower_t power,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode,
-    uint8_t target_temperature,
-    uint8_t current_temperature);
+    uint16_t target_temperature,
+    uint16_t current_temperature);
 
 /* 单独上报地暖开关（通道） */
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendPower(
@@ -145,12 +147,12 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendMode(
 /* 单独上报地暖目标温度（通道） */
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendTargetTemperature(
     uint8_t channel,
-    uint8_t target_temperature);
+    uint16_t target_temperature);
 
 /* 单独上报地暖当前温度（通道）废弃 */
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendCurrentTemperature(
     uint8_t channel,
-    uint8_t current_temperature);
+    uint16_t current_temperature);
 
 /* 单独上报地暖开关（地址） */
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendPowerAddr(
@@ -165,28 +167,28 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendModeAddr(
 /* 单独上报地暖目标温度（地址） */
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendTargetTemperatureAddr(
     uint16_t address,
-    uint8_t target_temperature);
+    uint16_t target_temperature);
 
 /* 单独上报地暖当前温度（地址） */
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendCurrentTemperatureAddr(
     uint16_t address,
-    uint8_t current_temperature);
+    uint16_t current_temperature);
 
 /* 上报地暖整帧（通道） */
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendFrame(
     uint8_t channel,
     HOOCH_PROTOCOL_FloorHeatingPower_t power,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode,
-    uint8_t target_temperature,
-    uint8_t current_temperature);
+    uint16_t target_temperature,
+    uint16_t current_temperature);
 
 /* 上报地暖整帧（地址） */
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SendFrameAddr(
     uint16_t address,
     HOOCH_PROTOCOL_FloorHeatingPower_t power,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode,
-    uint8_t target_temperature,
-    uint8_t current_temperature);
+    uint16_t target_temperature,
+    uint16_t current_temperature);
 
 /* 写入地暖下发数据帧 */
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_DispatchFrame(
@@ -196,8 +198,8 @@ HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_DispatchFrame(
 HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_Dispatch(
     HOOCH_PROTOCOL_FloorHeatingPower_t power,
     HOOCH_PROTOCOL_FloorHeatingMode_t mode,
-    uint8_t target_temperature,
-    uint8_t current_temperature);
+    uint16_t target_temperature,
+    uint16_t current_temperature);
 
 #ifdef __cplusplus
 }

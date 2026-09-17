@@ -7,6 +7,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <string.h>
+#include "hooch_protocol_common.h"
 /* 场景上报模块支持的按键通道数 */
 #define HOOCH_PROTOCOL_SCENE_REPORT_KEY_COUNT    16U
 
@@ -64,6 +65,7 @@ typedef struct
     HOOCH_PROTOCOL_SceneReportType_t type;      /* 按键类型（小米上报使用） */
     uint8_t page;                               /* 页面编号（上报类型2使用） */
     uint16_t address;                           /* 寄存器地址（上报类型3使用） */
+    HOOCH_PROTOCOL_Source_t source;             /* 消息来源 */
     uint8_t sequence;                           /* 更新序号 */
     uint8_t valid;                              /* 当前数据是否有效 */
 } HOOCH_PROTOCOL_SceneReportFrame_t;

@@ -188,6 +188,11 @@ static void tuya_setting_report_callback(
         TUYA_LOG_INFO("tuya_setting_report_callback: let zigbee start join\n");
         mcu_tx_let_zigbee_start_join();
         break;
+    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_RESET:
+        /* 重置 → 让 Zigbee 模组开始配网 (0x03, 数据 0x01) */
+        TUYA_LOG_INFO("tuya_setting_report_callback: let zigbee reset\n");
+        mcu_tx_let_zigbee_start_join();
+        break;
 
     case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_TIME:
         /* 时间 → 向 Zigbee 模组请求时间同步 (0x24) */

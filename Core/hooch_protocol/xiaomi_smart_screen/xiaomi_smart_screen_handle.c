@@ -233,6 +233,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
             key_status_frame.valid = 0U;
             key_status_frame.control_item = HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_STATE;
             key_status_frame.value = 0U;
+            key_status_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
             key_status_frame.key = HOOCH_PROTOCOL_KEY_STATUS_KEY_1;
             key_status_frame.state = ((frame->data[3] & 0x01U) != 0U)
                 ? HOOCH_PROTOCOL_KEY_STATUS_STATE_ON
@@ -346,6 +347,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
         {
             HOOCH_PROTOCOL_SettingFrame_t setting_frame;
             xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+            setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
             setting_frame.param1 = (frame->data_len >= 4U) ? frame->data[3] : 0xFFU;
             setting_frame.param2 = (frame->data_len >= 5U) ? frame->data[4] : 0xFFU;
             setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_ENTER_PAIRING_CLEAR_INTERLOCK;
@@ -359,6 +361,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
         {
             HOOCH_PROTOCOL_SettingFrame_t setting_frame;
             xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+            setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
             setting_frame.param1 = (HOOCH_PROTOCOL_SettingPairingClearInterlockOp_t)(frame->data_len >= 4U ? frame->data[4] : 0xFFU);
             setting_frame.param2 = (frame->data_len >= 5U) ? frame->data[5] : 0xFFU; 
             /*对码、清码类型 0：失败
@@ -377,6 +380,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
         {
             HOOCH_PROTOCOL_SettingFrame_t setting_frame;
             xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+            setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
             setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_KEY_JOG_TIME;
             memcpy(&setting_frame.data[0], &frame->data[3], 5);/*一共五个字节*/
             /*这里解析使用xiaomi_screen_jog_ctrl_t 结构体*/
@@ -389,6 +393,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
         {
             HOOCH_PROTOCOL_SettingFrame_t setting_frame;
             xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+            setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
             setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_INTERLOCK_FUNCTION;
             setting_frame.value = frame->data[3];
             HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
@@ -400,6 +405,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
         {
             HOOCH_PROTOCOL_SettingFrame_t setting_frame;
             xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+            setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
             setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_BACKLIGHT_SWITCH;
             setting_frame.value = frame->data[3];
             HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
@@ -426,6 +432,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
         {
             HOOCH_PROTOCOL_SettingFrame_t setting_frame;
             xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+            setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
             setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_BACKLIGHT_BRIGHTNESS;
             setting_frame.value = frame->data[3];
             HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
@@ -453,6 +460,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
 
             HOOCH_PROTOCOL_SettingFrame_t setting_frame;
             xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+            setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
             setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_TIME_CALIBRATION;
             setting_frame.value = ((uint32_t)frame->data[3] << 24)
                                 | ((uint32_t)frame->data[4] << 16)
@@ -471,6 +479,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
         {
                 HOOCH_PROTOCOL_SettingFrame_t setting_frame;
             xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+            setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
             setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_WEATHER;
                   setting_frame.value = ((uint32_t)frame->data[3] << 8)
                                 | ((uint32_t)frame->data[4]);
@@ -483,6 +492,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
 {
             HOOCH_PROTOCOL_SettingFrame_t setting_frame;
             xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+            setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
             setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_SCREEN_BRIGHTNESS;
             setting_frame.value = frame->data[3];
             HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
@@ -493,6 +503,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
         {
             HOOCH_PROTOCOL_SettingFrame_t setting_frame;
             xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+            setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
             setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_SCREEN_OFF_EFFECT;
             setting_frame.value = frame->data[3];
             HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
@@ -536,6 +547,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
             {
                 HOOCH_PROTOCOL_SettingFrame_t setting_frame;
                 xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+                setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
                 setting_frame.item   = HOOCH_PROTOCOL_SETTING_ITEM_KEY_RELAY_MAPPING;
                 setting_frame.value  = i + 1U;                /* 按键通道: 1~4 */
                 setting_frame.param1 = frame->data[3U + i];   /* 对应继电器 */
@@ -585,6 +597,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
             HOOCH_PROTOCOL_SettingFrame_t setting_frame;
             page_val = frame->data[3];
             xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+            setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
 
             setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_DEFAULT_MAIN_PAGE;
             setting_frame.page = (page_val < 8U) ? page_map[page_val] : HOOCH_PROTOCOL_SETTING_PAGE_INVALID;
@@ -739,7 +752,8 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
                 break;
             }
 
-            (void)memset(&air_conditioner_frame, 0, sizeof(air_conditioner_frame));
+            HOOCH_PROTOCOL_AirConditioner_ClearFrame(&air_conditioner_frame);
+            air_conditioner_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
             air_conditioner_frame.channel = frame->data[3];
             air_conditioner_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_DEVICE_DESC;
 
@@ -815,6 +829,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
                 HOOCH_PROTOCOL_SettingFrame_t setting_frame;
                 uint16_t page_mask = (uint16_t)1U << page_index;
                 xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+                setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
 
                 setting_frame.item = ((page_bitmap & page_mask) != 0U)
                     ? HOOCH_PROTOCOL_SETTING_ITEM_ADD_PAGE
@@ -842,6 +857,7 @@ static void xiaomi_smart_screen_handle_custom_config_3(Frame_t *frame)
            if(frame->data[5] == 0x06)  /*人体传感器灵敏度*/
            {
             xiaomi_smart_screen_setting_frame_reset(&setting_frame);
+            setting_frame.source = HOOCH_PROTOCOL_SOURCE_XIAOMI;
             setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_SENSOR_SENSITIVITY;
             setting_frame.value = frame->data[6];
             HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
@@ -950,12 +966,17 @@ subcommand = frame->data[3];
                 (HOOCH_PROTOCOL_AirConditionerMode_t)((data6 >> 4U) & 0x0FU);
             HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed =
                 xiaomi_smart_screen_map_fan_speed(data6 & 0x0FU);
+            HOOCH_PROTOCOL_AirConditionerFrame_t air_conditioner_frame;
 
-            HOOCH_PROTOCOL_AirConditioner_Dispatch(
-                (HOOCH_PROTOCOL_AirConditionerPower_t)frame->data[4],   /* 电源 */
-                mode,                                                    /* 模式 */
-                fan_speed,                                               /* 风速 */
-                frame->data[5]);                                         /* 温度 */
+            HOOCH_PROTOCOL_AirConditioner_ClearFrame(&air_conditioner_frame);
+            air_conditioner_frame.source       = HOOCH_PROTOCOL_SOURCE_XIAOMI;
+            air_conditioner_frame.channel      = 1U;    /* 单空调默认通道 1 */
+            air_conditioner_frame.power        = (HOOCH_PROTOCOL_AirConditionerPower_t)frame->data[4];   /* 电源 */
+            air_conditioner_frame.mode         = mode;                                                   /* 模式 */
+            air_conditioner_frame.fan_speed    = fan_speed;                                              /* 风速 */
+            air_conditioner_frame.temperature  = frame->data[5];                                         /* 温度 */
+            air_conditioner_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ALL;
+            (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&air_conditioner_frame);
 
             XIAOMI_SMART_SCREEN_LOG_INFO("[CUSTOM] FREE_DEFINE_AC_PARAM received\r\n");
             break;

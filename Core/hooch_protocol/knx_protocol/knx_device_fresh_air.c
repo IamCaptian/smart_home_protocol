@@ -44,6 +44,7 @@ void knx_summary_fresh_air_control(const KNX_Frame_t *frame)
     }
 
     (void)memset(&fresh_air_frame, 0, sizeof(fresh_air_frame));
+    fresh_air_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
     fresh_air_frame.channel = frame->fun[1] + 1;
     fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_INVALID;
     item_desc = KNX_DESC("Unknown Control Item");
@@ -171,6 +172,7 @@ void knx_summary_fresh_air_config(const KNX_Frame_t *frame)
 
     knx_setting_frame_reset(&setting_frame);
     (void)memset(&fresh_air_frame, 0, sizeof(fresh_air_frame));
+    fresh_air_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
     fresh_air_frame.channel = frame->fun[1] + 1;
     setting_frame.channel = frame->fun[1] + 1;
 

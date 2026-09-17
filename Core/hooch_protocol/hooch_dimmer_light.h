@@ -7,6 +7,7 @@ extern "C" {
 
 #include <stdint.h>
 #include <string.h>
+#include "hooch_protocol_common.h"
 /* 支持的调光灯路数。 */
 #define HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_COUNT    16U
 
@@ -74,9 +75,10 @@ typedef struct
     uint16_t address;                                      /* 寄存器地址（上报类型3使用） */
     uint16_t brightness;                                    /* 当前亮度值 */
     uint16_t color_temperature;                             /* 当前色温值 */
-    uint8_t percent;                                        /* 当前亮度百分比(0-100) */
+    uint16_t percent;                                       /* 当前亮度百分比(0-100) */
     uint8_t switch_state;                                  /* 当前开关状态 */
     HOOCH_PROTOCOL_DimmerLightControlItem_t control_item;  /* 本次控制项 */
+    HOOCH_PROTOCOL_Source_t source;                         /* 消息来源 */
     uint8_t sequence;                                      /* 更新序号 */
     uint8_t valid;                                         /* 当前数据是否有效 */
     uint8_t device_desc[24];                               /* 设备描述符 */
@@ -106,7 +108,7 @@ void HOOCH_DimmerLight_Init(void);
 void HOOCH_PROTOCOL_DimmerLight_Clear(void);
 
 /* 设置当前调光灯值 */
-HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SetValue(uint8_t value);
+HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SetValue(uint16_t value);
 
 /* 直接写入完整的调光灯数据帧 */
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SetFrame(
@@ -144,7 +146,7 @@ void HOOCH_PROTOCOL_DimmerLight_RegisterReportCallback3(
 void HOOCH_PROTOCOL_DimmerLight_UnregisterReportCallback3(void);
 
 /* 对外统一的调光灯入口（无指定通道，兼容旧接口） */
-HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_Send(uint8_t value);
+HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_Send(uint16_t value);
 
 /* 上报调光灯开关状态（类型1：仅通道+数值） */
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendSwitch(
@@ -154,12 +156,12 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendSwitch(
 /* 上报调光灯亮度值（类型1：仅通道+数值） */
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendBrightness(
     HOOCH_PROTOCOL_DimmerLightKey_t key,
-    uint8_t brightness);
+    uint16_t brightness);
 
 /* 上报调光灯亮度百分比（类型1：仅通道+数值） */
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendPercent(
     HOOCH_PROTOCOL_DimmerLightKey_t key,
-    uint8_t percent);
+    uint16_t percent);
 
 /* 上报调光灯色温值（类型1：仅通道+数值） */
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendColorTemperature(
@@ -188,7 +190,7 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendSwitchPage(
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendBrightnessPage(
     uint8_t page,
     HOOCH_PROTOCOL_DimmerLightKey_t key,
-    uint8_t brightness);
+    uint16_t brightness);
 
 /* 上报调光灯色温值（类型2：页面+通道） */
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendColorTemperaturePage(
@@ -206,7 +208,7 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendSwitchAddr(
 /* 上报调光灯亮度值（类型3：地址） */
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendBrightnessAddr(
     uint16_t address,
-    uint8_t brightness);
+    uint16_t brightness);
 
 /* 上报调光灯色温值（类型3：地址） */
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendColorTemperatureAddr(
@@ -221,7 +223,7 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchSwitch(
 /* 下发调光灯亮度控制 */
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchBrightness(
     HOOCH_PROTOCOL_DimmerLightKey_t key,
-    uint8_t brightness);
+    uint16_t brightness);
 
 /* 下发调光灯色温控制 */
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchColorTemperature(

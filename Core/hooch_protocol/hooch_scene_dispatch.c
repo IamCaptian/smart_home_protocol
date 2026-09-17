@@ -112,6 +112,7 @@ static HOOCH_PROTOCOL_SceneDispatchResult_t HOOCH_PROTOCOL_SceneDispatch_SetFram
     }
 
     s_hooch_protocol_scene_dispatch_frame.control_item = frame->control_item;
+    s_hooch_protocol_scene_dispatch_frame.source = frame->source;
     s_hooch_protocol_scene_dispatch_frame.sequence++;
     s_hooch_protocol_scene_dispatch_frame.valid = 1U;
     HOOCH_PROTOCOL_SceneDispatch_NotifyCallback();

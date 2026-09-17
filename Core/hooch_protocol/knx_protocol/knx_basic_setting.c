@@ -19,6 +19,7 @@ void knx_summary_basic_setting(const KNX_Frame_t *frame)
     item_desc = KNX_DESC("Unknown Basic Setting");
     need_set = 0U;
     knx_setting_frame_reset(&setting_frame);
+    setting_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
 
     /* 基本配置：item(fun2) -> 功能描述 */
     switch (frame->fun[1])
