@@ -73,6 +73,7 @@ typedef enum
     KNX_BASIC_SETTING_SOUND_ENABLE = 31U,
     KNX_BASIC_SETTING_VIBRATION_ENABLE = 32U,
     KNX_BASIC_SETTING_PAGE_MANAGEMENT = 33U,               /* 页面管理(K->P) */
+    KNX_BASIC_SETTING_DEVICE_NAME = 34U,                   /* 设备名称(K->P), 24 byte UTF-8 */
 } KNX_BasicSetting_t;
 
 /* Device category stored in fun4 when fun1 = 2. */

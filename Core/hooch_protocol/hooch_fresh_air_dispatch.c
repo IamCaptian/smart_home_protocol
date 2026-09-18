@@ -122,6 +122,15 @@ static HOOCH_PROTOCOL_FreshAirResult_t HOOCH_PROTOCOL_FreshAir_SetDispatchFrameI
             s_hooch_protocol_fresh_air_dispatch_frame.value = frame->value;
             break;
 
+        case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_TYPE:
+            /* 新风类型原始值(见 HOOCH_PROTOCOL_FreshAirType_t) */
+            s_hooch_protocol_fresh_air_dispatch_frame.value = frame->value;
+            break;
+
+        case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_CENTRAL_CONTROL_ADDRESS:
+            s_hooch_protocol_fresh_air_dispatch_frame.value = frame->value;
+            break;
+
         default:
             return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
     }

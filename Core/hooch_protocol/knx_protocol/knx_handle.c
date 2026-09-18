@@ -105,6 +105,7 @@ void knx_setting_frame_reset(HOOCH_PROTOCOL_SettingFrame_t *setting_frame)
     setting_frame->item = HOOCH_PROTOCOL_SETTING_ITEM_INVALID;
     setting_frame->value = 0U;
     (void)memset(setting_frame->data, 0, sizeof(setting_frame->data));
+    (void)memset(setting_frame->device_name, 0, sizeof(setting_frame->device_name));
 }
 
 /*
@@ -458,6 +459,8 @@ static const char *knx_get_basic_setting_name(uint8_t item)
         return "VIBRATION_ENABLE";
     case KNX_BASIC_SETTING_PAGE_MANAGEMENT:
         return "PAGE_MANAGEMENT";
+    case KNX_BASIC_SETTING_DEVICE_NAME:
+        return "DEVICE_NAME";
     default:
         return "UNKNOWN_BASIC_SETTING";
     }
@@ -1371,6 +1374,13 @@ static void knx_log_basic_setting(const KNX_Frame_t *frame)
         if (frame->data_len > 0U)
         {
             knx_log_utf8_string("PASSWORD", frame);
+        }
+        break;
+
+    case KNX_BASIC_SETTING_DEVICE_NAME:
+        if (frame->data_len > 0U)
+        {
+            knx_log_utf8_string("DEVICE_NAME", frame);
         }
         break;
 

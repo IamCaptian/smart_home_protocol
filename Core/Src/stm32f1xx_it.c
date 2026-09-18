@@ -25,6 +25,8 @@
 /* USER CODE BEGIN Includes */
 #include "xiaomi_smart_screen_circular_bufferc.h"
 #include "knx_protocol_uart.h"
+#include "hf_zxk_modbus_circular_buffer.h"
+#include "hf_zjk_modbus_circular_buffer.h"
 #include "user_printf.h"
 #include "mcu_api.h"
 /* USER CODE END Includes */
@@ -268,7 +270,14 @@ void USART2_IRQHandler(void)
    //  xiaoni_smart_screen_uart_rxcallback(rx_data);
     //  knx_uart_rxcallback(rx_data);
     // ble_uart_rxcallback(rx_data);
-     uart_servive_rx_store(rx_data);
+
+    /* 线控器 MODBUS-RTU 协议（hf_zxk_modbus_*）：与以上各解析器互相独立 */
+   // hf_zxk_modbus_uart_rxcallback(rx_data);
+
+    /* 集控器 自定义485 协议（hf_zjk_modbus_*）：与以上各解析器互相独立 */
+  //  hf_zjk_modbus_uart_rxcallback(rx_data);  
+
+  uart_servive_rx_store(rx_data);
       
       /* 清除接收中断标志 */
       __HAL_UART_CLEAR_FLAG(&huart2, UART_FLAG_RXNE);

@@ -131,6 +131,15 @@ static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetDi
             s_hooch_protocol_air_conditioner_dispatch_frame.value = frame->value;
             break;
 
+        case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_AC_TYPE:
+            /* 空调类型原始值(见 HOOCH_PROTOCOL_AirConditionerType_t) */
+            s_hooch_protocol_air_conditioner_dispatch_frame.value = frame->value;
+            break;
+
+        case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_CENTRAL_CONTROL_ADDRESS:
+            s_hooch_protocol_air_conditioner_dispatch_frame.value = frame->value;
+            break;
+
         default:
             return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
     }

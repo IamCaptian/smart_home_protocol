@@ -73,6 +73,10 @@
 "xiaomi_f103\knx_device_scene.o"
 "xiaomi_f103\xiaomi_smart_screen_circular_buffer.o"
 "xiaomi_f103\xiaomi_smart_screen_handle.o"
+"xiaomi_f103\hf_zxk_modbus_circular_buffer.o"
+"xiaomi_f103\hf_zxk_modbus_handle.o"
+"xiaomi_f103\hf_zjk_modbus_circular_buffer.o"
+"xiaomi_f103\hf_zjk_modbus_handle.o"
 --strict --scatter "XiaoMi_F103\XiaoMi_F103.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

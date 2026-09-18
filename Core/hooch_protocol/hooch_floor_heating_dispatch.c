@@ -152,6 +152,15 @@ static HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SetDispat
             s_hooch_protocol_floor_heating_dispatch_frame.value = frame->value;
             break;
 
+        case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TYPE:
+            /* 地暖类型原始值(见 HOOCH_PROTOCOL_FloorHeatingType_t) */
+            s_hooch_protocol_floor_heating_dispatch_frame.value = frame->value;
+            break;
+
+        case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_CENTRAL_CONTROL_ADDRESS:
+            s_hooch_protocol_floor_heating_dispatch_frame.value = frame->value;
+            break;
+
         default:
             return HOOCH_PROTOCOL_FLOOR_HEATING_RESULT_INVALID_PARAM;
     }

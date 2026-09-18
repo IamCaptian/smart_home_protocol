@@ -33,6 +33,8 @@ xiaomi_f103\stm32f1xx_it.o: ../Core/Inc/user_printf.h
 xiaomi_f103\stm32f1xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 xiaomi_f103\stm32f1xx_it.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 xiaomi_f103\stm32f1xx_it.o: ..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h
+xiaomi_f103\stm32f1xx_it.o: ..\Core\hooch_protocol\hf_zxk_modbus_protocol\hf_zxk_modbus_circular_buffer.h
+xiaomi_f103\stm32f1xx_it.o: ..\Core\hooch_protocol\hf_zjk_modbus_protocol\hf_zjk_modbus_circular_buffer.h
 xiaomi_f103\stm32f1xx_it.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h
 xiaomi_f103\stm32f1xx_it.o: ..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h
 xiaomi_f103\stm32f1xx_it.o: ..\Core\hooch_protocol\hooch_setting.h

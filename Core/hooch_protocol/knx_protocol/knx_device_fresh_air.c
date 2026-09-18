@@ -78,9 +78,9 @@ void knx_summary_fresh_air_control(const KNX_Frame_t *frame)
             {
                 if (frame->data[0] == 0U)
                 {
-                    fresh_air_frame.power = HOOCH_PROTOCOL_FRESH_AIR_POWER_OFF;
-                    fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_POWER;
-                    need_set = 1U;
+                    // fresh_air_frame.power = HOOCH_PROTOCOL_FRESH_AIR_POWER_OFF;
+                    // fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_POWER;
+                    // need_set = 1U;
                 }
                 else if (frame->data[0] == 4U)
                 {

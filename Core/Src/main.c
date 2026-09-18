@@ -26,6 +26,8 @@
 #include "user_printf.h"
 #include "xiaomi_smart_screen_circular_bufferc.h"
 #include "knx_protocol_uart.h"
+#include "hf_zxk_modbus_circular_buffer.h"
+#include "hf_zjk_modbus_circular_buffer.h"
 #include "hooch_protocol.h"
 #include "mcu_api.h"
 
@@ -124,11 +126,17 @@ int main(void)
  //初始化 KNX 面板协议解析模块
  //注意：KNX 与小米协议共享 USART2，在 USART2 中断中会把每个字节同时喂给两套解析器
  //knx_uart_init();
- //extern void tuya_uart_init(void);
+  //extern void tuya_uart_init(void);
   tuya_uart_init();
   // 初始化 BLE 协议解析模块
   // BLE 也复用 USART2 字节流，在中断中并行喂入 BLE 状态机。
 //  ble_uart_init();
+
+  // 初始化线控器 MODBUS-RTU 协议解析模块（同样复用 USART2 字节流）
+  hf_zxk_modbus_uart_init();
+
+  // 初始化集控器 自定义485 协议解析模块（同样复用 USART2 字节流，与线控器并行解析）
+  hf_zjk_modbus_uart_init();
          
   // 开机打印
   LOG_INFO("========================================\r\n");
@@ -172,6 +180,12 @@ int main(void)
 
     // 处理 KNX 面板协议帧解析（与小米协议并行解析同一串口字节流）
   //  knx_uart_process();
+
+    // 处理线控器 MODBUS-RTU 协议帧解析（与以上各协议并行解析同一串口字节流）
+    hf_zxk_modbus_uart_process();
+
+    // 处理集控器 自定义485 协议帧解析（与以上各协议并行解析同一串口字节流）
+    hf_zjk_modbus_uart_process();
 
     // 处理 Tuya Zigbee UART 协议帧解析
     // 处理CLI命令

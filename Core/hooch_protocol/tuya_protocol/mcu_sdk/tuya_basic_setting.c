@@ -8,6 +8,9 @@
 #include "protocol.h"
 #include "hooch_setting.h"
 #include "hooch_key_mode.h"
+#include "hooch_air_conditioner.h"
+#include "hooch_fresh_air.h"
+#include "hooch_floor_heating.h"
 
 /* 填充 SettingFrame 公共字段 */
 static void init_setting_frame(HOOCH_PROTOCOL_SettingFrame_t *sf,
@@ -166,11 +169,93 @@ static unsigned char handle_base_set(unsigned short dp_len, unsigned char *dp_da
     return 1U;
 }
 
-/* ---- DP 143: 高级设置 (raw: 8byte) ----
+/* ---- 涂鸦「绑定类型」→ Hooch 设备类型 ----
+ * 涂鸦: 0-水机 1-WX线控 2-WX集控 3-WX485线控 4-WX485集控
+ * Hooch: 1-水机 2-HF线控 3-HF线控485 4-HF集控485
+ *       (AirConditioner/FreshAir/FloorHeating 三家 Type 枚举取值一致)
+ * 注: 涂鸦 WX集控 与 WX485集控 在 Hooch 侧合并为 HF集控485; 未知取值按无效处理。
+ */
+static HOOCH_PROTOCOL_AirConditionerType_t map_bind_type(unsigned char raw)
+{
+    switch (raw) {
+    case 0U: return HOOCH_PROTOCOL_AIR_CONDITIONER_TYPE_WATER_UNIT;
+    case 1U: return HOOCH_PROTOCOL_AIR_CONDITIONER_TYPE_HF_WIRED_CONTROLLER;
+    case 2U: /* fall through: WX集控 与 WX485集控 合并 */
+    case 4U: return HOOCH_PROTOCOL_AIR_CONDITIONER_TYPE_HF_CENTRAL_CONTROL_485;
+    case 3U: return HOOCH_PROTOCOL_AIR_CONDITIONER_TYPE_HF_WIRED_CONTROLLER_485;
+    default: return HOOCH_PROTOCOL_AIR_CONDITIONER_TYPE_INVALID;
+    }
+}
+
+/* 空调绑定类型与集控地址：拆成两项分别下发 */
+static void dispatch_ac_bind(unsigned char raw_type, unsigned char address)
+{
+    HOOCH_PROTOCOL_AirConditionerFrame_t frame;
+
+    memset(&frame, 0, sizeof(frame));
+    frame.channel = 1U;    /* 涂鸦单空调：固定通道 1 */
+    frame.source  = HOOCH_PROTOCOL_SOURCE_TUYA;
+
+    frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_AC_TYPE;
+    frame.value        = (uint16_t)map_bind_type(raw_type);
+    if (frame.value != (uint16_t)HOOCH_PROTOCOL_AIR_CONDITIONER_TYPE_INVALID) {
+        (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&frame);
+    }
+
+    frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_CENTRAL_CONTROL_ADDRESS;
+    frame.value        = address;
+    (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&frame);
+}
+
+/* 新风绑定类型与集控地址：拆成两项分别下发 */
+static void dispatch_fresh_air_bind(unsigned char raw_type, unsigned char address)
+{
+    HOOCH_PROTOCOL_FreshAirFrame_t frame;
+
+    memset(&frame, 0, sizeof(frame));
+    frame.channel = 1U;    /* 涂鸦单新风：固定通道 1 */
+    frame.source  = HOOCH_PROTOCOL_SOURCE_TUYA;
+
+    frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_TYPE;
+    frame.value        = (uint16_t)(HOOCH_PROTOCOL_FreshAirType_t)map_bind_type(raw_type);
+    if (frame.value != (uint16_t)HOOCH_PROTOCOL_FRESH_AIR_TYPE_INVALID) {
+        (void)HOOCH_PROTOCOL_FreshAir_DispatchFrame(&frame);
+    }
+
+    frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_CENTRAL_CONTROL_ADDRESS;
+    frame.value        = address;
+    (void)HOOCH_PROTOCOL_FreshAir_DispatchFrame(&frame);
+}
+
+/* 地暖绑定类型与集控地址：拆成两项分别下发 */
+static void dispatch_floor_bind(unsigned char raw_type, unsigned char address)
+{
+    HOOCH_PROTOCOL_FloorHeatingFrame_t frame;
+
+    memset(&frame, 0, sizeof(frame));
+    frame.channel = 1U;    /* 涂鸦单地暖：固定通道 1 */
+    frame.source  = HOOCH_PROTOCOL_SOURCE_TUYA;
+
+    frame.control_item = HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_TYPE;
+    frame.value        = (uint16_t)(HOOCH_PROTOCOL_FloorHeatingType_t)map_bind_type(raw_type);
+    if (frame.value != (uint16_t)HOOCH_PROTOCOL_FLOOR_HEATING_TYPE_INVALID) {
+        (void)HOOCH_PROTOCOL_FloorHeating_DispatchFrame(&frame);
+    }
+
+    frame.control_item = HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_CENTRAL_CONTROL_ADDRESS;
+    frame.value        = address;
+    (void)HOOCH_PROTOCOL_FloorHeating_DispatchFrame(&frame);
+}
+
+/* ---- DP 143: 高级设置 (raw: 8byte 旧版本 / 14byte 新版本) ----
  * 布局: [0]指示灯高亮 0~100
  *       [1-5]页面排序(5byte "12345")
  *       [6]温度传感器矫正(int8 -10~+10)
  *       [7]湿度传感器矫正(int8 -20%~+20%)
+ *       [8]空调绑定类型  [9]空调地址
+ *       [10]新风绑定类型 [11]新风地址
+ *       [12]地暖绑定类型 [13]地暖地址
+ * 注: [8]~[13] 为新增字段, 旧固件仅下发 8byte, 长度不足时跳过。
  */
 static unsigned char handle_adv_set(unsigned short dp_len, unsigned char *dp_data)
 {
@@ -203,8 +288,24 @@ static unsigned char handle_adv_set(unsigned short dp_len, unsigned char *dp_dat
     sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
 
+    /* ---- 以下为新增字段，旧固件只下发 8byte，长度不足时跳过 ---- */
+    if (dp_len < 14U) return 1U;
+
+    /* [8][9] 空调绑定类型 / 空调地址 */
+    dispatch_ac_bind(dp_data[8], dp_data[9]);
+
+    /* [10][11] 新风绑定类型 / 新风地址 */
+    dispatch_fresh_air_bind(dp_data[10], dp_data[11]);
+
+    /* [12][13] 地暖绑定类型 / 地暖地址 */
+    dispatch_floor_bind(dp_data[12], dp_data[13]);
+
     return 1U;
 }
+
+
+
+
 
 unsigned char tuya_dp_dispatch_setting(unsigned char dp_id, unsigned char dp_type,
                                        unsigned short dp_len, unsigned char *dp_data)

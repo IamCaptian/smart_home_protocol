@@ -9,6 +9,9 @@ static HOOCH_PROTOCOL_AirConditionerCallback_t s_hooch_protocol_air_conditioner_
 /* 保存外部注册的空调上报回调（地址版）。 */
 static HOOCH_PROTOCOL_AirConditionerCallback_t s_hooch_protocol_air_conditioner_report_callback2;
 
+/* 保存外部注册的空调上报回调（HF线控485网关版）。 */
+static HOOCH_PROTOCOL_AirConditionerCallback_t s_hooch_protocol_air_conditioner_report_callback_hf_wired485;
+
 /* 校验空调温度是否在当前模块支持的范围内。 */
 static uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(uint16_t temperature)
 {
@@ -33,6 +36,16 @@ static void HOOCH_PROTOCOL_AirConditioner_NotifyReportCallback2(void)
     if (s_hooch_protocol_air_conditioner_report_callback2 != 0)
     {
         s_hooch_protocol_air_conditioner_report_callback2(
+            &s_hooch_protocol_air_conditioner_report_frame);
+    }
+}
+
+/* 有 HF线控485 网关版上报回调注册时，把最新数据通知出去。 */
+static void HOOCH_PROTOCOL_AirConditioner_NotifyReportCallbackHfWired485(void)
+{
+    if (s_hooch_protocol_air_conditioner_report_callback_hf_wired485 != 0)
+    {
+        s_hooch_protocol_air_conditioner_report_callback_hf_wired485(
             &s_hooch_protocol_air_conditioner_report_frame);
     }
 }
@@ -82,35 +95,7 @@ uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidControlItem(
                      (control_item < HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_MAX));
 }
 
-/* 统一写入空调上报状态。 */
-static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetReportState(
-    HOOCH_PROTOCOL_AirConditionerPower_t power,
-    HOOCH_PROTOCOL_AirConditionerMode_t mode,
-    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint16_t temperature)
-{
-    if ((HOOCH_PROTOCOL_AirConditioner_IsValidPower(power) == 0U) ||
-        (HOOCH_PROTOCOL_AirConditioner_IsValidMode(mode) == 0U) ||
-        (HOOCH_PROTOCOL_AirConditioner_IsValidFanSpeed(fan_speed) == 0U) ||
-        (HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(temperature) == 0U))
-    {
-        return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
-    }
 
-    s_hooch_protocol_air_conditioner_report_frame.power = power;
-    s_hooch_protocol_air_conditioner_report_frame.mode = mode;
-    s_hooch_protocol_air_conditioner_report_frame.fan_speed = fan_speed;
-    s_hooch_protocol_air_conditioner_report_frame.temperature = temperature;
-    s_hooch_protocol_air_conditioner_report_frame.channel = 0U;
-    s_hooch_protocol_air_conditioner_report_frame.control_item =
-        HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ALL;
-    s_hooch_protocol_air_conditioner_report_frame.sequence++;
-    s_hooch_protocol_air_conditioner_report_frame.valid = 1U;
-
-    HOOCH_PROTOCOL_AirConditioner_NotifyReportCallback();
-
-    return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_OK;
-}
 
 /* 统一按 control_item 写入空调上报帧。 */
 static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetReportFrame(
@@ -188,16 +173,25 @@ static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetRe
     s_hooch_protocol_air_conditioner_report_frame.channel = frame->channel;
     s_hooch_protocol_air_conditioner_report_frame.address = frame->address;
     s_hooch_protocol_air_conditioner_report_frame.control_item = frame->control_item;
+    s_hooch_protocol_air_conditioner_report_frame.source = frame->source;
     s_hooch_protocol_air_conditioner_report_frame.sequence = frame->sequence;
     s_hooch_protocol_air_conditioner_report_frame.valid = 1U;
 
-    /* 通知通道版回调 */
-    HOOCH_PROTOCOL_AirConditioner_NotifyReportCallback();
-
-    /* 地址非零时通知地址版回调 */
-    if (frame->address != 0U)
+    /* 三路回调互斥投递，保证一帧只对应一种用途：
+     *   HF线控485 网关上报 -> 专属回调
+     *   带地址的上报       -> 地址版回调
+     *   其余（通道版）     -> 通道版回调 */
+    if (frame->source == HOOCH_PROTOCOL_SOURCE_HF_WIRED_CONTROLLER_485)
+    {
+        HOOCH_PROTOCOL_AirConditioner_NotifyReportCallbackHfWired485();
+    }
+    else if (frame->address != 0U)
     {
         HOOCH_PROTOCOL_AirConditioner_NotifyReportCallback2();
+    }
+    else
+    {
+        HOOCH_PROTOCOL_AirConditioner_NotifyReportCallback();
     }
 
     return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_OK;
@@ -208,6 +202,7 @@ void HOOCH_AirConditioner_Init(void)
     HOOCH_PROTOCOL_AirConditioner_UnregisterCallback();
     HOOCH_PROTOCOL_AirConditioner_UnregisterReportCallback();
     HOOCH_PROTOCOL_AirConditioner_UnregisterReportCallback2();
+    HOOCH_PROTOCOL_AirConditioner_UnregisterReportCallbackHfWired485();
     HOOCH_PROTOCOL_AirConditioner_Clear();
 }
 
@@ -216,14 +211,7 @@ void HOOCH_PROTOCOL_AirConditioner_Clear(void)
     HOOCH_PROTOCOL_AirConditioner_ClearFrame(&s_hooch_protocol_air_conditioner_report_frame);
 }
 
-HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_Set(
-    HOOCH_PROTOCOL_AirConditionerPower_t power,
-    HOOCH_PROTOCOL_AirConditionerMode_t mode,
-    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint16_t temperature)
-{
-    return HOOCH_PROTOCOL_AirConditioner_SetReportState(power, mode, fan_speed, temperature);
-}
+
 
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetFrame(
     const HOOCH_PROTOCOL_AirConditionerFrame_t *frame)
@@ -231,10 +219,7 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetFrame(
     return HOOCH_PROTOCOL_AirConditioner_SetReportFrame(frame);
 }
 
-const HOOCH_PROTOCOL_AirConditionerFrame_t *HOOCH_PROTOCOL_AirConditioner_GetFrame(void)
-{
-    return &s_hooch_protocol_air_conditioner_report_frame;
-}
+/* ---- 通道版上报 ---- */
 
 void HOOCH_PROTOCOL_AirConditioner_RegisterReportCallback(
     HOOCH_PROTOCOL_AirConditionerCallback_t callback)
@@ -245,17 +230,6 @@ void HOOCH_PROTOCOL_AirConditioner_RegisterReportCallback(
 void HOOCH_PROTOCOL_AirConditioner_UnregisterReportCallback(void)
 {
     s_hooch_protocol_air_conditioner_report_callback = 0;
-}
-
-void HOOCH_PROTOCOL_AirConditioner_RegisterReportCallback2(
-    HOOCH_PROTOCOL_AirConditionerCallback_t callback)
-{
-    s_hooch_protocol_air_conditioner_report_callback2 = callback;
-}
-
-void HOOCH_PROTOCOL_AirConditioner_UnregisterReportCallback2(void)
-{
-    s_hooch_protocol_air_conditioner_report_callback2 = 0;
 }
 
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_Send(
@@ -339,6 +313,19 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendTemperat
     return HOOCH_PROTOCOL_AirConditioner_SetFrame(&frame);
 }
 
+/* ---- 地址版上报 ---- */
+
+void HOOCH_PROTOCOL_AirConditioner_RegisterReportCallback2(
+    HOOCH_PROTOCOL_AirConditionerCallback_t callback)
+{
+    s_hooch_protocol_air_conditioner_report_callback2 = callback;
+}
+
+void HOOCH_PROTOCOL_AirConditioner_UnregisterReportCallback2(void)
+{
+    s_hooch_protocol_air_conditioner_report_callback2 = 0;
+}
+
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendPowerAddr(
     uint16_t address,
     HOOCH_PROTOCOL_AirConditionerPower_t power)
@@ -399,44 +386,82 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendTemperat
     return HOOCH_PROTOCOL_AirConditioner_SetFrame(&frame);
 }
 
-HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFrame(
-    uint8_t channel,
-    HOOCH_PROTOCOL_AirConditionerPower_t power,
-    HOOCH_PROTOCOL_AirConditionerMode_t mode,
-    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint16_t temperature)
+/* ---- HF线控485 网关上报（地址版）：source 标为 HF线控485，只投递给专属回调 ---- */
+
+void HOOCH_PROTOCOL_AirConditioner_RegisterReportCallbackHfWired485(
+    HOOCH_PROTOCOL_AirConditionerCallback_t callback)
 {
-    HOOCH_PROTOCOL_AirConditionerFrame_t frame;
-
-    HOOCH_PROTOCOL_AirConditioner_ClearFrame(&frame);
-    frame.channel = channel;
-    frame.power = power;
-    frame.mode = mode;
-    frame.fan_speed = fan_speed;
-    frame.temperature = temperature;
-    frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ALL_XIAOMI;
-    frame.sequence = (uint8_t)(s_hooch_protocol_air_conditioner_report_frame.sequence + 1U);
-
-    return HOOCH_PROTOCOL_AirConditioner_SetFrame(&frame);
+    s_hooch_protocol_air_conditioner_report_callback_hf_wired485 = callback;
 }
 
-HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFrameAddr(
+void HOOCH_PROTOCOL_AirConditioner_UnregisterReportCallbackHfWired485(void)
+{
+    s_hooch_protocol_air_conditioner_report_callback_hf_wired485 = 0;
+}
+
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendPowerAddrHfWired485(
     uint16_t address,
-    HOOCH_PROTOCOL_AirConditionerPower_t power,
-    HOOCH_PROTOCOL_AirConditionerMode_t mode,
-    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed,
-    uint16_t temperature)
+    HOOCH_PROTOCOL_AirConditionerPower_t power)
 {
     HOOCH_PROTOCOL_AirConditionerFrame_t frame;
 
     HOOCH_PROTOCOL_AirConditioner_ClearFrame(&frame);
+    frame.source = HOOCH_PROTOCOL_SOURCE_HF_WIRED_CONTROLLER_485;
     frame.address = address;
     frame.power = power;
-    frame.mode = mode;
-    frame.fan_speed = fan_speed;
-    frame.temperature = temperature;
-    frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ALL_XIAOMI;
+    frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_POWER;
     frame.sequence = (uint8_t)(s_hooch_protocol_air_conditioner_report_frame.sequence + 1U);
 
     return HOOCH_PROTOCOL_AirConditioner_SetFrame(&frame);
 }
+
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendModeAddrHfWired485(
+    uint16_t address,
+    HOOCH_PROTOCOL_AirConditionerMode_t mode)
+{
+    HOOCH_PROTOCOL_AirConditionerFrame_t frame;
+
+    HOOCH_PROTOCOL_AirConditioner_ClearFrame(&frame);
+    frame.source = HOOCH_PROTOCOL_SOURCE_HF_WIRED_CONTROLLER_485;
+    frame.address = address;
+    frame.mode = mode;
+    frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_MODE;
+    frame.sequence = (uint8_t)(s_hooch_protocol_air_conditioner_report_frame.sequence + 1U);
+
+    return HOOCH_PROTOCOL_AirConditioner_SetFrame(&frame);
+}
+
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFanSpeedAddrHfWired485(
+    uint16_t address,
+    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed)
+{
+    HOOCH_PROTOCOL_AirConditionerFrame_t frame;
+
+    HOOCH_PROTOCOL_AirConditioner_ClearFrame(&frame);
+    frame.source = HOOCH_PROTOCOL_SOURCE_HF_WIRED_CONTROLLER_485;
+    frame.address = address;
+    frame.fan_speed = fan_speed;
+    frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_FAN_SPEED;
+    frame.sequence = (uint8_t)(s_hooch_protocol_air_conditioner_report_frame.sequence + 1U);
+
+    return HOOCH_PROTOCOL_AirConditioner_SetFrame(&frame);
+}
+
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendTemperatureAddrHfWired485(
+    uint16_t address,
+    uint16_t temperature)
+{
+    HOOCH_PROTOCOL_AirConditionerFrame_t frame;
+
+    HOOCH_PROTOCOL_AirConditioner_ClearFrame(&frame);
+    frame.source = HOOCH_PROTOCOL_SOURCE_HF_WIRED_CONTROLLER_485;
+    frame.address = address;
+    frame.temperature = temperature;
+    frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMPERATURE;
+    frame.sequence = (uint8_t)(s_hooch_protocol_air_conditioner_report_frame.sequence + 1U);
+
+    return HOOCH_PROTOCOL_AirConditioner_SetFrame(&frame);
+}
+
+
+

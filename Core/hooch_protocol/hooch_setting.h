@@ -8,6 +8,10 @@ extern "C" {
 #include <stdint.h>
 #include <string.h>
 #include "hooch_protocol_common.h"
+
+/* 设备名称最大长度（UTF-8 字节数, 不含结束符） */
+#define HOOCH_PROTOCOL_SETTING_DEVICE_NAME_MAX_LENGTH   24U
+
 /* 设置接口返回结果 */
 typedef enum
 {
@@ -99,6 +103,7 @@ typedef enum
     HOOCH_PROTOCOL_SETTING_ITEM_PAGE_ORDER,                        /* [77] 页面排序 (5byte "12345") */
     HOOCH_PROTOCOL_SETTING_ITEM_TEMPERATURE_CALIBRATION,           /* [78] 温度传感器矫正 (int8 -10~+10) */
     HOOCH_PROTOCOL_SETTING_ITEM_HUMIDITY_CALIBRATION,              /* [79] 湿度传感器矫正 (int8 -20~+20) */
+    HOOCH_PROTOCOL_SETTING_ITEM_DEVICE_NAME,                       /* [80] 设备名称 (UTF-8, 最多24字节) */
 
 } HOOCH_PROTOCOL_SettingItem_t;
 
@@ -245,6 +250,7 @@ typedef struct
     uint8_t param3;
     uint8_t param4;
     uint8_t data[10];                   /* 不定长原始数据缓冲区（时间、日期等） */
+    char device_name[HOOCH_PROTOCOL_SETTING_DEVICE_NAME_MAX_LENGTH + 1U]; /* 设备名称(UTF-8, 以'\0'结尾) */
     HOOCH_PROTOCOL_Source_t source;     /* 消息来源 */
     uint8_t sequence;                   /* 更新序号 */
     uint8_t valid;                      /* 当前数据是否有效 */

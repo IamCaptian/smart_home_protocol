@@ -102,7 +102,6 @@ void knx_summary_air_control(const KNX_Frame_t *frame)
                 need_set = 1U;
             }
             break;
-
         case 6U:
             item_desc = KNX_DESC("Fan Speed State (K->P)");
             if (frame->data_len > 0U)

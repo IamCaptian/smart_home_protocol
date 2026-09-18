@@ -44,6 +44,16 @@ typedef enum
     HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_AUTO,            /* 自动风 */
 } HOOCH_PROTOCOL_FreshAirFanSpeed_t;
 
+/* 新风类型 */
+typedef enum
+{
+    HOOCH_PROTOCOL_FRESH_AIR_TYPE_INVALID = 0U,               /* 无效类型 */
+    HOOCH_PROTOCOL_FRESH_AIR_TYPE_WATER_UNIT = 1U,            /* 水机 */
+    HOOCH_PROTOCOL_FRESH_AIR_TYPE_HF_WIRED_CONTROLLER,        /* HF线控 */
+    HOOCH_PROTOCOL_FRESH_AIR_TYPE_HF_WIRED_CONTROLLER_485,    /* HF线控485 */
+    HOOCH_PROTOCOL_FRESH_AIR_TYPE_HF_CENTRAL_CONTROL_485,     /* HF集控485 */
+} HOOCH_PROTOCOL_FreshAirType_t;
+
 /* 新风控制项 */
 typedef enum
 {
@@ -60,6 +70,8 @@ typedef enum
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ALL_TUYA,           /* 全量控制涂鸦 */
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ALL_XIAOMI,         /* 全量控制小米 */
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ALL_KNX,            /* 全量控制KNX */
+    HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_TYPE,               /* 新风类型（取值见 HOOCH_PROTOCOL_FreshAirType_t，用 value 承接） */
+    HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_CENTRAL_CONTROL_ADDRESS, /* 集控地址（用 value 承接） */
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_MAX,                /* 哨兵值，新增枚举请插入到上方 */
 } HOOCH_PROTOCOL_FreshAirControlItem_t;
 

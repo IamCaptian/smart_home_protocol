@@ -322,6 +322,21 @@ void knx_summary_basic_setting(const KNX_Frame_t *frame)
         }
         need_set = 1U;
         break;
+    case KNX_BASIC_SETTING_DEVICE_NAME:
+        item_desc = KNX_DESC("Device Name (K->P)"); /* 设备名称: 24 byte UTF-8 */
+        setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_DEVICE_NAME;
+        if (frame->data_len >= 1U)
+        {
+            uint8_t name_len = frame->data_len;
+            if (name_len > HOOCH_PROTOCOL_SETTING_DEVICE_NAME_MAX_LENGTH)
+            {
+                name_len = HOOCH_PROTOCOL_SETTING_DEVICE_NAME_MAX_LENGTH;
+            }
+            (void)memcpy(setting_frame.device_name, frame->data, name_len);
+            setting_frame.device_name[name_len] = '\0';
+        }
+        need_set = 1U;
+        break;
     default:
         break;
     }
