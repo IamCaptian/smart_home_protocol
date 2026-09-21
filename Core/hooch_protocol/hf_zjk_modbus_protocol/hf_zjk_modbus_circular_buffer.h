@@ -51,6 +51,12 @@ extern "C" {
     HAL_UART_Transmit(&huart2, (buffer), (length), 1000U)
 #endif
 
+/* ---------------- 模块使能开关 ---------------- */
+/* 上电默认使能状态，运行期可用 hf_zjk_modbus_set_enable() 随时开关 */
+#ifndef HF_ZJK_MODBUS_ENABLE_DEFAULT
+#define HF_ZJK_MODBUS_ENABLE_DEFAULT 0
+#endif
+
 #if HF_ZJK_MODBUS_LOG_ENABLE
 #define HF_ZJK_MODBUS_LOG_INFO(...)  HF_ZJK_MODBUS_LOG_PRINTF(__VA_ARGS__)
 #define HF_ZJK_MODBUS_LOG_WARN(...)  HF_ZJK_MODBUS_LOG_PRINTF(__VA_ARGS__)
@@ -257,6 +263,36 @@ void    hf_zjk_modbus_uart_init(void);
 void    hf_zjk_modbus_uart_process(void);
 uint8_t hf_zjk_modbus_uart_send_pdu(const uint8_t *pdu, uint16_t pdu_len);
 void    hf_zjk_modbus_uart_rxcallback(uint8_t data);
+
+/* ---------------- 模块使能接口 ----------------
+ * 关闭(0)时本模块完全不工作：接收队列不再接收任何字节（已缓存的也清空），
+ * 帧解析与所有发送（周期查询 / 控制帧 / 手动查询）一并停止；
+ * 重新开启(1)后按上电流程重新计时发帧。 */
+void    hf_zjk_modbus_set_enable(uint8_t enable);
+/* 读取当前使能状态：1=开启 0=关闭 */
+uint8_t hf_zjk_modbus_get_enable(void);
+
+/* 读取当前内机地址 */
+uint16_t hf_zjk_modbus_get_current_ac_addr(void);
+
+/* 直接设置当前内机地址（供不需走空调上报回调的调用方使用；0xFFFF 表示未设置） */
+void hf_zjk_modbus_set_current_ac_addr(uint16_t address);
+
+/* ---------------- 周期查询调度（MCU -> 网关） ----------------
+ * 本机作为集成系统主动轮询：
+ *   - 上电 5 秒后开始周期"查询全部"(0x50 + 0xFF)以获取外机地址；
+ *   - 收到查询全部回复后，切换到按 1 秒周期"查询单台内机状态"(0x50 + 0x01)，
+ *     查询的设备地址 = (外机地址 << 8) | 内机地址（内机地址由平台下发），
+ *     内机地址为 0xFFFF(未设置)时跳过本次查询。
+ * 控制帧(0x31~0x36)与查询帧共用半双工 485 总线，统一由 hf_zjk_modbus_uart_process()
+ * 内的发送调度串行发出：帧间隔 >100ms、控制帧优先；控制帧连发导致查询倒计时被反复
+ * 重置时，查询最迟推迟 3 秒仍会发出一次。
+ * 平台层 Query*HfCentralControl485 手动查询直接发帧、不经过该仲裁，仅供调试使用。
+ */
+
+/* 业务层解析到"查询全部"回复(已拿到外机地址)后调用，切到内机状态轮询阶段
+ * @param outer_address 回复里解析出的外机地址 */
+void hf_zjk_modbus_query_notify_outer_address_received(uint8_t outer_address);
 
 /* 帧处理回调（业务层实现，见 hf_zjk_modbus_handle.h） */
 void hf_zjk_modbus_handle_frame(const hf_zjk_modbus_frame_t *frame);

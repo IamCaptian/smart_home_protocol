@@ -55,6 +55,20 @@ static void cli_cmd_mi_setting_report(int argc, char *argv[]);
 static void cli_cmd_mi_human_presence(int argc, char *argv[]);
 static void cli_cmd_mi_get_weather(int argc, char *argv[]);
 static void cli_cmd_mi_scene_report(int argc, char *argv[]);
+static void cli_cmd_hf485_air_power(int argc, char *argv[]);
+static void cli_cmd_hf485_air_mode(int argc, char *argv[]);
+static void cli_cmd_hf485_air_fan_speed(int argc, char *argv[]);
+static void cli_cmd_hf485_air_temperature(int argc, char *argv[]);
+static void cli_cmd_hfjk_air_power(int argc, char *argv[]);
+static void cli_cmd_hfjk_air_mode(int argc, char *argv[]);
+static void cli_cmd_hfjk_air_fan_speed(int argc, char *argv[]);
+static void cli_cmd_hfjk_air_temperature(int argc, char *argv[]);
+static void cli_cmd_hfjk_inner_addr(int argc, char *argv[]);
+static void cli_cmd_hfjk_query_status(int argc, char *argv[]);
+static void cli_cmd_hfjk_query_all(int argc, char *argv[]);
+static void cli_cmd_hfjk_query_performance(int argc, char *argv[]);
+static void cli_cmd_hf485_enable(int argc, char *argv[]);
+static void cli_cmd_hfjk_enable(int argc, char *argv[]);
 
 /* ======================== 命令表 ======================== */
 static const cli_cmd_t cli_cmd_table[] = {
@@ -72,7 +86,24 @@ static const cli_cmd_t cli_cmd_table[] = {
     {"mi_human_presence",  "Human presence: mi_human_presence 0|1",   cli_cmd_mi_human_presence},
     {"mi_get_weather",     "Get weather data: mi_get_weather",        cli_cmd_mi_get_weather},
     {"mi_scene_report",    "Scene report: mi_scene_report key:1~8",   cli_cmd_mi_scene_report},
+    {"hf485_air_power",    "AC wired485 power: hf485_air_power addr 0|1", cli_cmd_hf485_air_power},
+    {"hf485_air_mode",     "AC wired485 mode: hf485_air_mode addr 1~5(1=cool 2=fan 3=dry 4=heat 5=auto)", cli_cmd_hf485_air_mode},
+    {"hf485_air_fan",      "AC wired485 fan: hf485_air_fan addr 1~4(1=low 2=med 3=high 4=auto)", cli_cmd_hf485_air_fan_speed},
+    {"hf485_air_temp",     "AC wired485 temp: hf485_air_temp addr temperature", cli_cmd_hf485_air_temperature},
+    {"hfjk_air_power",     "AC central485 power: hfjk_air_power addr 0|1", cli_cmd_hfjk_air_power},
+    {"hfjk_air_mode",      "AC central485 mode: hfjk_air_mode addr 1~5(1=cool 2=fan 3=dry 4=heat 5=auto)", cli_cmd_hfjk_air_mode},
+    {"hfjk_air_fan",       "AC central485 fan: hfjk_air_fan addr 1~4(1=low 2=med 3=high 4=auto)", cli_cmd_hfjk_air_fan_speed},
+    {"hfjk_air_temp",      "AC central485 temp: hfjk_air_temp addr temperature", cli_cmd_hfjk_air_temperature},
+    {"hfjk_inner_addr",    "AC central485 set inner address: hfjk_inner_addr addr(0xFFFF=unset)", cli_cmd_hfjk_inner_addr},
+    {"hfjk_query_status",  "AC central485 query single status: hfjk_query_status addr", cli_cmd_hfjk_query_status},
+    {"hfjk_query_all",     "AC central485 query all status (shows outer-inner addr): hfjk_query_all", cli_cmd_hfjk_query_all},
+    {"hfjk_query_perf",    "AC central485 query performance: hfjk_query_perf", cli_cmd_hfjk_query_performance},
+    {"hf485_enable",       "AC wired485 module on/off: hf485_enable 0|1", cli_cmd_hf485_enable},
+    {"hfjk_enable",        "AC central485 module on/off: hfjk_enable 0|1", cli_cmd_hfjk_enable},
 };
+
+
+
 
 #define CLI_CMD_COUNT  (sizeof(cli_cmd_table) / sizeof(cli_cmd_table[0]))
 
@@ -234,6 +265,62 @@ static uint8_t cli_parse_setting_report_event(
     return 1;
 }
 
+static uint8_t cli_parse_air_conditioner_power(
+    const char *str,
+    HOOCH_PROTOCOL_AirConditionerPower_t *power)
+{
+    uint8_t power_value;
+
+    if (!cli_parse_u8_arg(str, &power_value)) {
+        return 0;
+    }
+
+    if (power_value > (uint8_t)HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_ON) {
+        return 0;
+    }
+
+    *power = (HOOCH_PROTOCOL_AirConditionerPower_t)power_value;
+    return 1;
+}
+
+static uint8_t cli_parse_air_conditioner_mode(
+    const char *str,
+    HOOCH_PROTOCOL_AirConditionerMode_t *mode)
+{
+    uint8_t mode_value;
+
+    if (!cli_parse_u8_arg(str, &mode_value)) {
+        return 0;
+    }
+
+    if (mode_value < (uint8_t)HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_COOL ||
+        mode_value > (uint8_t)HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_AUTO) {
+        return 0;
+    }
+
+    *mode = (HOOCH_PROTOCOL_AirConditionerMode_t)mode_value;
+    return 1;
+}
+
+static uint8_t cli_parse_air_conditioner_fan_speed(
+    const char *str,
+    HOOCH_PROTOCOL_AirConditionerFanSpeed_t *fan_speed)
+{
+    uint8_t fan_speed_value;
+
+    if (!cli_parse_u8_arg(str, &fan_speed_value)) {
+        return 0;
+    }
+
+    if (fan_speed_value < (uint8_t)HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_LOW ||
+        fan_speed_value > (uint8_t)HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_AUTO) {
+        return 0;
+    }
+
+    *fan_speed = (HOOCH_PROTOCOL_AirConditionerFanSpeed_t)fan_speed_value;
+    return 1;
+}
+
 static void cli_print_dimmer_send_result(
     const char *cmd_name,
     HOOCH_PROTOCOL_DimmerLightResult_t result)
@@ -311,6 +398,38 @@ static void cli_print_scene_send_result(
         LOG_INFO("[CLI] Scene report command sent\r\n");
     } else {
         LOG_ERROR("[CLI] Scene report command failed\r\n");
+    }
+}
+
+static void cli_print_air_conditioner_send_result(
+    const char *cmd_name,
+    HOOCH_PROTOCOL_AirConditionerResult_t result)
+{
+    char buf[96];
+
+    snprintf(buf, sizeof(buf), "[CLI] %s result: %u\r\n", cmd_name, (unsigned int)result);
+    cli_print(buf);
+
+    if (result == HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_OK) {
+        LOG_INFO("[CLI] Air conditioner wired485 report command sent\r\n");
+    } else {
+        LOG_ERROR("[CLI] Air conditioner wired485 report command failed\r\n");
+    }
+}
+
+static void cli_print_air_conditioner_central_send_result(
+    const char *cmd_name,
+    HOOCH_PROTOCOL_AirConditionerResult_t result)
+{
+    char buf[96];
+
+    snprintf(buf, sizeof(buf), "[CLI] %s result: %u\r\n", cmd_name, (unsigned int)result);
+    cli_print(buf);
+
+    if (result == HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_OK) {
+        LOG_INFO("[CLI] Air conditioner central485 command sent\r\n");
+    } else {
+        LOG_ERROR("[CLI] Air conditioner central485 command failed\r\n");
     }
 }
 
@@ -695,6 +814,346 @@ static void cli_cmd_mi_scene_report(int argc, char *argv[])
     key = (HOOCH_PROTOCOL_SceneReportKey_t)key_val;
     result = HOOCH_PROTOCOL_SceneReport_Send(key);
     cli_print_scene_send_result("mi_scene_report", result);
+}
+
+/* ---- 空调线控器上报（HF 线控网关 485，对应 Send*AddrHfWired485 系列接口） ---- */
+
+static void cli_cmd_hf485_air_power(int argc, char *argv[])
+{
+    HOOCH_PROTOCOL_AirConditionerPower_t power;
+    HOOCH_PROTOCOL_AirConditionerResult_t result;
+    uint16_t address;
+
+    if (argc != 3) {
+        cli_print("[CLI] Usage: hf485_air_power addr 0|1\r\n");
+        cli_print("[CLI] Example: hf485_air_power 1 1\r\n");
+        return;
+    }
+
+    if (!cli_parse_u16_arg(argv[1], &address)) {
+        cli_print("[CLI] Invalid addr, use 0~65535 (485_1:0~15, 485_2:1)\r\n");
+        return;
+    }
+
+    if (!cli_parse_air_conditioner_power(argv[2], &power)) {
+        cli_print("[CLI] Invalid power, use 0(off) or 1(on)\r\n");
+        return;
+    }
+
+    result = HOOCH_PROTOCOL_AirConditioner_SendPowerAddrHfWired485(address, power);
+    cli_print_air_conditioner_send_result("hf485_air_power", result);
+}
+
+static void cli_cmd_hf485_air_mode(int argc, char *argv[])
+{
+    HOOCH_PROTOCOL_AirConditionerMode_t mode;
+    HOOCH_PROTOCOL_AirConditionerResult_t result;
+    uint16_t address;
+
+    if (argc != 3) {
+        cli_print("[CLI] Usage: hf485_air_mode addr mode\r\n");
+        cli_print("[CLI] Example: hf485_air_mode 1 1\r\n");
+        cli_print("[CLI] Mode: 1=cool 2=fan 3=dry 4=heat 5=auto\r\n");
+        return;
+    }
+
+    if (!cli_parse_u16_arg(argv[1], &address)) {
+        cli_print("[CLI] Invalid addr, use 0~65535 (485_1:0~15, 485_2:1)\r\n");
+        return;
+    }
+
+    if (!cli_parse_air_conditioner_mode(argv[2], &mode)) {
+        cli_print("[CLI] Invalid mode, use 1~5\r\n");
+        return;
+    }
+
+    result = HOOCH_PROTOCOL_AirConditioner_SendModeAddrHfWired485(address, mode);
+    cli_print_air_conditioner_send_result("hf485_air_mode", result);
+}
+
+static void cli_cmd_hf485_air_fan_speed(int argc, char *argv[])
+{
+    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed;
+    HOOCH_PROTOCOL_AirConditionerResult_t result;
+    uint16_t address;
+
+    if (argc != 3) {
+        cli_print("[CLI] Usage: hf485_air_fan addr fan_speed\r\n");
+        cli_print("[CLI] Example: hf485_air_fan 1 1\r\n");
+        cli_print("[CLI] Fan speed: 1=low 2=medium 3=high 4=auto\r\n");
+        return;
+    }
+
+    if (!cli_parse_u16_arg(argv[1], &address)) {
+        cli_print("[CLI] Invalid addr, use 0~65535 (485_1:0~15, 485_2:1)\r\n");
+        return;
+    }
+
+    if (!cli_parse_air_conditioner_fan_speed(argv[2], &fan_speed)) {
+        cli_print("[CLI] Invalid fan_speed, use 1~4\r\n");
+        return;
+    }
+
+    result = HOOCH_PROTOCOL_AirConditioner_SendFanSpeedAddrHfWired485(address, fan_speed);
+    cli_print_air_conditioner_send_result("hf485_air_fan", result);
+}
+
+static void cli_cmd_hf485_air_temperature(int argc, char *argv[])
+{
+    HOOCH_PROTOCOL_AirConditionerResult_t result;
+    uint16_t address;
+    uint16_t temperature;
+
+    if (argc != 3) {
+        cli_print("[CLI] Usage: hf485_air_temp addr temperature\r\n");
+        cli_print("[CLI] Example: hf485_air_temp 1 25\r\n");
+        return;
+    }
+
+    if (!cli_parse_u16_arg(argv[1], &address)) {
+        cli_print("[CLI] Invalid addr, use 0~65535 (485_1:0~15, 485_2:1)\r\n");
+        return;
+    }
+
+    if (!cli_parse_u16_arg(argv[2], &temperature)) {
+        cli_print("[CLI] Invalid temperature, use 0~65535\r\n");
+        return;
+    }
+
+    result = HOOCH_PROTOCOL_AirConditioner_SendTemperatureAddrHfWired485(address, temperature);
+    cli_print_air_conditioner_send_result("hf485_air_temp", result);
+}
+
+/* ---- 空调集控器上报（HF 集控485，对应 Send*AddrHfCentralControl485 / Query*HfCentralControl485 接口） ---- */
+
+static void cli_cmd_hfjk_air_power(int argc, char *argv[])
+{
+    HOOCH_PROTOCOL_AirConditionerPower_t power;
+    HOOCH_PROTOCOL_AirConditionerResult_t result;
+    uint16_t address;
+
+    if (argc != 3) {
+        cli_print("[CLI] Usage: hfjk_air_power addr 0|1\r\n");
+        cli_print("[CLI] Example: hfjk_air_power 0x0103 1\r\n");
+        return;
+    }
+
+    if (!cli_parse_u16_arg(argv[1], &address)) {
+        cli_print("[CLI] Invalid addr, use 0~65535 ((outer<<8)|inner, e.g. 0x0103)\r\n");
+        return;
+    }
+
+    if (!cli_parse_air_conditioner_power(argv[2], &power)) {
+        cli_print("[CLI] Invalid power, use 0(off) or 1(on)\r\n");
+        return;
+    }
+
+    result = HOOCH_PROTOCOL_AirConditioner_SendPowerAddrHfCentralControl485(address, power);
+    cli_print_air_conditioner_central_send_result("hfjk_air_power", result);
+}
+
+static void cli_cmd_hfjk_air_mode(int argc, char *argv[])
+{
+    HOOCH_PROTOCOL_AirConditionerMode_t mode;
+    HOOCH_PROTOCOL_AirConditionerResult_t result;
+    uint16_t address;
+
+    if (argc != 3) {
+        cli_print("[CLI] Usage: hfjk_air_mode addr mode\r\n");
+        cli_print("[CLI] Example: hfjk_air_mode 0x0103 1\r\n");
+        cli_print("[CLI] Mode: 1=cool 2=fan 3=dry 4=heat 5=auto\r\n");
+        return;
+    }
+
+    if (!cli_parse_u16_arg(argv[1], &address)) {
+        cli_print("[CLI] Invalid addr, use 0~65535 ((outer<<8)|inner, e.g. 0x0103)\r\n");
+        return;
+    }
+
+    if (!cli_parse_air_conditioner_mode(argv[2], &mode)) {
+        cli_print("[CLI] Invalid mode, use 1~5\r\n");
+        return;
+    }
+
+    result = HOOCH_PROTOCOL_AirConditioner_SendModeAddrHfCentralControl485(address, mode);
+    cli_print_air_conditioner_central_send_result("hfjk_air_mode", result);
+}
+
+static void cli_cmd_hfjk_air_fan_speed(int argc, char *argv[])
+{
+    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed;
+    HOOCH_PROTOCOL_AirConditionerResult_t result;
+    uint16_t address;
+
+    if (argc != 3) {
+        cli_print("[CLI] Usage: hfjk_air_fan addr fan_speed\r\n");
+        cli_print("[CLI] Example: hfjk_air_fan 0x0103 1\r\n");
+        cli_print("[CLI] Fan speed: 1=low 2=medium 3=high 4=auto\r\n");
+        return;
+    }
+
+    if (!cli_parse_u16_arg(argv[1], &address)) {
+        cli_print("[CLI] Invalid addr, use 0~65535 ((outer<<8)|inner, e.g. 0x0103)\r\n");
+        return;
+    }
+
+    if (!cli_parse_air_conditioner_fan_speed(argv[2], &fan_speed)) {
+        cli_print("[CLI] Invalid fan_speed, use 1~4\r\n");
+        return;
+    }
+
+    result = HOOCH_PROTOCOL_AirConditioner_SendFanSpeedAddrHfCentralControl485(address, fan_speed);
+    cli_print_air_conditioner_central_send_result("hfjk_air_fan", result);
+}
+
+static void cli_cmd_hfjk_air_temperature(int argc, char *argv[])
+{
+    HOOCH_PROTOCOL_AirConditionerResult_t result;
+    uint16_t address;
+    uint16_t temperature;
+
+    if (argc != 3) {
+        cli_print("[CLI] Usage: hfjk_air_temp addr temperature\r\n");
+        cli_print("[CLI] Example: hfjk_air_temp 0x0103 25\r\n");
+        return;
+    }
+
+    if (!cli_parse_u16_arg(argv[1], &address)) {
+        cli_print("[CLI] Invalid addr, use 0~65535 ((outer<<8)|inner, e.g. 0x0103)\r\n");
+        return;
+    }
+
+    if (!cli_parse_u16_arg(argv[2], &temperature)) {
+        cli_print("[CLI] Invalid temperature, use 0~65535\r\n");
+        return;
+    }
+
+    result = HOOCH_PROTOCOL_AirConditioner_SendTemperatureAddrHfCentralControl485(address, temperature);
+    cli_print_air_conditioner_central_send_result("hfjk_air_temp", result);
+}
+
+static void cli_cmd_hfjk_inner_addr(int argc, char *argv[])
+{
+    uint16_t address;
+
+    if (argc != 2) {
+        cli_print("[CLI] Usage: hfjk_inner_addr addr\r\n");
+        cli_print("[CLI] Example: hfjk_inner_addr 3\r\n");
+        cli_print("[CLI] addr: inner address (0~65535), 0xFFFF means unset\r\n");
+        return;
+    }
+
+    if (!cli_parse_u16_arg(argv[1], &address)) {
+        cli_print("[CLI] Invalid addr, use 0~65535\r\n");
+        return;
+    }
+
+    /* 直接写入集控模块，周期查询时与外机地址拼成设备地址使用 */
+    hf_zjk_modbus_set_current_ac_addr(address);
+    cli_print("[CLI] hfjk_inner_addr set\r\n");
+}
+
+static void cli_cmd_hfjk_query_status(int argc, char *argv[])
+{
+    HOOCH_PROTOCOL_AirConditionerResult_t result;
+    uint16_t address;
+
+    if (argc != 2) {
+        cli_print("[CLI] Usage: hfjk_query_status addr\r\n");
+        cli_print("[CLI] Example: hfjk_query_status 0x0103\r\n");
+        return;
+    }
+
+    if (!cli_parse_u16_arg(argv[1], &address)) {
+        cli_print("[CLI] Invalid addr, use 0~65535 ((outer<<8)|inner, e.g. 0x0103)\r\n");
+        return;
+    }
+
+    result = HOOCH_PROTOCOL_AirConditioner_QueryStatusAddrHfCentralControl485(address);
+    cli_print_air_conditioner_central_send_result("hfjk_query_status", result);
+}
+
+static void cli_cmd_hfjk_query_all(int argc, char *argv[])
+{
+    HOOCH_PROTOCOL_AirConditionerResult_t result;
+
+    (void)argc;
+    (void)argv;
+
+    result = HOOCH_PROTOCOL_AirConditioner_QueryAllStatusHfCentralControl485();
+    cli_print_air_conditioner_central_send_result("hfjk_query_all", result);
+}
+
+static void cli_cmd_hfjk_query_performance(int argc, char *argv[])
+{
+    HOOCH_PROTOCOL_AirConditionerResult_t result;
+
+    (void)argc;
+    (void)argv;
+
+    result = HOOCH_PROTOCOL_AirConditioner_QueryPerformanceHfCentralControl485();
+    cli_print_air_conditioner_central_send_result("hfjk_query_perf", result);
+}
+
+/**
+ * @brief 解析模块开关命令参数(0|1)
+ * @param usage 参数错误时打印的用法说明
+ * @return 1-参数有效 0-参数错误(已打印提示)
+ */
+static uint8_t cli_parse_module_enable(int argc, char *argv[], uint8_t *enable,
+                                       const char *usage)
+{
+    if (argc != 2) {
+        cli_print(usage);
+        return 0;
+    }
+
+    if (!cli_parse_u8_arg(argv[1], enable) || (*enable > 1U)) {
+        cli_print("[CLI] Invalid value, use 0(off) or 1(on)\r\n");
+        return 0;
+    }
+
+    return 1;
+}
+
+/**
+ * @brief 打印模块开关状态（按模块实际生效状态回显）
+ */
+static void cli_print_module_state(const char *module_name, uint8_t enable)
+{
+    char buf[64];
+
+    snprintf(buf, sizeof(buf), "[CLI] %s module %s\r\n", module_name,
+             (enable != 0U) ? "enabled" : "disabled");
+    cli_print(buf);
+}
+
+static void cli_cmd_hf485_enable(int argc, char *argv[])
+{
+    uint8_t enable;
+
+    if (!cli_parse_module_enable(argc, argv, &enable,
+                                 "[CLI] Usage: hf485_enable 0|1 (0=off 1=on)\r\n")) {
+        return;
+    }
+
+    /* 线控485 模块：本机收发总开关，关闭后不收字节也不发帧 */
+    hf_zxk_modbus_set_enable(enable);
+    cli_print_module_state("hf485", hf_zxk_modbus_get_enable());
+}
+
+static void cli_cmd_hfjk_enable(int argc, char *argv[])
+{
+    uint8_t enable;
+
+    if (!cli_parse_module_enable(argc, argv, &enable,
+                                 "[CLI] Usage: hfjk_enable 0|1 (0=off 1=on)\r\n")) {
+        return;
+    }
+
+    /* 集控485 模块：本机收发总开关，关闭后不收字节也不发帧 */
+    hf_zjk_modbus_set_enable(enable);
+    cli_print_module_state("hfjk", hf_zjk_modbus_get_enable());
 }
 
 /* ======================== 公共接口函数 ======================== */

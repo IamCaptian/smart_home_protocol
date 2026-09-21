@@ -7,20 +7,20 @@ static HOOCH_PROTOCOL_CurtainFrame_t s_hooch_protocol_curtain_dispatch_frame;
 static HOOCH_PROTOCOL_CurtainCallback_t s_hooch_protocol_curtain_dispatch_callback;
 
 /* 校验窗帘 key 是否在当前支持范围内。 */
-static uint8_t HOOCH_PROTOCOL_Curtain_IsValidKey(
-    HOOCH_PROTOCOL_CurtainKey_t key)
-{
-    return (uint8_t)((key >= HOOCH_PROTOCOL_CURTAIN_KEY_1) &&
-                     (key <= HOOCH_PROTOCOL_CURTAIN_KEY_16));
-}
+// static uint8_t HOOCH_PROTOCOL_Curtain_IsValidKey(
+//     HOOCH_PROTOCOL_CurtainKey_t key)
+// {
+//     return (uint8_t)((key >= HOOCH_PROTOCOL_CURTAIN_KEY_1) &&
+//                      (key <= HOOCH_PROTOCOL_CURTAIN_KEY_16));
+// }
 
-/* 校验控制项是否为当前模块支持的单项更新类型。 */
-static uint8_t HOOCH_PROTOCOL_Curtain_IsValidControlItem(
-    HOOCH_PROTOCOL_CurtainControlItem_t control_item)
-{
-    return (uint8_t)((control_item >= HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ALL) &&
-                     (control_item < HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_MAX));
-}
+// /* 校验控制项是否为当前模块支持的单项更新类型。 */
+// static uint8_t HOOCH_PROTOCOL_Curtain_IsValidControlItem(
+//     HOOCH_PROTOCOL_CurtainControlItem_t control_item)
+// {
+//     return (uint8_t)((control_item >= HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ALL) &&
+//                      (control_item < HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_MAX));
+// }
 
 
 
@@ -40,10 +40,10 @@ static HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetDispatchItem(
     HOOCH_PROTOCOL_CurtainControlItem_t control_item,
     uint16_t value)
 {
-    if ((item == 0) || (HOOCH_PROTOCOL_Curtain_IsValidKey(key) == 0U))
-    {
-        return HOOCH_PROTOCOL_CURTAIN_RESULT_INVALID_PARAM;
-    }
+    // if ((item == 0) || (HOOCH_PROTOCOL_Curtain_IsValidKey(key) == 0U))
+    // {
+    //     return HOOCH_PROTOCOL_CURTAIN_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_curtain_dispatch_frame.key = key;
     item->value = value;
@@ -66,15 +66,15 @@ static HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetDispatchFrameInt
         return HOOCH_PROTOCOL_CURTAIN_RESULT_INVALID_PARAM;
     }
 
-    if (HOOCH_PROTOCOL_Curtain_IsValidControlItem(frame->control_item) == 0U)
-    {
-        return HOOCH_PROTOCOL_CURTAIN_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_Curtain_IsValidControlItem(frame->control_item) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_CURTAIN_RESULT_INVALID_PARAM;
+    // }
 
-    if (HOOCH_PROTOCOL_Curtain_IsValidKey(frame->key) == 0U)
-    {
-        return HOOCH_PROTOCOL_CURTAIN_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_Curtain_IsValidKey(frame->key) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_CURTAIN_RESULT_INVALID_PARAM;
+    // }
 
     switch (frame->control_item)
     {

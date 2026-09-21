@@ -57,24 +57,24 @@ static void HOOCH_PROTOCOL_FloorHeating_ClearFrame(
     frame->valid = 0U;
 }
 
-uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidPower(HOOCH_PROTOCOL_FloorHeatingPower_t power)
-{
-    return (uint8_t)((power == HOOCH_PROTOCOL_FLOOR_HEATING_POWER_OFF) ||
-                     (power == HOOCH_PROTOCOL_FLOOR_HEATING_POWER_ON));
-}
+// uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidPower(HOOCH_PROTOCOL_FloorHeatingPower_t power)
+// {
+//     return (uint8_t)((power == HOOCH_PROTOCOL_FLOOR_HEATING_POWER_OFF) ||
+//                      (power == HOOCH_PROTOCOL_FLOOR_HEATING_POWER_ON));
+// }
 
-uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidMode(HOOCH_PROTOCOL_FloorHeatingMode_t mode)
-{
-    return (uint8_t)((mode >= HOOCH_PROTOCOL_FLOOR_HEATING_MODE_MANUAL) &&
-                     (mode <= HOOCH_PROTOCOL_FLOOR_HEATING_MODE_ECO));
-}
+// uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidMode(HOOCH_PROTOCOL_FloorHeatingMode_t mode)
+// {
+//     return (uint8_t)((mode >= HOOCH_PROTOCOL_FLOOR_HEATING_MODE_MANUAL) &&
+//                      (mode <= HOOCH_PROTOCOL_FLOOR_HEATING_MODE_ECO));
+// }
 
-uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidControlItem(
-    HOOCH_PROTOCOL_FloorHeatingControlItem_t control_item)
-{
-    return (uint8_t)((control_item >= HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_ALL) &&
-                     (control_item < HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_MAX));
-}
+// uint8_t HOOCH_PROTOCOL_FloorHeating_IsValidControlItem(
+//     HOOCH_PROTOCOL_FloorHeatingControlItem_t control_item)
+// {
+//     return (uint8_t)((control_item >= HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_ALL) &&
+//                      (control_item < HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_MAX));
+// }
 
 /* 统一写入地暖上报状态。 */
 static HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SetReportState(
@@ -83,13 +83,13 @@ static HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SetReport
     uint16_t target_temperature,
     uint16_t current_temperature)
 {
-    if ((HOOCH_PROTOCOL_FloorHeating_IsValidPower(power) == 0U) ||
-        (HOOCH_PROTOCOL_FloorHeating_IsValidMode(mode) == 0U) ||
-        (HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(target_temperature) == 0U) ||
-        (HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(current_temperature) == 0U))
-    {
-        return HOOCH_PROTOCOL_FLOOR_HEATING_RESULT_INVALID_PARAM;
-    }
+    // if ((HOOCH_PROTOCOL_FloorHeating_IsValidPower(power) == 0U) ||
+    //     (HOOCH_PROTOCOL_FloorHeating_IsValidMode(mode) == 0U) ||
+    //     (HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(target_temperature) == 0U) ||
+    //     (HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(current_temperature) == 0U))
+    // {
+    //     return HOOCH_PROTOCOL_FLOOR_HEATING_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_floor_heating_report_frame.power = power;
     s_hooch_protocol_floor_heating_report_frame.mode = mode;
@@ -115,23 +115,23 @@ static HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SetReport
         return HOOCH_PROTOCOL_FLOOR_HEATING_RESULT_INVALID_PARAM;
     }
 
-    if (HOOCH_PROTOCOL_FloorHeating_IsValidControlItem(frame->control_item) == 0U)
-    {
-        return HOOCH_PROTOCOL_FLOOR_HEATING_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_FloorHeating_IsValidControlItem(frame->control_item) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_FLOOR_HEATING_RESULT_INVALID_PARAM;
+    // }
 
     switch (frame->control_item)
     {
         case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_ALL:
         case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_ALL_KNX:
         case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_ALL_XIAOMI:
-            if ((HOOCH_PROTOCOL_FloorHeating_IsValidPower(frame->power) == 0U) ||
-                (HOOCH_PROTOCOL_FloorHeating_IsValidMode(frame->mode) == 0U) ||
-                (HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(frame->target_temperature) == 0U) ||
-                (HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(frame->current_temperature) == 0U))
-            {
-                return HOOCH_PROTOCOL_FLOOR_HEATING_RESULT_INVALID_PARAM;
-            }
+            // if ((HOOCH_PROTOCOL_FloorHeating_IsValidPower(frame->power) == 0U) ||
+            //     (HOOCH_PROTOCOL_FloorHeating_IsValidMode(frame->mode) == 0U) ||
+            //     (HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(frame->target_temperature) == 0U) ||
+            //     (HOOCH_PROTOCOL_FloorHeating_IsValidTemperature(frame->current_temperature) == 0U))
+            // {
+            //     return HOOCH_PROTOCOL_FLOOR_HEATING_RESULT_INVALID_PARAM;
+            // }
 
             s_hooch_protocol_floor_heating_report_frame.power = frame->power;
             s_hooch_protocol_floor_heating_report_frame.mode = frame->mode;
@@ -140,19 +140,19 @@ static HOOCH_PROTOCOL_FloorHeatingResult_t HOOCH_PROTOCOL_FloorHeating_SetReport
             break;
 
         case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_POWER:
-            if (HOOCH_PROTOCOL_FloorHeating_IsValidPower(frame->power) == 0U)
-            {
-                return HOOCH_PROTOCOL_FLOOR_HEATING_RESULT_INVALID_PARAM;
-            }
+            // if (HOOCH_PROTOCOL_FloorHeating_IsValidPower(frame->power) == 0U)
+            // {
+            //     return HOOCH_PROTOCOL_FLOOR_HEATING_RESULT_INVALID_PARAM;
+            // }
 
             s_hooch_protocol_floor_heating_report_frame.power = frame->power;
             break;
 
         case HOOCH_PROTOCOL_FLOOR_HEATING_CONTROL_ITEM_MODE:
-            if (HOOCH_PROTOCOL_FloorHeating_IsValidMode(frame->mode) == 0U)
-            {
-                return HOOCH_PROTOCOL_FLOOR_HEATING_RESULT_INVALID_PARAM;
-            }
+            // if (HOOCH_PROTOCOL_FloorHeating_IsValidMode(frame->mode) == 0U)
+            // {
+            //     return HOOCH_PROTOCOL_FLOOR_HEATING_RESULT_INVALID_PARAM;
+            // }
 
             s_hooch_protocol_floor_heating_report_frame.mode = frame->mode;
             break;

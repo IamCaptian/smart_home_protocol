@@ -6,18 +6,18 @@ static HOOCH_PROTOCOL_DimmerLightCallback_t s_hooch_protocol_dimmer_light_dispat
 
 static void HOOCH_PROTOCOL_DimmerLight_NotifyDispatchCallback(void);
 
-static uint8_t HOOCH_PROTOCOL_DimmerLight_IsValidKey(HOOCH_PROTOCOL_DimmerLightKey_t key)
-{
-    return (uint8_t)((key >= HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_1) &&
-                     (key <= HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_16));
-}
+// static uint8_t HOOCH_PROTOCOL_DimmerLight_IsValidKey(HOOCH_PROTOCOL_DimmerLightKey_t key)
+// {
+//     return (uint8_t)((key >= HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_1) &&
+//                      (key <= HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_16));
+// }
 
-static uint8_t HOOCH_PROTOCOL_DimmerLight_IsValidSwitchState(
-    HOOCH_PROTOCOL_DimmerLightSwitchState_t switch_state)
-{
-    return (uint8_t)((switch_state == HOOCH_PROTOCOL_DIMMER_LIGHT_SWITCH_OFF) ||
-                     (switch_state == HOOCH_PROTOCOL_DIMMER_LIGHT_SWITCH_ON));
-}
+// static uint8_t HOOCH_PROTOCOL_DimmerLight_IsValidSwitchState(
+//     HOOCH_PROTOCOL_DimmerLightSwitchState_t switch_state)
+// {
+//     return (uint8_t)((switch_state == HOOCH_PROTOCOL_DIMMER_LIGHT_SWITCH_OFF) ||
+//                      (switch_state == HOOCH_PROTOCOL_DIMMER_LIGHT_SWITCH_ON));
+// }
 
 static void HOOCH_PROTOCOL_DimmerLight_NotifyDispatchCallback(void)
 {
@@ -42,11 +42,11 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchSwitch(
     HOOCH_PROTOCOL_DimmerLightKey_t key,
     HOOCH_PROTOCOL_DimmerLightSwitchState_t state)
 {
-    if ((HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U) ||
-        (HOOCH_PROTOCOL_DimmerLight_IsValidSwitchState(state) == 0U))
-    {
-        return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
-    }
+    // if ((HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U) ||
+    //     (HOOCH_PROTOCOL_DimmerLight_IsValidSwitchState(state) == 0U))
+    // {
+    //     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_dimmer_light_dispatch_frame.key = key;
     s_hooch_protocol_dimmer_light_dispatch_frame.switch_state = (uint8_t)state;
@@ -64,10 +64,10 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchBrightness
     HOOCH_PROTOCOL_DimmerLightKey_t key,
     uint16_t brightness)
 {
-    if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
-    {
-        return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_dimmer_light_dispatch_frame.key = key;
     s_hooch_protocol_dimmer_light_dispatch_frame.brightness = brightness;
@@ -85,10 +85,10 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchColorTempe
     HOOCH_PROTOCOL_DimmerLightKey_t key,
     uint16_t color_temperature)
 {
-    if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
-    {
-        return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_dimmer_light_dispatch_frame.key = key;
     s_hooch_protocol_dimmer_light_dispatch_frame.color_temperature = color_temperature;
@@ -105,11 +105,11 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchColorTempe
 HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_DispatchFrame(
     const HOOCH_PROTOCOL_DimmerLightFrame_t *frame)
 {
-    if ((frame == 0) ||
-        (HOOCH_PROTOCOL_DimmerLight_IsValidKey(frame->key) == 0U))
-    {
-        return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
-    }
+    // if ((frame == 0) ||
+    //     (HOOCH_PROTOCOL_DimmerLight_IsValidKey(frame->key) == 0U))
+    // {
+    //     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_dimmer_light_dispatch_frame.key = frame->key;
     s_hooch_protocol_dimmer_light_dispatch_frame.brightness = frame->brightness;

@@ -33,21 +33,21 @@ static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetDi
         return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
     }
 
-    if (HOOCH_PROTOCOL_AirConditioner_IsValidControlItem(frame->control_item) == 0U)
-    {
-        return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_AirConditioner_IsValidControlItem(frame->control_item) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
+    // }
 
     switch (frame->control_item)
     {
         case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ALL:
-            if ((HOOCH_PROTOCOL_AirConditioner_IsValidPower(frame->power) == 0U) ||
-                (HOOCH_PROTOCOL_AirConditioner_IsValidMode(frame->mode) == 0U) ||
-                (HOOCH_PROTOCOL_AirConditioner_IsValidFanSpeed(frame->fan_speed) == 0U) ||
-                (HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(frame->temperature) == 0U))
-            {
-                return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
-            }
+            // if ((HOOCH_PROTOCOL_AirConditioner_IsValidPower(frame->power) == 0U) ||
+            //     (HOOCH_PROTOCOL_AirConditioner_IsValidMode(frame->mode) == 0U) ||
+            //     (HOOCH_PROTOCOL_AirConditioner_IsValidFanSpeed(frame->fan_speed) == 0U) ||
+            //     (HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(frame->temperature) == 0U))
+            // {
+            //     return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
+            // }
 
             s_hooch_protocol_air_conditioner_dispatch_frame.power = frame->power;
             s_hooch_protocol_air_conditioner_dispatch_frame.mode = frame->mode;
@@ -56,46 +56,46 @@ static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetDi
             break;
 
         case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_POWER:
-            if (HOOCH_PROTOCOL_AirConditioner_IsValidPower(frame->power) == 0U)
-            {
-                return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
-            }
+            // if (HOOCH_PROTOCOL_AirConditioner_IsValidPower(frame->power) == 0U)
+            // {
+            //     return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
+            // }
 
             s_hooch_protocol_air_conditioner_dispatch_frame.power = frame->power;
             break;
 
         case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_MODE:
-            if (HOOCH_PROTOCOL_AirConditioner_IsValidMode(frame->mode) == 0U)
-            {
-                return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
-            }
+            // if (HOOCH_PROTOCOL_AirConditioner_IsValidMode(frame->mode) == 0U)
+            // {
+            //     return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
+            // }
 
             s_hooch_protocol_air_conditioner_dispatch_frame.mode = frame->mode;
             break;
 
         case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_FAN_SPEED:
-            if (HOOCH_PROTOCOL_AirConditioner_IsValidFanSpeed(frame->fan_speed) == 0U)
-            {
-                return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
-            }
+            // if (HOOCH_PROTOCOL_AirConditioner_IsValidFanSpeed(frame->fan_speed) == 0U)
+            // {
+            //     return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
+            // }
 
             s_hooch_protocol_air_conditioner_dispatch_frame.fan_speed = frame->fan_speed;
             break;
 
         case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMPERATURE:
-            if (HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(frame->temperature) == 0U)
-            {
-                return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
-            }
+            // if (HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(frame->temperature) == 0U)
+            // {
+            //     return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
+            // }
 
             s_hooch_protocol_air_conditioner_dispatch_frame.temperature = frame->temperature;
             break;
 
         case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_CURRENT_TEMPERATURE:
-            if (HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(frame->current_temperature) == 0U)
-            {
-                return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
-            }
+            // if (HOOCH_PROTOCOL_AirConditioner_IsValidTemperature(frame->current_temperature) == 0U)
+            // {
+            //     return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
+            // }
 
             s_hooch_protocol_air_conditioner_dispatch_frame.current_temperature = frame->current_temperature;
             break;
@@ -138,6 +138,23 @@ static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetDi
 
         case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_CENTRAL_CONTROL_ADDRESS:
             s_hooch_protocol_air_conditioner_dispatch_frame.value = frame->value;
+            break;
+
+        case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_OUTER_ADDRESS:
+            /* 空调外机地址(制冷系统地址) */
+            s_hooch_protocol_air_conditioner_dispatch_frame.value = frame->value;
+            break;
+
+        case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_HF_WIRED_CONTROLLER_485_ENABLE:
+            /* HF线控485 模块开关：value 0=关闭 1=打开(其余非 0 视为打开) */
+            s_hooch_protocol_air_conditioner_dispatch_frame.value = frame->value;
+            hf_zxk_modbus_set_enable((frame->value != 0U) ? 1U : 0U);
+            break;
+
+        case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_HF_CENTRAL_CONTROL_485_ENABLE:
+            /* HF集控485 模块开关：value 0=关闭 1=打开(其余非 0 视为打开) */
+            s_hooch_protocol_air_conditioner_dispatch_frame.value = frame->value;
+            hf_zjk_modbus_set_enable((frame->value != 0U) ? 1U : 0U);
             break;
 
         default:

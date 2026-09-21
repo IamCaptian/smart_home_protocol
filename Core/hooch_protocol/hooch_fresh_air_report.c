@@ -48,30 +48,30 @@ static void HOOCH_PROTOCOL_FreshAir_ClearFrame(
     frame->valid = 0U;
 }
 
-uint8_t HOOCH_PROTOCOL_FreshAir_IsValidPower(HOOCH_PROTOCOL_FreshAirPower_t power)
-{
-    return (uint8_t)((power == HOOCH_PROTOCOL_FRESH_AIR_POWER_OFF) ||
-                     (power == HOOCH_PROTOCOL_FRESH_AIR_POWER_ON));
-}
+// uint8_t HOOCH_PROTOCOL_FreshAir_IsValidPower(HOOCH_PROTOCOL_FreshAirPower_t power)
+// {
+//     return (uint8_t)((power == HOOCH_PROTOCOL_FRESH_AIR_POWER_OFF) ||
+//                      (power == HOOCH_PROTOCOL_FRESH_AIR_POWER_ON));
+// }
 
-uint8_t HOOCH_PROTOCOL_FreshAir_IsValidMode(HOOCH_PROTOCOL_FreshAirMode_t mode)
-{
-    return (uint8_t)((mode >= HOOCH_PROTOCOL_FRESH_AIR_MODE_AUTO) &&
-                     (mode <= HOOCH_PROTOCOL_FRESH_AIR_MODE_BOOST));
-}
+// uint8_t HOOCH_PROTOCOL_FreshAir_IsValidMode(HOOCH_PROTOCOL_FreshAirMode_t mode)
+// {
+//     return (uint8_t)((mode >= HOOCH_PROTOCOL_FRESH_AIR_MODE_AUTO) &&
+//                      (mode <= HOOCH_PROTOCOL_FRESH_AIR_MODE_BOOST));
+// }
 
-uint8_t HOOCH_PROTOCOL_FreshAir_IsValidFanSpeed(HOOCH_PROTOCOL_FreshAirFanSpeed_t fan_speed)
-{
-    return (uint8_t)((fan_speed >= HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_LOW) &&
-                     (fan_speed <= HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_AUTO));
-}
+// uint8_t HOOCH_PROTOCOL_FreshAir_IsValidFanSpeed(HOOCH_PROTOCOL_FreshAirFanSpeed_t fan_speed)
+// {
+//     return (uint8_t)((fan_speed >= HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_LOW) &&
+//                      (fan_speed <= HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_AUTO));
+// }
 
-uint8_t HOOCH_PROTOCOL_FreshAir_IsValidControlItem(
-    HOOCH_PROTOCOL_FreshAirControlItem_t control_item)
-{
-    return (uint8_t)((control_item >= HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ALL) &&
-                     (control_item < HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_MAX));
-}
+// uint8_t HOOCH_PROTOCOL_FreshAir_IsValidControlItem(
+//     HOOCH_PROTOCOL_FreshAirControlItem_t control_item)
+// {
+//     return (uint8_t)((control_item >= HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ALL) &&
+//                      (control_item < HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_MAX));
+// }
 
 /* 统一写入新风上报状态。 */
 static HOOCH_PROTOCOL_FreshAirResult_t HOOCH_PROTOCOL_FreshAir_SetReportState(
@@ -79,12 +79,12 @@ static HOOCH_PROTOCOL_FreshAirResult_t HOOCH_PROTOCOL_FreshAir_SetReportState(
     HOOCH_PROTOCOL_FreshAirMode_t mode,
     HOOCH_PROTOCOL_FreshAirFanSpeed_t fan_speed)
 {
-    if ((HOOCH_PROTOCOL_FreshAir_IsValidPower(power) == 0U) ||
-        (HOOCH_PROTOCOL_FreshAir_IsValidMode(mode) == 0U) ||
-        (HOOCH_PROTOCOL_FreshAir_IsValidFanSpeed(fan_speed) == 0U))
-    {
-        return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
-    }
+    // if ((HOOCH_PROTOCOL_FreshAir_IsValidPower(power) == 0U) ||
+    //     (HOOCH_PROTOCOL_FreshAir_IsValidMode(mode) == 0U) ||
+    //     (HOOCH_PROTOCOL_FreshAir_IsValidFanSpeed(fan_speed) == 0U))
+    // {
+    //     return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_fresh_air_report_frame.power = power;
     s_hooch_protocol_fresh_air_report_frame.mode = mode;
@@ -109,22 +109,22 @@ static HOOCH_PROTOCOL_FreshAirResult_t HOOCH_PROTOCOL_FreshAir_SetReportFrame(
         return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
     }
 
-    if (HOOCH_PROTOCOL_FreshAir_IsValidControlItem(frame->control_item) == 0U)
-    {
-        return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_FreshAir_IsValidControlItem(frame->control_item) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
+    // }
 
     switch (frame->control_item)
     {
         case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ALL:
         case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ALL_KNX:
         case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ALL_XIAOMI:
-            if ((HOOCH_PROTOCOL_FreshAir_IsValidPower(frame->power) == 0U) ||
-                (HOOCH_PROTOCOL_FreshAir_IsValidMode(frame->mode) == 0U) ||
-                (HOOCH_PROTOCOL_FreshAir_IsValidFanSpeed(frame->fan_speed) == 0U))
-            {
-                return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
-            }
+            // if ((HOOCH_PROTOCOL_FreshAir_IsValidPower(frame->power) == 0U) ||
+            //     (HOOCH_PROTOCOL_FreshAir_IsValidMode(frame->mode) == 0U) ||
+            //     (HOOCH_PROTOCOL_FreshAir_IsValidFanSpeed(frame->fan_speed) == 0U))
+            // {
+            //     return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
+            // }
 
             s_hooch_protocol_fresh_air_report_frame.power = frame->power;
             s_hooch_protocol_fresh_air_report_frame.mode = frame->mode;
@@ -132,28 +132,28 @@ static HOOCH_PROTOCOL_FreshAirResult_t HOOCH_PROTOCOL_FreshAir_SetReportFrame(
             break;
 
         case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_POWER:
-            if (HOOCH_PROTOCOL_FreshAir_IsValidPower(frame->power) == 0U)
-            {
-                return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
-            }
+            // if (HOOCH_PROTOCOL_FreshAir_IsValidPower(frame->power) == 0U)
+            // {
+            //     return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
+            // }
 
             s_hooch_protocol_fresh_air_report_frame.power = frame->power;
             break;
 
         case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_MODE:
-            if (HOOCH_PROTOCOL_FreshAir_IsValidMode(frame->mode) == 0U)
-            {
-                return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
-            }
+            // if (HOOCH_PROTOCOL_FreshAir_IsValidMode(frame->mode) == 0U)
+            // {
+            //     return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
+            // }
 
             s_hooch_protocol_fresh_air_report_frame.mode = frame->mode;
             break;
 
         case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_FAN_SPEED:
-            if (HOOCH_PROTOCOL_FreshAir_IsValidFanSpeed(frame->fan_speed) == 0U)
-            {
-                return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
-            }
+            // if (HOOCH_PROTOCOL_FreshAir_IsValidFanSpeed(frame->fan_speed) == 0U)
+            // {
+            //     return HOOCH_PROTOCOL_FRESH_AIR_RESULT_INVALID_PARAM;
+            // }
 
             s_hooch_protocol_fresh_air_report_frame.fan_speed = frame->fan_speed;
             break;

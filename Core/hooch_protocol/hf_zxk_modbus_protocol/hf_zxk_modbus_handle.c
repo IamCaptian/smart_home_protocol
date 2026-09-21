@@ -109,16 +109,73 @@ static void hf_zxk_modbus_parse_unit_status(const hf_zxk_modbus_frame_t *frame,
     }
 }
 
+/* 上次已投递给平台的语义化内机状态（变化检测用） */
+typedef struct
+{
+    uint8_t  address;              /* 485 从机地址，地址变化时整帧重投 */
+    uint8_t  power;                /* 已映射的开关值 */
+    uint8_t  mode;                 /* 已映射的模式值 */
+    uint8_t  fan_speed;            /* 已映射的风速值 */
+    uint16_t set_temperature;      /* 设定温度 */
+    uint16_t room_temperature;     /* 室温 */
+    uint8_t  has_room_temperature; /* 上次回复是否包含室温 */
+} hf_zxk_modbus_unit_state_cache_t;
+
+static hf_zxk_modbus_unit_state_cache_t s_hf_zxk_modbus_unit_state_cache;
+static uint8_t s_hf_zxk_modbus_unit_state_cache_valid = 0U;
+
 /**
- * @brief 把内机状态同步到 HOOCH 空调平台层
- * @note  0x03 回复是内机全量状态，但 HOOCH 的 ALL 控制项要求开关/模式/风速同时合法，
- *        任一项映射失败会整帧丢弃，因此这里按单项分别下发，保证已识别的参数都能同步。
+ * @brief 把内机状态同步到 HOOCH 空调平台层（仅投递发生变化的控制项）
+ * @note  0x03 回复是内机全量状态且每秒轮询一次，这里用缓存做变化检测：
+ *        只有参数真正变化（或首帧 / 从机地址变化）才触发平台侧回调，避免重复投递；
+ *        单项映射失败会跳过该项，不影响其它参数。
  */
 static void hf_zxk_modbus_dispatch_unit_status(const hf_zxk_modbus_unit_status_t *status)
 {
     HOOCH_PROTOCOL_AirConditionerFrame_t ac_frame;
+    HOOCH_PROTOCOL_AirConditionerPower_t power;
     HOOCH_PROTOCOL_AirConditionerMode_t mode;
     HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed;
+    uint8_t address_changed;
+    uint8_t has_room_temperature;
+    uint8_t power_changed;
+    uint8_t mode_changed;
+    uint8_t fan_speed_changed;
+    uint8_t temperature_changed;
+    uint8_t room_temperature_changed;
+
+    power = (status->power == HF_ZXK_MODBUS_POWER_ON)
+        ? HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_ON
+        : HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_OFF;
+    mode = hf_zxk_modbus_map_mode(status->mode);
+    fan_speed = hf_zxk_modbus_map_fan_speed(status->fan_speed);
+    has_room_temperature =
+        (status->reg_count > (uint8_t)HF_ZXK_MODBUS_UNIT_REG_ROOM_TEMP) ? 1U : 0U;
+
+    /* 首帧或从机地址变化：整帧重投，保证平台侧与网关一致 */
+    address_changed =
+        ((s_hf_zxk_modbus_unit_state_cache_valid == 0U) ||
+         (s_hf_zxk_modbus_unit_state_cache.address != status->address)) ? 1U : 0U;
+
+    power_changed =
+        ((address_changed != 0U) ||
+         (s_hf_zxk_modbus_unit_state_cache.power != (uint8_t)power)) ? 1U : 0U;
+    mode_changed =
+        ((mode != HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_INVALID) &&
+         ((address_changed != 0U) ||
+          (s_hf_zxk_modbus_unit_state_cache.mode != (uint8_t)mode))) ? 1U : 0U;
+    fan_speed_changed =
+        ((fan_speed != HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_INVALID) &&
+         ((address_changed != 0U) ||
+          (s_hf_zxk_modbus_unit_state_cache.fan_speed != (uint8_t)fan_speed))) ? 1U : 0U;
+    temperature_changed =
+        ((address_changed != 0U) ||
+         (s_hf_zxk_modbus_unit_state_cache.set_temperature != status->set_temperature)) ? 1U : 0U;
+    room_temperature_changed =
+        ((has_room_temperature != 0U) &&
+         ((address_changed != 0U) ||
+          (s_hf_zxk_modbus_unit_state_cache.has_room_temperature == 0U) ||
+          (s_hf_zxk_modbus_unit_state_cache.room_temperature != status->room_temperature))) ? 1U : 0U;
 
     HOOCH_PROTOCOL_AirConditioner_ClearFrame(&ac_frame);
     ac_frame.source  = HOOCH_PROTOCOL_SOURCE_HF_WIRED_CONTROLLER_485;
@@ -126,47 +183,73 @@ static void hf_zxk_modbus_dispatch_unit_status(const hf_zxk_modbus_unit_status_t
     ac_frame.address = status->address;
     ac_frame.valid   = 1U;
 
-    ac_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_POWER;
-    ac_frame.power = (status->power == HF_ZXK_MODBUS_POWER_ON)
-        ? HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_ON
-        : HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_OFF;
-    (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&ac_frame);
+    if (power_changed != 0U)
+    {
+        ac_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_POWER;
+        ac_frame.power = power;
+        (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&ac_frame);
+    }
 
-    mode = hf_zxk_modbus_map_mode(status->mode);
-    if (mode != HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_INVALID)
+    if (mode_changed != 0U)
     {
         ac_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_MODE;
         ac_frame.mode = mode;
         (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&ac_frame);
     }
-    else
+    else if (mode == HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_INVALID)
     {
         HF_ZXK_MODBUS_LOG_WARN("[MODBUS] unknown mode: 0x%04X\r\n", (unsigned int)status->mode);
     }
 
-    fan_speed = hf_zxk_modbus_map_fan_speed(status->fan_speed);
-    if (fan_speed != HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_INVALID)
+    if (fan_speed_changed != 0U)
     {
         ac_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_FAN_SPEED;
         ac_frame.fan_speed = fan_speed;
         (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&ac_frame);
     }
-    else
+    else if (fan_speed == HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_INVALID)
     {
         HF_ZXK_MODBUS_LOG_WARN("[MODBUS] unknown fan speed: 0x%04X\r\n",
                                (unsigned int)status->fan_speed);
     }
 
-    ac_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMPERATURE;
-    ac_frame.temperature = status->set_temperature;
-    (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&ac_frame);
+    if (temperature_changed != 0U)
+    {
+        ac_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMPERATURE;
+        ac_frame.temperature = status->set_temperature;
+        (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&ac_frame);
+    }
 
-    if (status->reg_count > (uint8_t)HF_ZXK_MODBUS_UNIT_REG_ROOM_TEMP)
+    if (room_temperature_changed != 0U)
     {
         ac_frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_CURRENT_TEMPERATURE;
         ac_frame.current_temperature = status->room_temperature;
         (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&ac_frame);
     }
+
+    /* 缓存本次网关侧状态，供下次变化检测 */
+    s_hf_zxk_modbus_unit_state_cache.address = status->address;
+    s_hf_zxk_modbus_unit_state_cache.power = (uint8_t)power;
+
+    if (mode != HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_INVALID)
+    {
+        s_hf_zxk_modbus_unit_state_cache.mode = (uint8_t)mode;
+    }
+
+    if (fan_speed != HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_INVALID)
+    {
+        s_hf_zxk_modbus_unit_state_cache.fan_speed = (uint8_t)fan_speed;
+    }
+
+    s_hf_zxk_modbus_unit_state_cache.set_temperature = status->set_temperature;
+
+    if (has_room_temperature != 0U)
+    {
+        s_hf_zxk_modbus_unit_state_cache.room_temperature = status->room_temperature;
+    }
+
+    s_hf_zxk_modbus_unit_state_cache.has_room_temperature = has_room_temperature;
+    s_hf_zxk_modbus_unit_state_cache_valid = 1U;
 }
 
 /**
@@ -187,6 +270,9 @@ static void hf_zxk_modbus_handle_read_response(const hf_zxk_modbus_frame_t *fram
                                    frame, (uint16_t)HF_ZXK_MODBUS_PERFORMANCE_REG_UNKNOWN_1),
                                (unsigned int)hf_zxk_modbus_get_register(
                                    frame, (uint16_t)HF_ZXK_MODBUS_PERFORMANCE_REG_WIND));
+
+        /* 网关已完成搜索：周期查询可以从"查性能"切到"查内机状态" */
+        hf_zxk_modbus_query_notify_performance_received();
         return;
     }
 

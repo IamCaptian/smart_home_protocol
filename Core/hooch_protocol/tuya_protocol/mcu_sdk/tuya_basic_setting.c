@@ -11,6 +11,7 @@
 #include "hooch_air_conditioner.h"
 #include "hooch_fresh_air.h"
 #include "hooch_floor_heating.h"
+#include "hooch_protocol_common.h"
 
 /* 填充 SettingFrame 公共字段 */
 static void init_setting_frame(HOOCH_PROTOCOL_SettingFrame_t *sf,
@@ -187,7 +188,7 @@ static HOOCH_PROTOCOL_AirConditionerType_t map_bind_type(unsigned char raw)
     }
 }
 
-/* 空调绑定类型与集控地址：拆成两项分别下发 */
+/* 空调绑定类型与集控地址：拆成两项分别下发，集控地址同时直写集控模块 */
 static void dispatch_ac_bind(unsigned char raw_type, unsigned char address)
 {
     HOOCH_PROTOCOL_AirConditionerFrame_t frame;
@@ -205,6 +206,9 @@ static void dispatch_ac_bind(unsigned char raw_type, unsigned char address)
     frame.control_item = HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_CENTRAL_CONTROL_ADDRESS;
     frame.value        = address;
     (void)HOOCH_PROTOCOL_AirConditioner_DispatchFrame(&frame);
+
+    /* 同时直接写入集控模块（不经过空调上报回调），供周期查询单台内机状态使用 */
+    hf_zjk_modbus_set_current_ac_addr((uint16_t)address);
 }
 
 /* 新风绑定类型与集控地址：拆成两项分别下发 */
@@ -294,6 +298,8 @@ static unsigned char handle_adv_set(unsigned short dp_len, unsigned char *dp_dat
     /* [8][9] 空调绑定类型 / 空调地址 */
     dispatch_ac_bind(dp_data[8], dp_data[9]);
 
+
+    
     /* [10][11] 新风绑定类型 / 新风地址 */
     dispatch_fresh_air_bind(dp_data[10], dp_data[11]);
 

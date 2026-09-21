@@ -272,12 +272,12 @@ void USART2_IRQHandler(void)
     // ble_uart_rxcallback(rx_data);
 
     /* 线控器 MODBUS-RTU 协议（hf_zxk_modbus_*）：与以上各解析器互相独立 */
-   // hf_zxk_modbus_uart_rxcallback(rx_data);
+  //  hf_zxk_modbus_uart_rxcallback(rx_data);
 
     /* 集控器 自定义485 协议（hf_zjk_modbus_*）：与以上各解析器互相独立 */
-  //  hf_zjk_modbus_uart_rxcallback(rx_data);  
+    hf_zjk_modbus_uart_rxcallback(rx_data);  
 
-  uart_servive_rx_store(rx_data);
+   // uart_servive_rx_store(rx_data);
       
       /* 清除接收中断标志 */
       __HAL_UART_CLEAR_FLAG(&huart2, UART_FLAG_RXNE);

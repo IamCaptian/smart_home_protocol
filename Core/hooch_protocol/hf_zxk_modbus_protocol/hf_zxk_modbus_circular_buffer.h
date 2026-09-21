@@ -37,7 +37,7 @@ extern "C" {
 #define HF_ZXK_MODBUS_LOG_RX_BYTE_ENABLE 0
 #endif
 
-/* 发送原始字节十六进制日志 */
+/* 发送原始字节十六进制日志（调试发帧时打开；确认无误后可置 0 省 Flash） */
 #ifndef HF_ZXK_MODBUS_LOG_TX_HEX_ENABLE
 #define HF_ZXK_MODBUS_LOG_TX_HEX_ENABLE 0
 #endif
@@ -47,6 +47,12 @@ extern "C" {
 #ifndef HF_ZXK_MODBUS_TX_SEND
 #define HF_ZXK_MODBUS_TX_SEND(buffer, length) \
     HAL_UART_Transmit(&huart2, (buffer), (length), 1000U)
+#endif
+
+/* ---------------- 模块使能开关 ---------------- */
+/* 上电默认使能状态，运行期可用 hf_zxk_modbus_set_enable() 随时开关 */
+#ifndef HF_ZXK_MODBUS_ENABLE_DEFAULT
+#define HF_ZXK_MODBUS_ENABLE_DEFAULT 0
 #endif
 
 #if HF_ZXK_MODBUS_LOG_ENABLE
@@ -109,8 +115,7 @@ extern "C" {
 #define HF_ZXK_MODBUS_ADDR_PANEL_1_MAX   15U
 #define HF_ZXK_MODBUS_ADDR_PANEL_2       1U
 
-/* CPU1 协议类型编号（1=涂鸦 2=小米 3=KNX），线控使用 4 */
-#define HF_ZXK_MODBUS_DETECTED_PROTOCOL_CODE 4U
+
 
 /* 功能码 */
 typedef enum
@@ -148,7 +153,7 @@ typedef struct
 } hf_zxk_modbus_frame_t;
 
 /* 环形缓冲区配置 */
-#define HF_ZXK_MODBUS_RING_BUFFER_SIZE 256U
+#define HF_ZXK_MODBUS_RING_BUFFER_SIZE 64U
 
 /* 环形缓冲区结构体 */
 typedef struct
@@ -210,6 +215,36 @@ void    hf_zxk_modbus_uart_init(void);
 void    hf_zxk_modbus_uart_process(void);
 uint8_t hf_zxk_modbus_uart_send_pdu(const uint8_t *pdu, uint16_t pdu_len);
 void    hf_zxk_modbus_uart_rxcallback(uint8_t data);
+
+/* ---------------- 模块使能接口 ----------------
+ * 关闭(0)时本模块完全不工作：接收队列不再接收任何字节（已缓存的也清空），
+ * 帧解析与所有发送（周期查询 / 控制帧 / 手动查询）一并停止；
+ * 重新开启(1)后按上电流程重新计时发帧。 */
+void    hf_zxk_modbus_set_enable(uint8_t enable);
+/* 读取当前使能状态：1=开启 0=关闭 */
+uint8_t hf_zxk_modbus_get_enable(void);
+
+/* ---------------- 查询接口（MCU -> 网关：0x03 读保持寄存器） ----------------
+ * 本机作为 MODBUS 主机主动轮询：上电先查性能（网关需先搜索到空调才会回复），
+ * 收到性能回复后按 1~3 秒周期查询内机状态；回复由 hf_zxk_modbus_handle_frame 解析。
+ *
+ * 周期查询由 hf_zxk_modbus_uart_process() 内的发送调度驱动，并与控制帧（0x06）
+ * 在同一出口仲裁半双工总线（帧间隔 >100ms、控制帧优先）；查询倒计时在每次发出
+ * 控制帧后重新从 1 个查询周期开始计，保证控制后先让网关消化再发 03 查结果，
+ * 连续下发控制时查询最迟推迟 3 秒也会发出一次。
+ * 直接调用下面的查询函数会立即发帧、不经过该仲裁，仅供手动查询/调试使用。
+ */
+/* 查询性能（固定 3 个寄存器） */
+uint8_t hf_zxk_modbus_query_performance(uint8_t slave_addr);
+
+/* 查询单台内机状态（reg_count 取文档值 6 / 8 / 9） */
+uint8_t hf_zxk_modbus_query_unit_status(uint8_t slave_addr, uint16_t reg_count);
+
+/* 设置周期查询的目标地址（默认 0，即 485_1 无拨码时的地址） */
+void    hf_zxk_modbus_set_query_addr(uint8_t slave_addr);
+
+/* 业务层解析到性能回复后调用，把周期查询从"查性能"切到"查内机状态" */
+void    hf_zxk_modbus_query_notify_performance_received(void);
 
 /* 帧处理回调（业务层实现，见 hf_zxk_modbus_handle.h） */
 void hf_zxk_modbus_handle_frame(const hf_zxk_modbus_frame_t *frame);

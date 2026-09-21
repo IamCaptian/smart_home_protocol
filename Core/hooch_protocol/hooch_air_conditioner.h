@@ -79,14 +79,20 @@ typedef enum
     HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ALL_KNX,            /* [16] 全量控制KNX */
     HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_AC_TYPE,            /* [17] 空调类型（取值见 HOOCH_PROTOCOL_AirConditionerType_t，用 value 承接） */
     HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_CENTRAL_CONTROL_ADDRESS, /* [18] 集控地址（用 value 承接） */
-    HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_MAX,                /* [19] 哨兵值，新增枚举请插入到上方 */
+    HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_QUERY_STATUS,       /* [19] 查询单台内机状态（用 address 承接，无控制值） */
+    HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_QUERY_ALL_STATUS,   /* [20] 查询全部内机状态(含外机/内机地址)，无控制值 */
+    HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_QUERY_PERFORMANCE,  /* [21] 查询空调性能(品牌/支持能力)，无控制值 */
+    HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_OUTER_ADDRESS,      /* [22] 空调外机地址(制冷系统地址，用 value 承接) */
+    HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_HF_WIRED_CONTROLLER_485_ENABLE,  /* [23] HF线控485 模块使能（用 value 承接：0=关闭 1=打开） */
+    HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_HF_CENTRAL_CONTROL_485_ENABLE,   /* [24] HF集控485 模块使能（用 value 承接：0=关闭 1=打开） */
+    HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_MAX,                /* [25] 哨兵值，新增枚举请插入到上方 */
 } HOOCH_PROTOCOL_AirConditionerControlItem_t;
 
 /* 空调数据帧描述（下发帧与上报帧共用同一结构，靠 channel/address/source 区分） */
 typedef struct
 {
     uint8_t channel;                                         /* 空调通道 */
-    uint16_t address;                                        /* 空调地址 */
+    uint16_t address;                                        /* 空调地址 */ 
     HOOCH_PROTOCOL_AirConditionerPower_t power;              /* 开关状态 */
     HOOCH_PROTOCOL_AirConditionerMode_t mode;                /* 模式 */
     HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed;       /* 风速 */
@@ -145,16 +151,18 @@ void HOOCH_PROTOCOL_AirConditioner_UnregisterCallback(void);
 /* 写入空调下发数据帧（跨平台唯一入口，调用方需在 frame->source 标明来源）
  * 支持的控制项：ALL / POWER / MODE / FAN_SPEED / TEMPERATURE / CURRENT_TEMPERATURE /
  * ENABLE_BIT / DEVICE_DESC / DEFAULT_ICON / SELECTED_ICON / TEMP_STEP / TEMP_MIN / TEMP_MAX /
- * AC_TYPE / CENTRAL_CONTROL_ADDRESS */
+ * AC_TYPE / CENTRAL_CONTROL_ADDRESS / OUTER_ADDRESS /
+ * HF_WIRED_CONTROLLER_485_ENABLE / HF_CENTRAL_CONTROL_485_ENABLE */
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_DispatchFrame(
     const HOOCH_PROTOCOL_AirConditionerFrame_t *frame);
 
 /* ==================== 上报（MCU -> 平台） ==================== */
 
-/* 三路上报接口与回调一一对应，投递互斥（同一帧只走一路，不会串到别的回调）：
+/* 四路上报接口与回调一一对应，投递互斥（同一帧只走一路，不会串到别的回调）：
  *   Send*                通道版 -> RegisterReportCallback
  *   Send*Addr            地址版 -> RegisterReportCallback2（address 作为标识/GID）
  *   Send*AddrHfWired485  线控网关 -> RegisterReportCallbackHfWired485
+ *   Send*AddrHfCentralControl485 集控网关 -> RegisterReportCallbackHfCentralControl485
  */
 
 /* ---- 通道版上报 ---- */
@@ -251,6 +259,71 @@ HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFanSpeed
 HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendTemperatureAddrHfWired485(
     uint16_t address,
     uint16_t temperature);
+
+/* HF线控485 模块使能开关：enable 0=关闭 1=打开（仅切换本机线控模块，不向网关下发使能帧） */
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendEnableHfWired485(
+    uint8_t enable);
+
+/* ---- HF集控485 网关上报（地址版，专属回调） ---- */
+
+/* 注册 HF集控485 网关上报回调（仅承接下面 4 个接口发起的上报） */
+void HOOCH_PROTOCOL_AirConditioner_RegisterReportCallbackHfCentralControl485(
+    HOOCH_PROTOCOL_AirConditionerCallback_t callback);
+
+/* 注销 HF集控485 网关上报回调 */
+void HOOCH_PROTOCOL_AirConditioner_UnregisterReportCallbackHfCentralControl485(void);
+
+/* HF集控485 网关单独上报空调开关（地址） */
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendPowerAddrHfCentralControl485(
+    uint16_t address,
+    HOOCH_PROTOCOL_AirConditionerPower_t power);
+
+/* HF集控485 网关单独上报空调模式（地址） */
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendModeAddrHfCentralControl485(
+    uint16_t address,
+    HOOCH_PROTOCOL_AirConditionerMode_t mode);
+
+/* HF集控485 网关单独上报空调风速（地址） */
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendFanSpeedAddrHfCentralControl485(
+    uint16_t address,
+    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed);
+
+/* HF集控485 网关单独上报空调温度（地址） */
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendTemperatureAddrHfCentralControl485(
+    uint16_t address,
+    uint16_t temperature);
+
+/*内部使用，不对外暴露*/
+/* HF集控485 网关设置当前设备内机地址（仅地址，无控制值） 并不是发送到集控器，只是设置当前设备的集控状态机*/
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendInnerAddrHfCentralControl485(
+    uint16_t address);
+
+/*内部使用，不对外暴露*/
+/* HF集控485 网关查询单台内机状态（0x50，控制值 0x01）：
+ * 向集控网关发出查询帧，网关的回复由集控模块解析后经 DispatchFrame 上报 */
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_QueryStatusAddrHfCentralControl485(
+    uint16_t address);
+
+
+/*内部使用，不对外暴露*/
+/* HF集控485 网关查询全部内机状态（0x50，控制值 0xFF）：
+ * 网关一次性回传所连全部内机，每台含室外机/室内机地址与完整状态，可用于发现外机地址 */
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_QueryAllStatusHfCentralControl485(
+    void);
+
+/*内部使用，不对外暴露*/
+/* HF集控485 网关查询空调性能（0x90，控制值 0xFF）：
+ * 查询网关所连空调的品牌与支持能力（模式/风速/温度范围），回复由集控模块解析后打印 */
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_QueryPerformanceHfCentralControl485(
+    void);
+
+/* HF集控485 模块使能开关：enable 0=关闭 1=打开（仅切换本机集控模块，不向集控器下发使能帧） */
+HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SendEnableHfCentralControl485(
+    uint8_t enable);
+
+
+
+    
 
 /* ---- 上报帧写入与查询（历史接口，写入/读取的都是上报帧缓存） ---- */
 

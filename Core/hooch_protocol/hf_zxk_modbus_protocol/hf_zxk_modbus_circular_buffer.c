@@ -1,4 +1,5 @@
 #include "hf_zxk_modbus_circular_buffer.h"
+#include "hf_zxk_modbus_handle.h"
 #include "hooch_protocol_common.h"
 
 #if HOOCH_PROTOCOL_ENABLE_HF_WIRED_CONTROLLER_485
@@ -13,6 +14,7 @@ extern UART_HandleTypeDef huart2;
 static hf_zxk_modbus_ring_buffer_t s_hf_zxk_modbus_rx_ring_buffer; /* 接收环形缓冲区 */
 static hf_zxk_modbus_parser_t     s_hf_zxk_modbus_frame_parser;    /* 帧解析器 */
 static uint8_t                    s_hf_zxk_modbus_parser_timeout_ticks; /* 半包超时计数 */
+static uint8_t                    s_hf_zxk_modbus_enabled = (uint8_t)HF_ZXK_MODBUS_ENABLE_DEFAULT; /* 模块使能: 1=开启 0=关闭 */
 
 /* ---------------- 环形缓冲区 ---------------- */
 
@@ -336,16 +338,426 @@ void hf_zxk_modbus_parser_process_byte(hf_zxk_modbus_parser_t *parser,
     }
 }
 
+/* ---------------- 发送调度（控制与查询共用半双工 485 总线） ---------------- */
+
+/* 主循环节拍约 20ms（main.c 中 HAL_Delay(20)），用于把协议推荐的时间换算成节拍数 */
+#define HF_ZXK_MODBUS_LOOP_TICK_MS 20U
+
+/* 任意两帧之间的最小间隔：协议要求连续 06 帧间隔 >100ms */
+#define HF_ZXK_MODBUS_TX_MIN_GAP_TICKS (100U / HF_ZXK_MODBUS_LOOP_TICK_MS)
+
+/* 查询最大推迟时间：控制帧会不断重置查询倒计时，用这个上限保证查询
+ * 最迟每 3 秒仍会发出一次（协议推荐查询间隔 1~3 秒） */
+#define HF_ZXK_MODBUS_QUERY_MAX_DELAY_TICKS (3000U / HF_ZXK_MODBUS_LOOP_TICK_MS)
+
+/* 待发控制帧队列深度：平台侧一次全量控制会连续下发多项（开关/模式/风速/温度） */
+#define HF_ZXK_MODBUS_TX_QUEUE_DEPTH 4U
+
+/* 0x03 查询帧与 0x06 控制帧数据域等长（2 字节寄存器 + 2 字节值/数量） */
+#define HF_ZXK_MODBUS_PDU_LEN 6U
+
+/* 控制帧待发队列：回调只入队，由主循环节拍统一出队，避免与查询抢总线 */
+static uint8_t s_hf_zxk_modbus_tx_queue[HF_ZXK_MODBUS_TX_QUEUE_DEPTH][HF_ZXK_MODBUS_PDU_LEN];
+static uint8_t s_hf_zxk_modbus_tx_head  = 0U;
+static uint8_t s_hf_zxk_modbus_tx_tail  = 0U;
+static uint8_t s_hf_zxk_modbus_tx_count = 0U;
+
+/* 距上次发帧的节拍数（初值取满，上电即可发帧） */
+static uint16_t s_hf_zxk_modbus_since_tx_ticks = 0xFFFFU;
+
+/* 距上次发出查询帧的节拍数（初值取满，上电即发性能查询） */
+static uint16_t s_hf_zxk_modbus_since_query_ticks = 0xFFFFU;
+
+/**
+ * @brief 控制帧入队（队列满时丢弃最旧一帧，保证最新控制不丢）
+ */
+static void hf_zxk_modbus_tx_queue_push(const uint8_t *pdu)
+{
+    if (s_hf_zxk_modbus_tx_count >= HF_ZXK_MODBUS_TX_QUEUE_DEPTH)
+    {
+        s_hf_zxk_modbus_tx_tail =
+            (uint8_t)((s_hf_zxk_modbus_tx_tail + 1U) % HF_ZXK_MODBUS_TX_QUEUE_DEPTH);
+        s_hf_zxk_modbus_tx_count--;
+        HF_ZXK_MODBUS_LOG_WARN("[MODBUS] tx queue full, drop oldest\r\n");
+    }
+
+    (void)memcpy(s_hf_zxk_modbus_tx_queue[s_hf_zxk_modbus_tx_head], pdu, HF_ZXK_MODBUS_PDU_LEN);
+    s_hf_zxk_modbus_tx_head =
+        (uint8_t)((s_hf_zxk_modbus_tx_head + 1U) % HF_ZXK_MODBUS_TX_QUEUE_DEPTH);
+    s_hf_zxk_modbus_tx_count++;
+}
+
+/* ---------------- 空调上报（HOOCH -> 线控网关） ---------------- */
+
+/* HOOCH 空调模式 -> 线控模式位（协议未定义自动模式，AUTO 视为非法） */
+static uint8_t hf_zxk_modbus_map_ac_mode(HOOCH_PROTOCOL_AirConditionerMode_t mode)
+{
+    switch (mode)
+    {
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_HEAT:
+        return (uint8_t)HF_ZXK_MODBUS_MODE_HEAT;
+
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_COOL:
+        return (uint8_t)HF_ZXK_MODBUS_MODE_COOL;
+
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_FAN:
+        return (uint8_t)HF_ZXK_MODBUS_MODE_FAN;
+
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_DRY:
+        return (uint8_t)HF_ZXK_MODBUS_MODE_DRY;
+
+    default:
+        return (uint8_t)HF_ZXK_MODBUS_MODE_INVALID;
+    }
+}
+
+/* HOOCH 空调风速 -> 线控风速 */
+static uint8_t hf_zxk_modbus_map_ac_fan_speed(
+    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed)
+{
+    switch (fan_speed)
+    {
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_AUTO:
+        return (uint8_t)HF_ZXK_MODBUS_FAN_SPEED_AUTO;
+
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_LOW:
+        return (uint8_t)HF_ZXK_MODBUS_FAN_SPEED_LOW;
+
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_MEDIUM:
+        return (uint8_t)HF_ZXK_MODBUS_FAN_SPEED_MEDIUM;
+
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_HIGH:
+        return (uint8_t)HF_ZXK_MODBUS_FAN_SPEED_HIGH;
+
+    default:
+        return (uint8_t)HF_ZXK_MODBUS_FAN_SPEED_INVALID;
+    }
+}
+
+/**
+ * @brief 组一帧 0x06 写单寄存器控制帧并入队（由发送调度统一发出）
+ */
+static void hf_zxk_modbus_queue_write_register(uint8_t slave_addr,
+                                               uint16_t reg_addr,
+                                               uint16_t reg_value)
+{
+    uint8_t pdu[HF_ZXK_MODBUS_PDU_LEN];
+
+    pdu[0] = slave_addr;
+    pdu[1] = (uint8_t)HF_ZXK_MODBUS_FUNC_WRITE_SINGLE;
+    pdu[2] = (uint8_t)(reg_addr >> 8);
+    pdu[3] = (uint8_t)(reg_addr & 0xFFU);
+    pdu[4] = (uint8_t)(reg_value >> 8);
+    pdu[5] = (uint8_t)(reg_value & 0xFFU);
+
+    hf_zxk_modbus_tx_queue_push(pdu);
+}
+
+/**
+ * @brief 空调上报回调：把 HOOCH 空调帧转成线控网关的 0x06 控制帧
+ * @note  只承接 Send*AddrHfWired485 系列接口发起的单项上报，
+ *        frame->address 即 485 从机地址（485_1 拨码 0~15 / 485_2 固定 1）
+ */
+static void hf_zxk_modbus_air_conditioner_report_callback(
+    const HOOCH_PROTOCOL_AirConditionerFrame_t *frame)
+{
+    uint8_t slave_addr;
+    uint8_t mode;
+    uint8_t fan_speed;
+
+    if (frame == NULL)
+    {
+        return;
+    }
+
+    slave_addr = (uint8_t)frame->address;
+
+    switch (frame->control_item)
+    {
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_POWER:
+        hf_zxk_modbus_queue_write_register(slave_addr,
+                                           (uint16_t)HF_ZXK_MODBUS_REG_CONTROL_POWER,
+                                           (uint16_t)frame->power);
+        break;
+
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_MODE:
+        mode = hf_zxk_modbus_map_ac_mode(frame->mode);
+        if (mode == (uint8_t)HF_ZXK_MODBUS_MODE_INVALID)
+        {
+            HF_ZXK_MODBUS_LOG_WARN("[MODBUS] unsupported mode: %u\r\n",
+                                   (unsigned int)frame->mode);
+            break;
+        }
+
+        hf_zxk_modbus_queue_write_register(slave_addr,
+                                           (uint16_t)HF_ZXK_MODBUS_REG_CONTROL_MODE,
+                                           (uint16_t)mode);
+        break;
+
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_FAN_SPEED:
+        fan_speed = hf_zxk_modbus_map_ac_fan_speed(frame->fan_speed);
+        if (fan_speed == (uint8_t)HF_ZXK_MODBUS_FAN_SPEED_INVALID)
+        {
+            HF_ZXK_MODBUS_LOG_WARN("[MODBUS] unsupported fan speed: %u\r\n",
+                                   (unsigned int)frame->fan_speed);
+            break;
+        }
+
+        hf_zxk_modbus_queue_write_register(slave_addr,
+                                           (uint16_t)HF_ZXK_MODBUS_REG_CONTROL_FAN_SPEED,
+                                           (uint16_t)fan_speed);
+        break;
+
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_TEMPERATURE:
+        hf_zxk_modbus_queue_write_register(slave_addr,
+                                           (uint16_t)HF_ZXK_MODBUS_REG_CONTROL_TEMP,
+                                           frame->temperature);
+        break;
+
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_HF_WIRED_CONTROLLER_485_ENABLE:
+        /* 本模块使能开关：value 0=关闭 1=打开，不产生 485 收发 */
+        hf_zxk_modbus_set_enable((frame->value != 0U) ? 1U : 0U);
+        break;
+
+    default:
+        HF_ZXK_MODBUS_LOG_WARN("[MODBUS] unsupported control item: %u\r\n",
+                               (unsigned int)frame->control_item);
+        break;
+    }
+}
+
+/* ---------------- 查询（MCU -> 网关 0x03 读保持寄存器） ---------------- */
+
+/* 查询间隔：协议推荐 1~3 秒，取 1 秒 */
+#define HF_ZXK_MODBUS_QUERY_INTERVAL_TICKS (1000U / HF_ZXK_MODBUS_LOOP_TICK_MS)
+
+/* 性能查询固定查 3 个寄存器 */
+#define HF_ZXK_MODBUS_QUERY_PERFORMANCE_REG_COUNT 3U
+
+/* 内机状态查询取文档中最全的 9 个寄存器（含室温/权限/允许模式） */
+#define HF_ZXK_MODBUS_QUERY_STATUS_REG_COUNT 9U
+
+/* 周期查询目标地址：默认 1（协议文档示例地址，485_2 固定为 1）。
+ * 不能取 0：MODBUS 地址 0 是广播地址，从机不会回复，查询会永远等不到应答。
+ * 现场 485_1 带拨码或多内机时，由上层调用 hf_zxk_modbus_set_query_addr() 指定。 */
+static uint8_t s_hf_zxk_modbus_query_addr = HF_ZXK_MODBUS_ADDR_PANEL_2;
+
+/* 查询阶段：0-查性能（网关搜索空调阶段），1-查内机状态 */
+static uint8_t s_hf_zxk_modbus_query_phase = 0U;
+
+/* 距下次查询的倒计时节拍数：发任意帧（查询或控制）后都重置为查询间隔 */
+static uint16_t s_hf_zxk_modbus_query_countdown_ticks = 0U;
+
+/**
+ * @brief 发送 0x03 读保持寄存器查询
+ * @return 0-成功 1-参数非法或发送失败
+ */
+static uint8_t hf_zxk_modbus_send_read_holding(uint8_t slave_addr,
+                                               uint16_t reg_addr,
+                                               uint16_t reg_count)
+{
+    uint8_t pdu[HF_ZXK_MODBUS_PDU_LEN];
+
+    if ((reg_count == 0U) || (reg_count > (uint16_t)HF_ZXK_MODBUS_MAX_REG_COUNT))
+    {
+        HF_ZXK_MODBUS_LOG_WARN("[MODBUS] invalid reg count: %u\r\n", (unsigned int)reg_count);
+        return 1U;
+    }
+
+    pdu[0] = slave_addr;
+    pdu[1] = (uint8_t)HF_ZXK_MODBUS_FUNC_READ_HOLDING;
+    pdu[2] = (uint8_t)(reg_addr >> 8);
+    pdu[3] = (uint8_t)(reg_addr & 0xFFU);
+    pdu[4] = (uint8_t)(reg_count >> 8);
+    pdu[5] = (uint8_t)(reg_count & 0xFFU);
+
+    return hf_zxk_modbus_uart_send_pdu(pdu, HF_ZXK_MODBUS_PDU_LEN);
+}
+
+/**
+ * @brief 查询性能（协议推荐上电后先查，网关搜索空调完毕后回复）
+ */
+uint8_t hf_zxk_modbus_query_performance(uint8_t slave_addr)
+{
+    return hf_zxk_modbus_send_read_holding(slave_addr,
+                                           (uint16_t)HF_ZXK_MODBUS_REG_PERFORMANCE,
+                                           (uint16_t)HF_ZXK_MODBUS_QUERY_PERFORMANCE_REG_COUNT);
+}
+
+/**
+ * @brief 查询单台内机状态
+ * @param reg_count 寄存器数量，文档取值为 6 / 8 / 9
+ */
+uint8_t hf_zxk_modbus_query_unit_status(uint8_t slave_addr, uint16_t reg_count)
+{
+    return hf_zxk_modbus_send_read_holding(slave_addr,
+                                           (uint16_t)HF_ZXK_MODBUS_REG_UNIT_STATUS,
+                                           reg_count);
+}
+
+/**
+ * @brief 设置周期查询的目标地址
+ */
+void hf_zxk_modbus_set_query_addr(uint8_t slave_addr)
+{
+    s_hf_zxk_modbus_query_addr = slave_addr;
+}
+
+/**
+ * @brief 业务层解析到性能回复后调用，把查询调度切到"内机状态轮询"阶段
+ */
+void hf_zxk_modbus_query_notify_performance_received(void)
+{
+    s_hf_zxk_modbus_query_phase = 1U;
+    s_hf_zxk_modbus_query_countdown_ticks = 0U; /* 立即发一次内机状态查询 */
+}
+
+/**
+ * @brief 发送调度：控制帧优先出队，查到查询周期则发查询
+ * @note  控制帧与查询帧共用半双工 485 总线，统一在这里串行发出：
+ *        - 任意两帧之间至少间隔 HF_ZXK_MODBUS_TX_MIN_GAP_TICKS（协议要求 06 帧间隔 >100ms）
+ *        - 有控制帧排队时查询让位
+ *        - 查询按 HF_ZXK_MODBUS_QUERY_INTERVAL_TICKS 的倒计时触发，
+ *          每发一帧（查询或控制）倒计时都重置，因此控制后必然是完整的一个查询周期
+ *          （≥300ms）之后才发 03 查结果，符合协议推荐时序
+ *        - 控制帧连续下发导致倒计时被反复重置时，查询最迟推迟
+ *          HF_ZXK_MODBUS_QUERY_MAX_DELAY_TICKS（3 秒）后强制发出
+ */
+static void hf_zxk_modbus_tx_schedule(void)
+{
+    /* 时间节拍推进（与总线是否空闲无关，保证查询周期计时准确） */
+    if (s_hf_zxk_modbus_since_tx_ticks < 0xFFFFU)
+    {
+        s_hf_zxk_modbus_since_tx_ticks++;
+    }
+
+    if (s_hf_zxk_modbus_since_query_ticks < 0xFFFFU)
+    {
+        s_hf_zxk_modbus_since_query_ticks++;
+    }
+
+    if (s_hf_zxk_modbus_query_countdown_ticks > 0U)
+    {
+        s_hf_zxk_modbus_query_countdown_ticks--;
+    }
+
+    /* 帧间隔保护：总线上刚有帧发出 */
+    if (s_hf_zxk_modbus_since_tx_ticks < HF_ZXK_MODBUS_TX_MIN_GAP_TICKS)
+    {
+        return;
+    }
+
+    /* 控制帧优先出队，且让查询重新计时 */
+    if (s_hf_zxk_modbus_tx_count != 0U)
+    {
+        if (hf_zxk_modbus_uart_send_pdu(s_hf_zxk_modbus_tx_queue[s_hf_zxk_modbus_tx_tail],
+                                        HF_ZXK_MODBUS_PDU_LEN) != 0U)
+        {
+            HF_ZXK_MODBUS_LOG_WARN("[MODBUS] send control frame failed\r\n");
+        }
+
+        s_hf_zxk_modbus_tx_tail =
+            (uint8_t)((s_hf_zxk_modbus_tx_tail + 1U) % HF_ZXK_MODBUS_TX_QUEUE_DEPTH);
+        s_hf_zxk_modbus_tx_count--;
+        s_hf_zxk_modbus_since_tx_ticks = 0U;
+        s_hf_zxk_modbus_query_countdown_ticks = HF_ZXK_MODBUS_QUERY_INTERVAL_TICKS;
+        return;
+    }
+
+    /* 正常按倒计时触发；若控制帧反复重置倒计时，最迟推迟到
+       HF_ZXK_MODBUS_QUERY_MAX_DELAY_TICKS 时强制发一次查询 */
+    if ((s_hf_zxk_modbus_query_countdown_ticks > 0U) &&
+        (s_hf_zxk_modbus_since_query_ticks < HF_ZXK_MODBUS_QUERY_MAX_DELAY_TICKS))
+    {
+        return;
+    }
+
+    if (s_hf_zxk_modbus_query_phase == 0U)
+    {
+        /* 网关搜索空调阶段：反复查性能 */
+        if (hf_zxk_modbus_query_performance(s_hf_zxk_modbus_query_addr) != 0U)
+        {
+            HF_ZXK_MODBUS_LOG_WARN("[MODBUS] query performance failed\r\n");
+        }
+    }
+    else
+    {
+        if (hf_zxk_modbus_query_unit_status(s_hf_zxk_modbus_query_addr,
+                                            (uint16_t)HF_ZXK_MODBUS_QUERY_STATUS_REG_COUNT) != 0U)
+        {
+            HF_ZXK_MODBUS_LOG_WARN("[MODBUS] query unit status failed\r\n");
+        }
+    }
+
+    s_hf_zxk_modbus_since_tx_ticks = 0U;
+    s_hf_zxk_modbus_since_query_ticks = 0U;
+    s_hf_zxk_modbus_query_countdown_ticks = HF_ZXK_MODBUS_QUERY_INTERVAL_TICKS;
+}
+
 /* ---------------- UART 收发 ---------------- */
+
+/**
+ * @brief 复位收发残留状态：清空接收队列/解析器/待发控制帧，发帧计时恢复成上电状态
+ */
+static void hf_zxk_modbus_reset_transport_state(void)
+{
+    hf_zxk_modbus_ring_buffer_init(&s_hf_zxk_modbus_rx_ring_buffer);
+    hf_zxk_modbus_parser_init(&s_hf_zxk_modbus_frame_parser);
+    s_hf_zxk_modbus_parser_timeout_ticks = 0U;
+
+    s_hf_zxk_modbus_tx_head  = 0U;
+    s_hf_zxk_modbus_tx_tail  = 0U;
+    s_hf_zxk_modbus_tx_count = 0U;
+
+    /* 重新按上电流程计时：上电即进入"查性能"阶段，发帧节拍置满 */
+    s_hf_zxk_modbus_query_phase           = 0U;
+    s_hf_zxk_modbus_query_countdown_ticks = 0U;
+    s_hf_zxk_modbus_since_tx_ticks        = 0xFFFFU;
+    s_hf_zxk_modbus_since_query_ticks     = 0xFFFFU;
+}
+
+/**
+ * @brief 开关本模块
+ * @param enable 1=开启 0=关闭
+ * @note  关闭时接收队列不再接收任何字节（已缓存的也一并清空），帧解析与所有发送
+ *        （周期查询 / 控制帧 / 手动查询）同时停止；重新开启后按上电流程重新计时。
+ */
+void hf_zxk_modbus_set_enable(uint8_t enable)
+{
+    uint8_t new_state = (enable != 0U) ? 1U : 0U;
+
+    if (new_state == s_hf_zxk_modbus_enabled)
+    {
+        return;
+    }
+
+    s_hf_zxk_modbus_enabled = new_state;
+    hf_zxk_modbus_reset_transport_state();
+
+    HF_ZXK_MODBUS_LOG_INFO("[MODBUS] module %s\r\n",
+                           (new_state != 0U) ? "enabled" : "disabled");
+}
+
+/**
+ * @brief 读取当前使能状态
+ * @return 1-开启 0-关闭
+ */
+uint8_t hf_zxk_modbus_get_enable(void)
+{
+    return s_hf_zxk_modbus_enabled;
+}
 
 /**
  * @brief 线控 MODBUS 模块初始化
  */
 void hf_zxk_modbus_uart_init(void)
 {
-    hf_zxk_modbus_ring_buffer_init(&s_hf_zxk_modbus_rx_ring_buffer);
-    hf_zxk_modbus_parser_init(&s_hf_zxk_modbus_frame_parser);
-    s_hf_zxk_modbus_parser_timeout_ticks = 0U;
+    s_hf_zxk_modbus_enabled = (uint8_t)HF_ZXK_MODBUS_ENABLE_DEFAULT;
+    hf_zxk_modbus_reset_transport_state();
+
+    /* 注册空调上报回调：Send*AddrHfWired485 发起的控制经此转成 0x06 帧下发给线控网关 */
+    HOOCH_PROTOCOL_AirConditioner_RegisterReportCallbackHfWired485(
+        hf_zxk_modbus_air_conditioner_report_callback);
 
     HF_ZXK_MODBUS_LOG_INFO("[MODBUS] UART initialized\r\n");
 }
@@ -355,6 +767,12 @@ void hf_zxk_modbus_uart_init(void)
  */
 void hf_zxk_modbus_uart_rxcallback(uint8_t data)
 {
+    /* 模块关闭：接收队列不接收任何消息 */
+    if (s_hf_zxk_modbus_enabled == 0U)
+    {
+        return;
+    }
+
     if (hf_zxk_modbus_ring_buffer_push(&s_hf_zxk_modbus_rx_ring_buffer, data) != 0U)
     {
         HF_ZXK_MODBUS_LOG_WARN("[MODBUS] Ring buffer overflow!\r\n");
@@ -370,10 +788,16 @@ void hf_zxk_modbus_uart_process(void)
     uint8_t received_data = 0U;
     hf_zxk_modbus_frame_t parsed_frame;
 
+    /* 模块关闭：不解析也不发帧 */
+    if (s_hf_zxk_modbus_enabled == 0U)
+    {
+        return;
+    }
+
     while (hf_zxk_modbus_ring_buffer_pop(&s_hf_zxk_modbus_rx_ring_buffer, &byte) == 0U)
     {
         /* 调试用：打印解析前的原始字节 */
-        HF_ZXK_MODBUS_LOG_INFO("[MODBUS] RX byte: 0x%02X\r\n", (unsigned int)byte);
+    //    HF_ZXK_MODBUS_LOG_INFO("[MODBUS] RX byte: 0x%02X\r\n", (unsigned int)byte);
 
         received_data = 1U;
         s_hf_zxk_modbus_parser_timeout_ticks = 0U;
@@ -409,6 +833,9 @@ void hf_zxk_modbus_uart_process(void)
     {
         s_hf_zxk_modbus_parser_timeout_ticks = 0U;
     }
+
+    /* 发送调度：控制帧优先，空闲时按 1 秒周期查内机状态 */
+    hf_zxk_modbus_tx_schedule();
 }
 
 /**
@@ -423,6 +850,13 @@ uint8_t hf_zxk_modbus_uart_send_pdu(const uint8_t *pdu, uint16_t pdu_len)
     uint8_t tx_buffer[HF_ZXK_MODBUS_MAX_FRAME_LEN];
     uint16_t crc;
     uint16_t i;
+
+    /* 模块关闭：不收也不发 */
+    if (s_hf_zxk_modbus_enabled == 0U)
+    {
+        HF_ZXK_MODBUS_LOG_WARN("[MODBUS] module disabled, drop tx\r\n");
+        return 1U;
+    }
 
     if ((pdu == NULL) || (pdu_len == 0U) ||
         (pdu_len > (uint16_t)(HF_ZXK_MODBUS_MAX_FRAME_LEN - HF_ZXK_MODBUS_CRC_LEN)))
@@ -470,6 +904,38 @@ uint8_t hf_zxk_modbus_uart_send_pdu(const uint8_t *pdu, uint16_t pdu_len)
 void hf_zxk_modbus_uart_rxcallback(uint8_t data)
 {
     (void)data;
+}
+
+void hf_zxk_modbus_set_enable(uint8_t enable)
+{
+    (void)enable;
+}
+
+uint8_t hf_zxk_modbus_get_enable(void)
+{
+    return 0U;
+}
+
+uint8_t hf_zxk_modbus_query_performance(uint8_t slave_addr)
+{
+    (void)slave_addr;
+    return 1U;
+}
+
+uint8_t hf_zxk_modbus_query_unit_status(uint8_t slave_addr, uint16_t reg_count)
+{
+    (void)slave_addr;
+    (void)reg_count;
+    return 1U;
+}
+
+void hf_zxk_modbus_set_query_addr(uint8_t slave_addr)
+{
+    (void)slave_addr;
+}
+
+void hf_zxk_modbus_query_notify_performance_received(void)
+{
 }
 
 #endif /* HOOCH_PROTOCOL_ENABLE_HF_WIRED_CONTROLLER_485 */

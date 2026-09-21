@@ -166,6 +166,8 @@ int main(void)
   HOOCH_PROTOCOL_DimmerLight_RegisterCallback(HOOCH_PROTOCOL_DimmerLight_Process);
   /* Infinite loop */ 
   /* USER CODE BEGIN WHILE */
+
+
   while (1)
   {
     /* USER CODE END WHILE */
@@ -295,15 +297,21 @@ void HOOCH_PROTOCOL_AirConditioner_Process(const HOOCH_PROTOCOL_AirConditionerFr
     return;
   }
 
-  LOG_INFO("[HOOCH] AirConditioner channel=%u, power=%u, mode=%u, fan_speed=%u, temperature=%u, control_item=%u, sequence=%u, valid=%u\r\n",
+  LOG_INFO("[HOOCH] AirConditioner ch=%u addr=%u src=%u item=%u power=%u mode=%u fan=%u temp=%u cur_temp=%u value=%u seq=%u valid=%u desc=%.*s\r\n",
            (unsigned int)frame->channel,
+           (unsigned int)frame->address,
+           (unsigned int)frame->source,
+           (unsigned int)frame->control_item,
            (unsigned int)frame->power,
            (unsigned int)frame->mode,
            (unsigned int)frame->fan_speed,
            (unsigned int)frame->temperature,
-           (unsigned int)frame->control_item,
+           (unsigned int)frame->current_temperature,
+           (unsigned int)frame->value,
            (unsigned int)frame->sequence,
-           (unsigned int)frame->valid);
+           (unsigned int)frame->valid,
+           (int)sizeof(frame->device_desc),
+           (const char *)frame->device_desc);
 }
 void HOOCH_PROTOCOL_FloorHeating_Process(const HOOCH_PROTOCOL_FloorHeatingFrame_t *frame)
 {

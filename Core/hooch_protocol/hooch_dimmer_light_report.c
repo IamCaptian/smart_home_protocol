@@ -17,28 +17,28 @@ static uint8_t HOOCH_PROTOCOL_DimmerLight_IsValidControlItem(
                      (control_item <= HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_SWITCH));
 }
 
-static uint8_t HOOCH_PROTOCOL_DimmerLight_IsValidKey(HOOCH_PROTOCOL_DimmerLightKey_t key)
-{
-    return (uint8_t)((key >= HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_1) &&
-                     (key <= HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_16));
-}
+// static uint8_t HOOCH_PROTOCOL_DimmerLight_IsValidKey(HOOCH_PROTOCOL_DimmerLightKey_t key)
+// {
+//     return (uint8_t)((key >= HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_1) &&
+//                      (key <= HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_16));
+// }
 
-static uint8_t HOOCH_PROTOCOL_DimmerLight_IsValidSwitchState(
-    HOOCH_PROTOCOL_DimmerLightSwitchState_t switch_state)
-{
-    return (uint8_t)((switch_state == HOOCH_PROTOCOL_DIMMER_LIGHT_SWITCH_OFF) ||
-                     (switch_state == HOOCH_PROTOCOL_DIMMER_LIGHT_SWITCH_ON));
-}
+// static uint8_t HOOCH_PROTOCOL_DimmerLight_IsValidSwitchState(
+//     HOOCH_PROTOCOL_DimmerLightSwitchState_t switch_state)
+// {
+//     return (uint8_t)((switch_state == HOOCH_PROTOCOL_DIMMER_LIGHT_SWITCH_OFF) ||
+//                      (switch_state == HOOCH_PROTOCOL_DIMMER_LIGHT_SWITCH_ON));
+// }
 
 static HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SetSwitchState(
     HOOCH_PROTOCOL_DimmerLightKey_t key,
     HOOCH_PROTOCOL_DimmerLightSwitchState_t switch_state)
 {
-    if ((HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U) ||
-        (HOOCH_PROTOCOL_DimmerLight_IsValidSwitchState(switch_state) == 0U))
-    {
-        return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
-    }
+    // if ((HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U) ||
+    //     (HOOCH_PROTOCOL_DimmerLight_IsValidSwitchState(switch_state) == 0U))
+    // {
+    //     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_dimmer_light_frame.key = key;
     s_hooch_protocol_dimmer_light_frame.switch_state = (uint8_t)switch_state;
@@ -206,10 +206,10 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendBrightness(
     HOOCH_PROTOCOL_DimmerLightKey_t key,
     uint16_t brightness)
 {
-    if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
-    {
-        return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_dimmer_light_frame.key = key;
     s_hooch_protocol_dimmer_light_frame.brightness = brightness;
@@ -227,10 +227,10 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendPercent(
     HOOCH_PROTOCOL_DimmerLightKey_t key,
     uint16_t percent)
 {
-    if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
-    {
-        return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_dimmer_light_frame.key = key;
     s_hooch_protocol_dimmer_light_frame.percent = percent;
@@ -248,10 +248,10 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendColorTemperatu
     HOOCH_PROTOCOL_DimmerLightKey_t key,
     uint16_t color_temperature)
 {
-    if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
-    {
-        return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_dimmer_light_frame.key = key;
     s_hooch_protocol_dimmer_light_frame.color_temperature = color_temperature;
@@ -269,10 +269,10 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendColorTemperatu
     HOOCH_PROTOCOL_DimmerLightKey_t key,
     uint16_t color_temperature)
 {
-    if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
-    {
-        return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_dimmer_light_frame.key = key;
     s_hooch_protocol_dimmer_light_frame.color_temperature = color_temperature;
@@ -293,11 +293,11 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendSwitchPage(
     HOOCH_PROTOCOL_DimmerLightKey_t key,
     HOOCH_PROTOCOL_DimmerLightSwitchState_t state)
 {
-    if ((HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U) ||
-        (HOOCH_PROTOCOL_DimmerLight_IsValidSwitchState(state) == 0U))
-    {
-        return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
-    }
+    // if ((HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U) ||
+    //     (HOOCH_PROTOCOL_DimmerLight_IsValidSwitchState(state) == 0U))
+    // {
+    //     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_dimmer_light_frame.page = page;
     s_hooch_protocol_dimmer_light_frame.key = key;
@@ -317,10 +317,10 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendBrightnessPage
     HOOCH_PROTOCOL_DimmerLightKey_t key,
     uint16_t brightness)
 {
-    if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
-    {
-        return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_dimmer_light_frame.page = page;
     s_hooch_protocol_dimmer_light_frame.key = key;
@@ -340,10 +340,10 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendColorTemperatu
     HOOCH_PROTOCOL_DimmerLightKey_t key,
     uint16_t color_temperature)
 {
-    if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
-    {
-        return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_DimmerLight_IsValidKey(key) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_dimmer_light_frame.page = page;
     s_hooch_protocol_dimmer_light_frame.key = key;
@@ -364,10 +364,10 @@ HOOCH_PROTOCOL_DimmerLightResult_t HOOCH_PROTOCOL_DimmerLight_SendSwitchAddr(
     uint16_t address,
     HOOCH_PROTOCOL_DimmerLightSwitchState_t state)
 {
-    if (HOOCH_PROTOCOL_DimmerLight_IsValidSwitchState(state) == 0U)
-    {
-        return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
-    }
+    // if (HOOCH_PROTOCOL_DimmerLight_IsValidSwitchState(state) == 0U)
+    // {
+    //     return HOOCH_PROTOCOL_DIMMER_LIGHT_RESULT_INVALID_PARAM;
+    // }
 
     s_hooch_protocol_dimmer_light_frame.address = address;
     s_hooch_protocol_dimmer_light_frame.switch_state = (uint8_t)state;
