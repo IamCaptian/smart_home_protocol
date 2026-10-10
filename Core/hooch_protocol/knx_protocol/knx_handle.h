@@ -36,6 +36,8 @@ typedef enum
     KNX_BASIC_FUNCTION_HUMIDITY_SENSOR = 16U,
     KNX_BASIC_FUNCTION_HUMAN_PRESENCE_SENSOR = 17U,
     KNX_BASIC_FUNCTION_BACKLIGHT_SCREEN_CONTROL = 18U,
+    KNX_BASIC_FUNCTION_SCREENSAVER_CONTROL = 19U,      /* 屏保控制(K->P): 0=退出屏保, 1=进入屏保 */
+    KNX_BASIC_FUNCTION_DATABASE_UNIQUE_CODE = 20U,     /* 数据库配置唯一码(K->P): 0-65535 */
 } KNX_BasicFunction_t;
 
 /* Fun2 for basic setting (fun1 = 3). */
@@ -187,6 +189,9 @@ typedef enum
 {
     KNX_KEY_ITEM_SWITCH = 1U,
     KNX_KEY_ITEM_SWITCH_STATUS = 2U,
+    KNX_KEY_ITEM_CLICK = 3U,            /* 单击触发(P->K): 1=触发 */
+    KNX_KEY_ITEM_DOUBLE_CLICK = 4U,     /* 双击触发(P->K): 1=触发 */
+    KNX_KEY_ITEM_LONG_PRESS = 5U,       /* 长按触发(P->K): 1=触发 */
 } KNX_KeyItem_t;
 
 /* Light key config items. */
@@ -196,6 +201,11 @@ typedef enum
     KNX_KEY_CONFIG_DESCRIPTION = 2U,
     KNX_KEY_CONFIG_DEFAULT_ICON = 3U,
     KNX_KEY_CONFIG_SELECTED_ICON = 4U,
+    KNX_KEY_CONFIG_SWITCH_MODE = 5U,                  /* 开关模式(K->P): 0=OFF,1=ON,2=Toggle,3=Toggle(反馈) */
+    KNX_KEY_CONFIG_DOUBLE_CLICK_INTERVAL = 6U,        /* 双击判定最大时间间隔(K->P): 0-255 * 0.1s, 0=面板默认 */
+    KNX_KEY_CONFIG_LONG_PRESS_TIME = 7U,              /* 长按时间(K->P): 0-255 * 0.1s, 0=面板默认 */
+    KNX_KEY_CONFIG_LONG_PRESS_REPEAT_INTERVAL = 8U,   /* 长按触发后连续触发的时间间隔(K->P): 0-255 * 0.1s */
+    KNX_KEY_CONFIG_EVENT_MASK = 9U,                   /* 屏蔽事件(K->P): bit0=双击时单击事件 bit1=双击时开关事件, 0=屏蔽/1=不屏蔽 */
 } KNX_KeyConfigItem_t;
 
 /* Dimming items. */

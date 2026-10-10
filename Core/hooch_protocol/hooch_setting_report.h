@@ -30,7 +30,8 @@ typedef enum
     HOOCH_PROTOCOL_SETTING_REPORT_EVENT_GET_WIND,              /* [18] 获取风向（仅限涂鸦） */
     HOOCH_PROTOCOL_SETTING_REPORT_EVENT_GET_CITY,              /* [19] 获取城市（仅限涂鸦） */
     HOOCH_PROTOCOL_SETTING_REPORT_EVENT_GET_AREA,              /* [20] 获取区县（仅限涂鸦） */
-    HOOCH_PROTOCOL_SETTING_REPORT_EVENT_COUNT                   /* [21] 枚举数量（非有效事件） */
+    HOOCH_PROTOCOL_SETTING_REPORT_EVENT_KNX_QUERY_DATABASE_UNIQUE_CODE, /* [21] KNX读取数据库配置唯一码 */
+    HOOCH_PROTOCOL_SETTING_REPORT_EVENT_COUNT                   /* [22] 枚举数量（非有效事件） */
 } HOOCH_PROTOCOL_SettingReportEvent_t;
 
 typedef void (*HOOCH_PROTOCOL_SettingReportCallback_t)(

@@ -38,25 +38,24 @@ I (..\Core\hooch_protocol\xiaomi_smart_screen\xiaomi_smart_screen_circular_buffe
 I (..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h)(0x6A952051)
 I (..\Core\hooch_protocol\hf_zxk_modbus_protocol\hf_zxk_modbus_circular_buffer.h)(0x6AB0A04C)
 I (..\Core\hooch_protocol\hf_zjk_modbus_protocol\hf_zjk_modbus_circular_buffer.h)(0x6AB09FDE)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h)(0x6A9FC279)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h)(0x6A9FC9A2)
 F (../Core/Src/gpio.c)(0x6A114C8C)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\gpio.o --omf_browse xiaomi_f103\gpio.crf --depend xiaomi_f103\gpio.d)
@@ -153,8 +152,8 @@ I (..\Core\hooch_protocol\hf_zxk_modbus_protocol\hf_zxk_modbus_circular_buffer.h
 I (..\Core\hooch_protocol\hf_zjk_modbus_protocol\hf_zjk_modbus_circular_buffer.h)(0x6AB09FDE)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h)(0x6A9FC279)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h)(0x6A9FC9A2)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (../Core/Src/stm32f1xx_hal_msp.c)(0x6A114C8C)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\stm32f1xx_hal_msp.o --omf_browse xiaomi_f103\stm32f1xx_hal_msp.crf --depend xiaomi_f103\stm32f1xx_hal_msp.d)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
@@ -215,7 +214,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x60252376)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (../Core/Inc/usart.h)(0x6A114C8C)
-F (..\Core\Src\hooch_cli_driver.c)(0x6AB0A7AB)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_cli_driver.o --omf_browse xiaomi_f103\hooch_cli_driver.crf --depend xiaomi_f103\hooch_cli_driver.d)
+F (..\Core\Src\hooch_cli_driver.c)(0x6AB36B67)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_cli_driver.o --omf_browse xiaomi_f103\hooch_cli_driver.crf --depend xiaomi_f103\hooch_cli_driver.d)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x6A114C8C)
@@ -242,26 +241,25 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6A114C86)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 I (../Core/Inc/usart.h)(0x6A114C8C)
 I (../Core/Inc/user_printf.h)(0x6A115035)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x60252376)
@@ -657,45 +655,41 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6A114C86)
-F (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.c)(0x6AB09F7E)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_protocol_common.o --omf_browse xiaomi_f103\hooch_protocol_common.crf --depend xiaomi_f103\hooch_protocol_common.d)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+F (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.c)(0x6AB0D1EA)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_protocol_common.o --omf_browse xiaomi_f103\hooch_protocol_common.crf --depend xiaomi_f103\hooch_protocol_common.d)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 F (..\Core\hooch_protocol\hooch_dimmer_light_dispatch.c)(0x6AAF409C)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_dimmer_light_dispatch.o --omf_browse xiaomi_f103\hooch_dimmer_light_dispatch.crf --depend xiaomi_f103\hooch_dimmer_light_dispatch.d)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\hooch_dimmer_light_report.c)(0x6AAF40A3)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_dimmer_light_report.o --omf_browse xiaomi_f103\hooch_dimmer_light_report.crf --depend xiaomi_f103\hooch_dimmer_light_report.d)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\hooch_floor_heating_dispatch.c)(0x6AAF415E)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_floor_heating_dispatch.o --omf_browse xiaomi_f103\hooch_floor_heating_dispatch.crf --depend xiaomi_f103\hooch_floor_heating_dispatch.d)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\hooch_floor_heating_report.c)(0x6AAF411D)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_floor_heating_report.o --omf_browse xiaomi_f103\hooch_floor_heating_report.crf --depend xiaomi_f103\hooch_floor_heating_report.d)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-F (..\Core\hooch_protocol\hooch_fresh_air_dispatch.c)(0x6AAF4B81)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_fresh_air_dispatch.o --omf_browse xiaomi_f103\hooch_fresh_air_dispatch.crf --depend xiaomi_f103\hooch_fresh_air_dispatch.d)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+F (..\Core\hooch_protocol\hooch_fresh_air_dispatch.c)(0x6AB24C8C)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_fresh_air_dispatch.o --omf_browse xiaomi_f103\hooch_fresh_air_dispatch.crf --depend xiaomi_f103\hooch_fresh_air_dispatch.d)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-F (..\Core\hooch_protocol\hooch_fresh_air_report.c)(0x6AAF419E)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_fresh_air_report.o --omf_browse xiaomi_f103\hooch_fresh_air_report.crf --depend xiaomi_f103\hooch_fresh_air_report.d)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+F (..\Core\hooch_protocol\hooch_fresh_air_report.c)(0x6AB32C8D)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_fresh_air_report.o --omf_browse xiaomi_f103\hooch_fresh_air_report.crf --depend xiaomi_f103\hooch_fresh_air_report.d)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-F (..\Core\hooch_protocol\hooch_key_click_dispatch.c)(0x6A98E463)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_key_click_dispatch.o --omf_browse xiaomi_f103\hooch_key_click_dispatch.crf --depend xiaomi_f103\hooch_key_click_dispatch.d)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\hooch_key_click_report.c)(0x6A98E463)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_key_click_report.o --omf_browse xiaomi_f103\hooch_key_click_report.crf --depend xiaomi_f103\hooch_key_click_report.d)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 F (..\Core\hooch_protocol\hooch_key_name.c)(0x6A98E464)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_key_name.o --omf_browse xiaomi_f103\hooch_key_name.crf --depend xiaomi_f103\hooch_key_name.d)
@@ -703,15 +697,15 @@ I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 F (..\Core\hooch_protocol\hooch_key_status_dispatch.c)(0x6AAB8086)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_key_status_dispatch.o --omf_browse xiaomi_f103\hooch_key_status_dispatch.crf --depend xiaomi_f103\hooch_key_status_dispatch.d)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\hooch_key_status_report.c)(0x6A98E462)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_key_status_report.o --omf_browse xiaomi_f103\hooch_key_status_report.crf --depend xiaomi_f103\hooch_key_status_report.d)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\hooch_page_adjust.c)(0x6A7B1742)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_page_adjust.o --omf_browse xiaomi_f103\hooch_page_adjust.crf --depend xiaomi_f103\hooch_page_adjust.d)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
@@ -722,47 +716,47 @@ F (..\Core\hooch_protocol\hooch_scene_dispatch.c)(0x6AAB809B)(--c99 -c --cpu Cor
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\hooch_scene_report.c)(0x6A98E467)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_scene_report.o --omf_browse xiaomi_f103\hooch_scene_report.crf --depend xiaomi_f103\hooch_scene_report.d)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\hooch_setting.c)(0x6A61FAB0)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_setting.o --omf_browse xiaomi_f103\hooch_setting.crf --depend xiaomi_f103\hooch_setting.d)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\hooch_setting_report.c)(0x6A6090D4)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_setting_report.o --omf_browse xiaomi_f103\hooch_setting_report.crf --depend xiaomi_f103\hooch_setting_report.d)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-F (..\Core\hooch_protocol\hooch_key_mode.c)(0x6A9A8C88)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_key_mode.o --omf_browse xiaomi_f103\hooch_key_mode.crf --depend xiaomi_f103\hooch_key_mode.d)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+F (..\Core\hooch_protocol\hooch_key_mode.c)(0x6AB4B4E2)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_key_mode.o --omf_browse xiaomi_f103\hooch_key_mode.crf --depend xiaomi_f103\hooch_key_mode.d)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-F (..\Core\hooch_protocol\hooch_air_conditioner_dispatch.c)(0x6AB0A3DD)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_air_conditioner_dispatch.o --omf_browse xiaomi_f103\hooch_air_conditioner_dispatch.crf --depend xiaomi_f103\hooch_air_conditioner_dispatch.d)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+F (..\Core\hooch_protocol\hooch_air_conditioner_dispatch.c)(0x6AB0DA37)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_air_conditioner_dispatch.o --omf_browse xiaomi_f103\hooch_air_conditioner_dispatch.crf --depend xiaomi_f103\hooch_air_conditioner_dispatch.d)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-F (..\Core\hooch_protocol\hooch_air_conditioner_report.c)(0x6AB0A635)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_air_conditioner_report.o --omf_browse xiaomi_f103\hooch_air_conditioner_report.crf --depend xiaomi_f103\hooch_air_conditioner_report.d)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+F (..\Core\hooch_protocol\hooch_air_conditioner_report.c)(0x6AB32CB2)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_air_conditioner_report.o --omf_browse xiaomi_f103\hooch_air_conditioner_report.crf --depend xiaomi_f103\hooch_air_conditioner_report.d)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\hooch_curtain_dispatch.c)(0x6AAF402C)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_curtain_dispatch.o --omf_browse xiaomi_f103\hooch_curtain_dispatch.crf --depend xiaomi_f103\hooch_curtain_dispatch.d)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\hooch_curtain_report.c)(0x6AAF4049)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_curtain_report.o --omf_browse xiaomi_f103\hooch_curtain_report.crf --depend xiaomi_f103\hooch_curtain_report.d)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.c)(0x6A685D19)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hooch_code_match_dispatch_dispatch.o --omf_browse xiaomi_f103\hooch_code_match_dispatch_dispatch.crf --depend xiaomi_f103\hooch_code_match_dispatch_dispatch.d)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
@@ -808,8 +802,8 @@ I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\system.h)(0x6A5DC2E8)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h)(0x6AA396BD)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h)(0x6A9FC279)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h)(0x6A9FC9A2)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_scene.h)(0x6A6702C8)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_switch.h)(0x6A6702D2)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_air.h)(0x6A9FCF32)
@@ -855,27 +849,27 @@ I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\system.h)(0x6A5DC2E8)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h)(0x6AA396BD)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h)(0x6A9FC279)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h)(0x6A9FC9A2)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\system.c)(0x6A5DC2E8)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\system.o --omf_browse xiaomi_f103\system.crf --depend xiaomi_f103\system.d)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\zigbee.h)(0x6A5DC2E8)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\system.h)(0x6A5DC2E8)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h)(0x6AA396BD)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h)(0x6A9FC279)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h)(0x6A9FC9A2)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 F (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_report_callbacks.c)(0x6AAB90D9)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\tuya_report_callbacks.o --omf_browse xiaomi_f103\tuya_report_callbacks.crf --depend xiaomi_f103\tuya_report_callbacks.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x6025237E)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h)(0x6AA396BD)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h)(0x6A9FC279)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h)(0x6A9FC9A2)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\system.h)(0x6A5DC2E8)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_protocol_uart.h)(0x6A9FD00A)
 I (../Core/Inc/main.h)(0x6A114C8C)
@@ -906,48 +900,48 @@ I (../Core/Inc/usart.h)(0x6A114C8C)
 I (../Core/Inc/user_printf.h)(0x6A115035)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x60252376)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
 F (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_basic_setting.c)(0x6AB09AED)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\tuya_basic_setting.o --omf_browse xiaomi_f103\tuya_basic_setting.crf --depend xiaomi_f103\tuya_basic_setting.d)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_basic_setting.h)(0x6A670325)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h)(0x6AA396BD)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h)(0x6A9FC279)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h)(0x6A9FC9A2)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
 F (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_air.c)(0x6AAB7CD5)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\tuya_device_air.o --omf_browse xiaomi_f103\tuya_device_air.crf --depend xiaomi_f103\tuya_device_air.d)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_air.h)(0x6A9FCF32)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h)(0x6AA396BD)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h)(0x6A9FC279)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h)(0x6A9FC9A2)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 F (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_floor.c)(0x6AAB8057)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\tuya_device_floor.o --omf_browse xiaomi_f103\tuya_device_floor.crf --depend xiaomi_f103\tuya_device_floor.d)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_floor.h)(0x6A6702F6)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h)(0x6AA396BD)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h)(0x6A9FC279)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h)(0x6A9FC9A2)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x6025237E)
 F (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_freshair.c)(0x6AAB8051)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\tuya_device_freshair.o --omf_browse xiaomi_f103\tuya_device_freshair.crf --depend xiaomi_f103\tuya_device_freshair.d)
@@ -955,46 +949,46 @@ I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_freshair.h)(0x6A6703
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h)(0x6AA396BD)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h)(0x6A9FC279)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h)(0x6A9FC9A2)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x6025237E)
 F (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_key.c)(0x6AA39110)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\tuya_device_key.o --omf_browse xiaomi_f103\tuya_device_key.crf --depend xiaomi_f103\tuya_device_key.d)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_key.h)(0x6A670314)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h)(0x6AA396BD)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h)(0x6A9FC279)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h)(0x6A9FC9A2)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
 F (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_scene.c)(0x6A6702CD)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\tuya_device_scene.o --omf_browse xiaomi_f103\tuya_device_scene.crf --depend xiaomi_f103\tuya_device_scene.d)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_scene.h)(0x6A6702C8)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h)(0x6AA396BD)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h)(0x6A9FC279)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h)(0x6A9FC9A2)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 F (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_switch.c)(0x6AAB8052)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\tuya_device_switch.o --omf_browse xiaomi_f103\tuya_device_switch.crf --depend xiaomi_f103\tuya_device_switch.d)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_switch.h)(0x6A6702D2)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\protocol.h)(0x6AA396BD)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_api.h)(0x6A9FC279)
 I (..\Core\hooch_protocol\tuya_protocol\mcu_sdk\mcu_sdk_types.h)(0x6A9FC9A2)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
-F (..\Core\hooch_protocol\knx_protocol\knx_basic_function.c)(0x6AAB810E)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_basic_function.o --omf_browse xiaomi_f103\knx_basic_function.crf --depend xiaomi_f103\knx_basic_function.d)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
+F (..\Core\hooch_protocol\knx_protocol\knx_basic_function.c)(0x6AB25AA5)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_basic_function.o --omf_browse xiaomi_f103\knx_basic_function.crf --depend xiaomi_f103\knx_basic_function.d)
 I (..\Core\hooch_protocol\knx_protocol\knx_internal.h)(0x6A7D2737)
-I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AACCFDF)
+I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h)(0x6A952051)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
@@ -1022,30 +1016,29 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6A114C86)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 F (..\Core\hooch_protocol\knx_protocol\knx_basic_setting.c)(0x6AACD3F4)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_basic_setting.o --omf_browse xiaomi_f103\knx_basic_setting.crf --depend xiaomi_f103\knx_basic_setting.d)
 I (..\Core\hooch_protocol\knx_protocol\knx_internal.h)(0x6A7D2737)
-I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AACCFDF)
+I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h)(0x6A952051)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
@@ -1073,28 +1066,27 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6A114C86)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
-F (..\Core\hooch_protocol\knx_protocol\knx_circular_buffer.c)(0x6AAB969C)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_circular_buffer.o --omf_browse xiaomi_f103\knx_circular_buffer.crf --depend xiaomi_f103\knx_circular_buffer.d)
+F (..\Core\hooch_protocol\knx_protocol\knx_circular_buffer.c)(0x6AB36C9C)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_circular_buffer.o --omf_browse xiaomi_f103\knx_circular_buffer.crf --depend xiaomi_f103\knx_circular_buffer.d)
 I (..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h)(0x6A952051)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
@@ -1122,30 +1114,29 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6A114C86)
-I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AACCFDF)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AB4B4FC)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 F (..\Core\hooch_protocol\knx_protocol\knx_device_air.c)(0x6AACFF4E)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_device_air.o --omf_browse xiaomi_f103\knx_device_air.crf --depend xiaomi_f103\knx_device_air.d)
 I (..\Core\hooch_protocol\knx_protocol\knx_internal.h)(0x6A7D2737)
-I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AACCFDF)
+I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h)(0x6A952051)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
@@ -1173,30 +1164,29 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6A114C86)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
-F (..\Core\hooch_protocol\knx_protocol\knx_device_curtain.c)(0x6AAB8000)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_device_curtain.o --omf_browse xiaomi_f103\knx_device_curtain.crf --depend xiaomi_f103\knx_device_curtain.d)
+F (..\Core\hooch_protocol\knx_protocol\knx_device_curtain.c)(0x6AB0E94C)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_device_curtain.o --omf_browse xiaomi_f103\knx_device_curtain.crf --depend xiaomi_f103\knx_device_curtain.d)
 I (..\Core\hooch_protocol\knx_protocol\knx_internal.h)(0x6A7D2737)
-I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AACCFDF)
+I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h)(0x6A952051)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
@@ -1224,30 +1214,29 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6A114C86)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
-F (..\Core\hooch_protocol\knx_protocol\knx_device_dimming.c)(0x6AAB8001)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_device_dimming.o --omf_browse xiaomi_f103\knx_device_dimming.crf --depend xiaomi_f103\knx_device_dimming.d)
+F (..\Core\hooch_protocol\knx_protocol\knx_device_dimming.c)(0x6AB4B874)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_device_dimming.o --omf_browse xiaomi_f103\knx_device_dimming.crf --depend xiaomi_f103\knx_device_dimming.d)
 I (..\Core\hooch_protocol\knx_protocol\knx_internal.h)(0x6A7D2737)
-I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AACCFDF)
+I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h)(0x6A952051)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
@@ -1275,30 +1264,29 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6A114C86)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 F (..\Core\hooch_protocol\knx_protocol\knx_device_floor_heating.c)(0x6AAB8002)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_device_floor_heating.o --omf_browse xiaomi_f103\knx_device_floor_heating.crf --depend xiaomi_f103\knx_device_floor_heating.d)
 I (..\Core\hooch_protocol\knx_protocol\knx_internal.h)(0x6A7D2737)
-I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AACCFDF)
+I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h)(0x6A952051)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
@@ -1326,30 +1314,29 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6A114C86)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
-F (..\Core\hooch_protocol\knx_protocol\knx_device_fresh_air.c)(0x6AB093C6)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_device_fresh_air.o --omf_browse xiaomi_f103\knx_device_fresh_air.crf --depend xiaomi_f103\knx_device_fresh_air.d)
+F (..\Core\hooch_protocol\knx_protocol\knx_device_fresh_air.c)(0x6AB32D4B)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_device_fresh_air.o --omf_browse xiaomi_f103\knx_device_fresh_air.crf --depend xiaomi_f103\knx_device_fresh_air.d)
 I (..\Core\hooch_protocol\knx_protocol\knx_internal.h)(0x6A7D2737)
-I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AACCFDF)
+I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h)(0x6A952051)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
@@ -1377,30 +1364,29 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6A114C86)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
-F (..\Core\hooch_protocol\knx_protocol\knx_device_key.c)(0x6AAB8003)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_device_key.o --omf_browse xiaomi_f103\knx_device_key.crf --depend xiaomi_f103\knx_device_key.d)
+F (..\Core\hooch_protocol\knx_protocol\knx_device_key.c)(0x6AB4B86B)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_device_key.o --omf_browse xiaomi_f103\knx_device_key.crf --depend xiaomi_f103\knx_device_key.d)
 I (..\Core\hooch_protocol\knx_protocol\knx_internal.h)(0x6A7D2737)
-I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AACCFDF)
+I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h)(0x6A952051)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
@@ -1428,30 +1414,29 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6A114C86)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
-F (..\Core\hooch_protocol\knx_protocol\knx_handle.c)(0x6AACD030)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_handle.o --omf_browse xiaomi_f103\knx_handle.crf --depend xiaomi_f103\knx_handle.d)
+F (..\Core\hooch_protocol\knx_protocol\knx_handle.c)(0x6AB25658)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_handle.o --omf_browse xiaomi_f103\knx_handle.crf --depend xiaomi_f103\knx_handle.d)
 I (..\Core\hooch_protocol\knx_protocol\knx_internal.h)(0x6A7D2737)
-I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AACCFDF)
+I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h)(0x6A952051)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
@@ -1479,30 +1464,29 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6A114C86)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 F (..\Core\hooch_protocol\knx_protocol\knx_device_scene.c)(0x6AAB8D36)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\knx_device_scene.o --omf_browse xiaomi_f103\knx_device_scene.crf --depend xiaomi_f103\knx_device_scene.d)
 I (..\Core\hooch_protocol\knx_protocol\knx_internal.h)(0x6A7D2737)
-I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AACCFDF)
+I (..\Core\hooch_protocol\knx_protocol\knx_handle.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\knx_protocol\knx_protocol_uart.h)(0x6A952051)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
@@ -1530,26 +1514,25 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x6A114C86)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h)(0x6A114C86)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 F (..\Core\hooch_protocol\xiaomi_smart_screen\xiaomi_smart_screen_circular_buffer.c)(0x6AA141BA)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\xiaomi_smart_screen_circular_buffer.o --omf_browse xiaomi_f103\xiaomi_smart_screen_circular_buffer.crf --depend xiaomi_f103\xiaomi_smart_screen_circular_buffer.d)
 I (..\Core\hooch_protocol\xiaomi_smart_screen\xiaomi_smart_screen_circular_bufferc.h)(0x6A86AAF0)
@@ -1584,25 +1567,24 @@ I (../Core/Inc/user_printf.h)(0x6A115035)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x60252376)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (..\Core\hooch_protocol\xiaomi_smart_screen\xiaomi_smart_screen_handle.h)(0x6A9FC23A)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 F (..\Core\hooch_protocol\xiaomi_smart_screen\xiaomi_smart_screen_handle.c)(0x6AAB92DA)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\xiaomi_smart_screen_handle.o --omf_browse xiaomi_f103\xiaomi_smart_screen_handle.crf --depend xiaomi_f103\xiaomi_smart_screen_handle.d)
 I (..\Core\hooch_protocol\xiaomi_smart_screen\xiaomi_smart_screen_circular_bufferc.h)(0x6A86AAF0)
 I (../Core/Inc/main.h)(0x6A114C8C)
@@ -1636,25 +1618,24 @@ I (../Core/Inc/user_printf.h)(0x6A115035)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x60252376)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (..\Core\hooch_protocol\xiaomi_smart_screen\xiaomi_smart_screen_handle.h)(0x6A9FC23A)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 F (..\Core\hooch_protocol\hf_zxk_modbus_protocol\hf_zxk_modbus_circular_buffer.c)(0x6AB0A63B)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hf_zxk_modbus_circular_buffer.o --omf_browse xiaomi_f103\hf_zxk_modbus_circular_buffer.crf --depend xiaomi_f103\hf_zxk_modbus_circular_buffer.d)
 I (..\Core\hooch_protocol\hf_zxk_modbus_protocol\hf_zxk_modbus_circular_buffer.h)(0x6AB0A04C)
 I (../Core/Inc/main.h)(0x6A114C8C)
@@ -1688,25 +1669,24 @@ I (../Core/Inc/user_printf.h)(0x6A115035)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x60252376)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (..\Core\hooch_protocol\hf_zxk_modbus_protocol\hf_zxk_modbus_handle.h)(0x6AABC489)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 F (..\Core\hooch_protocol\hf_zxk_modbus_protocol\hf_zxk_modbus_handle.c)(0x6AB0A2BC)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hf_zxk_modbus_handle.o --omf_browse xiaomi_f103\hf_zxk_modbus_handle.crf --depend xiaomi_f103\hf_zxk_modbus_handle.d)
 I (..\Core\hooch_protocol\hf_zxk_modbus_protocol\hf_zxk_modbus_handle.h)(0x6AABC489)
 I (..\Core\hooch_protocol\hf_zxk_modbus_protocol\hf_zxk_modbus_circular_buffer.h)(0x6AB0A04C)
@@ -1740,26 +1720,25 @@ I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (../Core/Inc/user_printf.h)(0x6A115035)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x60252376)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
-F (..\Core\hooch_protocol\hf_zjk_modbus_protocol\hf_zjk_modbus_circular_buffer.c)(0x6AB0A640)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hf_zjk_modbus_circular_buffer.o --omf_browse xiaomi_f103\hf_zjk_modbus_circular_buffer.crf --depend xiaomi_f103\hf_zjk_modbus_circular_buffer.d)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
+F (..\Core\hooch_protocol\hf_zjk_modbus_protocol\hf_zjk_modbus_circular_buffer.c)(0x6AB0C5D8)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hf_zjk_modbus_circular_buffer.o --omf_browse xiaomi_f103\hf_zjk_modbus_circular_buffer.crf --depend xiaomi_f103\hf_zjk_modbus_circular_buffer.d)
 I (..\Core\hooch_protocol\hf_zjk_modbus_protocol\hf_zjk_modbus_circular_buffer.h)(0x6AB09FDE)
 I (../Core/Inc/main.h)(0x6A114C8C)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x6A114C86)
@@ -1792,25 +1771,24 @@ I (../Core/Inc/user_printf.h)(0x6A115035)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x60252376)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (..\Core\hooch_protocol\hf_zjk_modbus_protocol\hf_zjk_modbus_handle.h)(0x6AB09C12)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)
 F (..\Core\hooch_protocol\hf_zjk_modbus_protocol\hf_zjk_modbus_handle.c)(0x6AB09BFA)(--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ..\Core\hooch_protocol -I ..\Core\hooch_protocol\protocol_common -I ..\Core\hooch_protocol\hooch_auto_task -I ..\Core\hooch_protocol\tuya_protocol\mcu_sdk -I ..\Core\hooch_protocol\knx_protocol -I ..\Core\hooch_protocol\xiaomi_smart_screen -I ..\Core\hooch_protocol\hf_zxk_modbus_protocol -I ..\Core\hooch_protocol\hf_zjk_modbus_protocol-I.\RTE\_XiaoMi_F103-IC:\Users\huche\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\huche\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.1.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o xiaomi_f103\hf_zjk_modbus_handle.o --omf_browse xiaomi_f103\hf_zjk_modbus_handle.crf --depend xiaomi_f103\hf_zjk_modbus_handle.d)
 I (..\Core\hooch_protocol\hf_zjk_modbus_protocol\hf_zjk_modbus_handle.h)(0x6AB09C12)
 I (..\Core\hooch_protocol\hf_zjk_modbus_protocol\hf_zjk_modbus_circular_buffer.h)(0x6AB09FDE)
@@ -1844,22 +1822,21 @@ I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (../Core/Inc/user_printf.h)(0x6A115035)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x60252376)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
-I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AAB5E8E)
-I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB09F0D)
-I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0A57E)
+I (..\Core\hooch_protocol\hooch_protocol.h)(0x6AB25E7C)
+I (..\Core\hooch_protocol\protocol_common\hooch_protocol_common.h)(0x6AB0D5A6)
+I (..\Core\hooch_protocol\hooch_air_conditioner.h)(0x6AB0C58F)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_dispatch.h)(0x6A6743A3)
 I (..\Core\hooch_protocol\hooch_code_match_dispatch_report.h)(0x6A6744DE)
-I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AAB5E9A)
-I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AAB5E9A)
+I (..\Core\hooch_protocol\hooch_curtain.h)(0x6AB0E898)
+I (..\Core\hooch_protocol\hooch_dimmer_light.h)(0x6AB0E6EC)
 I (..\Core\hooch_protocol\hooch_floor_heating.h)(0x6AACDCFB)
-I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AACDD00)
-I (..\Core\hooch_protocol\hooch_key_click_dispatch.h)(0x6A98E453)
-I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6A98E452)
-I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6A9A8AF0)
+I (..\Core\hooch_protocol\hooch_fresh_air.h)(0x6AB25043)
+I (..\Core\hooch_protocol\hooch_key_click_report.h)(0x6AB258AA)
+I (..\Core\hooch_protocol\hooch_key_mode.h)(0x6AB4B4E1)
 I (..\Core\hooch_protocol\hooch_key_name.h)(0x6A98E454)
-I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AAB5E9C)
+I (..\Core\hooch_protocol\hooch_key_status.h)(0x6AB4B4FC)
 I (..\Core\hooch_protocol\hooch_page_adjust.h)(0x6A7B0A40)
 I (..\Core\hooch_protocol\hooch_scene_dispatch.h)(0x6AAB5E9C)
 I (..\Core\hooch_protocol\hooch_scene_report.h)(0x6AAB5E9C)
-I (..\Core\hooch_protocol\hooch_setting.h)(0x6AACCFEB)
-I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6A9FA5E1)
+I (..\Core\hooch_protocol\hooch_setting.h)(0x6AB25A96)
+I (..\Core\hooch_protocol\hooch_setting_report.h)(0x6AB36B58)

@@ -15,7 +15,6 @@ extern "C" {
 #include "hooch_dimmer_light.h"
 #include "hooch_floor_heating.h"
 #include "hooch_fresh_air.h"
-#include "hooch_key_click_dispatch.h"
 #include "hooch_key_click_report.h"
 #include "hooch_key_mode.h"
 #include "hooch_key_name.h"

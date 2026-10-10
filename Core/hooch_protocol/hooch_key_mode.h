@@ -58,6 +58,7 @@ typedef enum
     HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH_TOGGLE = 12U,    /* 普通开关反转模式 */
     HOOCH_PROTOCOL_KEY_MODE_TYPE_ALWAYS_ON_SWITCH = 13U,        /* 常开模式：怎么点都是开 */
     HOOCH_PROTOCOL_KEY_MODE_TYPE_ALWAYS_OFF_SWITCH = 14U,       /* 常闭模式：怎么点都是关 */
+    HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH_TOGGLE_FEEDBACK = 15U, /* 开关反转(按反馈状态翻转) */
     HOOCH_PROTOCOL_KEY_MODE_TYPE_INVALID = 0xFFU,               /* 无效类型 */
 
 } HOOCH_PROTOCOL_KeyModeType_t;

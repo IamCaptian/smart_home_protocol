@@ -99,6 +99,16 @@ static HOOCH_PROTOCOL_FreshAirResult_t HOOCH_PROTOCOL_FreshAir_SetDispatchFrameI
             s_hooch_protocol_fresh_air_dispatch_frame.fan_speed = frame->fan_speed;
             break;
 
+        case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_FAN_SPEED_RAW:
+            /* 风速原始值(KNX 风速模式字节原值: 0=关闭 1=低风 2=中风 3=高风 4=自动) */
+            s_hooch_protocol_fresh_air_dispatch_frame.value = frame->value;
+            break;
+
+        case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_CURRENT_TEMPERATURE_RAW:
+            /* 当前温度原始值(KNX 实际温度原值: 0~500，实际温度 = value * 0.1℃) */
+            s_hooch_protocol_fresh_air_dispatch_frame.value = frame->value;
+            break;
+
         case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_CURRENT_TEMPERATURE:
             s_hooch_protocol_fresh_air_dispatch_frame.current_temperature = frame->current_temperature;
             break;

@@ -74,7 +74,7 @@ void knx_summary_basic_setting(const KNX_Frame_t *frame)
         setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_SCREEN_BRIGHTNESS;
         if (frame->data_len >= 1U)
         {
-            setting_frame.value = (uint8_t)(((uint32_t)frame->data[0] * 100U) / 255U);
+            setting_frame.value = hooch_CharsToPercentage(frame->data[0]);
         }
         need_set = 1U;
         break;
@@ -92,7 +92,7 @@ void knx_summary_basic_setting(const KNX_Frame_t *frame)
         setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_KEY_BACKLIGHT_BRIGHTNESS_NIGHT;
         if (frame->data_len >= 1U)
         {
-            setting_frame.value = (uint8_t)(((uint32_t)frame->data[0] * 100U) / 255U);
+            setting_frame.value = hooch_CharsToPercentage(frame->data[0]);
         }
         need_set = 1U;
         break;
@@ -101,7 +101,7 @@ void knx_summary_basic_setting(const KNX_Frame_t *frame)
         setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_KEY_BRIGHTNESS_NIGHT;
         if (frame->data_len >= 1U)
         {
-            setting_frame.value = (uint8_t)(((uint32_t)frame->data[0] * 100U) / 255U);
+            setting_frame.value = hooch_CharsToPercentage(frame->data[0]);
         }
         need_set = 1U;
         break;
@@ -182,7 +182,7 @@ void knx_summary_basic_setting(const KNX_Frame_t *frame)
         setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_KEY_BACKLIGHT_BRIGHTNESS_DAY;
         if (frame->data_len >= 1U)
         {
-            setting_frame.value = (uint8_t)(((uint32_t)frame->data[0] * 100U) / 255U);
+            setting_frame.value = hooch_CharsToPercentage(frame->data[0]);
         }
         need_set = 1U;
         break;
@@ -191,7 +191,7 @@ void knx_summary_basic_setting(const KNX_Frame_t *frame)
         setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_KEY_BRIGHTNESS_DAY;
         if (frame->data_len >= 1U)
         {
-            setting_frame.value = (uint8_t)(((uint32_t)frame->data[0] * 100U) / 255U);
+            setting_frame.value = hooch_CharsToPercentage(frame->data[0]);
         }
         need_set = 1U;
         item_desc = KNX_DESC("Key Brightness Day (K->P)"); /* 按键亮度(白天) */
@@ -201,7 +201,7 @@ void knx_summary_basic_setting(const KNX_Frame_t *frame)
         setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_STANDBY_BRIGHTNESS;
         if (frame->data_len >= 1U)
         {
-            setting_frame.value = (uint8_t)(((uint32_t)frame->data[0] * 100U) / 255U);
+            setting_frame.value = hooch_CharsToPercentage(frame->data[0]);
         }
         need_set = 1U;
         break;

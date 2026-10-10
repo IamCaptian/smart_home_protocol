@@ -104,6 +104,8 @@ typedef enum
     HOOCH_PROTOCOL_SETTING_ITEM_TEMPERATURE_CALIBRATION,           /* [78] 温度传感器矫正 (int8 -10~+10) */
     HOOCH_PROTOCOL_SETTING_ITEM_HUMIDITY_CALIBRATION,              /* [79] 湿度传感器矫正 (int8 -20~+20) */
     HOOCH_PROTOCOL_SETTING_ITEM_DEVICE_NAME,                       /* [80] 设备名称 (UTF-8, 最多24字节) */
+    HOOCH_PROTOCOL_SETTING_ITEM_DATABASE_UNIQUE_CODE,              /* [81] 数据库配置唯一码 (0-65535, 判断配置是否变化) */
+    HOOCH_PROTOCOL_SETTING_ITEM_SCREEN_SLEEP_ACTION,               /* [82] 立即进入/退出息屏 (取值见 ScreenSleepAction) */
 
 } HOOCH_PROTOCOL_SettingItem_t;
 
@@ -210,6 +212,13 @@ typedef enum
     HOOCH_PROTOCOL_SETTING_SCREEN_OFF_TIME_VALUE = 2U,      /* 数值熄屏 */
     HOOCH_PROTOCOL_SETTING_SCREEN_OFF_TIME_BACKLIGHT_OFF = 3U, /* 关闭背光 */
 } HOOCH_PROTOCOL_SettingScreenOffTime_t;
+
+/* 立即进入/退出息屏 ([82] SCREEN_SLEEP_ACTION 的取值；动作型，收到即刻执行) */
+typedef enum
+{
+    HOOCH_PROTOCOL_SETTING_SCREEN_SLEEP_ACTION_EXIT = 0U,   /* 退出息屏/唤醒屏幕 */
+    HOOCH_PROTOCOL_SETTING_SCREEN_SLEEP_ACTION_ENTER = 1U,  /* 进入息屏 */
+} HOOCH_PROTOCOL_SettingScreenSleepAction_t;
 
 typedef enum
 {

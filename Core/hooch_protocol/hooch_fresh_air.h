@@ -38,7 +38,8 @@ typedef enum
 typedef enum
 {
     HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_INVALID = 0U,    /* 无效风速 */
-    HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_LOW = 1U,        /* 低风 */
+    HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_OFF = 1U,        /* 关闭 */
+    HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_LOW = 2U,        /* 低风 */
     HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_MEDIUM,          /* 中风 */
     HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_HIGH,            /* 高风 */
     HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_AUTO,            /* 自动风 */
@@ -72,6 +73,8 @@ typedef enum
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ALL_KNX,            /* 全量控制KNX */
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_TYPE,               /* 新风类型（取值见 HOOCH_PROTOCOL_FreshAirType_t，用 value 承接） */
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_CENTRAL_CONTROL_ADDRESS, /* 集控地址（用 value 承接） */
+    HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_FAN_SPEED_RAW,      /* 仅更新风速原始值（KNX 风速模式字节原值: 0=关闭 1=低风 2=中风 3=高风 4=自动，用 value 承接） */
+    HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_CURRENT_TEMPERATURE_RAW, /* 仅更新当前温度原始值（KNX 实际温度原值: 0~500，实际温度 = value * 0.1℃，用 value 承接） */
     HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_MAX,                /* 哨兵值，新增枚举请插入到上方 */
 } HOOCH_PROTOCOL_FreshAirControlItem_t;
 

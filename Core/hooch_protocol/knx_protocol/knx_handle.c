@@ -385,6 +385,8 @@ static const char *knx_get_basic_function_name(uint8_t item)
     case KNX_BASIC_FUNCTION_HUMIDITY_SENSOR:    return "HUMIDITY_SENSOR";
     case KNX_BASIC_FUNCTION_HUMAN_PRESENCE_SENSOR: return "HUMAN_PRESENCE_SENSOR";
     case KNX_BASIC_FUNCTION_BACKLIGHT_SCREEN_CONTROL: return "BACKLIGHT_SCREEN_CONTROL";
+    case KNX_BASIC_FUNCTION_SCREENSAVER_CONTROL: return "SCREENSAVER_CONTROL";
+    case KNX_BASIC_FUNCTION_DATABASE_UNIQUE_CODE: return "DATABASE_UNIQUE_CODE";
     default:
         return "UNKNOWN_BASIC_FUNCTION";
     }
@@ -981,6 +983,15 @@ static void knx_log_basic_function(const KNX_Frame_t *frame)
     case KNX_BASIC_FUNCTION_WORLD_TIME:
         KNX_LOG_INFO("[KNX] WORLD_TIME len=%u\r\n",
                  (unsigned int)frame->data_len);
+        break;
+
+    case KNX_BASIC_FUNCTION_BACKLIGHT_SCREEN_CONTROL:
+    case KNX_BASIC_FUNCTION_SCREENSAVER_CONTROL:
+        knx_log_single_byte_value("VALUE", frame);
+        break;
+
+    case KNX_BASIC_FUNCTION_DATABASE_UNIQUE_CODE:
+        knx_log_u16_value("UNIQUE_CODE", frame);
         break;
 
     default:

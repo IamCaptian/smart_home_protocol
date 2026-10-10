@@ -145,18 +145,6 @@ static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetDi
             s_hooch_protocol_air_conditioner_dispatch_frame.value = frame->value;
             break;
 
-        case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_HF_WIRED_CONTROLLER_485_ENABLE:
-            /* HF线控485 模块开关：value 0=关闭 1=打开(其余非 0 视为打开) */
-            s_hooch_protocol_air_conditioner_dispatch_frame.value = frame->value;
-            hf_zxk_modbus_set_enable((frame->value != 0U) ? 1U : 0U);
-            break;
-
-        case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_HF_CENTRAL_CONTROL_485_ENABLE:
-            /* HF集控485 模块开关：value 0=关闭 1=打开(其余非 0 视为打开) */
-            s_hooch_protocol_air_conditioner_dispatch_frame.value = frame->value;
-            hf_zjk_modbus_set_enable((frame->value != 0U) ? 1U : 0U);
-            break;
-
         default:
             return HOOCH_PROTOCOL_AIR_CONDITIONER_RESULT_INVALID_PARAM;
     }

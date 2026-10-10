@@ -3,11 +3,11 @@
 <title>Static Call Graph - [XiaoMi_F103\XiaoMi_F103.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image XiaoMi_F103\XiaoMi_F103.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Mon Sep 21 13:46:34 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060960: Last Updated: Thu Sep 24 13:43:29 2026
 <BR><P>
-<H3>Maximum Stack Usage =        824 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        800 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-__rt_entry_main &rArr; main &rArr; hf_zjk_modbus_uart_process &rArr; hf_zjk_modbus_handle_frame &rArr; hf_zjk_modbus_handle_status_response &rArr; hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+__rt_entry_main &rArr; main &rArr; hf_zjk_modbus_uart_process &rArr; hf_zjk_modbus_handle_frame &rArr; hf_zjk_modbus_handle_status_response &rArr; hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 <P>
 <H3>
 Functions with no stack information
@@ -421,8 +421,8 @@ Global Symbols
 <P><STRONG><a name="[215]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[a0]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 824 + Unknown Stack Size
-<LI>Call Chain = __rt_entry_main &rArr; main &rArr; hf_zjk_modbus_uart_process &rArr; hf_zjk_modbus_handle_frame &rArr; hf_zjk_modbus_handle_status_response &rArr; hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 800 + Unknown Stack Size
+<LI>Call Chain = __rt_entry_main &rArr; main &rArr; hf_zjk_modbus_uart_process &rArr; hf_zjk_modbus_handle_frame &rArr; hf_zjk_modbus_handle_status_response &rArr; hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
@@ -594,12 +594,12 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_setting_report_send_result
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_scene_send_result
-<LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_module_state
+<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_module_state
 <LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_key_status_send_result
 <LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_dimmer_send_result
 <LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_curtain_send_result
-<LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
-<LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
+<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
+<LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
 <LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_color_temp
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_help
 </UL>
@@ -665,19 +665,19 @@ Global Symbols
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
 </UL>
 <BR>[Called By]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
 </UL>
 
-<P><STRONG><a name="[138]"></a>strlen</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, strlen.o(.text))
+<P><STRONG><a name="[136]"></a>strlen</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, strlen.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Called By]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 </UL>
 
 <P><STRONG><a name="[101]"></a>__aeabi_memcpy</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memcpy_v6.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_DispatchFrame
-<LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_SetDispatchFrameInternal
-<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal
+<BR><BR>[Called By]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_DispatchFrame
+<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_SetDispatchFrameInternal
+<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_key_name
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_uart_send_pdu
@@ -693,7 +693,7 @@ Global Symbols
 <P><STRONG><a name="[b9]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, rt_memcpy_w.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_memcpy4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
+<BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_memcpy
 </UL>
 
@@ -704,8 +704,8 @@ Global Symbols
 <P><STRONG><a name="[21b]"></a>_memcpy_lastbytes_aligned</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memcpy_w.o(.text), UNUSED)
 
 <P><STRONG><a name="[f1]"></a>__aeabi_memclr</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memclr.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Process
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Init
+<BR><BR>[Called By]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Process
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Init
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_ClearFrame
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_ring_buffer_init
 <LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_parser_init
@@ -717,15 +717,15 @@ Global Symbols
 
 <P><STRONG><a name="[21c]"></a>_memset</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, rt_memclr.o(.text), UNUSED)
 
-<P><STRONG><a name="[137]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text))
+<P><STRONG><a name="[135]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<BR>[Called By]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 <LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_ota_data
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dp_dispatch_switch
 <LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_recv_city_response_cb
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_adv_set
-<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_add_group_id
+<LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_add_group_id
 </UL>
 
 <P><STRONG><a name="[21d]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text), UNUSED)
@@ -736,8 +736,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_memclr
 </UL>
 
-<P><STRONG><a name="[12f]"></a>strcmp</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, strcmpv7m.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Process
+<P><STRONG><a name="[12d]"></a>strcmp</STRONG> (Thumb, 128 bytes, Stack size 0 bytes, strcmpv7m.o(.text))
+<BR><BR>[Called By]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Process
 <LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_numeric
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_get_lc_ctype
 </UL>
@@ -808,8 +808,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[3b]"></a>_snputc</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, _snputc.o(.text))
-<BR>[Address Reference Count : 2]<UL><LI> vsnprintf.o(.text)
-<LI> __2snprintf.o(.text)
+<BR>[Address Reference Count : 2]<UL><LI> __2snprintf.o(.text)
+<LI> vsnprintf.o(.text)
 </UL>
 <P><STRONG><a name="[bc]"></a>_printf_cs_common</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, _printf_char.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = _printf_cs_common &rArr; _printf_str &rArr; _printf_post_padding
@@ -1114,10 +1114,10 @@ Global Symbols
 <P><STRONG><a name="[b]"></a>DebugMon_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f1xx_it.o(i.DebugMon_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
-<P><STRONG><a name="[132]"></a>Error_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, main.o(i.Error_Handler))
-<BR><BR>[Called By]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART3_UART_Init
-<LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
+<P><STRONG><a name="[130]"></a>Error_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, main.o(i.Error_Handler))
+<BR><BR>[Called By]<UL><LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART3_UART_Init
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
+<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
 </UL>
 
 <P><STRONG><a name="[e6]"></a>HAL_DMA_Abort</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, stm32f1xx_hal_dma.o(i.HAL_DMA_Abort))
@@ -1155,7 +1155,7 @@ Global Symbols
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_WaitOnFlagUntilTimeout
 </UL>
 
-<P><STRONG><a name="[135]"></a>HAL_IncTick</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f1xx_hal.o(i.HAL_IncTick))
+<P><STRONG><a name="[133]"></a>HAL_IncTick</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f1xx_hal.o(i.HAL_IncTick))
 <BR><BR>[Called By]<UL><LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTick_Handler
 </UL>
 
@@ -1209,14 +1209,14 @@ Global Symbols
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_InitTick
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
-<BR>[Called By]<UL><LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<BR>[Called By]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 </UL>
 
-<P><STRONG><a name="[13b]"></a>HAL_RCC_GetPCLK1Freq</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f1xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq))
+<P><STRONG><a name="[139]"></a>HAL_RCC_GetPCLK1Freq</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f1xx_hal_rcc.o(i.HAL_RCC_GetPCLK1Freq))
 <BR><BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
 </UL>
 
-<P><STRONG><a name="[13a]"></a>HAL_RCC_GetPCLK2Freq</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f1xx_hal_rcc.o(i.HAL_RCC_GetPCLK2Freq))
+<P><STRONG><a name="[138]"></a>HAL_RCC_GetPCLK2Freq</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f1xx_hal_rcc.o(i.HAL_RCC_GetPCLK2Freq))
 <BR><BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
 </UL>
 
@@ -1229,7 +1229,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
-<BR>[Called By]<UL><LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<BR>[Called By]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 </UL>
 
 <P><STRONG><a name="[db]"></a>HAL_SYSTICK_Config</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, stm32f1xx_hal_cortex.o(i.HAL_SYSTICK_Config))
@@ -1270,9 +1270,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_SetConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART3_UART_Init
-<LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
+<BR>[Called By]<UL><LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART3_UART_Init
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
+<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
 </UL>
 
 <P><STRONG><a name="[ea]"></a>HAL_UART_MspInit</STRONG> (Thumb, 282 bytes, Stack size 40 bytes, usart.o(i.HAL_UART_MspInit))
@@ -1285,7 +1285,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Init
 </UL>
 
-<P><STRONG><a name="[139]"></a>HAL_UART_RxCpltCallback</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f1xx_hal_uart.o(i.HAL_UART_RxCpltCallback))
+<P><STRONG><a name="[137]"></a>HAL_UART_RxCpltCallback</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f1xx_hal_uart.o(i.HAL_UART_RxCpltCallback))
 <BR><BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_Receive_IT
 </UL>
 
@@ -1295,8 +1295,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Called By]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
-<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendChar
+<BR>[Called By]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendChar
 <LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_byte
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_uart_send_pdu
 </UL>
@@ -1326,8 +1326,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[f2]"></a>HOOCH_PROTOCOL_AirConditioner_DispatchFrame</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_air_conditioner_dispatch.o(i.HOOCH_PROTOCOL_AirConditioner_DispatchFrame))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
-<LI>Call Chain = HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal
 </UL>
@@ -1490,68 +1489,68 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_uart_init
 </UL>
 
-<P><STRONG><a name="[104]"></a>HOOCH_PROTOCOL_Curtain_SendAngle</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SendAngle))
+<P><STRONG><a name="[102]"></a>HOOCH_PROTOCOL_Curtain_SendAngle</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SendAngle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_Curtain_SendAngle &rArr; HOOCH_PROTOCOL_Curtain_SetAngle &rArr; HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
-<BR>[Calls]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetAngle
+<BR>[Calls]<UL><LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetAngle
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_curtain_angle
 </UL>
 
-<P><STRONG><a name="[106]"></a>HOOCH_PROTOCOL_Curtain_SendPercent</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SendPercent))
+<P><STRONG><a name="[104]"></a>HOOCH_PROTOCOL_Curtain_SendPercent</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SendPercent))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_Curtain_SendPercent &rArr; HOOCH_PROTOCOL_Curtain_SetPercent &rArr; HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
-<BR>[Calls]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetPercent
+<BR>[Calls]<UL><LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetPercent
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_curtain_percent
 </UL>
 
-<P><STRONG><a name="[108]"></a>HOOCH_PROTOCOL_Curtain_SendStop</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SendStop))
+<P><STRONG><a name="[106]"></a>HOOCH_PROTOCOL_Curtain_SendStop</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SendStop))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_Curtain_SendStop &rArr; HOOCH_PROTOCOL_Curtain_SetStop &rArr; HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
-<BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetStop
+<BR>[Calls]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetStop
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_curtain_stop
 </UL>
 
-<P><STRONG><a name="[10a]"></a>HOOCH_PROTOCOL_Curtain_SendSwitch</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SendSwitch))
+<P><STRONG><a name="[108]"></a>HOOCH_PROTOCOL_Curtain_SendSwitch</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SendSwitch))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_Curtain_SendSwitch &rArr; HOOCH_PROTOCOL_Curtain_SetValue &rArr; HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetValue
+<BR>[Calls]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetValue
 </UL>
 <BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_curtain_switch
 </UL>
 
-<P><STRONG><a name="[105]"></a>HOOCH_PROTOCOL_Curtain_SetAngle</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SetAngle))
+<P><STRONG><a name="[103]"></a>HOOCH_PROTOCOL_Curtain_SetAngle</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SetAngle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_Curtain_SetAngle &rArr; HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetItem
+<BR>[Calls]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
-<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendAngle
+<BR>[Called By]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendAngle
 </UL>
 
-<P><STRONG><a name="[107]"></a>HOOCH_PROTOCOL_Curtain_SetPercent</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SetPercent))
+<P><STRONG><a name="[105]"></a>HOOCH_PROTOCOL_Curtain_SetPercent</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SetPercent))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_Curtain_SetPercent &rArr; HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetItem
+<BR>[Calls]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
-<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendPercent
+<BR>[Called By]<UL><LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendPercent
 </UL>
 
-<P><STRONG><a name="[109]"></a>HOOCH_PROTOCOL_Curtain_SetStop</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SetStop))
+<P><STRONG><a name="[107]"></a>HOOCH_PROTOCOL_Curtain_SetStop</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SetStop))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_Curtain_SetStop &rArr; HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetItem
+<BR>[Calls]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
-<BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendStop
+<BR>[Called By]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendStop
 </UL>
 
-<P><STRONG><a name="[10b]"></a>HOOCH_PROTOCOL_Curtain_SetValue</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SetValue))
+<P><STRONG><a name="[109]"></a>HOOCH_PROTOCOL_Curtain_SetValue</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SetValue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_Curtain_SetValue &rArr; HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetItem
+<BR>[Calls]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendSwitch
+<BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendSwitch
 </UL>
 
 <P><STRONG><a name="[156]"></a>HOOCH_PROTOCOL_DimmerLight_GetFrame</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_dimmer_light_report.o(i.HOOCH_PROTOCOL_DimmerLight_GetFrame))
@@ -1574,34 +1573,34 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_uart_init
 </UL>
 
-<P><STRONG><a name="[10e]"></a>HOOCH_PROTOCOL_DimmerLight_SendBrightness</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, hooch_dimmer_light_report.o(i.HOOCH_PROTOCOL_DimmerLight_SendBrightness))
+<P><STRONG><a name="[10c]"></a>HOOCH_PROTOCOL_DimmerLight_SendBrightness</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, hooch_dimmer_light_report.o(i.HOOCH_PROTOCOL_DimmerLight_SendBrightness))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HOOCH_PROTOCOL_DimmerLight_SendBrightness
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_NotifyReportCallback1
+<BR>[Calls]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_NotifyReportCallback1
 </UL>
 <BR>[Called By]<UL><LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_brightness
 </UL>
 
-<P><STRONG><a name="[110]"></a>HOOCH_PROTOCOL_DimmerLight_SendColorTemperature</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, hooch_dimmer_light_report.o(i.HOOCH_PROTOCOL_DimmerLight_SendColorTemperature))
+<P><STRONG><a name="[10e]"></a>HOOCH_PROTOCOL_DimmerLight_SendColorTemperature</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, hooch_dimmer_light_report.o(i.HOOCH_PROTOCOL_DimmerLight_SendColorTemperature))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HOOCH_PROTOCOL_DimmerLight_SendColorTemperature
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_NotifyReportCallback1
+<BR>[Calls]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_NotifyReportCallback1
 </UL>
 <BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_color_temp
 </UL>
 
-<P><STRONG><a name="[111]"></a>HOOCH_PROTOCOL_DimmerLight_SendSwitch</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, hooch_dimmer_light_report.o(i.HOOCH_PROTOCOL_DimmerLight_SendSwitch))
+<P><STRONG><a name="[10f]"></a>HOOCH_PROTOCOL_DimmerLight_SendSwitch</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, hooch_dimmer_light_report.o(i.HOOCH_PROTOCOL_DimmerLight_SendSwitch))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HOOCH_PROTOCOL_DimmerLight_SendSwitch
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_NotifyReportCallback1
+<BR>[Calls]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_NotifyReportCallback1
 </UL>
 <BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_switch
 </UL>
 
-<P><STRONG><a name="[112]"></a>HOOCH_PROTOCOL_FloorHeating_DispatchFrame</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_floor_heating_dispatch.o(i.HOOCH_PROTOCOL_FloorHeating_DispatchFrame))
+<P><STRONG><a name="[110]"></a>HOOCH_PROTOCOL_FloorHeating_DispatchFrame</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_floor_heating_dispatch.o(i.HOOCH_PROTOCOL_FloorHeating_DispatchFrame))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_FloorHeating_DispatchFrame &rArr; HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal
 </UL>
-<BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal
+<BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal
 </UL>
 <BR>[Called By]<UL><LI><a href="#[18c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_heat_limit
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dispatch_floor_frame
@@ -1624,10 +1623,10 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_uart_init
 </UL>
 
-<P><STRONG><a name="[115]"></a>HOOCH_PROTOCOL_FreshAir_DispatchFrame</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_fresh_air_dispatch.o(i.HOOCH_PROTOCOL_FreshAir_DispatchFrame))
+<P><STRONG><a name="[113]"></a>HOOCH_PROTOCOL_FreshAir_DispatchFrame</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hooch_fresh_air_dispatch.o(i.HOOCH_PROTOCOL_FreshAir_DispatchFrame))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_FreshAir_DispatchFrame &rArr; HOOCH_PROTOCOL_FreshAir_SetDispatchFrameInternal
 </UL>
-<BR>[Calls]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_SetDispatchFrameInternal
+<BR>[Calls]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_SetDispatchFrameInternal
 </UL>
 <BR>[Called By]<UL><LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dispatch_fresh_air_frame
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_adv_set
@@ -1649,12 +1648,12 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_uart_init
 </UL>
 
-<P><STRONG><a name="[119]"></a>HOOCH_PROTOCOL_KeyMode_IsValidKey</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_key_mode.o(i.HOOCH_PROTOCOL_KeyMode_IsValidKey), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyMode_Set
+<P><STRONG><a name="[117]"></a>HOOCH_PROTOCOL_KeyMode_IsValidKey</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_key_mode.o(i.HOOCH_PROTOCOL_KeyMode_IsValidKey), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyMode_Set
 </UL>
 
-<P><STRONG><a name="[11a]"></a>HOOCH_PROTOCOL_KeyMode_IsValidPowerOnStatus</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, hooch_key_mode.o(i.HOOCH_PROTOCOL_KeyMode_IsValidPowerOnStatus), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyMode_Set
+<P><STRONG><a name="[118]"></a>HOOCH_PROTOCOL_KeyMode_IsValidPowerOnStatus</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, hooch_key_mode.o(i.HOOCH_PROTOCOL_KeyMode_IsValidPowerOnStatus), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyMode_Set
 </UL>
 
 <P><STRONG><a name="[43]"></a>HOOCH_PROTOCOL_KeyMode_Process</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, main.o(i.HOOCH_PROTOCOL_KeyMode_Process))
@@ -1673,10 +1672,10 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[18d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_key_mode
 </UL>
 
-<P><STRONG><a name="[118]"></a>HOOCH_PROTOCOL_KeyMode_Set</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, hooch_key_mode.o(i.HOOCH_PROTOCOL_KeyMode_Set), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyMode_IsValidPowerOnStatus
-<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyMode_IsValidKey
-<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyMode_NotifyCallback
+<P><STRONG><a name="[116]"></a>HOOCH_PROTOCOL_KeyMode_Set</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, hooch_key_mode.o(i.HOOCH_PROTOCOL_KeyMode_Set), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyMode_IsValidPowerOnStatus
+<LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyMode_IsValidKey
+<LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyMode_NotifyCallback
 </UL>
 
 <P><STRONG><a name="[42]"></a>HOOCH_PROTOCOL_KeyName_Process</STRONG> (Thumb, 60 bytes, Stack size 32 bytes, main.o(i.HOOCH_PROTOCOL_KeyName_Process))
@@ -1691,11 +1690,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[11c]"></a>HOOCH_PROTOCOL_KeyName_SetFrame</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, hooch_key_name.o(i.HOOCH_PROTOCOL_KeyName_SetFrame))
+<P><STRONG><a name="[11a]"></a>HOOCH_PROTOCOL_KeyName_SetFrame</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, hooch_key_name.o(i.HOOCH_PROTOCOL_KeyName_SetFrame))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_KeyName_SetFrame
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyName_NotifyCallback
-<LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyName_CopyName
+<BR>[Calls]<UL><LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyName_NotifyCallback
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyName_CopyName
 </UL>
 <BR>[Called By]<UL><LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_key_name
 </UL>
@@ -1708,10 +1707,10 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
 </UL>
-<P><STRONG><a name="[11f]"></a>HOOCH_PROTOCOL_KeyStatus_DispatchFrame</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, hooch_key_status_dispatch.o(i.HOOCH_PROTOCOL_KeyStatus_DispatchFrame))
+<P><STRONG><a name="[11d]"></a>HOOCH_PROTOCOL_KeyStatus_DispatchFrame</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, hooch_key_status_dispatch.o(i.HOOCH_PROTOCOL_KeyStatus_DispatchFrame))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HOOCH_PROTOCOL_KeyStatus_DispatchFrame
 </UL>
-<BR>[Calls]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_NotifyDispatchCallback
+<BR>[Calls]<UL><LI><a href="#[11e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_NotifyDispatchCallback
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dp_dispatch_switch
@@ -1725,10 +1724,10 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_uart_init
 </UL>
 
-<P><STRONG><a name="[121]"></a>HOOCH_PROTOCOL_KeyStatus_ReportState</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, hooch_key_status_report.o(i.HOOCH_PROTOCOL_KeyStatus_ReportState))
+<P><STRONG><a name="[11f]"></a>HOOCH_PROTOCOL_KeyStatus_ReportState</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, hooch_key_status_report.o(i.HOOCH_PROTOCOL_KeyStatus_ReportState))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HOOCH_PROTOCOL_KeyStatus_ReportState
 </UL>
-<BR>[Calls]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_NotifyReportCallback
+<BR>[Calls]<UL><LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_NotifyReportCallback
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_key_status
 </UL>
@@ -1749,18 +1748,18 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dp_dispatch_scene
 </UL>
 
-<P><STRONG><a name="[123]"></a>HOOCH_PROTOCOL_SceneDispatch_Set</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, hooch_scene_dispatch.o(i.HOOCH_PROTOCOL_SceneDispatch_Set), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneDispatch_NotifyCallback
+<P><STRONG><a name="[121]"></a>HOOCH_PROTOCOL_SceneDispatch_Set</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, hooch_scene_dispatch.o(i.HOOCH_PROTOCOL_SceneDispatch_Set), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneDispatch_NotifyCallback
 </UL>
 
 <P><STRONG><a name="[1e7]"></a>HOOCH_PROTOCOL_SceneReport_RegisterReportCallback</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, hooch_scene_report.o(i.HOOCH_PROTOCOL_SceneReport_RegisterReportCallback))
 <BR><BR>[Called By]<UL><LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_uart_init
 </UL>
 
-<P><STRONG><a name="[125]"></a>HOOCH_PROTOCOL_SceneReport_Send</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, hooch_scene_report.o(i.HOOCH_PROTOCOL_SceneReport_Send))
+<P><STRONG><a name="[123]"></a>HOOCH_PROTOCOL_SceneReport_Send</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, hooch_scene_report.o(i.HOOCH_PROTOCOL_SceneReport_Send))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HOOCH_PROTOCOL_SceneReport_Send &rArr; HOOCH_PROTOCOL_SceneReport_SetAction
 </UL>
-<BR>[Calls]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_SetAction
+<BR>[Calls]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_SetAction
 </UL>
 <BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_scene_report
 </UL>
@@ -1789,10 +1788,10 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[129]"></a>HOOCH_PROTOCOL_Setting_SetFrame</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, hooch_setting.o(i.HOOCH_PROTOCOL_Setting_SetFrame))
+<P><STRONG><a name="[127]"></a>HOOCH_PROTOCOL_Setting_SetFrame</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, hooch_setting.o(i.HOOCH_PROTOCOL_Setting_SetFrame))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_Setting_SetFrame &rArr; __aeabi_memcpy4
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_NotifyCallback
+<BR>[Calls]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_NotifyCallback
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dp_dispatch_setting
@@ -1813,33 +1812,33 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
-<P><STRONG><a name="[12b]"></a>Hooch_CLI_Init</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, hooch_cli_driver.o(i.Hooch_CLI_Init))
+<P><STRONG><a name="[129]"></a>Hooch_CLI_Init</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, hooch_cli_driver.o(i.Hooch_CLI_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = Hooch_CLI_Init &rArr; UART1_SendString &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[12d]"></a>Hooch_CLI_Process</STRONG> (Thumb, 288 bytes, Stack size 56 bytes, hooch_cli_driver.o(i.Hooch_CLI_Process))
+<P><STRONG><a name="[12b]"></a>Hooch_CLI_Process</STRONG> (Thumb, 288 bytes, Stack size 56 bytes, hooch_cli_driver.o(i.Hooch_CLI_Process))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = Hooch_CLI_Process &rArr; UART1_SendString &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
-<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendChar
-<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendChar
+<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[13c]"></a>Hooch_CLI_RxCallback</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, hooch_cli_driver.o(i.Hooch_CLI_RxCallback))
+<P><STRONG><a name="[13a]"></a>Hooch_CLI_RxCallback</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, hooch_cli_driver.o(i.Hooch_CLI_RxCallback))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Hooch_CLI_RxCallback
 </UL>
 <BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART1_IRQHandler
 </UL>
 
-<P><STRONG><a name="[130]"></a>Log_Init</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, user_printf.o(i.Log_Init))
+<P><STRONG><a name="[12e]"></a>Log_Init</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, user_printf.o(i.Log_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152 + Unknown Stack Size
 <LI>Call Chain = Log_Init &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -1852,7 +1851,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 152 + Unknown Stack Size
 <LI>Call Chain = Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vsnprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_setting_report_send_result
@@ -1860,12 +1859,12 @@ Global Symbols
 <LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_key_status_send_result
 <LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_dimmer_send_result
 <LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_curtain_send_result
-<LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
-<LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
-<LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_uart_rxcallback
+<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
+<LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
+<LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_uart_rxcallback
 <LI><a href="#[1a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_uart_process
 <LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_uart_init
-<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Init
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Init
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_Process
 <LI><a href="#[49]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneDispatch_Process
@@ -1878,7 +1877,7 @@ Global Symbols
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_Process
 <LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_CodeMatchDispatch_Process
 <LI><a href="#[44]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_Process
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_set_enable
+<LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_set_enable
 <LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_log_payload_hex
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_common_dp_msg
 <LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_msg_handle
@@ -1917,29 +1916,29 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[131]"></a>MX_USART1_UART_Init</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, usart.o(i.MX_USART1_UART_Init))
+<P><STRONG><a name="[12f]"></a>MX_USART1_UART_Init</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, usart.o(i.MX_USART1_UART_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = MX_USART1_UART_Init &rArr; HAL_UART_Init &rArr; HAL_UART_MspInit &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Init
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[133]"></a>MX_USART2_UART_Init</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, usart.o(i.MX_USART2_UART_Init))
+<P><STRONG><a name="[131]"></a>MX_USART2_UART_Init</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, usart.o(i.MX_USART2_UART_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = MX_USART2_UART_Init &rArr; HAL_UART_Init &rArr; HAL_UART_MspInit &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Init
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[134]"></a>MX_USART3_UART_Init</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, usart.o(i.MX_USART3_UART_Init))
+<P><STRONG><a name="[132]"></a>MX_USART3_UART_Init</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, usart.o(i.MX_USART3_UART_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = MX_USART3_UART_Init &rArr; HAL_UART_Init &rArr; HAL_UART_MspInit &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Init
-<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler
+<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1965,16 +1964,16 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
 <P><STRONG><a name="[d]"></a>SysTick_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f1xx_it.o(i.SysTick_Handler))
-<BR><BR>[Calls]<UL><LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_IncTick
+<BR><BR>[Calls]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_IncTick
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
-<P><STRONG><a name="[136]"></a>SystemClock_Config</STRONG> (Thumb, 94 bytes, Stack size 72 bytes, main.o(i.SystemClock_Config))
+<P><STRONG><a name="[134]"></a>SystemClock_Config</STRONG> (Thumb, 94 bytes, Stack size 72 bytes, main.o(i.SystemClock_Config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = SystemClock_Config &rArr; HAL_RCC_ClockConfig &rArr; HAL_InitTick &rArr; HAL_NVIC_SetPriority
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
-<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1982,29 +1981,29 @@ Global Symbols
 <P><STRONG><a name="[39]"></a>SystemInit</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, system_stm32f1xx.o(i.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(.text)
 </UL>
-<P><STRONG><a name="[12e]"></a>UART1_SendChar</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, user_printf.o(i.UART1_SendChar))
+<P><STRONG><a name="[12c]"></a>UART1_SendChar</STRONG> (Thumb, 16 bytes, Stack size 8 bytes, user_printf.o(i.UART1_SendChar))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = UART1_SendChar &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Process
+<BR>[Called By]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Process
 </UL>
 
-<P><STRONG><a name="[12c]"></a>UART1_SendString</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, user_printf.o(i.UART1_SendString))
+<P><STRONG><a name="[12a]"></a>UART1_SendString</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, user_printf.o(i.UART1_SendString))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = UART1_SendString &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
-<LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_setting_report_send_result
 <LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_scene_send_result
-<LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_module_state
+<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_module_state
 <LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_key_status_send_result
 <LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_dimmer_send_result
 <LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_curtain_send_result
-<LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
-<LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
-<LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_module_enable
+<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
+<LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
+<LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_module_enable
 <LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_reboot
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_switch
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_setting_report
@@ -2029,14 +2028,14 @@ Global Symbols
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_hf485_air_fan_speed
 <LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_help
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Process
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Init
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Process
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Init
 </UL>
 
 <P><STRONG><a name="[33]"></a>USART1_IRQHandler</STRONG> (Thumb, 52 bytes, Stack size 8 bytes, stm32f1xx_it.o(i.USART1_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = USART1_IRQHandler &rArr; Hooch_CLI_RxCallback
 </UL>
-<BR>[Calls]<UL><LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_RxCallback
+<BR>[Calls]<UL><LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_RxCallback
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
@@ -2044,7 +2043,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 168 + Unknown Stack Size
 <LI>Call Chain = USART2_IRQHandler &rArr; hf_zjk_modbus_uart_rxcallback &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_uart_rxcallback
+<BR>[Calls]<UL><LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_uart_rxcallback
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
@@ -2078,8 +2077,8 @@ Global Symbols
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
 </UL>
 
-<P><STRONG><a name="[145]"></a>ascii_to_hex</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, system.o(i.ascii_to_hex))
-<BR><BR>[Called By]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_native_mcu_fw_ver
+<P><STRONG><a name="[143]"></a>ascii_to_hex</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, system.o(i.ascii_to_hex))
+<BR><BR>[Called By]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_native_mcu_fw_ver
 </UL>
 
 <P><STRONG><a name="[179]"></a>byte_to_int</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, system.o(i.byte_to_int))
@@ -2095,8 +2094,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[169]"></a>frame_rx_handle</STRONG> (Thumb, 950 bytes, Stack size 72 bytes, protocol.o(i.frame_rx_handle))
-<BR><BR>[Stack]<UL><LI>Max Depth = 520 + Unknown Stack Size
-<LI>Call Chain = frame_rx_handle &rArr; mcu_rx_common_dp_msg &rArr; mcu_send_dp_msg_cb &rArr; tuya_dp_dispatch_setting &rArr; handle_adv_set &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 496 + Unknown Stack Size
+<LI>Call Chain = frame_rx_handle &rArr; mcu_rx_common_dp_msg &rArr; mcu_send_dp_msg_cb &rArr; tuya_dp_dispatch_setting &rArr; handle_adv_set &rArr; hf_zjk_modbus_set_current_ac_addr &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[16c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hooch_cpu1_set_detected_protocol
@@ -2108,10 +2107,10 @@ Global Symbols
 <LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_ota_data
 <LI><a href="#[17d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_group_dp_msg
 <LI><a href="#[170]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_common_dp_msg
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__send_mcu_fw_ver
-<LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__calculate_week_and_date
+<LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__send_mcu_fw_ver
+<LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__calculate_week_and_date
 <LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_memcpy
-<LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
 <LI><a href="#[175]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_recv_zg_nwk_status_response_cb
 <LI><a href="#[16f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_recv_zg_nwk_status_notify_cb
 <LI><a href="#[183]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_recv_weather_response_cb
@@ -2128,22 +2127,22 @@ Global Symbols
 <LI><a href="#[176]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_recv_double_dongle_test_data_cb
 <LI><a href="#[182]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_recv_city_response_cb
 <LI><a href="#[17c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_recv_beacon_notify_cb
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 <LI><a href="#[179]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;byte_to_int
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_service_parse
 </UL>
 
 <P><STRONG><a name="[1ed]"></a>get_seq_num</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, system.o(i.get_seq_num))
-<BR><BR>[Called By]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<BR><BR>[Called By]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
 </UL>
 
 <P><STRONG><a name="[1ec]"></a>get_u8_checksum</STRONG> (Thumb, 36 bytes, Stack size 12 bytes, system.o(i.get_u8_checksum))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = get_u8_checksum
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_service_parse
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
 </UL>
 
 <P><STRONG><a name="[1aa]"></a>hf_zjk_modbus_checksum</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, hf_zjk_modbus_circular_buffer.o(i.hf_zjk_modbus_checksum))
@@ -2157,8 +2156,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[19a]"></a>hf_zjk_modbus_handle_frame</STRONG> (Thumb, 132 bytes, Stack size 24 bytes, hf_zjk_modbus_handle.o(i.hf_zjk_modbus_handle_frame))
-<BR><BR>[Stack]<UL><LI>Max Depth = 400 + Unknown Stack Size
-<LI>Call Chain = hf_zjk_modbus_handle_frame &rArr; hf_zjk_modbus_handle_status_response &rArr; hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 376 + Unknown Stack Size
+<LI>Call Chain = hf_zjk_modbus_handle_frame &rArr; hf_zjk_modbus_handle_status_response &rArr; hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_handle_status_response
@@ -2209,7 +2208,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1a9]"></a>hf_zjk_modbus_ring_buffer_push</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, hf_zjk_modbus_circular_buffer.o(i.hf_zjk_modbus_ring_buffer_push))
-<BR><BR>[Called By]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_uart_rxcallback
+<BR><BR>[Called By]<UL><LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_uart_rxcallback
 </UL>
 
 <P><STRONG><a name="[152]"></a>hf_zjk_modbus_set_current_ac_addr</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hf_zjk_modbus_circular_buffer.o(i.hf_zjk_modbus_set_current_ac_addr))
@@ -2223,7 +2222,7 @@ Global Symbols
 <LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_air_conditioner_report_callback
 </UL>
 
-<P><STRONG><a name="[103]"></a>hf_zjk_modbus_set_enable</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, hf_zjk_modbus_circular_buffer.o(i.hf_zjk_modbus_set_enable))
+<P><STRONG><a name="[150]"></a>hf_zjk_modbus_set_enable</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, hf_zjk_modbus_circular_buffer.o(i.hf_zjk_modbus_set_enable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
 <LI>Call Chain = hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -2231,7 +2230,6 @@ Global Symbols
 <LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_reset_transport_state
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_hfjk_enable
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal
 <LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_air_conditioner_report_callback
 </UL>
 
@@ -2247,8 +2245,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1a7]"></a>hf_zjk_modbus_uart_process</STRONG> (Thumb, 110 bytes, Stack size 424 bytes, hf_zjk_modbus_circular_buffer.o(i.hf_zjk_modbus_uart_process))
-<BR><BR>[Stack]<UL><LI>Max Depth = 824 + Unknown Stack Size
-<LI>Call Chain = hf_zjk_modbus_uart_process &rArr; hf_zjk_modbus_handle_frame &rArr; hf_zjk_modbus_handle_status_response &rArr; hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 800 + Unknown Stack Size
+<LI>Call Chain = hf_zjk_modbus_uart_process &rArr; hf_zjk_modbus_handle_frame &rArr; hf_zjk_modbus_handle_status_response &rArr; hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[1a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_tx_schedule
@@ -2260,7 +2258,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[13d]"></a>hf_zjk_modbus_uart_rxcallback</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, hf_zjk_modbus_circular_buffer.o(i.hf_zjk_modbus_uart_rxcallback))
+<P><STRONG><a name="[13b]"></a>hf_zjk_modbus_uart_rxcallback</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, hf_zjk_modbus_circular_buffer.o(i.hf_zjk_modbus_uart_rxcallback))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
 <LI>Call Chain = hf_zjk_modbus_uart_rxcallback &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -2285,13 +2283,12 @@ Global Symbols
 <LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_air_conditioner_report_callback
 </UL>
 
-<P><STRONG><a name="[14e]"></a>hf_zxk_modbus_get_enable</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hf_zxk_modbus_circular_buffer.o(i.hf_zxk_modbus_get_enable))
+<P><STRONG><a name="[14d]"></a>hf_zxk_modbus_get_enable</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, hf_zxk_modbus_circular_buffer.o(i.hf_zxk_modbus_get_enable))
 <BR><BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_hf485_enable
 </UL>
 
-<P><STRONG><a name="[102]"></a>hf_zxk_modbus_set_enable</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hf_zxk_modbus_circular_buffer.o(i.hf_zxk_modbus_set_enable))
+<P><STRONG><a name="[14c]"></a>hf_zxk_modbus_set_enable</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hf_zxk_modbus_circular_buffer.o(i.hf_zxk_modbus_set_enable))
 <BR><BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_hf485_enable
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal
 </UL>
 
 <P><STRONG><a name="[1ad]"></a>hf_zxk_modbus_uart_init</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, hf_zxk_modbus_circular_buffer.o(i.hf_zxk_modbus_uart_init))
@@ -2307,8 +2304,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[a1]"></a>main</STRONG> (Thumb, 220 bytes, Stack size 0 bytes, main.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 824 + Unknown Stack Size
-<LI>Call Chain = main &rArr; hf_zjk_modbus_uart_process &rArr; hf_zjk_modbus_handle_frame &rArr; hf_zjk_modbus_handle_status_response &rArr; hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 800 + Unknown Stack Size
+<LI>Call Chain = main &rArr; hf_zjk_modbus_uart_process &rArr; hf_zjk_modbus_handle_frame &rArr; hf_zjk_modbus_handle_status_response &rArr; hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_service_parse
 <LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_uart_init
@@ -2316,14 +2313,14 @@ Global Symbols
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zxk_modbus_uart_init
 <LI><a href="#[1a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_uart_process
 <LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_uart_init
-<LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART3_UART_Init
-<LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
-<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
+<LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART3_UART_Init
+<LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART2_UART_Init
+<LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_USART1_UART_Init
 <LI><a href="#[1ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
-<LI><a href="#[130]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Init
-<LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Process
-<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Init
+<LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Init
+<LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Process
+<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Hooch_CLI_Init
 <LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_RegisterCallback
 <LI><a href="#[1b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneDispatch_RegisterCallback
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_RegisterCallback
@@ -2337,7 +2334,7 @@ Global Symbols
 <LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_RegisterCallback
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
-<LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
+<LI><a href="#[134]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
@@ -2345,8 +2342,8 @@ Global Symbols
 <P><STRONG><a name="[167]"></a>mcu_dp_bool_update</STRONG> (Thumb, 68 bytes, Stack size 16 bytes, protocol.o(i.mcu_dp_bool_update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 300<LI>Call Chain = mcu_dp_bool_update &rArr; __dp_send_type_handle &rArr; uart_framing_fill_payload_add_group_id &rArr; my_memcpy
 </UL>
-<BR>[Calls]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_msg_handle
 <LI><a href="#[4b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_key_status_report_callback
@@ -2358,8 +2355,8 @@ Global Symbols
 <P><STRONG><a name="[168]"></a>mcu_dp_enum_update</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, protocol.o(i.mcu_dp_enum_update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 300<LI>Call Chain = mcu_dp_enum_update &rArr; __dp_send_type_handle &rArr; uart_framing_fill_payload_add_group_id &rArr; my_memcpy
 </UL>
-<BR>[Calls]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_msg_handle
 <LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_setting_report_callback
@@ -2371,8 +2368,8 @@ Global Symbols
 <P><STRONG><a name="[166]"></a>mcu_dp_raw_update</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, protocol.o(i.mcu_dp_raw_update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 300<LI>Call Chain = mcu_dp_raw_update &rArr; __dp_send_type_handle &rArr; uart_framing_fill_payload_add_group_id &rArr; my_memcpy
 </UL>
-<BR>[Calls]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 <LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_buff
 </UL>
 <BR>[Called By]<UL><LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_msg_handle
@@ -2381,8 +2378,8 @@ Global Symbols
 <P><STRONG><a name="[165]"></a>mcu_dp_value_update</STRONG> (Thumb, 90 bytes, Stack size 16 bytes, protocol.o(i.mcu_dp_value_update))
 <BR><BR>[Stack]<UL><LI>Max Depth = 300<LI>Call Chain = mcu_dp_value_update &rArr; __dp_send_type_handle &rArr; uart_framing_fill_payload_add_group_id &rArr; my_memcpy
 </UL>
-<BR>[Calls]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_msg_handle
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_floor_heating_report_callback
@@ -2423,7 +2420,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_recv_weather_city_cb
 <LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_recv_weather_area_cb
-<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frame_rx_handle
 </UL>
@@ -2439,7 +2436,7 @@ Global Symbols
 <P><STRONG><a name="[16d]"></a>mcu_recv_factory_recovery_cb</STRONG> (Thumb, 46 bytes, Stack size 56 bytes, mcu_api.o(i.mcu_recv_factory_recovery_cb))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = mcu_recv_factory_recovery_cb &rArr; HOOCH_PROTOCOL_Setting_SetFrame &rArr; __aeabi_memcpy4
 </UL>
-<BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
+<BR>[Calls]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frame_rx_handle
 </UL>
@@ -2479,7 +2476,7 @@ Global Symbols
 <P><STRONG><a name="[184]"></a>mcu_recv_scene_config_cb</STRONG> (Thumb, 68 bytes, Stack size 56 bytes, mcu_api.o(i.mcu_recv_scene_config_cb))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = mcu_recv_scene_config_cb &rArr; HOOCH_PROTOCOL_Setting_SetFrame &rArr; __aeabi_memcpy4
 </UL>
-<BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
+<BR>[Calls]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frame_rx_handle
 </UL>
@@ -2489,7 +2486,7 @@ Global Symbols
 <LI>Call Chain = mcu_recv_time_sync_cb &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frame_rx_handle
 </UL>
@@ -2552,7 +2549,7 @@ Global Symbols
 <P><STRONG><a name="[16f]"></a>mcu_recv_zg_nwk_status_notify_cb</STRONG> (Thumb, 48 bytes, Stack size 56 bytes, mcu_api.o(i.mcu_recv_zg_nwk_status_notify_cb))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = mcu_recv_zg_nwk_status_notify_cb &rArr; HOOCH_PROTOCOL_Setting_SetFrame &rArr; __aeabi_memcpy4
 </UL>
-<BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
+<BR>[Calls]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frame_rx_handle
 </UL>
@@ -2566,8 +2563,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1c2]"></a>mcu_send_dp_msg_cb</STRONG> (Thumb, 166 bytes, Stack size 24 bytes, mcu_api.o(i.mcu_send_dp_msg_cb))
-<BR><BR>[Stack]<UL><LI>Max Depth = 408 + Unknown Stack Size
-<LI>Call Chain = mcu_send_dp_msg_cb &rArr; tuya_dp_dispatch_setting &rArr; handle_adv_set &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 384 + Unknown Stack Size
+<LI>Call Chain = mcu_send_dp_msg_cb &rArr; tuya_dp_dispatch_setting &rArr; handle_adv_set &rArr; hf_zjk_modbus_set_current_ac_addr &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dp_dispatch_switch
@@ -2585,9 +2582,9 @@ Global Symbols
 <P><STRONG><a name="[1d4]"></a>mcu_tx_let_zigbee_start_join</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, protocol.o(i.mcu_tx_let_zigbee_start_join))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = mcu_tx_let_zigbee_start_join &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_setting_report_callback
 </UL>
@@ -2595,9 +2592,9 @@ Global Symbols
 <P><STRONG><a name="[1c5]"></a>mcu_tx_ota_result</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, protocol.o(i.mcu_tx_ota_result))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = mcu_tx_ota_result &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_ota_data
 </UL>
@@ -2605,8 +2602,8 @@ Global Symbols
 <P><STRONG><a name="[1d5]"></a>mcu_tx_request_time_sync</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, protocol.o(i.mcu_tx_request_time_sync))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = mcu_tx_request_time_sync &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_setting_report_callback
 </UL>
@@ -2621,7 +2618,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_service_parse
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frame_rx_handle
 <LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_buff
-<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_add_group_id
+<LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_add_group_id
 </UL>
 
 <P><STRONG><a name="[1c6]"></a>my_memset</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, system.o(i.my_memset))
@@ -2647,9 +2644,9 @@ Global Symbols
 <P><STRONG><a name="[1d6]"></a>tuya_air_conditioner_control</STRONG> (Thumb, 250 bytes, Stack size 32 bytes, tuya_report_callbacks.o(i.tuya_air_conditioner_control))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = tuya_air_conditioner_control &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_air_conditioner_report_callback2
 </UL>
@@ -2657,9 +2654,9 @@ Global Symbols
 <P><STRONG><a name="[1d9]"></a>tuya_curtain_adjust</STRONG> (Thumb, 114 bytes, Stack size 16 bytes, tuya_report_callbacks.o(i.tuya_curtain_adjust))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = tuya_curtain_adjust &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_curtain_report_callback
 </UL>
@@ -2667,9 +2664,9 @@ Global Symbols
 <P><STRONG><a name="[1da]"></a>tuya_curtain_pause</STRONG> (Thumb, 88 bytes, Stack size 16 bytes, tuya_report_callbacks.o(i.tuya_curtain_pause))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = tuya_curtain_pause &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_curtain_report_callback
 </UL>
@@ -2677,9 +2674,9 @@ Global Symbols
 <P><STRONG><a name="[1db]"></a>tuya_curtain_switch</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, tuya_report_callbacks.o(i.tuya_curtain_switch))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = tuya_curtain_switch &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_curtain_report_callback
 </UL>
@@ -2687,9 +2684,9 @@ Global Symbols
 <P><STRONG><a name="[1dc]"></a>tuya_dimmer_light_adjust</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, tuya_report_callbacks.o(i.tuya_dimmer_light_adjust))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = tuya_dimmer_light_adjust &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dimmer_light_callback
 </UL>
@@ -2697,9 +2694,9 @@ Global Symbols
 <P><STRONG><a name="[1de]"></a>tuya_dimmer_light_color_temp</STRONG> (Thumb, 134 bytes, Stack size 16 bytes, tuya_report_callbacks.o(i.tuya_dimmer_light_color_temp))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = tuya_dimmer_light_color_temp &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dimmer_light_callback
 </UL>
@@ -2707,16 +2704,15 @@ Global Symbols
 <P><STRONG><a name="[1dd]"></a>tuya_dimmer_light_switch</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, tuya_report_callbacks.o(i.tuya_dimmer_light_switch))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = tuya_dimmer_light_switch &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dimmer_light_callback
 </UL>
 
 <P><STRONG><a name="[1cf]"></a>tuya_dp_dispatch_air</STRONG> (Thumb, 238 bytes, Stack size 64 bytes, tuya_device_air.o(i.tuya_dp_dispatch_air))
-<BR><BR>[Stack]<UL><LI>Max Depth = 360 + Unknown Stack Size
-<LI>Call Chain = tuya_dp_dispatch_air &rArr; handle_ac_temp_limit &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = tuya_dp_dispatch_air &rArr; handle_ac_temp_limit &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_DispatchFrame
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;map_mode
@@ -2772,10 +2768,10 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1d3]"></a>tuya_dp_dispatch_setting</STRONG> (Thumb, 330 bytes, Stack size 80 bytes, tuya_basic_setting.o(i.tuya_dp_dispatch_setting))
-<BR><BR>[Stack]<UL><LI>Max Depth = 384 + Unknown Stack Size
-<LI>Call Chain = tuya_dp_dispatch_setting &rArr; handle_adv_set &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 360 + Unknown Stack Size
+<LI>Call Chain = tuya_dp_dispatch_setting &rArr; handle_adv_set &rArr; hf_zjk_modbus_set_current_ac_addr &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
+<BR>[Calls]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_setting_frame
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_adv_set
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_enum
@@ -2787,9 +2783,9 @@ Global Symbols
 <P><STRONG><a name="[1ce]"></a>tuya_dp_dispatch_switch</STRONG> (Thumb, 128 bytes, Stack size 56 bytes, tuya_device_switch.o(i.tuya_dp_dispatch_switch))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = tuya_dp_dispatch_switch &rArr; HOOCH_PROTOCOL_KeyStatus_DispatchFrame
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_DispatchFrame
+<BR>[Calls]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_DispatchFrame
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_get_dp_download_bool
-<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_dp_msg_cb
 </UL>
@@ -2797,9 +2793,9 @@ Global Symbols
 <P><STRONG><a name="[1e2]"></a>tuya_query_weather</STRONG> (Thumb, 284 bytes, Stack size 16 bytes, tuya_report_callbacks.o(i.tuya_query_weather))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = tuya_query_weather &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_setting_report_callback
 </UL>
@@ -2820,13 +2816,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[141]"></a>uart_framing_fill_payload_add_group_id</STRONG> (Thumb, 70 bytes, Stack size 264 bytes, system.o(i.uart_framing_fill_payload_add_group_id))
+<P><STRONG><a name="[13f]"></a>uart_framing_fill_payload_add_group_id</STRONG> (Thumb, 70 bytes, Stack size 264 bytes, system.o(i.uart_framing_fill_payload_add_group_id))
 <BR><BR>[Stack]<UL><LI>Max Depth = 276<LI>Call Chain = uart_framing_fill_payload_add_group_id &rArr; my_memcpy
 </UL>
 <BR>[Calls]<UL><LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_memcpy
-<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
+<BR>[Called By]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
 </UL>
 
 <P><STRONG><a name="[1bb]"></a>uart_framing_fill_payload_buff</STRONG> (Thumb, 42 bytes, Stack size 12 bytes, system.o(i.uart_framing_fill_payload_buff))
@@ -2838,10 +2834,10 @@ Global Symbols
 <LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_raw_update
 </UL>
 
-<P><STRONG><a name="[147]"></a>uart_framing_fill_payload_byte</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, system.o(i.uart_framing_fill_payload_byte))
+<P><STRONG><a name="[145]"></a>uart_framing_fill_payload_byte</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, system.o(i.uart_framing_fill_payload_byte))
 <BR><BR>[Called By]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_product_info_request
 <LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_ota_notify
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__send_mcu_fw_ver
+<LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__send_mcu_fw_ver
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frame_rx_handle
 <LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_query_weather
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dimmer_light_switch
@@ -2859,7 +2855,7 @@ Global Symbols
 <LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
 </UL>
 
-<P><STRONG><a name="[142]"></a>uart_framing_fill_protocol_field</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, system.o(i.uart_framing_fill_protocol_field))
+<P><STRONG><a name="[140]"></a>uart_framing_fill_protocol_field</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, system.o(i.uart_framing_fill_protocol_field))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = uart_framing_fill_protocol_field &rArr; get_u8_checksum
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_u8_checksum
@@ -2867,8 +2863,8 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_product_info_request
 <LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_ota_notify
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__send_mcu_fw_ver
-<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
+<LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__send_mcu_fw_ver
+<LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frame_rx_handle
 <LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_query_weather
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dimmer_light_switch
@@ -2896,18 +2892,18 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_byte
 </UL>
-<BR>[Called By]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<BR>[Called By]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
 </UL>
 
-<P><STRONG><a name="[143]"></a>uart_send_frame</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, mcu_api.o(i.uart_send_frame))
+<P><STRONG><a name="[141]"></a>uart_send_frame</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, mcu_api.o(i.uart_send_frame))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_bytes
 </UL>
 <BR>[Called By]<UL><LI><a href="#[16e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_product_info_request
 <LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_ota_notify
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__send_mcu_fw_ver
-<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
+<LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__send_mcu_fw_ver
+<LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dp_send_type_handle
 <LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frame_rx_handle
 <LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_query_weather
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dimmer_light_switch
@@ -2923,8 +2919,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1b9]"></a>uart_service_parse</STRONG> (Thumb, 204 bytes, Stack size 32 bytes, mcu_api.o(i.uart_service_parse))
-<BR><BR>[Stack]<UL><LI>Max Depth = 552 + Unknown Stack Size
-<LI>Call Chain = uart_service_parse &rArr; frame_rx_handle &rArr; mcu_rx_common_dp_msg &rArr; mcu_send_dp_msg_cb &rArr; tuya_dp_dispatch_setting &rArr; handle_adv_set &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 528 + Unknown Stack Size
+<LI>Call Chain = uart_service_parse &rArr; frame_rx_handle &rArr; mcu_rx_common_dp_msg &rArr; mcu_send_dp_msg_cb &rArr; tuya_dp_dispatch_setting &rArr; handle_adv_set &rArr; hf_zjk_modbus_set_current_ac_addr &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;queue_dequeue_byte
 <LI><a href="#[178]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_memcpy
@@ -2937,7 +2933,7 @@ Global Symbols
 <P><STRONG><a name="[3c]"></a>_get_lc_ctype</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, lc_ctype_c.o(locale$$code))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _get_lc_ctype
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+<BR>[Calls]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_lc_ctype_2
 </UL>
@@ -2946,7 +2942,7 @@ Global Symbols
 <P><STRONG><a name="[9b]"></a>_get_lc_numeric</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, lc_numeric_c.o(locale$$code))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = _get_lc_numeric
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
+<BR>[Calls]<UL><LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strcmp
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_lib_init_lc_numeric_2
 </UL>
@@ -2976,7 +2972,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 240 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_help &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -2985,10 +2981,10 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 280 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hf485_air_fan_speed &rArr; cli_print_air_conditioner_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
-<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_fan_speed
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_fan_speed
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_SendFanSpeedAddrHfWired485
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -2997,10 +2993,10 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 280 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hf485_air_mode &rArr; cli_print_air_conditioner_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
-<LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_mode
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
+<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_mode
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_SendModeAddrHfWired485
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3009,10 +3005,10 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 280 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hf485_air_power &rArr; cli_print_air_conditioner_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
-<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_power
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
+<LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_power
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_SendPowerAddrHfWired485
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3021,9 +3017,9 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 280 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hf485_air_temperature &rArr; cli_print_air_conditioner_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_send_result
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_SendTemperatureAddrHfWired485
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3032,10 +3028,10 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 224 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hf485_enable &rArr; cli_print_module_state &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_module_state
-<LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_module_enable
-<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zxk_modbus_set_enable
-<LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zxk_modbus_get_enable
+<BR>[Calls]<UL><LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_module_state
+<LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_module_enable
+<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zxk_modbus_set_enable
+<LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zxk_modbus_get_enable
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
 </UL>
@@ -3043,10 +3039,10 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 280 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hfjk_air_fan_speed &rArr; cli_print_air_conditioner_central_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
-<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_fan_speed
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_fan_speed
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_SendFanSpeedAddrHfCentralControl485
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3055,10 +3051,10 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 280 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hfjk_air_mode &rArr; cli_print_air_conditioner_central_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
-<LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_mode
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
+<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_mode
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_SendModeAddrHfCentralControl485
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3067,10 +3063,10 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 280 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hfjk_air_power &rArr; cli_print_air_conditioner_central_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
-<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_power
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
+<LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_power
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_SendPowerAddrHfCentralControl485
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3079,9 +3075,9 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 280 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hfjk_air_temperature &rArr; cli_print_air_conditioner_central_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_SendTemperatureAddrHfCentralControl485
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3090,9 +3086,9 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 224 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hfjk_enable &rArr; cli_print_module_state &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_module_state
-<LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_module_enable
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_set_enable
+<BR>[Calls]<UL><LI><a href="#[14e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_module_state
+<LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_module_enable
+<LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_set_enable
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_get_enable
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3101,8 +3097,8 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 160 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hfjk_inner_addr &rArr; hf_zjk_modbus_set_current_ac_addr &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_set_current_ac_addr
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3111,7 +3107,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 272 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hfjk_query_all &rArr; cli_print_air_conditioner_central_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
+<BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_QueryAllStatusHfCentralControl485
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3120,7 +3116,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 272 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hfjk_query_performance &rArr; cli_print_air_conditioner_central_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
+<BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_QueryPerformanceHfCentralControl485
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3129,9 +3125,9 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 272 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_hfjk_query_status &rArr; cli_print_air_conditioner_central_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[14f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_air_conditioner_central_send_result
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_QueryStatusAddrHfCentralControl485
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3143,8 +3139,8 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_dimmer_send_result
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_dimmer_key
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
-<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_SendBrightness
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_SendBrightness
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
 </UL>
@@ -3153,10 +3149,10 @@ Local Symbols
 <LI>Call Chain = cli_cmd_mi_color_temp &rArr; cli_print_dimmer_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_dimmer_send_result
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u16_arg
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_dimmer_key
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_SendColorTemperature
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_SendColorTemperature
 <LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_GetFrame
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
@@ -3169,8 +3165,8 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_curtain_send_result
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
 <LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_curtain_key
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
-<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendAngle
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendAngle
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
 </UL>
@@ -3181,8 +3177,8 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_curtain_send_result
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
 <LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_curtain_key
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendPercent
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[104]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendPercent
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
 </UL>
@@ -3193,8 +3189,8 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_curtain_send_result
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
 <LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_curtain_key
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
-<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendStop
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendStop
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
 </UL>
@@ -3205,8 +3201,8 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[158]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_curtain_send_result
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
 <LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_curtain_key
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendSwitch
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SendSwitch
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
 </UL>
@@ -3225,7 +3221,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_setting_report_send_result
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SettingReport_Send
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3236,8 +3232,8 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_key_status_send_result
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
-<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_ReportState
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_ReportState
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
 </UL>
@@ -3247,18 +3243,18 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_scene_send_result
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
-<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_Send
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_Send
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
 </UL>
-<P><STRONG><a name="[5e]"></a>cli_cmd_mi_setting_report</STRONG> (Thumb, 102 bytes, Stack size 24 bytes, hooch_cli_driver.o(i.cli_cmd_mi_setting_report))
+<P><STRONG><a name="[5e]"></a>cli_cmd_mi_setting_report</STRONG> (Thumb, 108 bytes, Stack size 24 bytes, hooch_cli_driver.o(i.cli_cmd_mi_setting_report))
 <BR><BR>[Stack]<UL><LI>Max Depth = 288 + Unknown Stack Size
 <LI>Call Chain = cli_cmd_mi_setting_report &rArr; cli_print_setting_report_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_setting_report_send_result
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SettingReport_Send
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
@@ -3270,20 +3266,20 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_print_dimmer_send_result
 <LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_dimmer_key
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
-<LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_SendSwitch
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_SendSwitch
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
 </UL>
 <P><STRONG><a name="[55]"></a>cli_cmd_reboot</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, hooch_cli_driver.o(i.cli_cmd_reboot))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = cli_cmd_reboot &rArr; UART1_SendString &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> hooch_cli_driver.o(.constdata)
 </UL>
-<P><STRONG><a name="[149]"></a>cli_parse_air_conditioner_fan_speed</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, hooch_cli_driver.o(i.cli_parse_air_conditioner_fan_speed))
+<P><STRONG><a name="[147]"></a>cli_parse_air_conditioner_fan_speed</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, hooch_cli_driver.o(i.cli_parse_air_conditioner_fan_speed))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = cli_parse_air_conditioner_fan_speed &rArr; cli_parse_u8_arg &rArr; strtoul &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
@@ -3292,7 +3288,7 @@ Local Symbols
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_hf485_air_fan_speed
 </UL>
 
-<P><STRONG><a name="[14b]"></a>cli_parse_air_conditioner_mode</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, hooch_cli_driver.o(i.cli_parse_air_conditioner_mode))
+<P><STRONG><a name="[149]"></a>cli_parse_air_conditioner_mode</STRONG> (Thumb, 34 bytes, Stack size 16 bytes, hooch_cli_driver.o(i.cli_parse_air_conditioner_mode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = cli_parse_air_conditioner_mode &rArr; cli_parse_u8_arg &rArr; strtoul &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
@@ -3301,7 +3297,7 @@ Local Symbols
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_hf485_air_mode
 </UL>
 
-<P><STRONG><a name="[14c]"></a>cli_parse_air_conditioner_power</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, hooch_cli_driver.o(i.cli_parse_air_conditioner_power))
+<P><STRONG><a name="[14a]"></a>cli_parse_air_conditioner_power</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, hooch_cli_driver.o(i.cli_parse_air_conditioner_power))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = cli_parse_air_conditioner_power &rArr; cli_parse_u8_arg &rArr; strtoul &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
@@ -3331,17 +3327,17 @@ Local Symbols
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_brightness
 </UL>
 
-<P><STRONG><a name="[14d]"></a>cli_parse_module_enable</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, hooch_cli_driver.o(i.cli_parse_module_enable))
+<P><STRONG><a name="[14b]"></a>cli_parse_module_enable</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, hooch_cli_driver.o(i.cli_parse_module_enable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = cli_parse_module_enable &rArr; cli_parse_u8_arg &rArr; strtoul &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_u8_arg
-<LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_hfjk_enable
 <LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_hf485_enable
 </UL>
 
-<P><STRONG><a name="[148]"></a>cli_parse_u16_arg</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, hooch_cli_driver.o(i.cli_parse_u16_arg))
+<P><STRONG><a name="[146]"></a>cli_parse_u16_arg</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, hooch_cli_driver.o(i.cli_parse_u16_arg))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = cli_parse_u16_arg &rArr; strtoul &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtoul
@@ -3364,12 +3360,12 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtoul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[14d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_module_enable
+<BR>[Called By]<UL><LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_module_enable
 <LI><a href="#[153]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_dimmer_key
 <LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_curtain_key
-<LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_power
-<LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_mode
-<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_fan_speed
+<LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_power
+<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_mode
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_parse_air_conditioner_fan_speed
 <LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_switch
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_setting_report
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_scene_report
@@ -3382,11 +3378,11 @@ Local Symbols
 <LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_brightness
 </UL>
 
-<P><STRONG><a name="[150]"></a>cli_print_air_conditioner_central_send_result</STRONG> (Thumb, 46 bytes, Stack size 112 bytes, hooch_cli_driver.o(i.cli_print_air_conditioner_central_send_result))
+<P><STRONG><a name="[14f]"></a>cli_print_air_conditioner_central_send_result</STRONG> (Thumb, 46 bytes, Stack size 112 bytes, hooch_cli_driver.o(i.cli_print_air_conditioner_central_send_result))
 <BR><BR>[Stack]<UL><LI>Max Depth = 264 + Unknown Stack Size
 <LI>Call Chain = cli_print_air_conditioner_central_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
@@ -3399,11 +3395,11 @@ Local Symbols
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_hfjk_air_fan_speed
 </UL>
 
-<P><STRONG><a name="[14a]"></a>cli_print_air_conditioner_send_result</STRONG> (Thumb, 46 bytes, Stack size 112 bytes, hooch_cli_driver.o(i.cli_print_air_conditioner_send_result))
+<P><STRONG><a name="[148]"></a>cli_print_air_conditioner_send_result</STRONG> (Thumb, 46 bytes, Stack size 112 bytes, hooch_cli_driver.o(i.cli_print_air_conditioner_send_result))
 <BR><BR>[Stack]<UL><LI>Max Depth = 264 + Unknown Stack Size
 <LI>Call Chain = cli_print_air_conditioner_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
@@ -3417,7 +3413,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 264 + Unknown Stack Size
 <LI>Call Chain = cli_print_curtain_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
@@ -3431,7 +3427,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 264 + Unknown Stack Size
 <LI>Call Chain = cli_print_dimmer_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
@@ -3444,18 +3440,18 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 264 + Unknown Stack Size
 <LI>Call Chain = cli_print_key_status_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_mi_key_status
 </UL>
 
-<P><STRONG><a name="[14f]"></a>cli_print_module_state</STRONG> (Thumb, 36 bytes, Stack size 72 bytes, hooch_cli_driver.o(i.cli_print_module_state))
+<P><STRONG><a name="[14e]"></a>cli_print_module_state</STRONG> (Thumb, 36 bytes, Stack size 72 bytes, hooch_cli_driver.o(i.cli_print_module_state))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216 + Unknown Stack Size
 <LI>Call Chain = cli_print_module_state &rArr; __2snprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;cli_cmd_hfjk_enable
@@ -3466,7 +3462,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 264 + Unknown Stack Size
 <LI>Call Chain = cli_print_scene_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
@@ -3477,7 +3473,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 264 + Unknown Stack Size
 <LI>Call Chain = cli_print_setting_report_send_result &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
+<BR>[Calls]<UL><LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART1_SendString
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2snprintf
 </UL>
@@ -3504,7 +3500,7 @@ Local Symbols
 <P><STRONG><a name="[e2]"></a>UART_Receive_IT</STRONG> (Thumb, 194 bytes, Stack size 8 bytes, stm32f1xx_hal_uart.o(i.UART_Receive_IT))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = UART_Receive_IT
 </UL>
-<BR>[Calls]<UL><LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_RxCpltCallback
+<BR>[Calls]<UL><LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_RxCpltCallback
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UARTEx_RxEventCallback
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_IRQHandler
@@ -3513,8 +3509,8 @@ Local Symbols
 <P><STRONG><a name="[eb]"></a>UART_SetConfig</STRONG> (Thumb, 178 bytes, Stack size 16 bytes, stm32f1xx_hal_uart.o(i.UART_SetConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = UART_SetConfig
 </UL>
-<BR>[Calls]<UL><LI><a href="#[13a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetPCLK2Freq
-<LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetPCLK1Freq
+<BR>[Calls]<UL><LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetPCLK2Freq
+<LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_GetPCLK1Freq
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Init
 </UL>
@@ -3533,95 +3529,92 @@ Local Symbols
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SYSTICK_Config
 </UL>
 
-<P><STRONG><a name="[10f]"></a>HOOCH_PROTOCOL_DimmerLight_NotifyReportCallback1</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_dimmer_light_report.o(i.HOOCH_PROTOCOL_DimmerLight_NotifyReportCallback1))
-<BR><BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_SendSwitch
-<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_SendColorTemperature
-<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_SendBrightness
+<P><STRONG><a name="[10d]"></a>HOOCH_PROTOCOL_DimmerLight_NotifyReportCallback1</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_dimmer_light_report.o(i.HOOCH_PROTOCOL_DimmerLight_NotifyReportCallback1))
+<BR><BR>[Called By]<UL><LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_SendSwitch
+<LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_SendColorTemperature
+<LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_DimmerLight_SendBrightness
 </UL>
 
-<P><STRONG><a name="[114]"></a>HOOCH_PROTOCOL_FloorHeating_NotifyDispatchCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_floor_heating_dispatch.o(i.HOOCH_PROTOCOL_FloorHeating_NotifyDispatchCallback))
-<BR><BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal
+<P><STRONG><a name="[112]"></a>HOOCH_PROTOCOL_FloorHeating_NotifyDispatchCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_floor_heating_dispatch.o(i.HOOCH_PROTOCOL_FloorHeating_NotifyDispatchCallback))
+<BR><BR>[Called By]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal
 </UL>
 
-<P><STRONG><a name="[113]"></a>HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal</STRONG> (Thumb, 130 bytes, Stack size 16 bytes, hooch_floor_heating_dispatch.o(i.HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal))
+<P><STRONG><a name="[111]"></a>HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal</STRONG> (Thumb, 130 bytes, Stack size 16 bytes, hooch_floor_heating_dispatch.o(i.HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal
 </UL>
-<BR>[Calls]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_NotifyDispatchCallback
+<BR>[Calls]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_NotifyDispatchCallback
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_DispatchFrame
+<BR>[Called By]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_DispatchFrame
 </UL>
 
-<P><STRONG><a name="[117]"></a>HOOCH_PROTOCOL_FreshAir_NotifyDispatchCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_fresh_air_dispatch.o(i.HOOCH_PROTOCOL_FreshAir_NotifyDispatchCallback))
-<BR><BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_SetDispatchFrameInternal
+<P><STRONG><a name="[115]"></a>HOOCH_PROTOCOL_FreshAir_NotifyDispatchCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_fresh_air_dispatch.o(i.HOOCH_PROTOCOL_FreshAir_NotifyDispatchCallback))
+<BR><BR>[Called By]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_SetDispatchFrameInternal
 </UL>
 
-<P><STRONG><a name="[116]"></a>HOOCH_PROTOCOL_FreshAir_SetDispatchFrameInternal</STRONG> (Thumb, 124 bytes, Stack size 16 bytes, hooch_fresh_air_dispatch.o(i.HOOCH_PROTOCOL_FreshAir_SetDispatchFrameInternal))
+<P><STRONG><a name="[114]"></a>HOOCH_PROTOCOL_FreshAir_SetDispatchFrameInternal</STRONG> (Thumb, 126 bytes, Stack size 16 bytes, hooch_fresh_air_dispatch.o(i.HOOCH_PROTOCOL_FreshAir_SetDispatchFrameInternal))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_FreshAir_SetDispatchFrameInternal
 </UL>
-<BR>[Calls]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_NotifyDispatchCallback
+<BR>[Calls]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_NotifyDispatchCallback
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_DispatchFrame
+<BR>[Called By]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_DispatchFrame
 </UL>
 
-<P><STRONG><a name="[11d]"></a>HOOCH_PROTOCOL_KeyName_CopyName</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, hooch_key_name.o(i.HOOCH_PROTOCOL_KeyName_CopyName))
-<BR><BR>[Called By]<UL><LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyName_SetFrame
+<P><STRONG><a name="[11b]"></a>HOOCH_PROTOCOL_KeyName_CopyName</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, hooch_key_name.o(i.HOOCH_PROTOCOL_KeyName_CopyName))
+<BR><BR>[Called By]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyName_SetFrame
 </UL>
 
-<P><STRONG><a name="[11e]"></a>HOOCH_PROTOCOL_KeyName_NotifyCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_key_name.o(i.HOOCH_PROTOCOL_KeyName_NotifyCallback))
-<BR><BR>[Called By]<UL><LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyName_SetFrame
+<P><STRONG><a name="[11c]"></a>HOOCH_PROTOCOL_KeyName_NotifyCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_key_name.o(i.HOOCH_PROTOCOL_KeyName_NotifyCallback))
+<BR><BR>[Called By]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyName_SetFrame
 </UL>
 
-<P><STRONG><a name="[120]"></a>HOOCH_PROTOCOL_KeyStatus_NotifyDispatchCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_key_status_dispatch.o(i.HOOCH_PROTOCOL_KeyStatus_NotifyDispatchCallback))
-<BR><BR>[Called By]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_DispatchFrame
+<P><STRONG><a name="[11e]"></a>HOOCH_PROTOCOL_KeyStatus_NotifyDispatchCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_key_status_dispatch.o(i.HOOCH_PROTOCOL_KeyStatus_NotifyDispatchCallback))
+<BR><BR>[Called By]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_DispatchFrame
 </UL>
 
-<P><STRONG><a name="[122]"></a>HOOCH_PROTOCOL_KeyStatus_NotifyReportCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_key_status_report.o(i.HOOCH_PROTOCOL_KeyStatus_NotifyReportCallback))
-<BR><BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_ReportState
+<P><STRONG><a name="[120]"></a>HOOCH_PROTOCOL_KeyStatus_NotifyReportCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_key_status_report.o(i.HOOCH_PROTOCOL_KeyStatus_NotifyReportCallback))
+<BR><BR>[Called By]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyStatus_ReportState
 </UL>
 
-<P><STRONG><a name="[124]"></a>HOOCH_PROTOCOL_SceneDispatch_NotifyCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_scene_dispatch.o(i.HOOCH_PROTOCOL_SceneDispatch_NotifyCallback), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneDispatch_Set
+<P><STRONG><a name="[122]"></a>HOOCH_PROTOCOL_SceneDispatch_NotifyCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_scene_dispatch.o(i.HOOCH_PROTOCOL_SceneDispatch_NotifyCallback), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneDispatch_Set
 </UL>
 
-<P><STRONG><a name="[127]"></a>HOOCH_PROTOCOL_SceneReport_NotifyCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_scene_report.o(i.HOOCH_PROTOCOL_SceneReport_NotifyCallback))
-<BR><BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_SetAction
+<P><STRONG><a name="[125]"></a>HOOCH_PROTOCOL_SceneReport_NotifyCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_scene_report.o(i.HOOCH_PROTOCOL_SceneReport_NotifyCallback))
+<BR><BR>[Called By]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_SetAction
 </UL>
 
-<P><STRONG><a name="[128]"></a>HOOCH_PROTOCOL_SceneReport_NotifyReportCallback1</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_scene_report.o(i.HOOCH_PROTOCOL_SceneReport_NotifyReportCallback1))
-<BR><BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_SetAction
+<P><STRONG><a name="[126]"></a>HOOCH_PROTOCOL_SceneReport_NotifyReportCallback1</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_scene_report.o(i.HOOCH_PROTOCOL_SceneReport_NotifyReportCallback1))
+<BR><BR>[Called By]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_SetAction
 </UL>
 
-<P><STRONG><a name="[126]"></a>HOOCH_PROTOCOL_SceneReport_SetAction</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, hooch_scene_report.o(i.HOOCH_PROTOCOL_SceneReport_SetAction))
+<P><STRONG><a name="[124]"></a>HOOCH_PROTOCOL_SceneReport_SetAction</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, hooch_scene_report.o(i.HOOCH_PROTOCOL_SceneReport_SetAction))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HOOCH_PROTOCOL_SceneReport_SetAction
 </UL>
-<BR>[Calls]<UL><LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_NotifyReportCallback1
-<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_NotifyCallback
+<BR>[Calls]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_NotifyReportCallback1
+<LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_NotifyCallback
 </UL>
-<BR>[Called By]<UL><LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_Send
-</UL>
-
-<P><STRONG><a name="[12a]"></a>HOOCH_PROTOCOL_Setting_NotifyCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_setting.o(i.HOOCH_PROTOCOL_Setting_NotifyCallback))
-<BR><BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
+<BR>[Called By]<UL><LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_SceneReport_Send
 </UL>
 
-<P><STRONG><a name="[11b]"></a>HOOCH_PROTOCOL_KeyMode_NotifyCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_key_mode.o(i.HOOCH_PROTOCOL_KeyMode_NotifyCallback), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyMode_Set
+<P><STRONG><a name="[128]"></a>HOOCH_PROTOCOL_Setting_NotifyCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_setting.o(i.HOOCH_PROTOCOL_Setting_NotifyCallback))
+<BR><BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
 </UL>
 
-<P><STRONG><a name="[f3]"></a>HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal</STRONG> (Thumb, 182 bytes, Stack size 16 bytes, hooch_air_conditioner_dispatch.o(i.HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176 + Unknown Stack Size
-<LI>Call Chain = HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<P><STRONG><a name="[119]"></a>HOOCH_PROTOCOL_KeyMode_NotifyCallback</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_key_mode.o(i.HOOCH_PROTOCOL_KeyMode_NotifyCallback), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyMode_Set
 </UL>
-<BR>[Calls]<UL><LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zxk_modbus_set_enable
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_set_enable
-<LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
+
+<P><STRONG><a name="[f3]"></a>HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal</STRONG> (Thumb, 148 bytes, Stack size 16 bytes, hooch_air_conditioner_dispatch.o(i.HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal
+</UL>
+<BR>[Calls]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_DispatchFrame
 </UL>
 
-<P><STRONG><a name="[f6]"></a>HOOCH_PROTOCOL_AirConditioner_SetReportFrame</STRONG> (Thumb, 152 bytes, Stack size 8 bytes, hooch_air_conditioner_report.o(i.HOOCH_PROTOCOL_AirConditioner_SetReportFrame))
+<P><STRONG><a name="[f6]"></a>HOOCH_PROTOCOL_AirConditioner_SetReportFrame</STRONG> (Thumb, 160 bytes, Stack size 8 bytes, hooch_air_conditioner_report.o(i.HOOCH_PROTOCOL_AirConditioner_SetReportFrame))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HOOCH_PROTOCOL_AirConditioner_SetReportFrame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_SendTemperatureAddrHfWired485
@@ -3637,25 +3630,25 @@ Local Symbols
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_QueryAllStatusHfCentralControl485
 </UL>
 
-<P><STRONG><a name="[10d]"></a>HOOCH_PROTOCOL_Curtain_NotifyReportCallback1</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_NotifyReportCallback1))
-<BR><BR>[Called By]<UL><LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetItem
+<P><STRONG><a name="[10b]"></a>HOOCH_PROTOCOL_Curtain_NotifyReportCallback1</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_NotifyReportCallback1))
+<BR><BR>[Called By]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
 
-<P><STRONG><a name="[10c]"></a>HOOCH_PROTOCOL_Curtain_SetItem</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SetItem))
+<P><STRONG><a name="[10a]"></a>HOOCH_PROTOCOL_Curtain_SetItem</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, hooch_curtain_report.o(i.HOOCH_PROTOCOL_Curtain_SetItem))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = HOOCH_PROTOCOL_Curtain_SetItem
 </UL>
-<BR>[Calls]<UL><LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_NotifyReportCallback1
+<BR>[Calls]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_NotifyReportCallback1
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetValue
-<LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetStop
-<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetPercent
-<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetAngle
+<BR>[Called By]<UL><LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetValue
+<LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetStop
+<LI><a href="#[105]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetPercent
+<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Curtain_SetAngle
 </UL>
 
-<P><STRONG><a name="[13e]"></a>__calculate_week_and_date</STRONG> (Thumb, 186 bytes, Stack size 48 bytes, protocol.o(i.__calculate_week_and_date))
+<P><STRONG><a name="[13c]"></a>__calculate_week_and_date</STRONG> (Thumb, 186 bytes, Stack size 48 bytes, protocol.o(i.__calculate_week_and_date))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = __calculate_week_and_date
 </UL>
-<BR>[Calls]<UL><LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__is_leap_year
+<BR>[Calls]<UL><LI><a href="#[13d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__is_leap_year
 </UL>
 <BR>[Called By]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frame_rx_handle
 </UL>
@@ -3666,12 +3659,12 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[174]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_ota_data
 </UL>
 
-<P><STRONG><a name="[140]"></a>__dp_send_type_handle</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, protocol.o(i.__dp_send_type_handle))
+<P><STRONG><a name="[13e]"></a>__dp_send_type_handle</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, protocol.o(i.__dp_send_type_handle))
 <BR><BR>[Stack]<UL><LI>Max Depth = 284<LI>Call Chain = __dp_send_type_handle &rArr; uart_framing_fill_payload_add_group_id &rArr; my_memcpy
 </UL>
-<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_add_group_id
+<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_add_group_id
 </UL>
 <BR>[Called By]<UL><LI><a href="#[165]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_value_update
 <LI><a href="#[166]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_raw_update
@@ -3679,26 +3672,26 @@ Local Symbols
 <LI><a href="#[167]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_dp_bool_update
 </UL>
 
-<P><STRONG><a name="[144]"></a>__get_native_mcu_fw_ver</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, protocol.o(i.__get_native_mcu_fw_ver))
+<P><STRONG><a name="[142]"></a>__get_native_mcu_fw_ver</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, protocol.o(i.__get_native_mcu_fw_ver))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __get_native_mcu_fw_ver
 </UL>
-<BR>[Calls]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ascii_to_hex
+<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ascii_to_hex
 </UL>
 <BR>[Called By]<UL><LI><a href="#[173]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_rx_ota_notify
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__send_mcu_fw_ver
+<LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__send_mcu_fw_ver
 </UL>
 
-<P><STRONG><a name="[13f]"></a>__is_leap_year</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, protocol.o(i.__is_leap_year))
-<BR><BR>[Called By]<UL><LI><a href="#[13e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__calculate_week_and_date
+<P><STRONG><a name="[13d]"></a>__is_leap_year</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, protocol.o(i.__is_leap_year))
+<BR><BR>[Called By]<UL><LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__calculate_week_and_date
 </UL>
 
-<P><STRONG><a name="[146]"></a>__send_mcu_fw_ver</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, protocol.o(i.__send_mcu_fw_ver))
+<P><STRONG><a name="[144]"></a>__send_mcu_fw_ver</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, protocol.o(i.__send_mcu_fw_ver))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = __send_mcu_fw_ver &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_native_mcu_fw_ver
-<LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_native_mcu_fw_ver
+<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frame_rx_handle
 </UL>
@@ -3722,8 +3715,8 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[170]"></a>mcu_rx_common_dp_msg</STRONG> (Thumb, 176 bytes, Stack size 40 bytes, protocol.o(i.mcu_rx_common_dp_msg))
-<BR><BR>[Stack]<UL><LI>Max Depth = 448 + Unknown Stack Size
-<LI>Call Chain = mcu_rx_common_dp_msg &rArr; mcu_send_dp_msg_cb &rArr; tuya_dp_dispatch_setting &rArr; handle_adv_set &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 424 + Unknown Stack Size
+<LI>Call Chain = mcu_rx_common_dp_msg &rArr; mcu_send_dp_msg_cb &rArr; tuya_dp_dispatch_setting &rArr; handle_adv_set &rArr; hf_zjk_modbus_set_current_ac_addr &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[16b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_log_payload_hex
@@ -3735,8 +3728,8 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[17d]"></a>mcu_rx_group_dp_msg</STRONG> (Thumb, 100 bytes, Stack size 32 bytes, protocol.o(i.mcu_rx_group_dp_msg))
-<BR><BR>[Stack]<UL><LI>Max Depth = 440 + Unknown Stack Size
-<LI>Call Chain = mcu_rx_group_dp_msg &rArr; mcu_send_dp_msg_cb &rArr; tuya_dp_dispatch_setting &rArr; handle_adv_set &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 416 + Unknown Stack Size
+<LI>Call Chain = mcu_rx_group_dp_msg &rArr; mcu_send_dp_msg_cb &rArr; tuya_dp_dispatch_setting &rArr; handle_adv_set &rArr; hf_zjk_modbus_set_current_ac_addr &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[160]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dp_msg_handle
 <LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_send_dp_msg_cb
@@ -3751,7 +3744,7 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__check_ota_data
 <LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_recv_ota_data_cb
 <LI><a href="#[1c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_tx_ota_result
-<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 <BR>[Called By]<UL><LI><a href="#[169]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;frame_rx_handle
 </UL>
@@ -3759,11 +3752,11 @@ Local Symbols
 <P><STRONG><a name="[173]"></a>mcu_rx_ota_notify</STRONG> (Thumb, 240 bytes, Stack size 32 bytes, protocol.o(i.mcu_rx_ota_notify))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = mcu_rx_ota_notify &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_native_mcu_fw_ver
-<LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<BR>[Calls]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__get_native_mcu_fw_ver
+<LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mcu_recv_ota_notify_cb
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 <LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_strncmp
 <LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_memset
 </UL>
@@ -3773,9 +3766,9 @@ Local Symbols
 <P><STRONG><a name="[16e]"></a>mcu_rx_product_info_request</STRONG> (Thumb, 162 bytes, Stack size 16 bytes, protocol.o(i.mcu_rx_product_info_request))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = mcu_rx_product_info_request &rArr; uart_send_frame &rArr; uart_send_bytes &rArr; uart_send_byte &rArr; HAL_UART_Transmit &rArr; UART_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
-<LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
+<BR>[Calls]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_send_frame
+<LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_protocol_field
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_byte
 <LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_framing_fill_payload_buff
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;my_strlen
 </UL>
@@ -3911,16 +3904,16 @@ Local Symbols
 <BR>[Address Reference Count : 1]<UL><LI> tuya_report_callbacks.o(i.tuya_uart_init)
 </UL>
 <P><STRONG><a name="[186]"></a>handle_adv_set</STRONG> (Thumb, 340 bytes, Stack size 128 bytes, tuya_basic_setting.o(i.handle_adv_set))
-<BR><BR>[Stack]<UL><LI>Max Depth = 304 + Unknown Stack Size
-<LI>Call Chain = handle_adv_set &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 280 + Unknown Stack Size
+<LI>Call Chain = handle_adv_set &rArr; hf_zjk_modbus_set_current_ac_addr &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_DispatchFrame
-<LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_DispatchFrame
+<BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_DispatchFrame
+<LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_DispatchFrame
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_DispatchFrame
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
 <LI><a href="#[188]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;map_bind_type
 <LI><a href="#[187]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;init_setting_frame
-<LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
+<LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_set_current_ac_addr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dp_dispatch_setting
@@ -3936,8 +3929,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[15d]"></a>dispatch_air_frame</STRONG> (Thumb, 58 bytes, Stack size 56 bytes, tuya_device_air.o(i.dispatch_air_frame))
-<BR><BR>[Stack]<UL><LI>Max Depth = 232 + Unknown Stack Size
-<LI>Call Chain = dispatch_air_frame &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = dispatch_air_frame &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_DispatchFrame
 </UL>
@@ -3945,11 +3937,10 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[185]"></a>handle_ac_temp_limit</STRONG> (Thumb, 146 bytes, Stack size 120 bytes, tuya_device_air.o(i.handle_ac_temp_limit))
-<BR><BR>[Stack]<UL><LI>Max Depth = 296 + Unknown Stack Size
-<LI>Call Chain = handle_ac_temp_limit &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = handle_ac_temp_limit &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_DispatchFrame
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dp_dispatch_air
 </UL>
@@ -3965,7 +3956,7 @@ Local Symbols
 <P><STRONG><a name="[15e]"></a>dispatch_floor_frame</STRONG> (Thumb, 56 bytes, Stack size 48 bytes, tuya_device_floor.o(i.dispatch_floor_frame))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = dispatch_floor_frame &rArr; HOOCH_PROTOCOL_FloorHeating_DispatchFrame &rArr; HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal
 </UL>
-<BR>[Calls]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_DispatchFrame
+<BR>[Calls]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_DispatchFrame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dp_dispatch_floor
 </UL>
@@ -3973,8 +3964,8 @@ Local Symbols
 <P><STRONG><a name="[18c]"></a>handle_heat_limit</STRONG> (Thumb, 142 bytes, Stack size 112 bytes, tuya_device_floor.o(i.handle_heat_limit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = handle_heat_limit &rArr; HOOCH_PROTOCOL_FloorHeating_DispatchFrame &rArr; HOOCH_PROTOCOL_FloorHeating_SetDispatchFrameInternal
 </UL>
-<BR>[Calls]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_DispatchFrame
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
+<BR>[Calls]<UL><LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FloorHeating_DispatchFrame
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dp_dispatch_floor
 </UL>
@@ -3982,7 +3973,7 @@ Local Symbols
 <P><STRONG><a name="[15f]"></a>dispatch_fresh_air_frame</STRONG> (Thumb, 56 bytes, Stack size 48 bytes, tuya_device_freshair.o(i.dispatch_fresh_air_frame))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = dispatch_fresh_air_frame &rArr; HOOCH_PROTOCOL_FreshAir_DispatchFrame &rArr; HOOCH_PROTOCOL_FreshAir_SetDispatchFrameInternal
 </UL>
-<BR>[Calls]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_DispatchFrame
+<BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_FreshAir_DispatchFrame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dp_dispatch_freshair
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_fan_info
@@ -4003,7 +3994,7 @@ Local Symbols
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_fan_info
 </UL>
 
-<P><STRONG><a name="[18b]"></a>map_supply_speed</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, tuya_device_freshair.o(i.map_supply_speed))
+<P><STRONG><a name="[18b]"></a>map_supply_speed</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, tuya_device_freshair.o(i.map_supply_speed))
 <BR><BR>[Called By]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dp_dispatch_freshair
 <LI><a href="#[189]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;handle_fan_info
 </UL>
@@ -4012,7 +4003,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = handle_key_mode &rArr; HOOCH_PROTOCOL_Setting_SetFrame &rArr; __aeabi_memcpy4
 </UL>
 <BR>[Calls]<UL><LI><a href="#[18e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyMode_Send
-<LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
+<LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_Setting_SetFrame
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dp_dispatch_key
 </UL>
@@ -4020,7 +4011,7 @@ Local Symbols
 <P><STRONG><a name="[18f]"></a>handle_key_name</STRONG> (Thumb, 100 bytes, Stack size 56 bytes, tuya_device_key.o(i.handle_key_name))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = handle_key_name &rArr; HOOCH_PROTOCOL_KeyName_SetFrame
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyName_SetFrame
+<BR>[Calls]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_KeyName_SetFrame
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tuya_dp_dispatch_key
@@ -4031,7 +4022,7 @@ Local Symbols
 <LI>Call Chain = hf_zjk_modbus_air_conditioner_report_callback &rArr; hf_zjk_modbus_send_query_status &rArr; hf_zjk_modbus_uart_send_pdu &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_set_enable
+<LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_set_enable
 <LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_send_query_status
 <LI><a href="#[192]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_send_query_all_status
 <LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_queue_control
@@ -4061,7 +4052,7 @@ Local Symbols
 <LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_parser_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_uart_init
-<LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_set_enable
+<LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_set_enable
 </UL>
 
 <P><STRONG><a name="[192]"></a>hf_zjk_modbus_send_query_all_status</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, hf_zjk_modbus_circular_buffer.o(i.hf_zjk_modbus_send_query_all_status))
@@ -4114,8 +4105,8 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[194]"></a>hf_zjk_modbus_dispatch_ac_status</STRONG> (Thumb, 254 bytes, Stack size 80 bytes, hf_zjk_modbus_handle.o(i.hf_zjk_modbus_dispatch_ac_status))
-<BR><BR>[Stack]<UL><LI>Max Depth = 256 + Unknown Stack Size
-<LI>Call Chain = hf_zjk_modbus_dispatch_ac_status &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 232 + Unknown Stack Size
+<LI>Call Chain = hf_zjk_modbus_dispatch_ac_status &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_ClearFrame
@@ -4125,8 +4116,8 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[195]"></a>hf_zjk_modbus_handle_device_status</STRONG> (Thumb, 298 bytes, Stack size 120 bytes, hf_zjk_modbus_handle.o(i.hf_zjk_modbus_handle_device_status))
-<BR><BR>[Stack]<UL><LI>Max Depth = 376 + Unknown Stack Size
-<LI>Call Chain = hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 352 + Unknown Stack Size
+<LI>Call Chain = hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HOOCH_PROTOCOL_AirConditioner_ClearFrame
@@ -4158,8 +4149,8 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[19c]"></a>hf_zjk_modbus_handle_status_response</STRONG> (Thumb, 56 bytes, Stack size 0 bytes, hf_zjk_modbus_handle.o(i.hf_zjk_modbus_handle_status_response))
-<BR><BR>[Stack]<UL><LI>Max Depth = 376 + Unknown Stack Size
-<LI>Call Chain = hf_zjk_modbus_handle_status_response &rArr; hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; HOOCH_PROTOCOL_AirConditioner_DispatchFrame &rArr; HOOCH_PROTOCOL_AirConditioner_SetDispatchFrameInternal &rArr; hf_zjk_modbus_set_enable &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
+<BR><BR>[Stack]<UL><LI>Max Depth = 352 + Unknown Stack Size
+<LI>Call Chain = hf_zjk_modbus_handle_status_response &rArr; hf_zjk_modbus_handle_device_status &rArr; hf_zjk_modbus_dispatch_ac_status &rArr; Log_Printf &rArr; vsnprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Log_Printf
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hf_zjk_modbus_handle_online_status

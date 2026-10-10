@@ -65,6 +65,8 @@ typedef enum
     HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_MAX_COLOR_TEMP,    /* 仅更新最大色温(2 byte, 0-65535k) */
     HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_COLOR_TEMP_RAW,    /* 仅更新色温原始值(2 byte, 0-65535, 不归一化到0-100) */
     HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_SWITCH_MODE,        /* 仅更新开关模式(1 byte: 0:常关 1:常开 2:翻转) */
+    HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_PERCENT_RAW,       /* 仅更新色温百分比原始值(1 byte, 0-255, 不归一化到0-100) */
+    HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_BRIGHTNESS_RAW,    /* 仅更新亮度原始值(0-255, 不归一化到0-100) */
 } HOOCH_PROTOCOL_DimmerLightControlItem_t;
 
 /* 调光灯数据帧描述 */

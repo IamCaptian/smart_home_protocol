@@ -30,7 +30,6 @@
 "xiaomi_f103\hooch_floor_heating_report.o"
 "xiaomi_f103\hooch_fresh_air_dispatch.o"
 "xiaomi_f103\hooch_fresh_air_report.o"
-"xiaomi_f103\hooch_key_click_dispatch.o"
 "xiaomi_f103\hooch_key_click_report.o"
 "xiaomi_f103\hooch_key_name.o"
 "xiaomi_f103\hooch_key_status_dispatch.o"

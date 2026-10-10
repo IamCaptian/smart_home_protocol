@@ -40,10 +40,15 @@ void knx_summary_dimming_control(const KNX_Frame_t *frame)
     case 4U: item_desc = KNX_DESC("Brightness State (K->P)");
     {
     dimmer_light_frame.key = (HOOCH_PROTOCOL_DimmerLightKey_t)(frame->fun[1] + 1U);
+    /* 同一份 KNX 亮度原始字节(0~255)：先按 0~100 归一化报一次 */
     dimmer_light_frame.control_item = HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_BRIGHTNESS;
-    dimmer_light_frame.brightness = (uint8_t)(((uint32_t)frame->data[0] * 100U) / 255U);
+    dimmer_light_frame.brightness = hooch_CharsToPercentage(frame->data[0]);
     dimmer_light_frame.valid = 1U;
-    should_update_dimmer_light = 1U;
+    (void)HOOCH_PROTOCOL_DimmerLight_DispatchFrame(&dimmer_light_frame);
+    /* 再以 RAW 原值(0~255)直发报一次 */
+    dimmer_light_frame.control_item = HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_BRIGHTNESS_RAW;
+    dimmer_light_frame.brightness = frame->data[0];
+    (void)HOOCH_PROTOCOL_DimmerLight_DispatchFrame(&dimmer_light_frame);
     break;
     }
     case 5U: item_desc = KNX_DESC("Color Temp (P->K)"); break;
@@ -54,7 +59,7 @@ void knx_summary_dimming_control(const KNX_Frame_t *frame)
     dimmer_light_frame.key = (HOOCH_PROTOCOL_DimmerLightKey_t)(frame->fun[1] + 1U);
     dimmer_light_frame.control_item = HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_COLOR_TEMP;
     dimmer_light_frame.color_temperature =
-        (uint16_t)(((uint32_t)color_temp_raw * 100U) / 65535U);
+        (uint16_t)(((uint32_t)color_temp_raw * 100U + 32767U) / 65535U);
     dimmer_light_frame.valid = 1U;
     (void)HOOCH_PROTOCOL_DimmerLight_DispatchFrame(&dimmer_light_frame);
     /* 再以 RAW 原值(0~65535)直发报一次 */
@@ -65,22 +70,19 @@ void knx_summary_dimming_control(const KNX_Frame_t *frame)
     }
     case 7U: item_desc = KNX_DESC("RGBW(P->K)"); break;
     case 8U: item_desc = KNX_DESC("RGBW State (K->P)"); break;
-    case 9U: item_desc = KNX_DESC("Color Temp Percent (P->K)");
-    {
-    dimmer_light_frame.key = (HOOCH_PROTOCOL_DimmerLightKey_t)(frame->fun[1] + 1U);
-    dimmer_light_frame.control_item = HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_PERCENT;
-    dimmer_light_frame.percent = (uint8_t)(((uint32_t)frame->data[0] * 100U) / 255U);
-    dimmer_light_frame.valid = 1U;
-    should_update_dimmer_light = 1U;
-    break;
-    }
+    case 9U: item_desc = KNX_DESC("Color Temp Percent (P->K)");break;
     case 10U: item_desc = KNX_DESC("Color Temp Percent State (K->P)");
     {
     dimmer_light_frame.key = (HOOCH_PROTOCOL_DimmerLightKey_t)(frame->fun[1] + 1U);
+    /* 同一份 KNX 百分比原始字节(0~255)：先按 0~100 归一化报一次 */
     dimmer_light_frame.control_item = HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_PERCENT;
-    dimmer_light_frame.percent = (uint8_t)(((uint32_t)frame->data[0] * 100U) / 255U);
+    dimmer_light_frame.percent = hooch_CharsToPercentage(frame->data[0]);
     dimmer_light_frame.valid = 1U;
-    should_update_dimmer_light = 1U;
+    (void)HOOCH_PROTOCOL_DimmerLight_DispatchFrame(&dimmer_light_frame);
+    /* 再以 RAW 原值(0~255)直发报一次 */
+    dimmer_light_frame.control_item = HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_PERCENT_RAW;
+    dimmer_light_frame.percent = frame->data[0];
+    (void)HOOCH_PROTOCOL_DimmerLight_DispatchFrame(&dimmer_light_frame);
     break;
     }
     default: break;
@@ -235,6 +237,10 @@ void knx_summary_dimming_config(const KNX_Frame_t *frame)
                 /* 2=Toggle(ON/OFF)：普通开关反转模式 */
                 key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH_TOGGLE;
                 break;
+            case 3U:
+                /* 3=Toggle：按反馈状态翻转 */
+                key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH_TOGGLE_FEEDBACK;
+                break;
             default:
                 /* 无效值：按普通开关处理 */
                 key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH;
@@ -244,7 +250,7 @@ void knx_summary_dimming_config(const KNX_Frame_t *frame)
         key_mode_frame.valid = 1U;
         (void)HOOCH_PROTOCOL_KeyMode_SetFrame(&key_mode_frame);
 
-        /* 开关模式原始值(0-OFF/1-ON/2-Toggle)同步通过调光灯接口下发 */
+        /* 开关模式原始值(0-OFF/1-ON/2-Toggle(按当前状态)/3-Toggle(按反馈状态))同步通过调光灯接口下发 */
         dimmer_light_frame.key = (HOOCH_PROTOCOL_DimmerLightKey_t)(frame->fun[1] + 1U);
         dimmer_light_frame.control_item = HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_SWITCH_MODE;
         dimmer_light_frame.value = (frame->data_len >= 1U) ? (int)frame->data[0] : 0;

@@ -114,7 +114,21 @@ static HOOCH_PROTOCOL_CurtainResult_t HOOCH_PROTOCOL_Curtain_SetDispatchFrameInt
             s_hooch_protocol_curtain_dispatch_frame.percent.valid = 1U;
             break;
 
+        case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_PERCENT_RAW:
+            /* 原始值(0-255)透传：值仍写入 percent 字段，由 control_item 区分是否已归一化 */
+            s_hooch_protocol_curtain_dispatch_frame.percent.value = frame->percent.value;
+            s_hooch_protocol_curtain_dispatch_frame.percent.sequence++;
+            s_hooch_protocol_curtain_dispatch_frame.percent.valid = 1U;
+            break;
+
         case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ANGLE:
+            s_hooch_protocol_curtain_dispatch_frame.angle.value = frame->angle.value;
+            s_hooch_protocol_curtain_dispatch_frame.angle.sequence++;
+            s_hooch_protocol_curtain_dispatch_frame.angle.valid = 1U;
+            break;
+
+        case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ANGLE_RAW:
+            /* 原始值(0-255)透传：值仍写入 angle 字段，由 control_item 区分是否已归一化 */
             s_hooch_protocol_curtain_dispatch_frame.angle.value = frame->angle.value;
             s_hooch_protocol_curtain_dispatch_frame.angle.sequence++;
             s_hooch_protocol_curtain_dispatch_frame.angle.valid = 1U;

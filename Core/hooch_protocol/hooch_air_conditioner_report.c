@@ -82,31 +82,31 @@ void HOOCH_PROTOCOL_AirConditioner_ClearFrame(
     frame->source = HOOCH_PROTOCOL_SOURCE_INVALID;
 }
 
-// uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidPower(HOOCH_PROTOCOL_AirConditionerPower_t power)
-// {
-//     return (uint8_t)((power == HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_OFF) ||
-//                      (power == HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_ON));
-// }
+uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidPower(HOOCH_PROTOCOL_AirConditionerPower_t power)
+{
+    return (uint8_t)((power == HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_OFF) ||
+                     (power == HOOCH_PROTOCOL_AIR_CONDITIONER_POWER_ON));
+}
 
-// uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidMode(HOOCH_PROTOCOL_AirConditionerMode_t mode)
-// {
-//     return (uint8_t)((mode >= HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_COOL) &&
-//                      (mode <= HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_AUTO));
-// }
+uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidMode(HOOCH_PROTOCOL_AirConditionerMode_t mode)
+{
+    return (uint8_t)((mode >= HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_COOL) &&
+                     (mode <= HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_AUTO));
+}
 
-// uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidFanSpeed(
-//     HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed)
-// {
-//     return (uint8_t)((fan_speed >= HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_LOW) &&
-//                      (fan_speed <= HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_AUTO));
-// }
+uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidFanSpeed(
+    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed)
+{
+    return (uint8_t)((fan_speed >= HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_LOW) &&
+                     (fan_speed <= HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_AUTO));
+}
 
-// uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidControlItem(
-//     HOOCH_PROTOCOL_AirConditionerControlItem_t control_item)
-// {
-//     return (uint8_t)((control_item >= HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ALL) &&
-//                      (control_item < HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_MAX));
-// }
+uint8_t HOOCH_PROTOCOL_AirConditioner_IsValidControlItem(
+    HOOCH_PROTOCOL_AirConditionerControlItem_t control_item)
+{
+    return (uint8_t)((control_item >= HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_ALL) &&
+                     (control_item < HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_MAX));
+}
 
 
 
@@ -197,7 +197,8 @@ static HOOCH_PROTOCOL_AirConditionerResult_t HOOCH_PROTOCOL_AirConditioner_SetRe
 
         case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_HF_WIRED_CONTROLLER_485_ENABLE:
         case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_HF_CENTRAL_CONTROL_485_ENABLE:
-            /* 模块使能：无字段需要写入，仅靠 control_item 路由到对应网关回调里处理 */
+            /* 模块使能：其它字段无需写入，value 必须回填，专属回调按 value 生效(0=关闭 1=打开) */
+            s_hooch_protocol_air_conditioner_report_frame.value = frame->value;
             break;
 
         default:

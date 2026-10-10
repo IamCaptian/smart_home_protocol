@@ -70,6 +70,8 @@ typedef enum
     HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_DEFAULT_ICON,      /* 仅更新默认图标 */
     HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_SELECTED_ICON,     /* 仅更新选中图标 */
     HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_CURTAIN_TYPE,      /* 仅更新窗帘类型 */
+    HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_PERCENT_RAW,       /* 仅更新开合百分比原始值(0-255, 不归一化到0-100) */
+    HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ANGLE_RAW,         /* 仅更新开合角度原始值(0-255, 不归一化到0-100) */
     HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_MAX,                /* 哨兵值，新增枚举请插入到上方 */
 } HOOCH_PROTOCOL_CurtainControlItem_t;
 

@@ -54,11 +54,15 @@ typedef enum
     HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_INVALID = 0U,      /* 无效控制项 */
     HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_ALL,               /* 全量更新 */
     HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_STATE,             /* 仅更新开关状态 */
-    HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_ENABLE_BIT,        /* 仅更新使能位(1 byte 位图, bit0:使能 bit1:开关) */
+    HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_ENABLE_BIT,        /* 仅更新使能位(1 byte 位图, bit0:总使能 bit1:开关 bit2:单击 bit3:双击 bit4:长按 bit5:长按连续触发) */
     HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_DEVICE_DESCRIPTOR, /* 仅更新设备描述字符串(24 byte, UTF-8) */
     HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_DEFAULT_ICON,      /* 仅更新默认图标(1 byte, 0-255) */
     HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_SELECTED_ICON,     /* 仅更新选中图标(1 byte, 0-255) */
-    HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_KEY_MODE,          /* 仅更新按键模式(1 byte, 0-OFF/1-ON/2-Toggle) */
+    HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_KEY_MODE,          /* 仅更新按键模式(1 byte, 0-OFF/1-ON/2-Toggle(按当前状态)/3-Toggle(按反馈状态)) */
+    HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_DOUBLE_CLICK_INTERVAL,      /* 双击判定最大时间间隔(1 byte, *0.1s, 0=默认) */
+    HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_LONG_PRESS_TIME,            /* 长按时间(1 byte, *0.1s, 0=默认) */
+    HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_LONG_PRESS_REPEAT_INTERVAL, /* 长按后连续触发间隔(1 byte, *0.1s) */
+    HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_EVENT_MASK,                 /* 屏蔽事件位图(1 byte, bit0:双击时单击事件 0=屏蔽/1=不屏蔽, bit1:双击时开关事件 0=屏蔽/1=不屏蔽) */
 } HOOCH_PROTOCOL_KeyStatusControlItem_t;
 
 /* 按键状态数据帧描述 */

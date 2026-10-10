@@ -48,30 +48,30 @@ static void HOOCH_PROTOCOL_FreshAir_ClearFrame(
     frame->valid = 0U;
 }
 
-// uint8_t HOOCH_PROTOCOL_FreshAir_IsValidPower(HOOCH_PROTOCOL_FreshAirPower_t power)
-// {
-//     return (uint8_t)((power == HOOCH_PROTOCOL_FRESH_AIR_POWER_OFF) ||
-//                      (power == HOOCH_PROTOCOL_FRESH_AIR_POWER_ON));
-// }
+uint8_t HOOCH_PROTOCOL_FreshAir_IsValidPower(HOOCH_PROTOCOL_FreshAirPower_t power)
+{
+    return (uint8_t)((power == HOOCH_PROTOCOL_FRESH_AIR_POWER_OFF) ||
+                     (power == HOOCH_PROTOCOL_FRESH_AIR_POWER_ON));
+}
 
-// uint8_t HOOCH_PROTOCOL_FreshAir_IsValidMode(HOOCH_PROTOCOL_FreshAirMode_t mode)
-// {
-//     return (uint8_t)((mode >= HOOCH_PROTOCOL_FRESH_AIR_MODE_AUTO) &&
-//                      (mode <= HOOCH_PROTOCOL_FRESH_AIR_MODE_BOOST));
-// }
+uint8_t HOOCH_PROTOCOL_FreshAir_IsValidMode(HOOCH_PROTOCOL_FreshAirMode_t mode)
+{
+    return (uint8_t)((mode >= HOOCH_PROTOCOL_FRESH_AIR_MODE_AUTO) &&
+                     (mode <= HOOCH_PROTOCOL_FRESH_AIR_MODE_BOOST));
+}
 
-// uint8_t HOOCH_PROTOCOL_FreshAir_IsValidFanSpeed(HOOCH_PROTOCOL_FreshAirFanSpeed_t fan_speed)
-// {
-//     return (uint8_t)((fan_speed >= HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_LOW) &&
-//                      (fan_speed <= HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_AUTO));
-// }
+uint8_t HOOCH_PROTOCOL_FreshAir_IsValidFanSpeed(HOOCH_PROTOCOL_FreshAirFanSpeed_t fan_speed)
+{
+    return (uint8_t)((fan_speed >= HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_LOW) &&
+                     (fan_speed <= HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_AUTO));
+}
 
-// uint8_t HOOCH_PROTOCOL_FreshAir_IsValidControlItem(
-//     HOOCH_PROTOCOL_FreshAirControlItem_t control_item)
-// {
-//     return (uint8_t)((control_item >= HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ALL) &&
-//                      (control_item < HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_MAX));
-// }
+uint8_t HOOCH_PROTOCOL_FreshAir_IsValidControlItem(
+    HOOCH_PROTOCOL_FreshAirControlItem_t control_item)
+{
+    return (uint8_t)((control_item >= HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_ALL) &&
+                     (control_item < HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_MAX));
+}
 
 /* 统一写入新风上报状态。 */
 static HOOCH_PROTOCOL_FreshAirResult_t HOOCH_PROTOCOL_FreshAir_SetReportState(
@@ -156,6 +156,16 @@ static HOOCH_PROTOCOL_FreshAirResult_t HOOCH_PROTOCOL_FreshAir_SetReportFrame(
             // }
 
             s_hooch_protocol_fresh_air_report_frame.fan_speed = frame->fan_speed;
+            break;
+
+        case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_FAN_SPEED_RAW:
+            /* 风速原始值(KNX 风速模式字节原值: 0=关闭 1=低风 2=中风 3=高风 4=自动) */
+            s_hooch_protocol_fresh_air_report_frame.value = frame->value;
+            break;
+
+        case HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_CURRENT_TEMPERATURE_RAW:
+            /* 当前温度原始值(KNX 实际温度原值: 0~500，实际温度 = value * 0.1℃) */
+            s_hooch_protocol_fresh_air_report_frame.value = frame->value;
             break;
 
         default:

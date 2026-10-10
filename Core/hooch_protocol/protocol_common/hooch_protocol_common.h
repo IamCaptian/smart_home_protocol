@@ -31,15 +31,19 @@ extern void hooch_cpu1_set_detected_protocol(uint8_t protocol);
  * 调用方无需依赖集控模块头文件。 */
 extern void hf_zjk_modbus_set_current_ac_addr(uint16_t address);
 
-/* weak定义：开关 HF 集控485 / 线控485 协议模块。
- * 真正实现在各自模块的 circular_buffer.c，模块关闭时由弱定义兜底，调用方无需依赖模块头文件。
- * 关闭(0)后该模块接收队列不再接收任何字节，也不再发帧。 */
-extern void    hf_zjk_modbus_set_enable(uint8_t enable);
-extern uint8_t hf_zjk_modbus_get_enable(void);
-extern void    hf_zxk_modbus_set_enable(uint8_t enable);
-extern uint8_t hf_zxk_modbus_get_enable(void);
+/* ---------------- 通用数据转换接口 ---------------- */
 
+/* 百分比(0~100) 转 单字节(0~255) */
+extern uint8_t hooch_PercentageToChars(uint8_t per);
 
+/* 单字节(0~255) 转 百分比(0~100) */
+extern uint8_t hooch_CharsToPercentage(uint8_t per);
+
+/* float 转 4 字节小端数组 */
+extern void hooch_floatToChars(float value, uint8_t *chars);
+
+/* 4 字节小端数组 转 float */
+extern float hooch_charsToFloat(const uint8_t *chars);
 
 
 /* ---------------- 协议编译开关 ----------------

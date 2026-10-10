@@ -121,6 +121,11 @@ static void knx_setting_report_callback(
                                               1U);
         break;
 
+    /* [21] KNX 读取数据库配置唯一码: 触发型动作, 发 A2 查询帧(fun1=1, fun2=20), 无载荷 */
+    case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_KNX_QUERY_DATABASE_UNIQUE_CODE:
+        send_result = knx_query_basic_function(KNX_BASIC_FUNCTION_DATABASE_UNIQUE_CODE);
+        break;
+
     /* [7] 版本信息: 2 字节载荷 xx(H).xx(L) */
     case HOOCH_PROTOCOL_SETTING_REPORT_EVENT_VERSION_INFO:
         if (knx_setting_report_check_payload(raw, data_len, 2U, event) == 0U)
@@ -248,8 +253,45 @@ static void knx_key_status_report_callback(
 static void knx_key_click_report_callback(
     const HOOCH_PROTOCOL_KeyClickReportFrame_t *frame)
 {
-    (void)frame;
-    /* The current KNX protocol set in this project has no dedicated key-click event frame. */
+    uint8_t item;
+    uint8_t value;
+
+    if ((frame == NULL) ||
+        (s_knx_callback_suppress != 0U) ||
+        (frame->key < HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_1) ||
+        (frame->key > HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_16))
+    {
+        return;
+    }
+
+    /* 点击事件映射到按键设备控制项：3=单击触发, 4=双击触发, 5=长按触发 */
+    switch (frame->event)
+    {
+    case HOOCH_PROTOCOL_KEY_CLICK_REPORT_EVENT_SINGLE_CLICK:
+        item = (uint8_t)KNX_KEY_ITEM_CLICK;
+        break;
+
+    case HOOCH_PROTOCOL_KEY_CLICK_REPORT_EVENT_DOUBLE_CLICK:
+        item = (uint8_t)KNX_KEY_ITEM_DOUBLE_CLICK;
+        break;
+
+    case HOOCH_PROTOCOL_KEY_CLICK_REPORT_EVENT_LONG_CLICK:
+    case HOOCH_PROTOCOL_KEY_CLICK_REPORT_EVENT_LONG_CLICK_1P5S:
+        item = (uint8_t)KNX_KEY_ITEM_LONG_PRESS;
+        break;
+
+    default:
+        return;
+    }
+
+    /* 协议：1=触发 */
+    value = 1U;
+    (void)knx_send_device_function((uint8_t)(frame->key - HOOCH_PROTOCOL_KEY_CLICK_REPORT_KEY_1),
+                                   KNX_DEVICE_TYPE_KEY,
+                                   KNX_DEVICE_CATEGORY_CONTROL,
+                                   item,
+                                   &value,
+                                   1U);
 }
 
 static void knx_dimmer_light_callback(
@@ -274,7 +316,14 @@ static void knx_dimmer_light_callback(
     case HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_BRIGHTNESS:
         (void)knx_send_dimming_control_u8((uint8_t)(frame->key - HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_1),
                                           KNX_DIMMING_ITEM_BRIGHTNESS,
-                                          (uint8_t)((frame->brightness * 255U) / 100U));
+                                          hooch_PercentageToChars((uint8_t)frame->brightness));
+        break;
+
+    case HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_BRIGHTNESS_RAW:
+        /* RAW 上报：brightness 已为 0~255 原始值，直接下发不再换算 */
+        (void)knx_send_dimming_control_u8((uint8_t)(frame->key - HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_1),
+                                          KNX_DIMMING_ITEM_BRIGHTNESS,
+                                          (uint8_t)frame->brightness);
         break;
 
     case HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_COLOR_TEMP:
@@ -293,7 +342,14 @@ static void knx_dimmer_light_callback(
     case HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_PERCENT:
         (void)knx_send_dimming_control_u8((uint8_t)(frame->key - HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_1),
                                           KNX_DIMMING_ITEM_COLOR_TEMP_PERCENT,
-                                          (uint8_t)((frame->percent * 255U) / 100U));
+                                          hooch_PercentageToChars((uint8_t)frame->percent));
+        break;
+
+    case HOOCH_PROTOCOL_DIMMER_LIGHT_CONTROL_ITEM_PERCENT_RAW:
+        /* RAW 上报：percent 已为 0~255 原始值，直接下发不再换算 */
+        (void)knx_send_dimming_control_u8((uint8_t)(frame->key - HOOCH_PROTOCOL_DIMMER_LIGHT_KEY_1),
+                                          KNX_DIMMING_ITEM_COLOR_TEMP_PERCENT,
+                                          (uint8_t)frame->percent);
         break;
 
     default:
@@ -331,13 +387,27 @@ static void knx_curtain_report_callback(
     case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_PERCENT:
         (void)knx_send_curtain_control_u8((uint8_t)(frame->key - HOOCH_PROTOCOL_CURTAIN_KEY_1),
                                           KNX_CURTAIN_ITEM_POSITION_PERCENT,
-                                          (uint8_t)((frame->percent.value * 255U) / 100U));
+                                          hooch_PercentageToChars((uint8_t)frame->percent.value));
+        break;
+
+    case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_PERCENT_RAW:
+        /* RAW 上报：percent.value 已为 0~255 原始值，直接下发不再换算 */
+        (void)knx_send_curtain_control_u8((uint8_t)(frame->key - HOOCH_PROTOCOL_CURTAIN_KEY_1),
+                                          KNX_CURTAIN_ITEM_POSITION_PERCENT,
+                                          (uint8_t)frame->percent.value);
         break;
 
     case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ANGLE:
         (void)knx_send_curtain_control_u8((uint8_t)(frame->key - HOOCH_PROTOCOL_CURTAIN_KEY_1),
                                           KNX_CURTAIN_ITEM_ANGLE_PERCENT,
-                                          (uint8_t)((frame->angle.value * 255U) / 100U));
+                                          hooch_PercentageToChars((uint8_t)frame->angle.value));
+        break;
+
+    case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ANGLE_RAW:
+        /* RAW 上报：angle.value 已为 0~255 原始值，直接下发不再换算 */
+        (void)knx_send_curtain_control_u8((uint8_t)(frame->key - HOOCH_PROTOCOL_CURTAIN_KEY_1),
+                                          KNX_CURTAIN_ITEM_ANGLE_PERCENT,
+                                          (uint8_t)frame->angle.value);
         break;
 
     case HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ALL:
@@ -515,6 +585,7 @@ static uint8_t hooch_fresh_air_speed_to_knx(HOOCH_PROTOCOL_FreshAirFanSpeed_t fa
 {
     switch (fan_speed)
     {
+    case HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_OFF:    return 0U;
     case HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_LOW:    return 1U;
     case HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_MEDIUM: return 2U;
     case HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_HIGH:   return 3U;
@@ -1141,7 +1212,11 @@ void knx_uart_init(void)
     s_knx_parser_timeout_ticks = 0U;
     s_knx_callback_suppress = 0U;
      HOOCH_PROTOCOL_KeyStatus_RegisterReportCallback(knx_key_status_report_callback);
+
+
      HOOCH_PROTOCOL_KeyClickReport_RegisterCallback(knx_key_click_report_callback);
+
+     
      HOOCH_PROTOCOL_DimmerLight_RegisterReportCallback(knx_dimmer_light_callback);
      HOOCH_PROTOCOL_Curtain_RegisterReportCallback(knx_curtain_report_callback);
      HOOCH_PROTOCOL_SettingReport_RegisterCallback(knx_setting_report_callback);

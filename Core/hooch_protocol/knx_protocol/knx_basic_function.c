@@ -5,6 +5,18 @@
  */
 #include "knx_internal.h"
 
+/* 下发"立即进入/退出息屏"动作，面板收到即刻执行 */
+static void knx_dispatch_screen_sleep_action(HOOCH_PROTOCOL_SettingScreenSleepAction_t action)
+{
+    HOOCH_PROTOCOL_SettingFrame_t setting_frame;
+
+    knx_setting_frame_reset(&setting_frame);
+    setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_SCREEN_SLEEP_ACTION;
+    setting_frame.value = (uint32_t)action;
+    setting_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
+    (void)HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
+}
+
 /*基本功能处理*/
 void knx_summary_basic_function(const KNX_Frame_t *frame)
 {
@@ -207,7 +219,38 @@ void knx_summary_basic_function(const KNX_Frame_t *frame)
         break;
 
     case KNX_BASIC_FUNCTION_BACKLIGHT_SCREEN_CONTROL:
-        item_desc = KNX_DESC("Backlight/Screen Control (K->P)"); /* 背光/屏幕控制 */
+        item_desc = KNX_DESC("Backlight/Screen Control (K->P)"); /* 背光/屏幕控制：0=关背光/息屏, 1=亮背光/亮屏 */
+        if (frame->data_len >= 1U)
+        {
+            /* 协议 18 的 0/1 与"进入/退出"相反：0=息屏(进入), 1=亮屏(退出) */
+            knx_dispatch_screen_sleep_action((frame->data[0] == 0U)
+                                                 ? HOOCH_PROTOCOL_SETTING_SCREEN_SLEEP_ACTION_ENTER
+                                                 : HOOCH_PROTOCOL_SETTING_SCREEN_SLEEP_ACTION_EXIT);
+        }
+        break;
+
+    case KNX_BASIC_FUNCTION_SCREENSAVER_CONTROL:
+        item_desc = KNX_DESC("Screensaver Control (K->P)"); /* 屏保控制：0=退出屏保, 1=进入屏保 */
+        if (frame->data_len >= 1U)
+        {
+            /* 协议 19 的 0/1 与"退出/进入"一致：直通 */
+            knx_dispatch_screen_sleep_action((frame->data[0] != 0U)
+                                                 ? HOOCH_PROTOCOL_SETTING_SCREEN_SLEEP_ACTION_ENTER
+                                                 : HOOCH_PROTOCOL_SETTING_SCREEN_SLEEP_ACTION_EXIT);
+        }
+        break;
+
+    case KNX_BASIC_FUNCTION_DATABASE_UNIQUE_CODE:
+        item_desc = KNX_DESC("Database Config Unique Code (K->P)"); /* 数据库配置唯一码：0-65535, 用于判断配置有无变化 */
+        if (frame->data_len >= 2U)
+        {
+            HOOCH_PROTOCOL_SettingFrame_t setting_frame;
+            knx_setting_frame_reset(&setting_frame);
+            setting_frame.item = HOOCH_PROTOCOL_SETTING_ITEM_DATABASE_UNIQUE_CODE;
+            setting_frame.value = knx_read_be_u16(frame->data);
+            setting_frame.source = HOOCH_PROTOCOL_SOURCE_KNX;
+            (void)HOOCH_PROTOCOL_Setting_SetFrame(&setting_frame);
+        }
         break;
 
     default:

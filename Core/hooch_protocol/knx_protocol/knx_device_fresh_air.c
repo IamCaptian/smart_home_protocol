@@ -8,35 +8,32 @@
 static HOOCH_PROTOCOL_FreshAirFrame_t fresh_air_frame;
 static HOOCH_PROTOCOL_SettingFrame_t setting_frame;
 
-/* KNX 风速值 → HOOCH 风速枚举
- * KNX: 1=低风 2=中风 3=高风；0=关闭由调用方按 power 关闭处理 */
+/* KNX 风速字节 → HOOCH 风速枚举
+ * KNX: 0=关闭 1=低风 2=中风 3=高风 4=自动 */
 static HOOCH_PROTOCOL_FreshAirFanSpeed_t knx_fresh_air_speed_to_hooch(uint8_t knx_speed)
 {
     switch (knx_speed)
     {
+    case 0U: return HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_OFF;
     case 1U: return HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_LOW;
     case 2U: return HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_MEDIUM;
     case 3U: return HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_HIGH;
+    case 4U: return HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_AUTO;
     default: return HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_INVALID;
     }
 }
 
-/* KNX 风速模式值 → HOOCH 模式枚举
- * KNX: 4=自动 映射为自动模式，其余非自动值返回无效 */
-static HOOCH_PROTOCOL_FreshAirMode_t knx_fresh_air_mode_to_hooch(uint8_t knx_mode)
-{
-    switch (knx_mode)
-    {
-    case 4U: return HOOCH_PROTOCOL_FRESH_AIR_MODE_AUTO;
-    default: return HOOCH_PROTOCOL_FRESH_AIR_MODE_INVALID;
-    }
-}
+
 
 /*新风控制处理*/
 void knx_summary_fresh_air_control(const KNX_Frame_t *frame)
 {
     const char *item_desc;
     uint8_t need_set;
+    uint16_t fan_speed_raw;
+    uint8_t has_fan_speed_raw;
+    uint16_t temperature_raw;
+    uint8_t has_temperature_raw;
 
     if ((frame == NULL) || (frame->fun_count < 5U))
     {
@@ -49,17 +46,15 @@ void knx_summary_fresh_air_control(const KNX_Frame_t *frame)
     fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_INVALID;
     item_desc = KNX_DESC("Unknown Control Item");
     need_set = 0U;
+    fan_speed_raw = 0U;
+    has_fan_speed_raw = 0U;
+    temperature_raw = 0U;
+    has_temperature_raw = 0U;
 
     switch (frame->fun[4])
     {
         case 1U: /* SWITCH P->K */
             item_desc = KNX_DESC("Power (P->K)");
-            if (frame->data_len > 0U)
-            {
-                fresh_air_frame.power = (HOOCH_PROTOCOL_FreshAirPower_t)frame->data[0];
-                fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_POWER;
-                need_set = 1U;
-            }
             break;
 
         case 2U: /* SWITCH_STATUS K->P */
@@ -74,51 +69,23 @@ void knx_summary_fresh_air_control(const KNX_Frame_t *frame)
 
         case 3U: /* FAN_SPEED_MODE P->K：0=关闭/1=低风/2=中风/3=高风/4=自动 */
             item_desc = KNX_DESC("Fan Speed/Mode (P->K)");
-            if (frame->data_len > 0U)
-            {
-                if (frame->data[0] == 0U)
-                {
-                    // fresh_air_frame.power = HOOCH_PROTOCOL_FRESH_AIR_POWER_OFF;
-                    // fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_POWER;
-                    // need_set = 1U;
-                }
-                else if (frame->data[0] == 4U)
-                {
-                    fresh_air_frame.mode = knx_fresh_air_mode_to_hooch(frame->data[0]);
-                    fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_MODE;
-                    need_set = 1U;
-                }
-                else
-                {
-                    fresh_air_frame.fan_speed = knx_fresh_air_speed_to_hooch(frame->data[0]);
-                    fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_FAN_SPEED;
-                    need_set = 1U;
-                }
-            }
             break;
 
         case 4U: /* FAN_SPEED_MODE_STATUS K->P：0=关闭/1=低风/2=中风/3=高风/4=自动 */
             item_desc = KNX_DESC("Fan Speed/Mode State (K->P)");
             if (frame->data_len > 0U)
             {
-                if (frame->data[0] == 0U)
+                /* 先按风速枚举下发一次(0=关闭/1=低风/2=中风/3=高风/4=自动) */
+                fresh_air_frame.fan_speed = knx_fresh_air_speed_to_hooch(frame->data[0]);
+                if (fresh_air_frame.fan_speed != HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_INVALID)
                 {
-                    // fresh_air_frame.power = HOOCH_PROTOCOL_FRESH_AIR_POWER_OFF;
-                    // fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_POWER;
-                    // need_set = 1U;
-                }
-                else if (frame->data[0] == 4U)
-                {
-                    fresh_air_frame.mode = knx_fresh_air_mode_to_hooch(frame->data[0]);
-                    fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_MODE;
-                    need_set = 1U;
-                }
-                else
-                {
-                    fresh_air_frame.fan_speed = knx_fresh_air_speed_to_hooch(frame->data[0]);
                     fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_FAN_SPEED;
                     need_set = 1U;
                 }
+
+                /* 原始值再透传一次 */
+                fan_speed_raw = frame->data[0];
+                has_fan_speed_raw = 1U;
             }
             break;
 
@@ -126,18 +93,17 @@ void knx_summary_fresh_air_control(const KNX_Frame_t *frame)
             item_desc = KNX_DESC("Actual Fan Speed (K<->P)");
             if (frame->data_len > 0U)
             {
-                if (frame->data[0] == 0U)
+                /* 先按风速枚举下发一次(0=关闭/1=低风/2=中风/3=高风) */
+                fresh_air_frame.fan_speed = knx_fresh_air_speed_to_hooch(frame->data[0]);
+                if (fresh_air_frame.fan_speed != HOOCH_PROTOCOL_FRESH_AIR_FAN_SPEED_INVALID)
                 {
-                    // fresh_air_frame.power = HOOCH_PROTOCOL_FRESH_AIR_POWER_OFF;
-                    // fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_POWER;
-                    // need_set = 1U;
-                }
-                else
-                {
-                    fresh_air_frame.fan_speed = knx_fresh_air_speed_to_hooch(frame->data[0]);
                     fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_FAN_SPEED;
                     need_set = 1U;
                 }
+
+                /* 原始值再透传一次 */
+                fan_speed_raw = frame->data[0];
+                has_fan_speed_raw = 1U;
             }
             break;
 
@@ -145,10 +111,14 @@ void knx_summary_fresh_air_control(const KNX_Frame_t *frame)
             item_desc = KNX_DESC("Actual Temperature (K<->P)");
             if (frame->data_len >= 2U)
             {
-                /* 温度值为 0~500，实际温度 = value * 0.1℃ */
-                fresh_air_frame.current_temperature = (uint8_t)(knx_read_be_u16(frame->data) / 10U);
+                /* 温度值为 0~500，实际温度 = value * 0.1℃ (四舍五入到整数℃) */
+                fresh_air_frame.current_temperature = (uint8_t)((knx_read_be_u16(frame->data) + 5U) / 10U);
                 fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_CURRENT_TEMPERATURE;
                 need_set = 1U;
+
+                /* 同时记录温度原始值(0~500)透传下去 */
+                temperature_raw = knx_read_be_u16(frame->data);
+                has_temperature_raw = 1U;
             }
             break;
 
@@ -158,6 +128,22 @@ void knx_summary_fresh_air_control(const KNX_Frame_t *frame)
 
     if (need_set != 0U)
     {
+        (void)HOOCH_PROTOCOL_FreshAir_DispatchFrame(&fresh_air_frame);
+    }
+
+    /* 风速字节原值额外透传一次(0=关闭/1=低风/2=中风/3=高风/4=自动)，供下游按原值处理 */
+    if (has_fan_speed_raw != 0U)
+    {
+        fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_FAN_SPEED_RAW;
+        fresh_air_frame.value = fan_speed_raw;
+        (void)HOOCH_PROTOCOL_FreshAir_DispatchFrame(&fresh_air_frame);
+    }
+
+    /* 温度原始值额外透传一次(0~500)，供下游按原值处理 */
+    if (has_temperature_raw != 0U)
+    {
+        fresh_air_frame.control_item = HOOCH_PROTOCOL_FRESH_AIR_CONTROL_ITEM_CURRENT_TEMPERATURE_RAW;
+        fresh_air_frame.value = temperature_raw;
         (void)HOOCH_PROTOCOL_FreshAir_DispatchFrame(&fresh_air_frame);
     }
 

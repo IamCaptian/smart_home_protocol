@@ -39,7 +39,6 @@ xiaomi_f103\knx_handle.o: ..\Core\hooch_protocol\hooch_curtain.h
 xiaomi_f103\knx_handle.o: ..\Core\hooch_protocol\hooch_dimmer_light.h
 xiaomi_f103\knx_handle.o: ..\Core\hooch_protocol\hooch_floor_heating.h
 xiaomi_f103\knx_handle.o: ..\Core\hooch_protocol\hooch_fresh_air.h
-xiaomi_f103\knx_handle.o: ..\Core\hooch_protocol\hooch_key_click_dispatch.h
 xiaomi_f103\knx_handle.o: ..\Core\hooch_protocol\hooch_key_click_report.h
 xiaomi_f103\knx_handle.o: ..\Core\hooch_protocol\hooch_key_mode.h
 xiaomi_f103\knx_handle.o: ..\Core\hooch_protocol\hooch_key_name.h

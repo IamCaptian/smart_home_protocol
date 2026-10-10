@@ -42,6 +42,16 @@ void knx_summary_key_control(const KNX_Frame_t *frame)
     KNX_SUMMARY_EMIT_INDEXED("Key", frame->fun[1], item_desc, frame);
 }
 
+/* 按键单字节配置项：组装 key_status_frame（按键号取 fun2+1, 值取 data[0]） */
+static void knx_key_status_fill_u8(const KNX_Frame_t *frame,
+                                   HOOCH_PROTOCOL_KeyStatusControlItem_t control_item)
+{
+    key_status_frame.key = (HOOCH_PROTOCOL_KeyStatusKey_t)(frame->fun[1] + 1U);
+    key_status_frame.control_item = control_item;
+    key_status_frame.value = (frame->data_len >= 1U) ? (int)frame->data[0] : 0;
+    key_status_frame.valid = 1U;
+}
+
 /*按键配置处理*/
 void knx_summary_key_config(const KNX_Frame_t *frame)
 {
@@ -61,22 +71,7 @@ void knx_summary_key_config(const KNX_Frame_t *frame)
     {
     case 1U: item_desc = KNX_DESC("Enable Bit (K<->P)"); 
           {
-            need_set = 1U;
-        HOOCH_PROTOCOL_KeyModeFrame_t key_mode_frame;
-        (void)memset(&key_mode_frame, 0, sizeof(key_mode_frame));
-        key_mode_frame.key = (HOOCH_PROTOCOL_KeyModeKey_t)(frame->fun[1] + 1U);
-        if(frame->data[0] != 0)
-        {
-            key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH;
-            key_mode_frame.valid = 1U;
-
-        }else
-        {
-            key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH;
-            key_mode_frame.valid = 1U;
-        }
-                HOOCH_PROTOCOL_KeyMode_SetFrame(&key_mode_frame);
-        /* 使能位原始位图同步下发 */
+        /* 使能位原始位图同步下发(bit0 总使能/bit1 开关/bit2 单击/bit3 双击/bit4 长按/bit5 长按连续触发) */
         key_status_frame.key = (HOOCH_PROTOCOL_KeyStatusKey_t)(frame->fun[1] + 1U);
         key_status_frame.control_item = HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_ENABLE_BIT;
         key_status_frame.value = frame->data[0];
@@ -161,6 +156,10 @@ void knx_summary_key_config(const KNX_Frame_t *frame)
                 /* 2=Toggle(ON/OFF)：普通开关反转模式 */
                 key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH_TOGGLE;
                 break;
+            case 3U:
+                /* 3=Toggle：按反馈状态翻转 */
+                key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH_TOGGLE_FEEDBACK;
+                break;
             default:
                 /* 无效值：按普通开关处理 */
                 key_mode_frame.type = HOOCH_PROTOCOL_KEY_MODE_TYPE_NORMAL_SWITCH;
@@ -170,7 +169,7 @@ void knx_summary_key_config(const KNX_Frame_t *frame)
         key_mode_frame.valid = 1U;
         (void)HOOCH_PROTOCOL_KeyMode_SetFrame(&key_mode_frame);
 
-        /* 按键模式原始值同步下发(0-OFF/1-ON/2-Toggle) */
+        /* 按键模式原始值同步下发(0-OFF/1-ON/2-Toggle(按当前状态)/3-Toggle(按反馈状态)) */
         if (frame->data_len >= 1U)
         {
             key_status_frame.key = (HOOCH_PROTOCOL_KeyStatusKey_t)(frame->fun[1] + 1U);
@@ -181,6 +180,26 @@ void knx_summary_key_config(const KNX_Frame_t *frame)
         }
     }
     break;
+    case KNX_KEY_CONFIG_DOUBLE_CLICK_INTERVAL:
+        item_desc = KNX_DESC("Double Click Interval (K->P)"); /* 双击判定最大时间间隔: 0-255 * 0.1s, 0=面板默认 */
+        knx_key_status_fill_u8(frame, HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_DOUBLE_CLICK_INTERVAL);
+        need_set = 3U;
+        break;
+    case KNX_KEY_CONFIG_LONG_PRESS_TIME:
+        item_desc = KNX_DESC("Long Press Time (K->P)"); /* 长按时间: 0-255 * 0.1s, 0=面板默认 */
+        knx_key_status_fill_u8(frame, HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_LONG_PRESS_TIME);
+        need_set = 3U;
+        break;
+    case KNX_KEY_CONFIG_LONG_PRESS_REPEAT_INTERVAL:
+        item_desc = KNX_DESC("Long Press Repeat Interval (K->P)"); /* 长按触发后连续触发间隔: 0-255 * 0.1s */
+        knx_key_status_fill_u8(frame, HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_LONG_PRESS_REPEAT_INTERVAL);
+        need_set = 3U;
+        break;
+    case KNX_KEY_CONFIG_EVENT_MASK:
+        item_desc = KNX_DESC("Event Mask (K->P)"); /* 屏蔽事件: bit0=双击时屏蔽单击, bit1=双击时屏蔽开关 */
+        knx_key_status_fill_u8(frame, HOOCH_PROTOCOL_KEY_STATUS_CONTROL_ITEM_EVENT_MASK);
+        need_set = 3U;
+        break;
     default: break;
     }
   if(need_set == 2U)

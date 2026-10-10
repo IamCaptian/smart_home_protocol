@@ -42,7 +42,6 @@ xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_dimmer_light.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_floor_heating.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_fresh_air.h
-xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_key_click_dispatch.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_key_click_report.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_key_mode.h
 xiaomi_f103\xiaomi_smart_screen_circular_buffer.o: ..\Core\hooch_protocol\hooch_key_name.h

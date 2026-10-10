@@ -25,49 +25,33 @@ void knx_summary_curtain_control(const KNX_Frame_t *frame)
     /* 窗帘控制项：item -> 功能描述 */
     switch (frame->fun[4])
     {
-    case 1U: item_desc = KNX_DESC("Switch/UpDown (P->K)");
-    curtain_frame.key = (HOOCH_PROTOCOL_CurtainKey_t)(frame->fun[1] + 1U);
-    curtain_frame.control_item = HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_SWITCH;
-    curtain_frame.switch_status.value = frame->data[0];
-    curtain_frame.valid = 1U;
-    break;
-    case 2U: item_desc = KNX_DESC("Stop (P->K)");
-    curtain_frame.key = (HOOCH_PROTOCOL_CurtainKey_t)(frame->fun[1] + 1U);
-    curtain_frame.control_item = HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_STOP;
-    curtain_frame.stop.value = frame->data[0];
-    curtain_frame.valid = 1U;
-    break;
-    case 3U: item_desc = KNX_DESC("Position Percent (P->K)");
-    curtain_frame.key = (HOOCH_PROTOCOL_CurtainKey_t)(frame->fun[1] + 1U);
-    curtain_frame.control_item = HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_PERCENT;
-    curtain_frame.percent.value = (uint8_t)(((uint32_t)frame->data[0] * 100U) / 255U);
-    curtain_frame.valid = 1U;
-    break;
+    case 1U: item_desc = KNX_DESC("Switch/UpDown (P->K)");break;
+    case 2U: item_desc = KNX_DESC("Stop (P->K)");break;
+    case 3U: item_desc = KNX_DESC("Position Percent (P->K)");break;
     case 4U: item_desc = KNX_DESC("Position Percent State (K->P)");
     curtain_frame.key = (HOOCH_PROTOCOL_CurtainKey_t)(frame->fun[1] + 1U);
+    /* 同一份 KNX 百分比原始字节(0~255)：先按 0~100 归一化派发一次 */
     curtain_frame.control_item = HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_PERCENT;
-    curtain_frame.percent.value = (uint8_t)(((uint32_t)frame->data[0] * 100U) / 255U);
+    curtain_frame.percent.value = hooch_CharsToPercentage(frame->data[0]);
     curtain_frame.valid = 1U;
+    (void)HOOCH_PROTOCOL_Curtain_DispatchFrame(&curtain_frame);
+    /* 再以 RAW 原值(0~255)报一次，由函数末尾统一派发 */
+    curtain_frame.control_item = HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_PERCENT_RAW;
+    curtain_frame.percent.value = frame->data[0];
     break;
-    case 5U: item_desc = KNX_DESC("Angle Open/Close (P->K)");
-    curtain_frame.key = (HOOCH_PROTOCOL_CurtainKey_t)(frame->fun[1] + 1U);
-    curtain_frame.control_item = HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_SWITCH;
-    curtain_frame.switch_status.value = frame->data[0];
-    curtain_frame.valid = 1U;
-    break;
-    case 6U: item_desc = KNX_DESC("Angle Stop (P->K)");
-    curtain_frame.key = (HOOCH_PROTOCOL_CurtainKey_t)(frame->fun[1] + 1U);
-    curtain_frame.control_item = HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_STOP;
-    curtain_frame.stop.value = frame->data[0];
-    curtain_frame.valid = 1U;
-    break;
-    case 7U: item_desc = KNX_DESC("Angle Percent (P->K)");
-    curtain_frame.key = (HOOCH_PROTOCOL_CurtainKey_t)(frame->fun[1] + 1U);
-    curtain_frame.control_item = HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ANGLE;
-    curtain_frame.angle.value = (uint8_t)(((uint32_t)frame->data[0] * 100U) / 255U);
-    curtain_frame.valid = 1U;
-    break;
+    case 5U: item_desc = KNX_DESC("Angle Open/Close (P->K)");break;
+    case 6U: item_desc = KNX_DESC("Angle Stop (P->K)");break;
+    case 7U: item_desc = KNX_DESC("Angle Percent (P->K)");break;
     case 8U: item_desc = KNX_DESC("Angle Percent State (K->P)");
+    curtain_frame.key = (HOOCH_PROTOCOL_CurtainKey_t)(frame->fun[1] + 1U);
+    /* 同一份 KNX 角度原始字节(0~255)：先按 0~100 归一化派发一次 */
+    curtain_frame.control_item = HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ANGLE;
+    curtain_frame.angle.value = hooch_CharsToPercentage(frame->data[0]);
+    curtain_frame.valid = 1U;
+    (void)HOOCH_PROTOCOL_Curtain_DispatchFrame(&curtain_frame);
+    /* 再以 RAW 原值(0~255)报一次，由函数末尾统一派发 */
+    curtain_frame.control_item = HOOCH_PROTOCOL_CURTAIN_CONTROL_ITEM_ANGLE_RAW;
+    curtain_frame.angle.value = frame->data[0];
     break;
     default: break;
     }

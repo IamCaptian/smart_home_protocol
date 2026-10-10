@@ -731,11 +731,12 @@ static void cli_cmd_mi_setting_report(int argc, char *argv[])
         cli_print("[CLI] Usage: mi_setting_report event [value]\r\n");
         cli_print("[CLI] Example: mi_setting_report 8 1\r\n");
         cli_print("[CLI] Tuya events: 1=join 2=leave 3=reset 6=time 11=weather 18=wind 19=city 20=area\r\n");
+        cli_print("[CLI] KNX events: 8=update config 10=heartbeat 21=read db unique code\r\n");
         return;
     }
 
     if (!cli_parse_setting_report_event(argv[1], &event)) {
-        cli_print("[CLI] Invalid event, use 1~20\r\n");
+        cli_print("[CLI] Invalid event, use 1~21\r\n");
         return;
     }
 

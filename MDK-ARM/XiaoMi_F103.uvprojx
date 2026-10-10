@@ -558,11 +558,6 @@
               <FilePath>..\Core\hooch_protocol\hooch_fresh_air_report.c</FilePath>
             </File>
             <File>
-              <FileName>hooch_key_click_dispatch.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\hooch_protocol\hooch_key_click_dispatch.c</FilePath>
-            </File>
-            <File>
               <FileName>hooch_key_click_report.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\hooch_protocol\hooch_key_click_report.c</FilePath>
