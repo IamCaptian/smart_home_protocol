@@ -61,6 +61,8 @@ typedef enum
     HOOCH_PROTOCOL_KEY_NAME_PAGE_LIGHT,
     HOOCH_PROTOCOL_KEY_NAME_PAGE_CURTAIN,
     HOOCH_PROTOCOL_KEY_NAME_PAGE_LOCAL_SCENE,
+    HOOCH_PROTOCOL_KEY_NAME_PAGE_ONE,     /**< Currently used in Tuya module */
+    HOOCH_PROTOCOL_KEY_NAME_PAGE_TWO,     /**< Currently used in Tuya module */
 } HOOCH_PROTOCOL_KeyNamePage_t;
 
 typedef enum

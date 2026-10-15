@@ -82,7 +82,17 @@ static unsigned char handle_key_name(unsigned short dp_len, unsigned char *dp_da
     HOOCH_PROTOCOL_KeyNameFrame_t frame;
     frame.key = (HOOCH_PROTOCOL_KeyNameKey_t)(dp_data[0]);
     frame.icon_index = (HOOCH_PROTOCOL_KeyNameIconIndex_t)dp_data[1];
-    frame.page     = HOOCH_PROTOCOL_KEY_NAME_PAGE_INVALID;
+    /* Key 1~4 → Page One, Key 5~8 → Page Two */
+    if (frame.key >= HOOCH_PROTOCOL_KEY_NAME_KEY_1 && frame.key <= HOOCH_PROTOCOL_KEY_NAME_KEY_4) {
+        frame.page = HOOCH_PROTOCOL_KEY_NAME_PAGE_ONE;
+    } else if (frame.key >= HOOCH_PROTOCOL_KEY_NAME_KEY_5 && frame.key <= HOOCH_PROTOCOL_KEY_NAME_KEY_8) {
+        frame.page = HOOCH_PROTOCOL_KEY_NAME_PAGE_TWO;
+    } else {
+        frame.page = HOOCH_PROTOCOL_KEY_NAME_PAGE_INVALID;
+    }
+
+
+
     frame.delivery = (frame.key == HOOCH_PROTOCOL_KEY_NAME_KEY_INVALID)
                      ? HOOCH_PROTOCOL_KEY_NAME_DELIVERY_OFFSCREEN_TEXT
                      : HOOCH_PROTOCOL_KEY_NAME_DELIVERY_KEY;
