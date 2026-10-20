@@ -46,6 +46,10 @@ void knx_summary_scene_control(const KNX_Frame_t *frame)
 
     case KNX_SCENE_ITEM_LEARN:
         item_desc = KNX_DESC("Learn (P->K)"); /* 学习：1=学习 */
+        break;
+
+    case KNX_SCENE_ITEM_DOUBLE_CLICK:
+        item_desc = KNX_DESC("Double Click (P->K)"); /* 双击触发：1=触发 */
         // if ((frame->data_len >= 1U) && (frame->data[0] == 1U))
         // {
         //     scene_dispatch_frame.scene = (HOOCH_PROTOCOL_SceneDispatchScene_t)(frame->fun[1] + 1U);

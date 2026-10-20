@@ -285,6 +285,31 @@ static unsigned char tuya_air_fan_speed_from_hooch(
     }
 }
 
+/* Hooch 空调模式 → Zigbee 组控模式 (cool=0, heat=1, dry=2, fan=3) */
+static unsigned char tuya_air_mode_from_hooch_gid(HOOCH_PROTOCOL_AirConditionerMode_t mode)
+{
+    switch (mode) {
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_COOL: return 0U;
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_HEAT: return 1U;
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_DRY:  return 2U;
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_MODE_FAN:  return 3U;
+    default:                                       return 0xFFU;
+    }
+}
+
+/* Hooch 空调风速 → Zigbee 组控风速 (auto=0, low=1, mid=2, high=3) */
+static unsigned char tuya_air_fan_speed_from_hooch_gid(
+    HOOCH_PROTOCOL_AirConditionerFanSpeed_t fan_speed)
+{
+    switch (fan_speed) {
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_AUTO:   return 0U;
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_LOW:    return 1U;
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_MEDIUM: return 2U;
+    case HOOCH_PROTOCOL_AIR_CONDITIONER_FAN_SPEED_HIGH:   return 3U;
+    default:                                              return 0xFFU;
+    }
+}
+
 /***********************************************************
  * 空调上报回调 (开关/模式/风速/温度上报)
  *   frame->power        : 开关状态
@@ -381,8 +406,8 @@ static void tuya_air_conditioner_report_callback2(
                   frame->address, frame->power, frame->mode, frame->fan_speed,
                   frame->temperature, frame->control_item);
 
-    mode = tuya_air_mode_from_hooch(frame->mode);
-    fan_speed = tuya_air_fan_speed_from_hooch(frame->fan_speed);
+    mode = tuya_air_mode_from_hooch_gid(frame->mode);
+    fan_speed = tuya_air_fan_speed_from_hooch_gid(frame->fan_speed);
 
     switch (frame->control_item) {
     case HOOCH_PROTOCOL_AIR_CONDITIONER_CONTROL_ITEM_POWER:

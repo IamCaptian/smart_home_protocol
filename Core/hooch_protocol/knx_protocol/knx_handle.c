@@ -626,6 +626,7 @@ static const char *knx_get_device_item_name(uint8_t device_type, uint8_t categor
             case KNX_SCENE_ITEM_TRIGGER: return "TRIGGER";
             case KNX_SCENE_ITEM_STATUS: return "STATUS";
             case KNX_SCENE_ITEM_LEARN: return "LEARN";
+            case KNX_SCENE_ITEM_DOUBLE_CLICK: return "DOUBLE_CLICK";
             default: return "UNKNOWN_SCENE_ITEM";
             }
 

@@ -1,0 +1,5 @@
+# Keil MDK 编译输出目录及文件，不纳入版本管理
+MDK-ARM/XiaoMi_F103/
+MDK-ARM/build_output.txt
+MDK-ARM/uv4_build_new.log
+MDK-ARM/*.lst

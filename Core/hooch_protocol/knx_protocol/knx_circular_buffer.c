@@ -438,11 +438,15 @@ static void knx_scene_report_callback(
         return;
     }
 
-    /* 触发：1=触发；学习：1=学习 */
+    /* 触发：1=触发；学习：1=学习；双击：1=触发 */
     value = frame->valid;
-    item = (uint8_t)((frame->action == HOOCH_PROTOCOL_SCENE_REPORT_ACTION_LEARN)
-                         ? KNX_SCENE_ITEM_LEARN
-                         : KNX_SCENE_ITEM_TRIGGER);
+    if (frame->action == HOOCH_PROTOCOL_SCENE_REPORT_ACTION_LEARN) {
+        item = KNX_SCENE_ITEM_LEARN;
+    } else if (frame->action == HOOCH_PROTOCOL_SCENE_REPORT_ACTION_DOUBLE_CLICK) {
+        item = KNX_SCENE_ITEM_DOUBLE_CLICK;
+    } else {
+        item = KNX_SCENE_ITEM_TRIGGER;
+    }
 
     (void)knx_send_device_function((uint8_t)(frame->key - HOOCH_PROTOCOL_SCENE_REPORT_KEY_1),
                                    KNX_DEVICE_TYPE_SCENE,

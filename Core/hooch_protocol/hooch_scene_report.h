@@ -54,6 +54,7 @@ typedef enum
 typedef enum
 {
     HOOCH_PROTOCOL_SCENE_REPORT_ACTION_TRIGGER = 0U,  /* 触发：1=触发 */
+    HOOCH_PROTOCOL_SCENE_REPORT_ACTION_DOUBLE_CLICK,  /* 双击触发 */
     HOOCH_PROTOCOL_SCENE_REPORT_ACTION_LEARN,         /* 学习：1=学习 */
 } HOOCH_PROTOCOL_SceneReportAction_t;
 
@@ -145,6 +146,14 @@ HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_Send(
 HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_SendLearn(
     HOOCH_PROTOCOL_SceneReportKey_t key);
 
+/* 上报场景（类型1：key + action） */
+HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_SendWithAction(
+    HOOCH_PROTOCOL_SceneReportKey_t key,
+    HOOCH_PROTOCOL_SceneReportAction_t action);
+
+
+
+    
 /* ---- 类型2 上报：页面+key ---- */
 
 /* 上报场景按键（类型2：页面+key） */

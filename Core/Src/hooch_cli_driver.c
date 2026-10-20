@@ -9,6 +9,7 @@
 
 #include "main.h"
 #include "hooch_protocol.h"
+#include "hooch_lcd_probe.h"
 #include "usart.h"
 #include "user_printf.h"
 #include <string.h>
@@ -74,6 +75,7 @@ static void cli_cmd_hfjk_enable(int argc, char *argv[]);
 static const cli_cmd_t cli_cmd_table[] = {
     {"help",               "Show help info",                          cli_cmd_help},
     {"reboot",             "Soft reset MCU",                          cli_cmd_reboot},
+    {"lcdprobe",           "LCD panel probe: lcdprobe [detect|init|items|reset|read <cmd> <reg> [line]|write <cmd> <reg> <val>]", hooch_lcd_probe_cli_cmd},
     {"mi_switch",          "Dimmer switch: mi_switch key 0|1",        cli_cmd_mi_switch},
     {"mi_brightness",      "Dimmer brightness: mi_brightness key value", cli_cmd_mi_brightness},
     {"mi_color_temp",      "Dimmer color temp: mi_color_temp key value(0-65535)", cli_cmd_mi_color_temp},

@@ -264,6 +264,7 @@ typedef enum
     KNX_SCENE_ITEM_TRIGGER = 1U,
     KNX_SCENE_ITEM_STATUS = 2U,
     KNX_SCENE_ITEM_LEARN = 3U,
+    KNX_SCENE_ITEM_DOUBLE_CLICK = 4U,
 } KNX_SceneItem_t;
 
 /* Scene config items. */

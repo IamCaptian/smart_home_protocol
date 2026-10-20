@@ -30,6 +30,7 @@
 #include "hf_zjk_modbus_circular_buffer.h"
 #include "hooch_protocol.h"
 #include "mcu_api.h"
+#include "hooch_lcd_probe.h"
 
 /* CLI驱动外部函数声明 */
 extern void Hooch_CLI_Init(void);
@@ -148,6 +149,10 @@ int main(void)
   LOG_INFO("  UART3: 115200\r\n");
   LOG_INFO("========================================\r\n");
   
+  // // 上电初始化 LCD 面板（复位 + 单线写下发初始化表），再读取寄存器识别屏幕型号
+  // hooch_lcd_probe_init();
+  // (void)hooch_lcd_probe_detect();
+
   // 初始化CLI命令行
   Hooch_CLI_Init();
   HOOCH_PROTOCOL_KeyStatus_RegisterCallback(HOOCH_PROTOCOL_KeyStatusReport_Process);

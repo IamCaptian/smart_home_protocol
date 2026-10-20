@@ -197,6 +197,13 @@ HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_SendLearn(
     return HOOCH_PROTOCOL_SceneReport_SetAction(key, HOOCH_PROTOCOL_SCENE_REPORT_ACTION_LEARN);
 }
 
+HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_SendWithAction(
+    HOOCH_PROTOCOL_SceneReportKey_t key,
+    HOOCH_PROTOCOL_SceneReportAction_t action)
+{
+    return HOOCH_PROTOCOL_SceneReport_SetAction(key, action);
+}
+
 /* ======================== 类型2 上报：页面+key ======================== */
 
 HOOCH_PROTOCOL_SceneReportResult_t HOOCH_PROTOCOL_SceneReport_SendPage(

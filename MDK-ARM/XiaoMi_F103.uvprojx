@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xB</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\Core\hooch_protocol;..\Core\hooch_protocol\protocol_common;..\Core\hooch_protocol\hooch_auto_task;..\Core\hooch_protocol\tuya_protocol\mcu_sdk;..\Core\hooch_protocol\knx_protocol;..\Core\hooch_protocol\xiaomi_smart_screen;..\Core\hooch_protocol\hf_zxk_modbus_protocol;..\Core\hooch_protocol\hf_zjk_modbus_protocol</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\Core\hooch_protocol;..\Core\hooch_protocol\protocol_common;..\Core\hooch_protocol\hooch_auto_task;..\Core\hooch_protocol\tuya_protocol\mcu_sdk;..\Core\hooch_protocol\knx_protocol;..\Core\hooch_protocol\xiaomi_smart_screen;..\Core\hooch_protocol\hf_zxk_modbus_protocol;..\Core\hooch_protocol\hf_zjk_modbus_protocol;..\Core\lcd_probe</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -438,6 +438,16 @@
               <FileName>system_stm32f1xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\system_stm32f1xx.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>lcd_probe</GroupName>
+          <Files>
+            <File>
+              <FileName>hooch_lcd_probe.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\lcd_probe\hooch_lcd_probe.c</FilePath>
             </File>
           </Files>
         </Group>
