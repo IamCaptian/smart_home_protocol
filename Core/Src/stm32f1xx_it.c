@@ -24,6 +24,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "xiaomi_smart_screen_circular_bufferc.h"
+#include "xiaomi_smart_screen_86box_buffer.h"
 #include "knx_protocol_uart.h"
 #include "hf_zxk_modbus_circular_buffer.h"
 #include "hf_zjk_modbus_circular_buffer.h"
@@ -267,16 +268,20 @@ void USART2_IRQHandler(void)
        * 各解析器都是"字节流状态机"，彼此独立：
        * 这里把每个字节同时喂入各自环形缓冲区，由主循环分别解析。
        */
-   //  xiaoni_smart_screen_uart_rxcallback(rx_data);
+     //xiaoni_smart_screen_uart_rxcallback(rx_data);
     //  knx_uart_rxcallback(rx_data);
     // ble_uart_rxcallback(rx_data);
+
+    /* 小米 86 盒子全面屏模组协议（xiaomi_86box_*）：与以上各解析器互相独立 */
+    xiaomi_86box_uart_rx_callback(rx_data);
 
     /* 线控器 MODBUS-RTU 协议（hf_zxk_modbus_*）：与以上各解析器互相独立 */
   //  hf_zxk_modbus_uart_rxcallback(rx_data);
 
     /* 集控器 自定义485 协议（hf_zjk_modbus_*）：与以上各解析器互相独立 */
-    hf_zjk_modbus_uart_rxcallback(rx_data);  
+  //  hf_zjk_modbus_uart_rxcallback(rx_data);  
 
+    /* Tuya 协议暂时关闭, 与 86 盒子模组不能同时使用 */
    // uart_servive_rx_store(rx_data);
       
       /* 清除接收中断标志 */

@@ -22,7 +22,7 @@ extern "C"
  **********************************************************/
 //< USER_CHECK_MSG 
 ///<product key(pid)  the same as yours in the Tuya IoT Platform
-#define PRODUCT_KEY "az0mzbm4"    //开发平台创建产品后生成的16位字符产品唯一标识
+#define PRODUCT_KEY "ie166zcq"    //开发平台创建产品后生成的16位字符产品唯一标识
 
 //< USER_CHECK_MSG END
 
@@ -206,6 +206,30 @@ extern "C"
 //新风风速(可下发可上报)
 //备注:
 #define DPID_FRESH_AIR_SPEED 150
+//继电器5(可下发可上报)
+//备注:BOOL，暂只解析上报，不接入按键状态
+#define DPID_RELAY_5 153
+//继电器6(可下发可上报)
+//备注:BOOL，暂只解析上报，不接入按键状态
+#define DPID_RELAY_6 154
+//继电器7(可下发可上报)
+//备注:BOOL，暂只解析上报，不接入按键状态
+#define DPID_RELAY_7 155
+//继电器8(可下发可上报)
+//备注:BOOL，暂只解析上报，不接入按键状态
+#define DPID_RELAY_8 156
+//开关1(可下发可上报)
+//备注:BOOL，对应按键1的开关状态
+#define DPID_SWITCH_01 157
+//开关2(可下发可上报)
+//备注:BOOL，对应按键2的开关状态
+#define DPID_SWITCH_02 158
+//开关3(可下发可上报)
+//备注:BOOL，对应按键3的开关状态
+#define DPID_SWITCH_03 159
+//开关4(可下发可上报)
+//备注:BOOL，对应按键4的开关状态
+#define DPID_SWITCH_04 160
 
 //< USER_CHECK_MSG END
 

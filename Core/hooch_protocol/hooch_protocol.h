@@ -20,10 +20,12 @@ extern "C" {
 #include "hooch_key_name.h"
 #include "hooch_key_status.h"
 #include "hooch_page_adjust.h"
+#include "hooch_relay.h"
 #include "hooch_scene_dispatch.h"
 #include "hooch_scene_report.h"
 #include "hooch_setting.h"
 #include "hooch_setting_report.h"
+#include "hooch_unsupported_attribute.h"
 
 #ifdef __cplusplus
 }

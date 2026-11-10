@@ -59,9 +59,9 @@ static unsigned char handle_jog_time(unsigned short dp_len, unsigned char *dp_da
 {
     if (dp_len < 3U) return 1U;
     HOOCH_PROTOCOL_SettingFrame_t sf;
-    init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_KEY_JOG_TIME, dp_data[0] + 1U);
-    sf.param1 = dp_data[1];
-    sf.param2 = dp_data[2];
+    init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_KEY_JOG_TIME, dp_data[0]);
+    sf.param1 =  (dp_data[1] == 0U) ? 1U : 0U;  //常开/常闭: 涂鸦 0/1 取反后再下发
+    sf.param2 =  (uint16_t)(dp_data[2] << 8) | dp_data[3];//涂鸦时间为ms
     sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
     (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
     return 1U;
@@ -83,6 +83,7 @@ static unsigned char handle_page_mgr(unsigned short dp_len, unsigned char *dp_da
     unsigned char i;
     for (i = 0U; i < 5U; i++) {
         HOOCH_PROTOCOL_SettingFrame_t sf;
+
         init_setting_frame(&sf,
             (dp_data[i] == 0U)
                 ? HOOCH_PROTOCOL_SETTING_ITEM_DELETE_PAGE
@@ -135,34 +136,43 @@ static unsigned char handle_base_set(unsigned short dp_len, unsigned char *dp_da
 {
     if (dp_len < 13U) return 1U;
 
+    /* 新增基础设置字段: 在表末尾加一行 { item, offset, width } 即可,
+     * 循环内会自动完成下发。
+     * 仅适用于 dp[offset] 直接就是 value 的字段(或 width=3 的 RGB888 拼接);
+     * 需要符号扩展 / 查表映射的字段, 仍要单独写一个处理块。 */
     static const struct {
         HOOCH_PROTOCOL_SettingItem_t item;
         unsigned char offset;
+        unsigned char width;   /* 字段字节数: RGB888 为 3, 其余为 1 */
     } dispatch_table[] = {
-        { HOOCH_PROTOCOL_SETTING_ITEM_KEY_POWER_ON_STATUS,      0U  },
-        { HOOCH_PROTOCOL_SETTING_ITEM_VIBRATION_SWITCH,         1U  },
-        { HOOCH_PROTOCOL_SETTING_ITEM_SENSOR_REPORT,            2U  },
-        { HOOCH_PROTOCOL_SETTING_ITEM_SENSOR_SWITCH,            3U  },
-        { HOOCH_PROTOCOL_SETTING_ITEM_SENSOR_COUNTDOWN,         4U  },
-        { HOOCH_PROTOCOL_SETTING_ITEM_SENSOR_SENSITIVITY,       5U  },
-        { HOOCH_PROTOCOL_SETTING_ITEM_INDICATOR_LIGHT_COLOR,    6U  }, /* RGB888: dp[6]/dp[7]/dp[8] */
-        { HOOCH_PROTOCOL_SETTING_ITEM_BACKLIGHT_BRIGHTNESS,     9U  }, /* 指示灯亮度 */
-        { HOOCH_PROTOCOL_SETTING_ITEM_SCREEN_BRIGHTNESS,        10U }, /* 背光亮度 */
-        { HOOCH_PROTOCOL_SETTING_ITEM_INDICATOR_LIGHT_SWITCH,   11U }, /* 关闭指示灯 */
-        { HOOCH_PROTOCOL_SETTING_ITEM_SCREENSAVER_TYPE,         12U }, /* 屏幕待机样式 */
+        { HOOCH_PROTOCOL_SETTING_ITEM_KEY_POWER_ON_STATUS,      0U,  1U },
+        { HOOCH_PROTOCOL_SETTING_ITEM_VIBRATION_SWITCH,         1U,  1U },
+        { HOOCH_PROTOCOL_SETTING_ITEM_SENSOR_REPORT,            2U,  1U },
+        { HOOCH_PROTOCOL_SETTING_ITEM_SENSOR_SWITCH,            3U,  1U },
+        { HOOCH_PROTOCOL_SETTING_ITEM_SENSOR_COUNTDOWN,         4U,  1U },
+        { HOOCH_PROTOCOL_SETTING_ITEM_SENSOR_SENSITIVITY,       5U,  1U },
+        { HOOCH_PROTOCOL_SETTING_ITEM_INDICATOR_LIGHT_COLOR,    6U,  3U }, /* RGB888: dp[6]/dp[7]/dp[8] */
+        { HOOCH_PROTOCOL_SETTING_ITEM_BACKLIGHT_BRIGHTNESS,     9U,  1U }, /* 指示灯亮度 */
+        { HOOCH_PROTOCOL_SETTING_ITEM_SCREEN_BRIGHTNESS,        10U, 1U }, /* 背光亮度 */
+        { HOOCH_PROTOCOL_SETTING_ITEM_INDICATOR_LIGHT_SWITCH,   11U, 1U }, /* 关闭指示灯 */
+        { HOOCH_PROTOCOL_SETTING_ITEM_SCREENSAVER_TYPE,         12U, 1U }, /* 屏幕待机样式 */
     };
     unsigned char i;
+
     for (i = 0U; i < sizeof(dispatch_table) / sizeof(dispatch_table[0]); i++) {
+        const unsigned char offset = dispatch_table[i].offset;
+        const unsigned char width  = dispatch_table[i].width;
         HOOCH_PROTOCOL_SettingFrame_t sf;
+
         init_setting_frame(&sf, dispatch_table[i].item, 0U);
 
-        if (dispatch_table[i].offset == 6U) {
-            /* RGB888: R=dp[6], G=dp[7], B=dp[8] */
-            sf.value = ((uint32_t)dp_data[6] << 16)
-                     | ((uint32_t)dp_data[7] << 8)
-                     |  (uint32_t)dp_data[8];
+        if (width == 3U) {
+            /* RGB888: R=dp[offset], G=dp[offset+1], B=dp[offset+2] */
+            sf.value = ((uint32_t)dp_data[offset] << 16)
+                     | ((uint32_t)dp_data[offset + 1U] << 8)
+                     |  (uint32_t)dp_data[offset + 2U];
         } else {
-            sf.value = dp_data[dispatch_table[i].offset];
+            sf.value = dp_data[offset];
         }
         sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
         (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
@@ -259,11 +269,38 @@ static void dispatch_floor_bind(unsigned char raw_type, unsigned char address)
  *       [8]空调绑定类型  [9]空调地址
  *       [10]新风绑定类型 [11]新风地址
  *       [12]地暖绑定类型 [13]地暖地址
- * 注: [8]~[13] 为新增字段, 旧固件仅下发 8byte, 长度不足时跳过。
+ *       [14]面板页面锁(0/1)
+ *       [15-16]不支持功能项(2byte 大端, bit0~bit9, 仅上报使用, 此处不解析)
+ *       [17]氛围灯特效(1呼吸 2色彩交替 3快亮快灭 4灯光环绕)
+ *       [18]氛围灯亮度与开关(bit7 使能, bit0-6 亮度10~100)
+ *       [19]按键指示灯效果(1默认 2呼吸)
+ * 注: [8]~[19] 为新增字段, 旧固件仅下发 8byte/14byte/16byte/18byte, 长度不足时跳过。
  */
 static unsigned char handle_adv_set(unsigned short dp_len, unsigned char *dp_data)
 {
+    static const HOOCH_PROTOCOL_SettingKeyBacklightEffect_t effect_map[5] = {
+
+        HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_DEFAULT,     /* 1 默认 */
+        HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_BREATHING,       /* 2 呼吸 */
+        HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_COLOR_ALTERNATE, /* 3 色彩交替 */
+        HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_FAST_BLINK,      /* 4 快亮快灭 */
+        HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_LIGHT_ROTATION,  /* 5 灯光环绕 */
+    };
+
+
+
     HOOCH_PROTOCOL_SettingFrame_t sf;
+
+    /* 新增高级设置字段的写法(以新增 [20][21] 两字节字段为例):
+     *   1) 在上方帧布局注释里补一行 [20-21];
+     *   2) 在下面按偏移递增插入一个块:
+     *        if (dp_len >= 22U) {
+     *            init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_XXX, 0U);
+     *            sf.value  = ((uint32_t)dp_data[20] << 8) | dp_data[21];
+     *            sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
+     *            (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
+     *        }
+     * 注: 每个字段必须先做 dp_len 长度守卫, 否则短帧会读到 dp_data 之外。 */
 
     if (dp_len < 8U) return 1U;
 
@@ -293,18 +330,68 @@ static unsigned char handle_adv_set(unsigned short dp_len, unsigned char *dp_dat
     (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
 
     /* ---- 以下为新增字段，旧固件只下发 8byte，长度不足时跳过 ---- */
-    if (dp_len < 14U) return 1U;
+    if (dp_len >= 14U) {
 
-    /* [8][9] 空调绑定类型 / 空调地址 */
-    dispatch_ac_bind(dp_data[8], dp_data[9]);
+        /* [8][9] 空调绑定类型 / 空调地址 */
+        dispatch_ac_bind(dp_data[8], dp_data[9]);
 
+        /* [10][11] 新风绑定类型 / 新风地址 */
+        dispatch_fresh_air_bind(dp_data[10], dp_data[11]);
 
-    
-    /* [10][11] 新风绑定类型 / 新风地址 */
-    dispatch_fresh_air_bind(dp_data[10], dp_data[11]);
+        /* [12][13] 地暖绑定类型 / 地暖地址 */
+        dispatch_floor_bind(dp_data[12], dp_data[13]);
+    }
 
-    /* [12][13] 地暖绑定类型 / 地暖地址 */
-    dispatch_floor_bind(dp_data[12], dp_data[13]);
+    /* [14] 面板页面锁 0/1 (长度不足时跳过) */
+    if (dp_len >= 16U) {
+        init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_PANEL_PAGE_LOCK, dp_data[14]);
+        sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
+        (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
+    }
+
+    /* [15-16] 为不支持功能项(仅上报使用, 不解析) */
+
+    /* [17] 氛围灯特效: 涂鸦 1~4 转换为 HOOCH 枚举 (长度不足时跳过) */
+    if (dp_len >= 18U) {
+        init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_KEY_BACKLIGHT_EFFECT, 0U);
+        sf.value = (dp_data[17] >= 1U && dp_data[17] <= 4U)
+                 ? (uint32_t)effect_map[dp_data[17] - 1U]
+                 : (uint32_t)HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_INVALID;
+        sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
+        (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
+    }
+
+    /* [18] 氛围灯亮度与开关: bit7=开关(1开/0关), bit0-6=亮度(10~100)
+     *      同一字节拆成两个设置项下发 (长度不足时跳过) */
+    if (dp_len >= 19U) {
+        init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_AMBIENCE_LIGHT_EFFECT_SWITCH,
+                           ((dp_data[18] & 0x80U) != 0U) ? 1U : 0U);
+        sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
+        (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
+
+        init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_AMBIENCE_LIGHT_BRIGHTNESS,
+                           (unsigned char)(dp_data[18] & 0x7FU));
+        sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
+        (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
+    }
+
+    /* [19] 按键指示灯效果: 涂鸦 1-默认 2-呼吸 转换为 HOOCH 枚举 (长度不足时跳过) */
+    if (dp_len >= 20U) {
+        init_setting_frame(&sf, HOOCH_PROTOCOL_SETTING_ITEM_KEY_INDICATOR_LIGHT_EFFECT, 0U);
+        switch (dp_data[19]) {
+        case 1U:
+            sf.value = (uint32_t)HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_DEFAULT;
+            break;
+        case 2U:
+            sf.value = (uint32_t)HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_BREATHING;
+            break;
+        default:
+            sf.value = (uint32_t)HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_INVALID;
+            break;
+        }
+        sf.source = HOOCH_PROTOCOL_SOURCE_TUYA;
+        (void)HOOCH_PROTOCOL_Setting_SetFrame(&sf);
+    }
 
     return 1U;
 }

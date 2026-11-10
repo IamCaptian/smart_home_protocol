@@ -72,7 +72,7 @@
 #define HOOCH_LCD_PROBE_RST_ASSERT_MS    (10U)
 #endif
 #ifndef HOOCH_LCD_PROBE_RST_RELEASE_MS
-#define HOOCH_LCD_PROBE_RST_RELEASE_MS   (120U)
+#define HOOCH_LCD_PROBE_RST_RELEASE_MS   (200U)
 #endif
 
 /* bit-bang 半周期延时（us） */

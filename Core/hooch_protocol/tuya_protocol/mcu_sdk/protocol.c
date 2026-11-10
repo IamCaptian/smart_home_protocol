@@ -103,6 +103,14 @@ const DOWNLOAD_CMD_S download_cmd[] =
   {DPID_PAGE_SYNC, DP_TYPE_ENUM},
   {DPID_MASTER_SW, DP_TYPE_BOOL},
   {DPID_FRESH_AIR_SPEED, DP_TYPE_ENUM},
+  {DPID_RELAY_5, DP_TYPE_BOOL},
+  {DPID_RELAY_6, DP_TYPE_BOOL},
+  {DPID_RELAY_7, DP_TYPE_BOOL},
+  {DPID_RELAY_8, DP_TYPE_BOOL},
+  {DPID_SWITCH_01, DP_TYPE_BOOL},
+  {DPID_SWITCH_02, DP_TYPE_BOOL},
+  {DPID_SWITCH_03, DP_TYPE_BOOL},
+  {DPID_SWITCH_04, DP_TYPE_BOOL},
 };
 
 //< USER_CHECK_MSG END
@@ -194,14 +202,18 @@ static const char *tuya_get_cmd_name(unsigned char cmd_id)
     }
 }
 
+#if TUYA_LOG_HEX_ENABLE
+
 static void tuya_log_payload_hex(unsigned char *data, unsigned short len)
 {
-    TUYA_LOG_INFO("[Tuya]   payload[%u]: ", len);
+    TUYA_LOG_HEX_PRINTF("[Tuya]   payload[%u]: ", len);
     for (unsigned short i = 0; i < len; i++) {
-        TUYA_LOG_INFO("%02X ", data[i]);
+        TUYA_LOG_HEX_BYTE(data[i]);
     }
-    TUYA_LOG_INFO("\r\n");
+    TUYA_LOG_HEX_PRINTF("\r\n");
 }
+
+#endif
 
 static const char *tuya_get_dp_type_name(unsigned char dp_type)
 {
@@ -264,6 +276,14 @@ static const char *tuya_get_dp_name(unsigned char dp_id)
         case DPID_PAGE_SYNC:         return "PAGE_SYNC";
         case DPID_MASTER_SW:         return "MASTER_SW";
         case DPID_FRESH_AIR_SPEED:   return "FRESH_AIR_SPEED";
+        case DPID_RELAY_5:           return "RELAY_5";
+        case DPID_RELAY_6:           return "RELAY_6";
+        case DPID_RELAY_7:           return "RELAY_7";
+        case DPID_RELAY_8:           return "RELAY_8";
+        case DPID_SWITCH_01:         return "SWITCH_01";
+        case DPID_SWITCH_02:         return "SWITCH_02";
+        case DPID_SWITCH_03:         return "SWITCH_03";
+        case DPID_SWITCH_04:         return "SWITCH_04";
         default:                     return "UNKNOWN";
     }
 }
@@ -584,9 +604,11 @@ unsigned char frame_rx_handle(unsigned short cur_frame_start_offset)
 #if TUYA_LOG_ENABLE
     TUYA_LOG_INFO("[Tuya] RX cmd=0x%02X(%s) seq=%u len=%u\r\n",
             cmd_id, tuya_get_cmd_name(cmd_id), seq_num, payload_len);
+#if TUYA_LOG_HEX_ENABLE
     if (payload_len > 0) {
         tuya_log_payload_hex(payload, payload_len);
     }
+#endif
 #endif
 hooch_cpu1_set_detected_protocol(1);
     ///< 2. handle rx frame
@@ -908,9 +930,11 @@ static void mcu_rx_common_dp_msg(UART_FRAME_T *uart_frame)
 #if TUYA_LOG_ENABLE
         TUYA_LOG_INFO("[Tuya] DP id=0x%02X(%u) type=%s len=%u\r\n",
                 dp_id, dp_id, tuya_get_dp_type_name(dp_type), dp_len);
+#if TUYA_LOG_HEX_ENABLE
         if (dp_len > 0) {
             tuya_log_payload_hex(dp_data, dp_len);
         }
+#endif
 #endif
 
         if (TRUE == dp_info_check(dp_id, dp_type)) {
@@ -3219,7 +3243,13 @@ static unsigned char dp_download_page_mgr_handle(const unsigned char value[], un
     */
     
 #if TUYA_LOG_ENABLE
-    TUYA_LOG_INFO("[Tuya] DP_HANDLE_RESULT: %s raw_data[%u]\r\n", "PAGE_MGR", length);
+    /* 页面管理: 5 字节分别为 P1/P2/空调/新风/地暖, 0=隐藏, 非 0=显示 */
+    if (length >= 5U) {
+        TUYA_LOG_INFO("[Tuya] PAGE_MGR: P1=%u P2=%u AC=%u FA=%u FH=%u (0=HIDE)\r\n",
+                value[0], value[1], value[2], value[3], value[4]);
+    } else {
+        TUYA_LOG_INFO("[Tuya] PAGE_MGR: raw_data[%u] too short\r\n", length);
+    }
 #endif
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_PAGE_MGR,value,length);
@@ -3548,6 +3578,199 @@ static unsigned char dp_download_fresh_air_speed_handle(const unsigned char valu
         return ERROR;
 }
 
+/*****************************************************************************
+函数名称 : dp_download_relay_5_handle
+功能描述 : 针对DPID_RELAY_5的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_relay_5_handle(const unsigned char value[], unsigned short length)
+{
+    unsigned char ret;
+    unsigned char relay_5;
+    
+    relay_5 = mcu_get_dp_download_bool(value,length);
+#if TUYA_LOG_ENABLE
+    TUYA_LOG_INFO("[Tuya] DP_HANDLE_RESULT: %s val=%u\r\n", "RELAY_5", relay_5);
+#endif
+    
+    ret = mcu_dp_bool_update(DPID_RELAY_5, relay_5);
+    if (ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_relay_6_handle
+功能描述 : 针对DPID_RELAY_6的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_relay_6_handle(const unsigned char value[], unsigned short length)
+{
+    unsigned char ret;
+    unsigned char relay_6;
+    
+    relay_6 = mcu_get_dp_download_bool(value,length);
+#if TUYA_LOG_ENABLE
+    TUYA_LOG_INFO("[Tuya] DP_HANDLE_RESULT: %s val=%u\r\n", "RELAY_6", relay_6);
+#endif
+    
+    ret = mcu_dp_bool_update(DPID_RELAY_6, relay_6);
+    if (ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_relay_7_handle
+功能描述 : 针对DPID_RELAY_7的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_relay_7_handle(const unsigned char value[], unsigned short length)
+{
+    unsigned char ret;
+    unsigned char relay_7;
+    
+    relay_7 = mcu_get_dp_download_bool(value,length);
+#if TUYA_LOG_ENABLE
+    TUYA_LOG_INFO("[Tuya] DP_HANDLE_RESULT: %s val=%u\r\n", "RELAY_7", relay_7);
+#endif
+    
+    ret = mcu_dp_bool_update(DPID_RELAY_7, relay_7);
+    if (ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_relay_8_handle
+功能描述 : 针对DPID_RELAY_8的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_relay_8_handle(const unsigned char value[], unsigned short length)
+{
+    unsigned char ret;
+    unsigned char relay_8;
+    
+    relay_8 = mcu_get_dp_download_bool(value,length);
+#if TUYA_LOG_ENABLE
+    TUYA_LOG_INFO("[Tuya] DP_HANDLE_RESULT: %s val=%u\r\n", "RELAY_8", relay_8);
+#endif
+    
+    ret = mcu_dp_bool_update(DPID_RELAY_8, relay_8);
+    if (ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_switch_01_handle
+功能描述 : 针对DPID_SWITCH_01的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_switch_01_handle(const unsigned char value[], unsigned short length)
+{
+    unsigned char ret;
+    unsigned char switch_01;
+    
+    switch_01 = mcu_get_dp_download_bool(value,length);
+#if TUYA_LOG_ENABLE
+    TUYA_LOG_INFO("[Tuya] DP_HANDLE_RESULT: %s val=%u\r\n", "SWITCH_01", switch_01);
+#endif
+    
+    ret = mcu_dp_bool_update(DPID_SWITCH_01, switch_01);
+    if (ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_switch_02_handle
+功能描述 : 针对DPID_SWITCH_02的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_switch_02_handle(const unsigned char value[], unsigned short length)
+{
+    unsigned char ret;
+    unsigned char switch_02;
+    
+    switch_02 = mcu_get_dp_download_bool(value,length);
+#if TUYA_LOG_ENABLE
+    TUYA_LOG_INFO("[Tuya] DP_HANDLE_RESULT: %s val=%u\r\n", "SWITCH_02", switch_02);
+#endif
+    
+    ret = mcu_dp_bool_update(DPID_SWITCH_02, switch_02);
+    if (ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_switch_03_handle
+功能描述 : 针对DPID_SWITCH_03的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_switch_03_handle(const unsigned char value[], unsigned short length)
+{
+    unsigned char ret;
+    unsigned char switch_03;
+    
+    switch_03 = mcu_get_dp_download_bool(value,length);
+#if TUYA_LOG_ENABLE
+    TUYA_LOG_INFO("[Tuya] DP_HANDLE_RESULT: %s val=%u\r\n", "SWITCH_03", switch_03);
+#endif
+    
+    ret = mcu_dp_bool_update(DPID_SWITCH_03, switch_03);
+    if (ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_switch_04_handle
+功能描述 : 针对DPID_SWITCH_04的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_switch_04_handle(const unsigned char value[], unsigned short length)
+{
+    unsigned char ret;
+    unsigned char switch_04;
+    
+    switch_04 = mcu_get_dp_download_bool(value,length);
+#if TUYA_LOG_ENABLE
+    TUYA_LOG_INFO("[Tuya] DP_HANDLE_RESULT: %s val=%u\r\n", "SWITCH_04", switch_04);
+#endif
+    
+    ret = mcu_dp_bool_update(DPID_SWITCH_04, switch_04);
+    if (ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+
 //< USER_CHECK_MSG END
 static unsigned char dp_msg_handle(unsigned char dp_id, const unsigned char *value, unsigned short length)
 {
@@ -3557,11 +3780,13 @@ static unsigned char dp_msg_handle(unsigned char dp_id, const unsigned char *val
     }
     
 #if TUYA_LOG_ENABLE
-    TUYA_LOG_INFO("[Tuya] DP_HANDLE: %s data[%u]=", tuya_get_dp_name(dp_id), length);
+#if TUYA_LOG_HEX_ENABLE
+    TUYA_LOG_HEX_PRINTF("[Tuya] DP_HANDLE: %s data[%u]=", tuya_get_dp_name(dp_id), length);
     for (unsigned short _i = 0; _i < length; _i++) {
-        TUYA_LOG_INFO("%02X ", value[_i]);
+        TUYA_LOG_HEX_BYTE(value[_i]);
     }
-    TUYA_LOG_INFO("\r\n");
+    TUYA_LOG_HEX_PRINTF("\r\n");
+#endif
 #endif
     
     switch (dp_id) {
@@ -3740,6 +3965,39 @@ static unsigned char dp_msg_handle(unsigned char dp_id, const unsigned char *val
         case DPID_FRESH_AIR_SPEED:
             //新风风速处理函数
             ret = dp_download_fresh_air_speed_handle(value,length);
+        break;
+
+        case DPID_RELAY_5:
+            //继电器5处理函数
+            ret = dp_download_relay_5_handle(value,length);
+        break;
+        case DPID_RELAY_6:
+            //继电器6处理函数
+            ret = dp_download_relay_6_handle(value,length);
+        break;
+        case DPID_RELAY_7:
+            //继电器7处理函数
+            ret = dp_download_relay_7_handle(value,length);
+        break;
+        case DPID_RELAY_8:
+            //继电器8处理函数
+            ret = dp_download_relay_8_handle(value,length);
+        break;
+        case DPID_SWITCH_01:
+            //开关1处理函数
+            ret = dp_download_switch_01_handle(value,length);
+        break;
+        case DPID_SWITCH_02:
+            //开关2处理函数
+            ret = dp_download_switch_02_handle(value,length);
+        break;
+        case DPID_SWITCH_03:
+            //开关3处理函数
+            ret = dp_download_switch_03_handle(value,length);
+        break;
+        case DPID_SWITCH_04:
+            //开关4处理函数
+            ret = dp_download_switch_04_handle(value,length);
         break;
 
         default :

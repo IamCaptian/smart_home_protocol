@@ -1,5 +1,9 @@
 /*
- * Tuya DP Dispatch — Switch / Key Status (DP 24-29, 137-138)
+ * Tuya DP Dispatch — Switch / Key Status (DP 157-160, 28-29, 137-138)
+ *
+ * 开关1-4：DPID_SWITCH_01 ~ DPID_SWITCH_04 (157-160)
+ * 开关5-8：DPID_SWITCH_5 ~ DPID_SWITCH_8 (28-29/137/138)
+ * 注意：DPID_SWITCH_1 ~ DPID_SWITCH_4 (24-27) 为继电器1-4，走继电器分发。
  */
 #include "tuya_device_switch.h"
 #include "protocol.h"
@@ -13,10 +17,10 @@ unsigned char tuya_dp_dispatch_switch(unsigned char dp_id, unsigned char dp_type
     (void)dp_type;
 
     switch (dp_id) {
-    case DPID_SWITCH_1: key = HOOCH_PROTOCOL_KEY_STATUS_KEY_1; break;
-    case DPID_SWITCH_2: key = HOOCH_PROTOCOL_KEY_STATUS_KEY_2; break;
-    case DPID_SWITCH_3: key = HOOCH_PROTOCOL_KEY_STATUS_KEY_3; break;
-    case DPID_SWITCH_4: key = HOOCH_PROTOCOL_KEY_STATUS_KEY_4; break;
+    case DPID_SWITCH_01: key = HOOCH_PROTOCOL_KEY_STATUS_KEY_1; break;
+    case DPID_SWITCH_02: key = HOOCH_PROTOCOL_KEY_STATUS_KEY_2; break;
+    case DPID_SWITCH_03: key = HOOCH_PROTOCOL_KEY_STATUS_KEY_3; break;
+    case DPID_SWITCH_04: key = HOOCH_PROTOCOL_KEY_STATUS_KEY_4; break;
     case DPID_SWITCH_5: key = HOOCH_PROTOCOL_KEY_STATUS_KEY_5; break;
     case DPID_SWITCH_6: key = HOOCH_PROTOCOL_KEY_STATUS_KEY_6; break;
     case DPID_SWITCH_7: key = HOOCH_PROTOCOL_KEY_STATUS_KEY_7; break;

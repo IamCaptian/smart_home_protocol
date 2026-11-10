@@ -25,6 +25,7 @@
 /* USER CODE BEGIN Includes */
 #include "user_printf.h"
 #include "xiaomi_smart_screen_circular_bufferc.h"
+#include "xiaomi_smart_screen_86box_buffer.h"
 #include "knx_protocol_uart.h"
 #include "hf_zxk_modbus_circular_buffer.h"
 #include "hf_zjk_modbus_circular_buffer.h"
@@ -79,6 +80,7 @@ void HOOCH_PROTOCOL_DimmerLight_Process(const HOOCH_PROTOCOL_DimmerLightFrame_t 
 void HOOCH_PROTOCOL_Curtain_Process(const HOOCH_PROTOCOL_CurtainFrame_t *frame);
 void HOOCH_PROTOCOL_CodeMatchDispatch_Process(const HOOCH_PROTOCOL_CodeMatchReportFrame_t *frame);
 void HOOCH_PROTOCOL_SceneDispatch_Process(const HOOCH_PROTOCOL_SceneDispatchFrame_t *frame);
+void HOOCH_PROTOCOL_Relay_Process(const HOOCH_PROTOCOL_RelayFrame_t *frame);
 /**
   * @brief  The application entry point.
   * @retval int
@@ -121,23 +123,28 @@ int main(void)
   // 初始化日志模块
   Log_Init();
   
-  // 初始化小米UART协议解析模块（包含串口接收初始化）
- // xiaoni_smart_screen_uart_init();
+  // 初始化小米UART协议解析模块（v1 旧屏协议, 与 86 盒子协议互斥）
+  // xiaoni_smart_screen_uart_init();
 
- //初始化 KNX 面板协议解析模块
- //注意：KNX 与小米协议共享 USART2，在 USART2 中断中会把每个字节同时喂给两套解析器
- //knx_uart_init();
-  //extern void tuya_uart_init(void);
-  tuya_uart_init();
+  // 初始化小米 86 盒子全面屏模组协议解析模块
+  xiaomi_86box_uart_init();
+
+  // 初始化 KNX 面板协议解析模块
+  // 注意：KNX 与小米协议共享 USART2，在 USART2 中断中会把每个字节同时喂给两套解析器
+  // knx_uart_init();
+  // extern void tuya_uart_init(void);
+  // 86 盒子全面屏模组与 Tuya 共用 HOOCH 上报回调槽位, 同时开启会互相覆盖,
+  // 当前调试 86 盒子模组时先关闭 Tuya。
+  // tuya_uart_init();
   // 初始化 BLE 协议解析模块
   // BLE 也复用 USART2 字节流，在中断中并行喂入 BLE 状态机。
-//  ble_uart_init();
+  // ble_uart_init();
 
   // 初始化线控器 MODBUS-RTU 协议解析模块（同样复用 USART2 字节流）
-  hf_zxk_modbus_uart_init();
+ // hf_zxk_modbus_uart_init();
 
   // 初始化集控器 自定义485 协议解析模块（同样复用 USART2 字节流，与线控器并行解析）
-  hf_zjk_modbus_uart_init();
+ // hf_zjk_modbus_uart_init();
          
   // 开机打印
   LOG_INFO("========================================\r\n");
@@ -151,7 +158,7 @@ int main(void)
   
   // // 上电初始化 LCD 面板（复位 + 单线写下发初始化表），再读取寄存器识别屏幕型号
   // hooch_lcd_probe_init();
-  // (void)hooch_lcd_probe_detect();
+   //(void)hooch_lcd_probe_detect();
 
   // 初始化CLI命令行
   Hooch_CLI_Init();
@@ -169,30 +176,51 @@ int main(void)
   HOOCH_PROTOCOL_CodeMatchDispatch_RegisterCallback(HOOCH_PROTOCOL_CodeMatchDispatch_Process);
   HOOCH_PROTOCOL_SceneDispatch_RegisterCallback(HOOCH_PROTOCOL_SceneDispatch_Process);
   HOOCH_PROTOCOL_DimmerLight_RegisterCallback(HOOCH_PROTOCOL_DimmerLight_Process);
+  HOOCH_PROTOCOL_Relay_RegisterCallback(HOOCH_PROTOCOL_Relay_Process);
+
+
+  
   /* Infinite loop */ 
   /* USER CODE BEGIN WHILE */
 
 
+
+  HOOCH_PROTOCOL_UnsupportedAttribute_SendAttributes(
+    HOOCH_PROTOCOL_UNSUPPORTED_ATTRIBUTE_AIR_CONDITIONER,            /* bit0 空调 */
+    HOOCH_PROTOCOL_UNSUPPORTED_ATTRIBUTE_FRESH_AIR,                  /* bit1 新风 */
+    HOOCH_PROTOCOL_UNSUPPORTED_ATTRIBUTE_FLOOR_HEATING,              /* bit2 地暖 */
+    HOOCH_PROTOCOL_UNSUPPORTED_ATTRIBUTE_TEMPERATURE,                /* bit3 温度 */
+    // HOOCH_PROTOCOL_UNSUPPORTED_ATTRIBUTE_HUMIDITY,                   /* bit4 湿度 */
+    // HOOCH_PROTOCOL_UNSUPPORTED_ATTRIBUTE_HUMAN_PRESENCE_SENSITIVITY, /* bit5 人感灵敏度 */
+    // HOOCH_PROTOCOL_UNSUPPORTED_ATTRIBUTE_VIBRATION,                  /* bit6 震动 */
+    // HOOCH_PROTOCOL_UNSUPPORTED_ATTRIBUTE_WALLPAPER,                  /* bit7 换壁纸 */
+    // HOOCH_PROTOCOL_UNSUPPORTED_ATTRIBUTE_RELAY_CH5_TO_CH8,           /* bit8 5-8 路继电器 */
+    // HOOCH_PROTOCOL_UNSUPPORTED_ATTRIBUTE_AMBIENCE_LIGHT,             /* bit9 氛围灯 */
+    HOOCH_PROTOCOL_UNSUPPORTED_ATTRIBUTE_NONE);                      /* 列表结束 */
+
+  
   while (1)
   {
     /* USER CODE END WHILE */
-
-
-    uart_service_parse();
-
-    
-    
+    // Tuya 协议暂时关闭, 与 86 盒子模组不能同时使用
+    // uart_service_parse();
     // 处理小米UART协议帧解析
- //   xiaoni_smart_screen_uart_process();
+    //xiaoni_smart_screen_uart_process();
 
+    // 处理小米 86 盒子全面屏模组协议帧解析
+    xiaomi_86box_uart_process();
+
+
+
+    
     // 处理 KNX 面板协议帧解析（与小米协议并行解析同一串口字节流）
   //  knx_uart_process();
 
     // 处理线控器 MODBUS-RTU 协议帧解析（与以上各协议并行解析同一串口字节流）
-    hf_zxk_modbus_uart_process();
+   // hf_zxk_modbus_uart_process();
 
     // 处理集控器 自定义485 协议帧解析（与以上各协议并行解析同一串口字节流）
-    hf_zjk_modbus_uart_process();
+  //  hf_zjk_modbus_uart_process();
 
     // 处理 Tuya Zigbee UART 协议帧解析
     // 处理CLI命令
@@ -370,6 +398,23 @@ void HOOCH_PROTOCOL_DimmerLight_Process(const HOOCH_PROTOCOL_DimmerLightFrame_t 
            (unsigned int)frame->valid);
 }
 
+void HOOCH_PROTOCOL_Relay_Process(const HOOCH_PROTOCOL_RelayFrame_t *frame)
+{
+  if (frame == NULL)
+  {
+    LOG_INFO("[HOOCH] Relay callback: frame is NULL\r\n");
+    return;
+  }
+
+  LOG_INFO("[HOOCH] Relay channel=%u, switch_state=%u, control_item=%u, value=%u, sequence=%u, valid=%u\r\n",
+           (unsigned int)frame->channel,
+           (unsigned int)frame->switch_state,
+           (unsigned int)frame->control_item,
+           (unsigned int)frame->value,
+           (unsigned int)frame->sequence,
+           (unsigned int)frame->valid);
+}
+
 void HOOCH_PROTOCOL_KeyStatusReport_Process(const HOOCH_PROTOCOL_KeyStatusFrame_t *frame)
 {
   if (frame == NULL)
@@ -394,32 +439,26 @@ void HOOCH_PROTOCOL_Setting_Process(const HOOCH_PROTOCOL_SettingFrame_t *frame)
     return;
   }
   
-  LOG_INFO("[HOOCH] Setting item=%u, value=%u, page=%u, sequence=%u, valid=%u, screen_off_time_type=%u\r\n",
-           (unsigned int)frame->item,
-           (unsigned int)frame->value,
-           (unsigned int)frame->page,
-           (unsigned int)frame->sequence,
-           (unsigned int)frame->valid,
-          (unsigned int)frame->screen_off_time_type);
+  /* 页面管理的拆分项(PAGE_MGR 5 字节拆成 5 帧)不逐条打印, 由 Tuya 层一行汇总 */
+  if (frame->item != HOOCH_PROTOCOL_SETTING_ITEM_ADD_PAGE &&
+      frame->item != HOOCH_PROTOCOL_SETTING_ITEM_DELETE_PAGE)
+  {
+    LOG_INFO("[HOOCH] Setting item=%u, value=%u, page=%u, sequence=%u, valid=%u, screen_off_time_type=%u\r\n",
+             (unsigned int)frame->item,
+             (unsigned int)frame->value,
+             (unsigned int)frame->page,
+             (unsigned int)frame->sequence,
+             (unsigned int)frame->valid,
+            (unsigned int)frame->screen_off_time_type);
+  }
 
   if (frame->item == HOOCH_PROTOCOL_SETTING_ITEM_KEY_JOG_TIME)
   {
-    /* JOG_TIME: value=按键(1-based), param1=开关(0关/1开), param2=时间(1~10s) */
-    LOG_INFO("[HOOCH] JogTime key=%u switch=%s time=%us\r\n",
+    /* JOG_TIME: value=按键(1-based), param1=常开/常闭(涂鸦值取反), param2=点动时间(ms) */
+    LOG_INFO("[HOOCH] JogTime key=%u mode=%u time=%ums\r\n",
              (unsigned int)frame->value,
-             (frame->param1 == 0U) ? "OFF" : "ON",
+             (unsigned int)frame->param1,
              (unsigned int)frame->param2);
-  }
-
-  if (frame->item == HOOCH_PROTOCOL_SETTING_ITEM_ADD_PAGE ||
-      frame->item == HOOCH_PROTOCOL_SETTING_ITEM_DELETE_PAGE)
-  {
-    /* PAGE_MGR 拆分回调: item=ADD/HIDE, value=元素个数, page=具体页枚举 */
-    const char *action = (frame->item == HOOCH_PROTOCOL_SETTING_ITEM_ADD_PAGE) ? "ADD" : "HIDE";
-    LOG_INFO("[HOOCH] PageMgr page=%u action=%s val=%u\r\n",
-             (unsigned int)frame->page,
-             action,
-             (unsigned int)frame->value);
   }
 
   if (frame->item == HOOCH_PROTOCOL_SETTING_ITEM_MULTICAST_GROUP_ID)

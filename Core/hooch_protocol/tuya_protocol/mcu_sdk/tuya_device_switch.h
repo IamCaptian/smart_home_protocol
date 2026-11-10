@@ -1,7 +1,7 @@
 /*
- * Tuya DP Dispatch — Switch / Key Status (DP 24-29, 137-138)
+ * Tuya DP Dispatch — Switch / Key Status (DP 157-160, 28-29, 137-138)
  *
- * 继电器/开关 DP 下发处理：将涂鸦 bool 值转换为 HOOCH KeyStatusDispatch。
+ * 开关/按键 DP 下发处理：将涂鸦 bool 值转换为 HOOCH KeyStatusDispatch。
  */
 #ifndef TUYA_DEVICE_SWITCH_H
 #define TUYA_DEVICE_SWITCH_H
@@ -11,7 +11,8 @@ extern "C" {
 #endif
 
 /**
- * @brief  处理开关/继电器相关的涂鸦 DP 下发 (DPID_SWITCH_1 ~ DPID_SWITCH_8)
+ * @brief  处理开关/按键相关的涂鸦 DP 下发
+ *         (开关1-4: 157-160, 开关5-8: 28-29/137/138)
  * @param  dp_id   涂鸦 DP ID
  * @param  dp_type 涂鸦 DP 类型
  * @param  dp_len  DP 数据长度

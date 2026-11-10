@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F103xB</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\Core\hooch_protocol;..\Core\hooch_protocol\protocol_common;..\Core\hooch_protocol\hooch_auto_task;..\Core\hooch_protocol\tuya_protocol\mcu_sdk;..\Core\hooch_protocol\knx_protocol;..\Core\hooch_protocol\xiaomi_smart_screen;..\Core\hooch_protocol\hf_zxk_modbus_protocol;..\Core\hooch_protocol\hf_zjk_modbus_protocol;..\Core\lcd_probe</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc;../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F1xx/Include;../Drivers/CMSIS/Include;..\Core\hooch_protocol;..\Core\hooch_protocol\protocol_common;..\Core\hooch_protocol\hooch_auto_task;..\Core\hooch_protocol\tuya_protocol\mcu_sdk;..\Core\hooch_protocol\knx_protocol;..\Core\hooch_protocol\xiaomi_smart_screen;..\Core\hooch_protocol\xiaomi_smart_screen_86box;..\Core\hooch_protocol\hf_zxk_modbus_protocol;..\Core\hooch_protocol\hf_zjk_modbus_protocol;..\Core\lcd_probe</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -593,6 +593,16 @@
               <FilePath>..\Core\hooch_protocol\hooch_page_adjust.c</FilePath>
             </File>
             <File>
+              <FileName>hooch_relay_dispatch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\hooch_relay_dispatch.c</FilePath>
+            </File>
+            <File>
+              <FileName>hooch_relay_report.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\hooch_relay_report.c</FilePath>
+            </File>
+            <File>
               <FileName>hooch_protocol_input.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\hooch_protocol\hooch_protocol_input.c</FilePath>
@@ -621,6 +631,11 @@
               <FileName>hooch_setting_report.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\hooch_protocol\hooch_setting_report.c</FilePath>
+            </File>
+            <File>
+              <FileName>hooch_unsupported_attribute.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\hooch_unsupported_attribute.c</FilePath>
             </File>
             <File>
               <FileName>hooch_key_mode.c</FileName>
@@ -708,6 +723,11 @@
               <FilePath>..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_key.c</FilePath>
             </File>
             <File>
+              <FileName>tuya_device_relay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_relay.c</FilePath>
+            </File>
+            <File>
               <FileName>tuya_device_scene.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\hooch_protocol\tuya_protocol\mcu_sdk\tuya_device_scene.c</FilePath>
@@ -791,6 +811,71 @@
               <FileName>xiaomi_smart_screen_handle.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\hooch_protocol\xiaomi_smart_screen\xiaomi_smart_screen_handle.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>xiaomi_86box</GroupName>
+          <Files>
+            <File>
+              <FileName>xiaomi_smart_screen_86box_buffer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\xiaomi_smart_screen_86box\xiaomi_smart_screen_86box_buffer.c</FilePath>
+            </File>
+            <File>
+              <FileName>xiaomi_smart_screen_86box_handle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\xiaomi_smart_screen_86box\xiaomi_smart_screen_86box_handle.c</FilePath>
+            </File>
+            <File>
+              <FileName>xiaomi_86box_device_common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\xiaomi_smart_screen_86box\xiaomi_86box_device_common.c</FilePath>
+            </File>
+            <File>
+              <FileName>xiaomi_86box_device_light.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\xiaomi_smart_screen_86box\xiaomi_86box_device_light.c</FilePath>
+            </File>
+            <File>
+              <FileName>xiaomi_86box_device_switch.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\xiaomi_smart_screen_86box\xiaomi_86box_device_switch.c</FilePath>
+            </File>
+            <File>
+              <FileName>xiaomi_86box_device_curtain.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\xiaomi_smart_screen_86box\xiaomi_86box_device_curtain.c</FilePath>
+            </File>
+            <File>
+              <FileName>xiaomi_86box_device_air.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\xiaomi_smart_screen_86box\xiaomi_86box_device_air.c</FilePath>
+            </File>
+            <File>
+              <FileName>xiaomi_86box_device_freshair.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\xiaomi_smart_screen_86box\xiaomi_86box_device_freshair.c</FilePath>
+            </File>
+            <File>
+              <FileName>xiaomi_86box_device_floor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\xiaomi_smart_screen_86box\xiaomi_86box_device_floor.c</FilePath>
+            </File>
+            <File>
+              <FileName>xiaomi_86box_device_scene.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\xiaomi_smart_screen_86box\xiaomi_86box_device_scene.c</FilePath>
+            </File>
+            <File>
+              <FileName>xiaomi_86box_device_radar.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\xiaomi_smart_screen_86box\xiaomi_86box_device_radar.c</FilePath>
+            </File>
+            <File>
+              <FileName>xiaomi_86box_device_ble.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\hooch_protocol\xiaomi_smart_screen_86box\xiaomi_86box_device_ble.c</FilePath>
             </File>
           </Files>
         </Group>

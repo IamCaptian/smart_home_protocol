@@ -7,6 +7,7 @@
  **********************************************************/
 
 #include <stddef.h>
+#include <string.h>
 #include "protocol.h"
 #include "system.h"
 #include "tuya_protocol_uart.h"
@@ -21,6 +22,7 @@
 #include "hooch_air_conditioner.h"
 #include "hooch_fresh_air.h"
 #include "hooch_floor_heating.h"
+#include "hooch_unsupported_attribute.h"
 
 /* 涂鸦 SDK 内部变量：DP 上报发送类型控制 */
 extern DP_SEND_TYPE_E g_dp_send_type;
@@ -38,18 +40,23 @@ void tuya_air_conditioner_control(unsigned char type, unsigned char state,
 void tuya_query_weather(unsigned char type);
 
 /***********************************************************
- * Helper: 将 Hooch 按键编号 (1~8) 映射到涂鸦 DPID_SWITCH_*
- *   Key: 1→DPID_SWITCH_1(24), 2→(25), 3→(26), 4→(27),
- *        5→(28), 6→(29), 7→DPID_SWITCH_7(137), 8→(138)
+ * Helper: 将 Hooch 按键编号 (1~8) 映射到涂鸦 DPID
+ *   Key: 1→DPID_SWITCH_01(157), 2→(158), 3→(159), 4→(160),
+ *        5→DPID_SWITCH_5(28),   6→(29),
+ *        7→DPID_SWITCH_7(137),  8→(138)
  **********************************************************/
 static unsigned char switch_key_to_dp_id(unsigned char key)
 {
-    if (key >= 1U && key <= 6U) {
-        return (unsigned char)(DPID_SWITCH_1 + key - 1U);
-    } else if (key == 7U) {
-        return DPID_SWITCH_7;
-    } else if (key == 8U) {
-        return DPID_SWITCH_8;
+    switch (key) {
+    case 1U: return DPID_SWITCH_01;
+    case 2U: return DPID_SWITCH_02;
+    case 3U: return DPID_SWITCH_03;
+    case 4U: return DPID_SWITCH_04;
+    case 5U: return DPID_SWITCH_5;
+    case 6U: return DPID_SWITCH_6;
+    case 7U: return DPID_SWITCH_7;
+    case 8U: return DPID_SWITCH_8;
+    default: break;
     }
     return 0U; /* invalid */
 }
@@ -256,7 +263,7 @@ static void tuya_scene_report_callback(
     g_dp_send_type = DP_SEND_TYPE_REPORT_LINKAGE;
     (void)mcu_dp_enum_update(
         (unsigned char)(DPID_SCENE_1 + key - 1U),
-        key);
+        0);
 }
 
 /* Hooch 空调模式 → 涂鸦模式枚举 (cold=0, hot=1, dry=2, fan=3, auto=4) */
@@ -584,6 +591,64 @@ static void tuya_floor_heating_report_callback(
 }
 
 /***********************************************************
+ * 不支持属性上报回调 (DP 143: DPID_ADV_SET, RAW)
+ *   attributes : 本次上报的属性列表（按传入顺序）
+ *   count      : 列表元素个数
+ *   帧布局 [0..19] (与 tuya_basic_setting.c handle_adv_set 解析保持一致):
+ *     [0]    指示灯高亮
+ *     [1-5]  页面排序
+ *     [6]    温度传感器矫正
+ *     [7]    湿度传感器矫正
+ *     [8][9] 空调绑定类型 / 空调地址
+ *     [10][11] 新风绑定类型 / 新风地址
+ *     [12][13] 地暖绑定类型 / 地暖地址
+ *     [14]   面板页面锁
+ *     [15-16] 不支持功能项 (2byte 大端, bit0~bit9)
+ *               bit0 空调      bit1 新风      bit2 地暖     bit3 温度
+ *               bit4 湿度      bit5 人感灵敏度 bit6 震动     bit7 换壁纸
+ *               bit8 5-8路继电器 bit9 氛围灯
+ *     [17]   氛围灯特效   [18] 氛围灯亮度与开关   [19] 按键指示灯效果
+ *
+ *   本次只上报自己的不支持项, 其余字段一律填 0xFF。
+ **********************************************************/
+static void tuya_unsupported_attribute_report_callback(
+    const HOOCH_PROTOCOL_UnsupportedAttribute_t *attributes,
+    uint8_t count)
+{
+    uint8_t data[20];
+    uint16_t bit_field = 0U;
+    uint8_t i;
+
+    if (attributes == NULL) {
+        return;
+    }
+
+    /* 除"不支持功能项"外其余字段均填 0xFF */
+    memset(data, 0xFF, sizeof(data));
+
+    /* 成员编号 = bit 位 + 1，折算成 2byte 位图 */
+    for (i = 0U; i < count; i++) {
+        uint8_t attr = (uint8_t)attributes[i];
+
+        if (attr > (uint8_t)HOOCH_PROTOCOL_UNSUPPORTED_ATTRIBUTE_NONE &&
+            attr < (uint8_t)HOOCH_PROTOCOL_UNSUPPORTED_ATTRIBUTE_COUNT) {
+            bit_field |= (uint16_t)(1U << (attr - 1U));
+        }
+    }
+
+    /* [15-16] 不支持功能项: 大端; [17..19] 氛围灯/指示灯字段保持 0xFF */
+    data[15] = (uint8_t)(bit_field >> 8);
+    data[16] = (uint8_t)(bit_field & 0xFFU);
+
+    TUYA_LOG_INFO("tuya_unsupported_attribute_report_callback: count=%u, bit_field=0x%04X\n",
+                  (unsigned int)count,
+                  (unsigned int)bit_field);
+
+    g_dp_send_type = DP_SEND_TYPE_REPORT_LINKAGE;
+    (void)mcu_dp_raw_update(DPID_ADV_SET, data, sizeof(data));
+}
+
+/***********************************************************
  * 涂鸦 UART 初始化 & 回调注册
  **********************************************************/
 void tuya_uart_init(void)
@@ -598,6 +663,10 @@ void tuya_uart_init(void)
     HOOCH_PROTOCOL_AirConditioner_RegisterReportCallback2(tuya_air_conditioner_report_callback2); /*地址版：组播下发*/
     HOOCH_PROTOCOL_FreshAir_RegisterReportCallback(tuya_fresh_air_report_callback);
     HOOCH_PROTOCOL_FloorHeating_RegisterReportCallback(tuya_floor_heating_report_callback);
+    HOOCH_PROTOCOL_UnsupportedAttribute_RegisterReportCallback(
+        tuya_unsupported_attribute_report_callback);
+
+    
 }
 
 

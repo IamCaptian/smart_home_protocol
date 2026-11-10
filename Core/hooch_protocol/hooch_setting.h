@@ -60,16 +60,16 @@ typedef enum
     HOOCH_PROTOCOL_SETTING_ITEM_DEVICE_LOCK,                   /* [34] 设备锁启用/禁用 */
     HOOCH_PROTOCOL_SETTING_ITEM_KEY_CHILD_LOCK,                /* [35] 按键童锁 */
     HOOCH_PROTOCOL_SETTING_ITEM_AUTO_BRIGHTNESS_ENABLE,        /* [36] 自动亮度使能 */
-    HOOCH_PROTOCOL_SETTING_ITEM_KEY_BACKLIGHT_BRIGHTNESS_NIGHT,/* [37] 按键背光亮度(黑夜) */
-    HOOCH_PROTOCOL_SETTING_ITEM_KEY_BRIGHTNESS_NIGHT,          /* [38] 按键亮度(黑夜) */
-    HOOCH_PROTOCOL_SETTING_ITEM_KEY_BACKLIGHT_BRIGHTNESS_DAY,  /* [39] 按键背光亮度(白天) */
-    HOOCH_PROTOCOL_SETTING_ITEM_KEY_BRIGHTNESS_DAY,            /* [40] 按键亮度(白天) */
-    HOOCH_PROTOCOL_SETTING_ITEM_KEY_WAKEUP_BACKLIGHT_ENABLE,   /* [41] 按键唤醒背光使能 */
-    HOOCH_PROTOCOL_SETTING_ITEM_KEY_STATE_LINKED_BACKLIGHT,    /* [42] 按键状态关联背光 */
+    HOOCH_PROTOCOL_SETTING_ITEM_KEY_BACKLIGHT_BRIGHTNESS_NIGHT,/* [37] [KNX]按键背光亮度(黑夜) */
+    HOOCH_PROTOCOL_SETTING_ITEM_KEY_BRIGHTNESS_NIGHT,          /* [38] [KNX]按键亮度(黑夜) */
+    HOOCH_PROTOCOL_SETTING_ITEM_KEY_BACKLIGHT_BRIGHTNESS_DAY,  /* [39] [KNX]按键背光亮度(白天) */
+    HOOCH_PROTOCOL_SETTING_ITEM_KEY_BRIGHTNESS_DAY,            /* [40] [KNX]按键亮度(白天) */
+    HOOCH_PROTOCOL_SETTING_ITEM_KEY_WAKEUP_BACKLIGHT_ENABLE,   /* [41] [KNX]按键唤醒背光使能 */
+    HOOCH_PROTOCOL_SETTING_ITEM_KEY_STATE_LINKED_BACKLIGHT,    /* [42] [KNX]按键状态关联背光 */
     HOOCH_PROTOCOL_SETTING_ITEM_KEY_LONG_PRESS_TIME,           /* [43] 按键长按时间 */
     HOOCH_PROTOCOL_SETTING_ITEM_KEYS_APPLY_SIMULTANEOUSLY,     /* [44] 按键是否同时生效 */
     HOOCH_PROTOCOL_SETTING_ITEM_KEY_BACKLIGHT_TIME,            /* [45] 按键背光时间 */
-    HOOCH_PROTOCOL_SETTING_ITEM_DEVICE_CONFIG_STATUS,          /* [46] 设备配置状态 */
+    HOOCH_PROTOCOL_SETTING_ITEM_DEVICE_CONFIG_STATUS,          /* [46] [废弃]设备配置状态 */
     HOOCH_PROTOCOL_SETTING_ITEM_STANDBY_BRIGHTNESS,            /* [47] 待机亮度 */
     HOOCH_PROTOCOL_SETTING_ITEM_SCREENSAVER_ENABLE,            /* [48] 屏保启用 */
     HOOCH_PROTOCOL_SETTING_ITEM_SCREEN_CHILD_LOCK,             /* [49] 屏体童锁 */
@@ -106,7 +106,11 @@ typedef enum
     HOOCH_PROTOCOL_SETTING_ITEM_DEVICE_NAME,                       /* [80] 设备名称 (UTF-8, 最多24字节) */
     HOOCH_PROTOCOL_SETTING_ITEM_DATABASE_UNIQUE_CODE,              /* [81] 数据库配置唯一码 (0-65535, 判断配置是否变化) */
     HOOCH_PROTOCOL_SETTING_ITEM_SCREEN_SLEEP_ACTION,               /* [82] 立即进入/退出息屏 (取值见 ScreenSleepAction) */
-
+    HOOCH_PROTOCOL_SETTING_ITEM_PANEL_PAGE_LOCK,                   /* [83] 面板页面锁定 （锁定当前页面禁止设备切换）*/
+    HOOCH_PROTOCOL_SETTING_ITEM_KEY_BACKLIGHT_EFFECT,              /* [84] 氛围灯特效 */
+    HOOCH_PROTOCOL_SETTING_ITEM_KEY_INDICATOR_LIGHT_EFFECT,        /* [85] 按键指示灯特效 */
+    HOOCH_PROTOCOL_SETTING_ITEM_AMBIENCE_LIGHT_EFFECT_SWITCH,      /* [86] 氛围灯特效开关 (0=off, 1=on) */
+    HOOCH_PROTOCOL_SETTING_ITEM_AMBIENCE_LIGHT_BRIGHTNESS,         /* [87] 氛围灯亮度 (10~100) */
 } HOOCH_PROTOCOL_SettingItem_t;
 
 /* 网络状态 (HOOCH_PROTOCOL_SETTING_ITEM_NETWORK_STATUS 的取值) */
@@ -242,6 +246,17 @@ typedef enum
     HOOCH_PROTOCOL_SETTING_INTERLOCK_STATUS_INTERLOCK = 1U,    /* 互控状态 */
 } HOOCH_PROTOCOL_SettingInterlockStatus_t;
 
+/* 按键背光特效 ([84] KEY_BACKLIGHT_EFFECT 的取值) */
+typedef enum
+{
+    HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_INVALID = 0xFFU, /* 无效类型 */
+    HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_BREATHING = 0U,  /* 呼吸灯 */
+    HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_COLOR_ALTERNATE = 1U, /* 色彩交替 */
+    HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_LIGHT_ROTATION = 2U,  /* 灯光环绕 */
+    HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_FAST_BLINK = 3U,      /* 快亮快灭 */
+    HOOCH_PROTOCOL_SETTING_KEY_BACKLIGHT_EFFECT_DEFAULT = 4U,         /* 默认（不启用特效） */
+} HOOCH_PROTOCOL_SettingKeyBacklightEffect_t;
+
 
 
 
@@ -255,7 +270,7 @@ typedef struct
     uint32_t value;                      /* 当前值 */
     HOOCH_PROTOCOL_SettingPage_t page;   /* 页面 */
     uint8_t param1;
-    uint8_t param2;
+    uint16_t param2;
     uint8_t param3;
     uint8_t param4;
     uint8_t data[10];                   /* 不定长原始数据缓冲区（时间、日期等） */

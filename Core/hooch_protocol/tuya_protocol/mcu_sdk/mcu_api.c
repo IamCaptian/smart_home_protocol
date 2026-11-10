@@ -89,6 +89,7 @@
 #include "tuya_device_air.h"
 #include "tuya_device_floor.h"
 #include "tuya_device_freshair.h"
+#include "tuya_device_relay.h"
 #include "tuya_device_key.h"
 #include "tuya_basic_setting.h"
 
@@ -372,6 +373,7 @@ void mcu_send_dp_msg_cb(unsigned char ret, unsigned char dp_id, unsigned char dp
     /* 按功能模块依次尝试分发 */
     if (tuya_dp_dispatch_scene(dp_id, dp_type, dp_len, dp_data))   return;
     if (tuya_dp_dispatch_switch(dp_id, dp_type, dp_len, dp_data))  return;
+    if (tuya_dp_dispatch_relay(dp_id, dp_type, dp_len, dp_data))   return;
     if (tuya_dp_dispatch_air(dp_id, dp_type, dp_len, dp_data))     return;
     if (tuya_dp_dispatch_floor(dp_id, dp_type, dp_len, dp_data))   return;
     if (tuya_dp_dispatch_freshair(dp_id, dp_type, dp_len, dp_data)) return;
